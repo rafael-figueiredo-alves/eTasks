@@ -4,6 +4,8 @@ object Form_Android_main: TForm_Android_main
   Caption = 'Form'
   ClientHeight = 640
   ClientWidth = 360
+  Fill.Color = xFF336699
+  Fill.Kind = Solid
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]

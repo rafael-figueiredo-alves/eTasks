@@ -1,0 +1,11 @@
+{
+	"name": "eTasks",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "./",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/adrianosantostreina/firebaseclasses": ">0.0.0"
+	}
+}

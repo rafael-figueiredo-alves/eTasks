@@ -87,21 +87,24 @@ type
     procedure Btn_Criar_conta_mostar_senhaClick(Sender: TObject);
     procedure Btn_Esqueci_senha_VoltarClick(Sender: TObject);
     procedure Btn_esqueci_contaClick(Sender: TObject);
-    procedure Edit_esqueci_conta_emailEnter(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
-    procedure Btn_criar_conta_criarClick(Sender: TObject);
-    procedure Foto_usuarioClick(Sender: TObject);
-    procedure Edit_criar_conta_nomeEnter(Sender: TObject);
-    procedure Edit_Criar_conta_emailEnter(Sender: TObject);
-    procedure Edit_criar_conta_senhaEnter(Sender: TObject);
-    procedure Edit_Login_emailEnter(Sender: TObject);
-    procedure Edit_Login_PasswordEnter(Sender: TObject);
     procedure Btn_criar_contaClick(Sender: TObject);
     procedure Btn_EntrarClick(Sender: TObject);
+    procedure FormFocusChanged(Sender: TObject);
+    procedure FormVirtualKeyboardShown(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure Nav_Tela_LoginChange(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
   private
     { Private declarations }
-    Procedure AjustarScroll (controle: TLayout);
+    FKBBounds: TRectF;
+    FNeedOffset: Boolean;
+    procedure CalcContentBoundsProc(Sender: TObject;
+                                    var ContentBounds: TRectF);
+    procedure RestorePosition;
+    procedure UpdateKBBounds;
   public
     { Public declarations }
   end;
@@ -114,37 +117,11 @@ implementation
 {$R *.fmx}
 
 Uses
-  eTasks.Libraries.Android, eTasks.View.Android.main;
-
-procedure TForm_Android_Login.AjustarScroll (controle: TLayout);
-begin
-   case Nav_Tela_Login.ActiveTab.Index of
-   1: Begin
-      Scroll_login.Margins.Bottom := 230;
-      Scroll_login.ViewportPosition := PointF(Scroll_login.ViewportPosition.X,
-                                                      Controle.Position.Y-40);
-      End;
-   2: Begin
-      Scroll_criar_conta.Margins.Bottom := 230;
-      Scroll_criar_conta.ViewportPosition := PointF(Scroll_criar_conta.ViewportPosition.X,
-                                                      Controle.Position.Y-40);
-      End;
-   3: Begin
-      Scroll_Esqueci_conta.Margins.Bottom := 250;
-      Scroll_Esqueci_conta.ViewportPosition := PointF(Scroll_Esqueci_conta.ViewportPosition.X,
-                                                      Controle.Position.Y-90);
-      End;
-   end;
-end;
+  eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform;
 
 procedure TForm_Android_Login.Btn_criar_contaClick(Sender: TObject);
 begin
   Nav_Tela_Login.GotoVisibleTab(2);
-end;
-
-procedure TForm_Android_Login.Btn_criar_conta_criarClick(Sender: TObject);
-begin
-    FormVirtualKeyboardHidden(sender, false, bounds);
 end;
 
 procedure TForm_Android_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -155,13 +132,11 @@ end;
 
 procedure TForm_Android_Login.Btn_efetuar_loginClick(Sender: TObject);
 begin
-    FormVirtualKeyboardHidden(sender, false, Bounds);
     Nav_Tela_Login.GotoVisibleTab(1);
 end;
 
 procedure TForm_Android_Login.Btn_EntrarClick(Sender: TObject);
 begin
-     FormVirtualKeyboardHidden(sender, false, bounds);
      Application.CreateForm(TForm_Android_main, Form_Android_Main);
      Application.MainForm := Form_Android_main;
      Form_Android_main.Show;
@@ -170,13 +145,11 @@ end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
 begin
-   FormVirtualKeyboardHidden(sender, false, bounds);
    Nav_Tela_Login.GotoVisibleTab(3);
 end;
 
 procedure TForm_Android_Login.Btn_Esqueci_senha_VoltarClick(Sender: TObject);
 begin
-   FormVirtualKeyboardHidden(sender, false, Bounds);
    Nav_Tela_Login.GotoVisibleTab(1);
 end;
 
@@ -185,34 +158,14 @@ begin
    Edit_Login_Password.Password := not Edit_Login_Password.Password;
 end;
 
-procedure TForm_Android_Login.Edit_Criar_conta_emailEnter(Sender: TObject);
+procedure TForm_Android_Login.CalcContentBoundsProc(Sender: TObject;
+  var ContentBounds: TRectF);
 begin
-    AjustarScroll(Layout_criar_conta_email);
-end;
-
-procedure TForm_Android_Login.Edit_criar_conta_nomeEnter(Sender: TObject);
-begin
-    AjustarScroll(Layout_edt_criar_nome);
-end;
-
-procedure TForm_Android_Login.Edit_criar_conta_senhaEnter(Sender: TObject);
-begin
-   AjustarScroll(Layout_criar_conta_senha);
-end;
-
-procedure TForm_Android_Login.Edit_esqueci_conta_emailEnter(Sender: TObject);
-begin
-    AjustarScroll (Layout_esqueci_conta_email);
-end;
-
-procedure TForm_Android_Login.Edit_Login_emailEnter(Sender: TObject);
-begin
-    AjustarScroll(Layout_Edt_Login_user);
-end;
-
-procedure TForm_Android_Login.Edit_Login_PasswordEnter(Sender: TObject);
-begin
-   AjustarScroll(Layout_edt_Login_password);
+  if FNeedOffset and (FKBBounds.Top > 0) then
+  begin
+    ContentBounds.Bottom := Max(ContentBounds.Bottom,
+                                2 * ClientHeight - FKBBounds.Top);
+  end;
 end;
 
 procedure TForm_Android_Login.FormCreate(Sender: TObject);
@@ -221,31 +174,48 @@ begin
    Nav_Tela_Login.ActiveTab := TabInicio;
 end;
 
+procedure TForm_Android_Login.FormFocusChanged(Sender: TObject);
+begin
+    UpdateKBBounds;
+end;
+
+procedure TForm_Android_Login.FormKeyUp(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+Var FService : iFMXVirtualKeyboardService;
+begin
+   if (Key = vkHardwareBack) then
+    begin
+      TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+      if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+       begin
+         // Botão BACK pressionado e teclado vísivel, apenas fecha o teclad/o
+       end
+      else
+       begin
+         if (Nav_Tela_Login.ActiveTab = TabCriarConta) or (Nav_Tela_Login.ActiveTab = TabEsqueciSenha) then
+          begin
+            Key := 0;
+            Nav_Tela_Login.GotoVisibleTab(1);
+          end;
+       end;
+    end;
+end;
+
 procedure TForm_Android_Login.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
-   case Nav_Tela_Login.ActiveTab.Index of
-   1: begin
-        Scroll_Login.Margins.Bottom := 0;
-        Scroll_Login.ViewportPosition := PointF(Scroll_Login.ViewportPosition.X,
-                                                        0);
-      end;
-   2: begin
-        Scroll_criar_conta.Margins.Bottom := 0;
-        Scroll_criar_conta.ViewportPosition := PointF(Scroll_criar_conta.ViewportPosition.X,
-                                                        0);
-      end;
-   3: begin
-        Scroll_Esqueci_conta.Margins.Bottom := 0;
-        Scroll_Esqueci_conta.ViewportPosition := PointF(Scroll_Esqueci_conta.ViewportPosition.X,
-                                                        0);
-      end;
-   end;
+  FKBBounds.Create(0, 0, 0, 0);
+  FNeedOffset := False;
+  RestorePosition;
 end;
 
-procedure TForm_Android_Login.Foto_usuarioClick(Sender: TObject);
+procedure TForm_Android_Login.FormVirtualKeyboardShown(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
 begin
-   FormVirtualKeyboardHidden(sender, false, bounds);
+  FKBBounds := TRectF.Create(Bounds);
+  FKBBounds.TopLeft := ScreenToClient(FKBBounds.TopLeft);
+  FKBBounds.BottomRight := ScreenToClient(FKBBounds.BottomRight);
+  UpdateKBBounds;
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);
@@ -253,15 +223,76 @@ begin
    Nav_Tela_Login.GotoVisibleTab(2);
 end;
 
+procedure TForm_Android_Login.Nav_Tela_LoginChange(Sender: TObject);
+var
+  FScroll : TVertScrollBox;
+begin
+
+  case Nav_Tela_Login.TabIndex of
+  1: FScroll := Scroll_login;
+  2: FScroll := Scroll_criar_conta;
+  3: FScroll := Scroll_Esqueci_conta;
+  end;
+
+  if Assigned(FScroll) then
+   FScroll.OnCalcContentBounds := CalcContentBoundsProc;
+end;
+
+procedure TForm_Android_Login.RestorePosition;
+Var FScroll : TVertScrollBox;
+begin
+  case Nav_Tela_Login.TabIndex of
+  1: FScroll := Scroll_login;
+  2: FScroll := Scroll_criar_conta;
+  3: FScroll := Scroll_Esqueci_conta;
+  end;
+
+  FScroll.ViewportPosition := PointF(FScroll.ViewportPosition.X, 0);
+  FScroll.RealignContent;
+end;
+
 procedure TForm_Android_Login.Img_CriarConta_voltarClick(Sender: TObject);
 begin
-   FormVirtualKeyboardHidden(sender, false, bounds);
+
    Nav_Tela_Login.GotoVisibleTab(1);
 end;
 
 procedure TForm_Android_Login.TabInicioClick(Sender: TObject);
 begin
     Nav_Tela_Login.GotoVisibleTab(2);
+end;
+
+procedure TForm_Android_Login.UpdateKBBounds;
+var
+  LFocused : TControl;
+  LFocusRect: TRectF;
+  FScroll : TVertScrollBox;
+begin
+  case Nav_Tela_Login.TabIndex of
+  1: FScroll := Scroll_login;
+  2: FScroll := Scroll_criar_conta;
+  3: FScroll := Scroll_Esqueci_conta;
+  end;
+
+  FNeedOffset := False;
+  if Assigned(Focused) then
+  begin
+    LFocused := TControl(Focused.GetObject);
+    LFocusRect := LFocused.AbsoluteRect;
+    LFocusRect.Offset(FScroll.ViewportPosition);
+    if (LFocusRect.IntersectsWith(TRectF.Create(FKBBounds))) and
+       (LFocusRect.Bottom > FKBBounds.Top) then
+    begin
+      FNeedOffset := True;
+      FScroll.RealignContent;
+      Application.ProcessMessages;
+      FScroll.ViewportPosition :=
+        PointF(FScroll.ViewportPosition.X,
+               LFocusRect.Bottom - FKBBounds.Top);
+    end;
+  end;
+  if not FNeedOffset then
+    RestorePosition;
 end;
 
 end.

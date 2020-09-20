@@ -1,4 +1,4 @@
-unit eTasks.View.Windows.login;
+unit eTasks.View.Windows.main;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   FMX.Controls.Presentation, FMX.StdCtrls;
 
 type
-  TForm_Windows_Login = class(TForm)
+  TForm_Windows_Main = class(TForm)
     Label1: TLabel;
   private
     { Private declarations }
@@ -17,10 +17,11 @@ type
   end;
 
 var
-  Form_Windows_Login: TForm_Windows_Login;
+  Form_Windows_Main: TForm_Windows_Main;
 
 implementation
 
 {$R *.fmx}
+
 
 end.
