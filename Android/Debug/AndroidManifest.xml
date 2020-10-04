@@ -7,7 +7,6 @@
         android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
-    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,7 +21,7 @@
         android:debuggable="True" 
         android:largeHeap="False"
         android:icon="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
         android:resizeableActivity="false">
 

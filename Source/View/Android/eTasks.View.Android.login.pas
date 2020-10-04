@@ -117,7 +117,8 @@ implementation
 {$R *.fmx}
 
 Uses
-  eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform;
+  eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
+  eTasks.View.Dialogs.Factory, eTasks.View.Dialogs.Messages.Consts;
 
 procedure TForm_Android_Login.Btn_criar_contaClick(Sender: TObject);
 begin
@@ -137,10 +138,11 @@ end;
 
 procedure TForm_Android_Login.Btn_EntrarClick(Sender: TObject);
 begin
-     Application.CreateForm(TForm_Android_main, Form_Android_Main);
+     {Application.CreateForm(TForm_Android_main, Form_Android_Main);
      Application.MainForm := Form_Android_main;
      Form_Android_main.Show;
-     Close;
+     Close;}
+     Form_Android_Login.AddObject(TViewDialogsMessages.New.DialogMessages.TipoMensagem(tpmSucessoConta).Exibe);
 end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
