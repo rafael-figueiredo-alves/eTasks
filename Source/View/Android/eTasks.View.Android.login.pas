@@ -97,6 +97,8 @@ type
     procedure Nav_Tela_LoginChange(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure Btn_Termos_privacidadeClick(Sender: TObject);
+    procedure Foto_usuarioClick(Sender: TObject);
   private
     { Private declarations }
     FKBBounds: TRectF;
@@ -160,6 +162,11 @@ begin
    Edit_Login_Password.Password := not Edit_Login_Password.Password;
 end;
 
+procedure TForm_Android_Login.Btn_Termos_privacidadeClick(Sender: TObject);
+begin
+  Form_Android_Login.AddObject(TViewDialogsMessages.New.DialogTermos.Exibe);
+end;
+
 procedure TForm_Android_Login.CalcContentBoundsProc(Sender: TObject;
   var ContentBounds: TRectF);
 begin
@@ -199,7 +206,7 @@ begin
             Key := 0;
             Nav_Tela_Login.GotoVisibleTab(1);
           end;
-       end;
+         end;
     end;
 end;
 
@@ -218,6 +225,11 @@ begin
   FKBBounds.TopLeft := ScreenToClient(FKBBounds.TopLeft);
   FKBBounds.BottomRight := ScreenToClient(FKBBounds.BottomRight);
   UpdateKBBounds;
+end;
+
+procedure TForm_Android_Login.Foto_usuarioClick(Sender: TObject);
+begin
+  Form_Android_Login.AddObject(TViewDialogsMessages.New.SheetFotos.Exibe);
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);

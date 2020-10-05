@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, eTasks.View.Dialogs.Messages.Consts;
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, eTasks.View.Dialogs.Messages.Consts,
+  FMX.Ani;
 
 type
   TDlg_Login_messages = class(TForm)
@@ -24,8 +25,12 @@ type
     Img_sucesso: TImage;
     Btn_comecar: TImage;
     btn_entendi: TImage;
+    AnimaFundo: TFloatAnimation;
+    AnimaDialogo: TFloatAnimation;
     procedure Button_messageClick(Sender: TObject);
     procedure RecEscurecerClick(Sender: TObject);
+    procedure AnimaFundoFinish(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FTipoMensagem : tTipoMensagem;
@@ -52,19 +57,41 @@ begin
   FAcaoBotao := value;
 end;
 
+procedure TDlg_Login_messages.AnimaFundoFinish(Sender: TObject);
+begin
+   if AnimaFundo.Inverse = True then
+    Self.DisposeOf;
+end;
+
 procedure TDlg_Login_messages.Button_messageClick(Sender: TObject);
 begin
-  Self.DisposeOf;
+  if assigned(FAcaoBotao) then
+   FAcaoBotao;
+  AnimaDialogo.Inverse := True;
+  AnimaFundo.Inverse := True;
+  AnimaDialogo.Start;
+  AnimaFundo.Start;
 end;
 
 function TDlg_Login_messages.Exibe: TLayout;
 begin
   Result := Lay_dlg_messages;
+  AnimaFundo.Start;
+  AnimaDialogo.Start;
+end;
+
+procedure TDlg_Login_messages.FormCreate(Sender: TObject);
+begin
+  AnimaDialogo.Inverse := False;
+  AnimaFundo.Inverse := False;
 end;
 
 procedure TDlg_Login_messages.RecEscurecerClick(Sender: TObject);
 begin
-  Self.DisposeOf;
+  AnimaDialogo.Inverse := True;
+  AnimaFundo.Inverse := True;
+  AnimaDialogo.Start;
+  AnimaFundo.Start;
 end;
 
 function TDlg_Login_messages.TipoMensagem(
