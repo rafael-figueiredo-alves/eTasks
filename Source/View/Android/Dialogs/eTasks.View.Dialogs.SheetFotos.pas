@@ -34,6 +34,7 @@ type
     Function Exibe : TLayout;
     Function AcaoFoto (Value : TProc) :tsheet_fotos;
     Function AcaoGaleria (Value : TProc) :tsheet_fotos;
+    Procedure Fechar;
   end;
 
 var
@@ -83,6 +84,11 @@ function TSheet_fotos.Exibe: TLayout;
 begin
    Result := Lay_sheet_fotos;
    AnimaSheet.Start;
+end;
+
+procedure TSheet_fotos.Fechar;
+begin
+   Self.RecEscurecerClick(self);
 end;
 
 procedure TSheet_fotos.FormCreate(Sender: TObject);

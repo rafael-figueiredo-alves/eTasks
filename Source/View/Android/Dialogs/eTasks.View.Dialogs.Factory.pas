@@ -15,6 +15,9 @@ Type
 
   TViewDialogsMessages = Class(TInterfacedObject, iViewDialogsFactory)
     Private
+     FSheetFotos : TSheet_fotos;
+     FDialogMessages : TDlg_Login_messages;
+     FDialogTermos : TDlg_Termos;
     Public
      Constructor Create;
      Destructor Destroy; Override;
@@ -41,12 +44,16 @@ end;
 
 function TViewDialogsMessages.DialogMessages: TDlg_Login_messages;
 begin
-  Result := TDlg_Login_messages.Create(nil);
+  if not assigned(FDialogMessages) then
+    FDialogMessages := TDlg_Login_messages.Create(nil);
+  Result := FDialogMessages;
 end;
 
 function TViewDialogsMessages.DialogTermos: TDlg_Termos;
 begin
-  Result := TDlg_Termos.Create(nil);
+  if not Assigned(FDialogTermos) then
+   FDialogTermos := TDlg_Termos.Create(nil);
+  Result := FDialogTermos;
 end;
 
 class function TViewDialogsMessages.New: iViewDialogsFactory;
@@ -56,7 +63,9 @@ end;
 
 function TViewDialogsMessages.SheetFotos: TSheet_fotos;
 begin
-  Result := TSheet_fotos.Create(nil);
+  if not assigned(FSheetFotos) then
+   FSheetFotos := TSheet_fotos.Create(nil);
+  Result := FSheetFotos;
 end;
 
 end.

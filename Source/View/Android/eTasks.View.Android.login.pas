@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl,
   FMX.Objects, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  FMX.Edit;
+  FMX.Edit, eTasks.View.Dialogs.Factory;
 
 type
   TForm_Android_Login = class(TForm)
@@ -101,6 +101,9 @@ type
     procedure Foto_usuarioClick(Sender: TObject);
   private
     { Private declarations }
+    Sheet_fotos : iViewDialogsFactory;
+    Dialogs     : iViewDialogsFactory;
+    Termos      : iViewDialogsFactory;
     FKBBounds: TRectF;
     FNeedOffset: Boolean;
     procedure CalcContentBoundsProc(Sender: TObject;
@@ -120,7 +123,7 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Factory, eTasks.View.Dialogs.Messages.Consts;
+  eTasks.View.Dialogs.Messages.Consts;
 
 procedure TForm_Android_Login.Btn_criar_contaClick(Sender: TObject);
 begin
@@ -144,7 +147,8 @@ begin
      Application.MainForm := Form_Android_main;
      Form_Android_main.Show;
      Close;}
-     Form_Android_Login.AddObject(TViewDialogsMessages.New.DialogMessages.TipoMensagem(tpmSucessoConta).Exibe);
+     Dialogs := TViewDialogsMessages.New;
+     Form_Android_Login.AddObject(Dialogs.DialogMessages.TipoMensagem(tpmSucessoConta).Exibe);
 end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
@@ -164,7 +168,8 @@ end;
 
 procedure TForm_Android_Login.Btn_Termos_privacidadeClick(Sender: TObject);
 begin
-  Form_Android_Login.AddObject(TViewDialogsMessages.New.DialogTermos.Exibe);
+  Termos := TViewDialogsMessages.New;
+  Form_Android_Login.AddObject(Termos.DialogTermos.Exibe);
 end;
 
 procedure TForm_Android_Login.CalcContentBoundsProc(Sender: TObject;
@@ -197,16 +202,38 @@ begin
       TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
       if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
        begin
-         // Botão BACK pressionado e teclado vísivel, apenas fecha o teclad/o
+         // Botão BACK pressionado e teclado vísivel, apenas fecha o teclado
        end
       else
        begin
-         if (Nav_Tela_Login.ActiveTab = TabCriarConta) or (Nav_Tela_Login.ActiveTab = TabEsqueciSenha) then
+         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Termos)) then
           begin
             Key := 0;
-            Nav_Tela_Login.GotoVisibleTab(1);
+            if Assigned(sheet_fotos) then
+             begin
+              Sheet_fotos.SheetFotos.Fechar;
+              Sheet_fotos := nil;
+             end;
+            if Assigned(dialogs) then
+             begin
+              dialogs.DialogMessages.Fechar;
+              dialogs := nil;
+             end;
+            if Assigned(Termos) then
+             begin
+              Termos.DialogTermos.Fechar;
+              Termos := nil;
+             end;
+          end
+         else
+          begin
+           if (Nav_Tela_Login.ActiveTab = TabCriarConta) or (Nav_Tela_Login.ActiveTab = TabEsqueciSenha) then
+            begin
+             Key := 0;
+             Nav_Tela_Login.GotoVisibleTab(1);
+            end;
           end;
-         end;
+       end;
     end;
 end;
 
@@ -229,7 +256,8 @@ end;
 
 procedure TForm_Android_Login.Foto_usuarioClick(Sender: TObject);
 begin
-  Form_Android_Login.AddObject(TViewDialogsMessages.New.SheetFotos.Exibe);
+  Sheet_fotos := TViewDialogsMessages.New;
+  Form_Android_Login.AddObject(Sheet_fotos.SheetFotos.Exibe);
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);

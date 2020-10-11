@@ -40,6 +40,7 @@ type
     Function Exibe : TLayout;
     Function AcaoBotao (Value : TProc) : TDlg_Login_messages;
     Function TipoMensagem (Value : tTipoMensagem) : TDlg_Login_messages;
+    Procedure Fechar;
   end;
 
 var
@@ -78,6 +79,11 @@ begin
   Result := Lay_dlg_messages;
   AnimaFundo.Start;
   AnimaDialogo.Start;
+end;
+
+procedure TDlg_Login_messages.Fechar;
+begin
+  Self.RecEscurecerClick(self);
 end;
 
 procedure TDlg_Login_messages.FormCreate(Sender: TObject);

@@ -49,7 +49,7 @@ end;
 
 procedure TDlg_Termos.Fechar;
 begin
-   Self.DisposeOf;
+   Self.RecEscurecerClick(self);
 end;
 
 procedure TDlg_Termos.RecEscurecerClick(Sender: TObject);
