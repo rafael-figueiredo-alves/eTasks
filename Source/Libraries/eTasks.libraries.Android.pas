@@ -9,7 +9,9 @@ Type
  tLibraryAndroid = Class
    Class Procedure TransparentNavBar;
    Class Procedure Vibrar (Intervalo : integer);
-   Class procedure Permissao;
+   Class function PermissaoCamera  : TArray<string>;
+   Class Function PermissaoGaleria : TArray<string>;
+
  End;
 
 implementation
@@ -24,10 +26,9 @@ Uses
   AndroidApi.JNIBridge,
   AndroidApi.JNI.App,
   AndroidApi.JNI.GraphicsContentViewText,
-  FMX.Helpers.Android,
-  System.Permissions;
+  FMX.Helpers.Android;
 
-class procedure tLibraryAndroid.Permissao;
+class function tLibraryAndroid.PermissaoCamera: TArray<string>;
 Var
   FPermissaoReadStorage   : String;
   FPermissaoCamera       : String;
@@ -36,7 +37,17 @@ begin
   FPermissaoCamera := JStringToString(TJManifest_permission.JavaClass.CAMERA);
   FPermissaoReadStorage := JStringToString(TJManifest_permission.JavaClass.READ_EXTERNAL_STORAGE);
   FPermissaoWriteStorage := JStringToString(TJManifest_permission.JavaClass.WRITE_EXTERNAL_STORAGE);
-  PermissionsService.RequestPermissions([FPermissaoCamera, FPermissaoReadStorage, FPermissaoWriteStorage], nil, nil)
+  Result := [FPermissaoCamera, FPermissaoReadStorage, FPermissaoWriteStorage];
+end;
+
+class function tLibraryAndroid.PermissaoGaleria: TArray<string>;
+Var
+  FPermissaoReadStorage   : String;
+  FPermissaoWriteStorage : string;
+begin
+  FPermissaoReadStorage := JStringToString(TJManifest_permission.JavaClass.READ_EXTERNAL_STORAGE);
+  FPermissaoWriteStorage := JStringToString(TJManifest_permission.JavaClass.WRITE_EXTERNAL_STORAGE);
+  Result := [FPermissaoReadStorage, FPermissaoWriteStorage];
 end;
 
 class procedure tLibraryAndroid.TransparentNavBar;

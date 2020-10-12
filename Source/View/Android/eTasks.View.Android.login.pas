@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl,
   FMX.Objects, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
   FMX.Edit, eTasks.View.Dialogs.Factory, FMX.MediaLibrary.Actions,
-  System.Actions, FMX.ActnList, FMX.StdActns;
+  System.Actions, FMX.ActnList, FMX.StdActns, system.permissions;
 
 type
   TForm_Android_Login = class(TForm)
@@ -118,6 +118,14 @@ type
     procedure RestorePosition;
     procedure UpdateKBBounds;
     Procedure CriarConta;
+    Procedure TirarFotoPermissao (sender: TObject; Const APermissions: Tarray<string>;
+                                  const AGrantResults: TArray<TPermissionStatus>);
+    Procedure GaleriaPermissao (sender: TObject; Const APermissions: Tarray<string>;
+                                  const AGrantResults: TArray<TPermissionStatus>);
+    Procedure DisplayTirarFoto (Sender: TObject; Const APermissions: TArray<string>;
+                                Const APostProc: TProc);
+    Procedure DisplayGaleria (Sender: TObject; Const APermissions: TArray<string>;
+                                Const APostProc: TProc);
   public
     { Public declarations }
   end;
@@ -131,7 +139,7 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, FMX.DialogService;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -277,6 +285,28 @@ begin
   Nav_Tela_Login.GotoVisibleTab(2);
 end;
 
+procedure TForm_Android_Login.DisplayGaleria(Sender: TObject;
+  const APermissions: TArray<string>; const APostProc: TProc);
+begin
+  //Implementar minha caixa de mensagens
+  tdialogService.ShowMessage('É necessário dar permissão para acessar sua galeria para prosseguir e adicionar foto ao perfil',
+                             Procedure (Const AResult: TModalResult)
+                             begin
+                              APostProc;
+                             end);
+end;
+
+procedure TForm_Android_Login.DisplayTirarFoto(Sender: TObject;
+  const APermissions: TArray<string>; const APostProc: TProc);
+begin
+  //Implementar minha caixa de mensagens
+  tdialogService.ShowMessage('É necessário dar permissão para tirar fotos para prosseguir e adicionar foto ao perfil',
+                             Procedure (Const AResult: TModalResult)
+                             begin
+                              APostProc;
+                             end);
+end;
+
 procedure TForm_Android_Login.FormCreate(Sender: TObject);
 begin
    tLibraryAndroid.TransparentNavBar;
@@ -358,16 +388,26 @@ begin
                                                    .AcaoFoto(Procedure ()
                                                              begin
                                                               Sheet_fotos := nil;
-                                                              tLibraryAndroid.Permissao;
-                                                              ActFotoCamera.Execute;
+                                                              PermissionsService.RequestPermissions(tLibraryAndroid.PermissaoCamera, TirarFotoPermissao, DisplayTirarFoto);
                                                              end)
                                                    .AcaoGaleria(Procedure ()
                                                              begin
                                                               Sheet_fotos := nil;
-                                                              tLibraryAndroid.Permissao;
-                                                              ActFotoGaleria.Execute;
+                                                              PermissionsService.RequestPermissions(tLibraryAndroid.PermissaoGaleria, GaleriaPermissao, DisplayGaleria);
                                                              end)
                                                    .Exibe);
+end;
+
+procedure TForm_Android_Login.GaleriaPermissao(sender: TObject;
+  const APermissions: Tarray<string>;
+  const AGrantResults: TArray<TPermissionStatus>);
+begin
+  if (length(AGrantResults) = 2) and
+     (AGrantResults[0] = TPermissionStatus.Granted) and
+     (AGrantResults[1] = TPermissionStatus.Granted) then
+    ActFotoGaleria.Execute
+   else
+    TDialogService.ShowMessage('Não foi possível acessar a camera devido a falta de permissões, ok?');
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);
@@ -412,6 +452,19 @@ end;
 procedure TForm_Android_Login.TabInicioClick(Sender: TObject);
 begin
     Nav_Tela_Login.GotoVisibleTab(2);
+end;
+
+procedure TForm_Android_Login.TirarFotoPermissao(sender: TObject;
+  const APermissions: Tarray<string>;
+  const AGrantResults: TArray<TPermissionStatus>);
+begin
+  if (length(AGrantResults) = 3) and
+     (AGrantResults[0] = TPermissionStatus.Granted) and
+     (AGrantResults[1] = TPermissionStatus.Granted) and
+     (AGrantResults[2] = TPermissionStatus.Granted) then
+    ActFotoCamera.Execute
+   else
+    TDialogService.ShowMessage('Não foi possível acessar a camera devido a falta de permissões, ok?');
 end;
 
 procedure TForm_Android_Login.UpdateKBBounds;

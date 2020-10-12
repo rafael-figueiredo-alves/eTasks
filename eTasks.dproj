@@ -245,6 +245,7 @@
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Factory.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.LoggedUser.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.Interfaces.pas"/>
+        <None Include="eTasks.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -578,6 +579,12 @@
                 </DeployFile>
                 <DeployFile LocalName="Android\Release\colors.xml" Configuration="Release" Class="Android_Colors">
                     <Platform Name="Android">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="eTasks.todo" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
