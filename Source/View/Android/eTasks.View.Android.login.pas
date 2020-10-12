@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl,
   FMX.Objects, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  FMX.Edit, eTasks.View.Dialogs.Factory;
+  FMX.Edit, eTasks.View.Dialogs.Factory, FMX.MediaLibrary.Actions,
+  System.Actions, FMX.ActnList, FMX.StdActns;
 
 type
   TForm_Android_Login = class(TForm)
@@ -78,6 +79,10 @@ type
     Scroll_criar_conta: TVertScrollBox;
     Img_CriarConta_voltar: TImage;
     Scroll_login: TVertScrollBox;
+    ListaAcoes: TActionList;
+    ActFotoGaleria: TTakePhotoFromLibraryAction;
+    ActFotoCamera: TTakePhotoFromCameraAction;
+    Img_semfoto: TImage;
     procedure FormCreate(Sender: TObject);
     procedure Btn_efetuar_loginClick(Sender: TObject);
     procedure TabInicioClick(Sender: TObject);
@@ -99,6 +104,8 @@ type
       Shift: TShiftState);
     procedure Btn_Termos_privacidadeClick(Sender: TObject);
     procedure Foto_usuarioClick(Sender: TObject);
+    procedure ActFotoCameraDidFinishTaking(Image: TBitmap);
+    procedure ActFotoGaleriaDidFinishTaking(Image: TBitmap);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -110,6 +117,7 @@ type
                                     var ContentBounds: TRectF);
     procedure RestorePosition;
     procedure UpdateKBBounds;
+    Procedure CriarConta;
   public
     { Public declarations }
   end;
@@ -123,11 +131,24 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions;
+
+Const
+  ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
+
+procedure TForm_Android_Login.ActFotoCameraDidFinishTaking(Image: TBitmap);
+begin
+   Foto_usuario.Fill.Bitmap.Bitmap := Image;
+end;
+
+procedure TForm_Android_Login.ActFotoGaleriaDidFinishTaking(Image: TBitmap);
+begin
+  Foto_usuario.Fill.Bitmap.Bitmap := Image;
+end;
 
 procedure TForm_Android_Login.Btn_criar_contaClick(Sender: TObject);
 begin
-  Nav_Tela_Login.GotoVisibleTab(2);
+  CriarConta;
 end;
 
 procedure TForm_Android_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -147,8 +168,67 @@ begin
      Application.MainForm := Form_Android_main;
      Form_Android_main.Show;
      Close;}
-     Dialogs := TViewDialogsMessages.New;
-     Form_Android_Login.AddObject(Dialogs.DialogMessages.TipoMensagem(tpmSucessoConta).Exibe);
+   if (Edit_Login_email.Text.IsEmpty) Or (Edit_Login_Password.Text.IsEmpty) then
+    begin
+     if Edit_Login_email.Text.IsEmpty then
+      begin
+       Dialogs := TViewDialogsMessages.New;
+       Form_Android_Login.AddObject(
+                                    Dialogs.DialogMessages
+                                                     .TipoMensagem(tpmErro_brancologin)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_Login_email.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                  Dialogs := nil;
+                                                                end)
+                                                     .Exibe);
+      end
+     else
+      begin
+       if Edit_Login_Password.Text.IsEmpty then
+        begin
+         Dialogs := TViewDialogsMessages.New;
+         Form_Android_Login.AddObject(
+                                      Dialogs.DialogMessages
+                                                     .TipoMensagem(tpmErro_brancologin)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_Login_password.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                  Dialogs := nil;
+                                                                end)
+                                                     .Exibe);
+        end;
+      end;
+    end
+   else
+    begin
+      if not TRegEx.IsMatch(Edit_Login_email.Text, ValidEmails) then
+       begin
+        Dialogs := TViewDialogsMessages.New;
+        Form_Android_Login.AddObject(
+                                      Dialogs.DialogMessages
+                                                     .TipoMensagem(tpmErro_email)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_Login_password.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                  Dialogs := nil;
+                                                                end)
+                                                     .Exibe);
+       end;
+    end;
+
 end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
@@ -169,7 +249,13 @@ end;
 procedure TForm_Android_Login.Btn_Termos_privacidadeClick(Sender: TObject);
 begin
   Termos := TViewDialogsMessages.New;
-  Form_Android_Login.AddObject(Termos.DialogTermos.Exibe);
+  Form_Android_Login.AddObject(
+                               Termos.DialogTermos
+                                               .AcaoFundo(Procedure ()
+                                                          Begin
+                                                           Termos := nil;
+                                                          end)
+                                               .Exibe);
 end;
 
 procedure TForm_Android_Login.CalcContentBoundsProc(Sender: TObject;
@@ -180,6 +266,15 @@ begin
     ContentBounds.Bottom := Max(ContentBounds.Bottom,
                                 2 * ClientHeight - FKBBounds.Top);
   end;
+end;
+
+procedure TForm_Android_Login.CriarConta;
+begin
+  Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+  Edit_criar_conta_nome.Text  := '';
+  Edit_Criar_conta_email.Text := '';
+  Edit_criar_conta_senha.Text := '';
+  Nav_Tela_Login.GotoVisibleTab(2);
 end;
 
 procedure TForm_Android_Login.FormCreate(Sender: TObject);
@@ -212,17 +307,14 @@ begin
             if Assigned(sheet_fotos) then
              begin
               Sheet_fotos.SheetFotos.Fechar;
-              Sheet_fotos := nil;
              end;
             if Assigned(dialogs) then
              begin
               dialogs.DialogMessages.Fechar;
-              dialogs := nil;
              end;
             if Assigned(Termos) then
              begin
               Termos.DialogTermos.Fechar;
-              Termos := nil;
              end;
           end
          else
@@ -257,12 +349,30 @@ end;
 procedure TForm_Android_Login.Foto_usuarioClick(Sender: TObject);
 begin
   Sheet_fotos := TViewDialogsMessages.New;
-  Form_Android_Login.AddObject(Sheet_fotos.SheetFotos.Exibe);
+  Form_Android_Login.AddObject(
+                               Sheet_fotos.SheetFotos
+                                                   .AcaoFundo(Procedure ()
+                                                              Begin
+                                                               Sheet_fotos := nil;
+                                                              end)
+                                                   .AcaoFoto(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              tLibraryAndroid.Permissao;
+                                                              ActFotoCamera.Execute;
+                                                             end)
+                                                   .AcaoGaleria(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              tLibraryAndroid.Permissao;
+                                                              ActFotoGaleria.Execute;
+                                                             end)
+                                                   .Exibe);
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);
 begin
-   Nav_Tela_Login.GotoVisibleTab(2);
+   CriarConta;
 end;
 
 procedure TForm_Android_Login.Nav_Tela_LoginChange(Sender: TObject);

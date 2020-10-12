@@ -8,6 +8,8 @@ uses
   FMX.Layouts, FMX.Ani;
 
 type
+  TipoAcao = (taCamera, taGaleria, taFundo);
+
   TSheet_fotos = class(TForm)
     Lay_sheet_fotos: TLayout;
     RecEscurecer: TRectangle;
@@ -20,6 +22,7 @@ type
     Btn_Galeria: TImage;
     Btn_foto: TImage;
     AnimaSheet: TFloatAnimation;
+    AnimaFundo: TFloatAnimation;
     procedure FormCreate(Sender: TObject);
     procedure AnimaSheetFinish(Sender: TObject);
     procedure RecEscurecerClick(Sender: TObject);
@@ -29,11 +32,14 @@ type
     { Private declarations }
     FAcaoFoto    : TProc;
     FAcaoGaleria : TProc;
+    FAcaoFundo   : TProc;
+    FTipoAcao    : TipoAcao;
   public
     { Public declarations }
     Function Exibe : TLayout;
     Function AcaoFoto (Value : TProc) :tsheet_fotos;
     Function AcaoGaleria (Value : TProc) :tsheet_fotos;
+    Function AcaoFundo (Value : TProc) : Tsheet_Fotos;
     Procedure Fechar;
   end;
 
@@ -52,6 +58,12 @@ begin
   FAcaoFoto := value;
 end;
 
+function TSheet_fotos.AcaoFundo(Value: TProc): Tsheet_Fotos;
+begin
+   Result := Self;
+   FAcaoFundo := value;
+end;
+
 function TSheet_fotos.AcaoGaleria(Value: TProc): tsheet_fotos;
 begin
  Result := Self;
@@ -61,28 +73,47 @@ end;
 procedure TSheet_fotos.AnimaSheetFinish(Sender: TObject);
 begin
    if AnimaSheet.Inverse = true then
-    Self.DisposeOf;
+    begin
+     case FTipoAcao of
+       taCamera: Begin
+                  if Assigned(FAcaoFoto) then
+                   FAcaoFoto;
+                 End;
+       taGaleria: Begin
+                   if Assigned(FAcaoGaleria) then
+                    FAcaoGaleria;
+                  End;
+       taFundo: Begin
+                  if Assigned(FAcaoFundo) then
+                   FAcaoFundo;
+                End;
+     end;
+     Self.DisposeOf;
+    end;
 end;
 
 procedure TSheet_fotos.Btn_fotoClick(Sender: TObject);
 begin
-  if Assigned(FAcaoFoto) then
-   FAcaoFoto;
+  FTipoAcao := taCamera;
   AnimaSheet.Inverse := True;
+  AnimaFundo.Inverse := True;
   AnimaSheet.Start;
+  AnimaFundo.Start;
 end;
 
 procedure TSheet_fotos.Btn_GaleriaClick(Sender: TObject);
 begin
-  if Assigned(FAcaoGaleria) then
-   FAcaoGaleria;
+  FTipoAcao := taGaleria;
   AnimaSheet.Inverse := True;
+  AnimaFundo.Inverse := True;
   AnimaSheet.Start;
+  AnimaFundo.Start;
 end;
 
 function TSheet_fotos.Exibe: TLayout;
 begin
    Result := Lay_sheet_fotos;
+   AnimaFundo.Start;
    AnimaSheet.Start;
 end;
 
@@ -93,17 +124,23 @@ end;
 
 procedure TSheet_fotos.FormCreate(Sender: TObject);
 begin
+    Lay_caixa_msg.Width := Screen.Width;
     Lay_caixa_msg.Position.Y := Screen.Height + 240;
     AnimaSheet.StartValue := Lay_caixa_msg.Position.Y;
     AnimaSheet.StopValue  := Screen.Height - 240;
     AnimaSheet.Inverse := False;
+    AnimaFundo.Inverse := False;
+    FTipoAcao := taFundo;
     Lay_caixa_msg.Align := TAlignLayout.None;
 end;
 
 procedure TSheet_fotos.RecEscurecerClick(Sender: TObject);
 begin
-    AnimaSheet.Inverse := True;
-    AnimaSheet.Start;
+  FTipoAcao := taFundo;
+  AnimaSheet.Inverse := True;
+  AnimaFundo.Inverse := True;
+  AnimaSheet.Start;
+  AnimaFundo.Start;
 end;
 
 end.

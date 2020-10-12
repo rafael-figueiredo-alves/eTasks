@@ -2,11 +2,14 @@ unit eTasks.libraries.Android;
 
 interface
 
+Uses System.sysutils;
+
 Type
 
  tLibraryAndroid = Class
    Class Procedure TransparentNavBar;
    Class Procedure Vibrar (Intervalo : integer);
+   Class procedure Permissao;
  End;
 
 implementation
@@ -22,7 +25,19 @@ Uses
   AndroidApi.JNI.App,
   AndroidApi.JNI.GraphicsContentViewText,
   FMX.Helpers.Android,
-  System.SysUtils;
+  System.Permissions;
+
+class procedure tLibraryAndroid.Permissao;
+Var
+  FPermissaoReadStorage   : String;
+  FPermissaoCamera       : String;
+  FPermissaoWriteStorage : string;
+begin
+  FPermissaoCamera := JStringToString(TJManifest_permission.JavaClass.CAMERA);
+  FPermissaoReadStorage := JStringToString(TJManifest_permission.JavaClass.READ_EXTERNAL_STORAGE);
+  FPermissaoWriteStorage := JStringToString(TJManifest_permission.JavaClass.WRITE_EXTERNAL_STORAGE);
+  PermissionsService.RequestPermissions([FPermissaoCamera, FPermissaoReadStorage, FPermissaoWriteStorage], nil, nil)
+end;
 
 class procedure tLibraryAndroid.TransparentNavBar;
 Var

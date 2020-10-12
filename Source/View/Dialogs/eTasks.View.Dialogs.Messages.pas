@@ -97,8 +97,18 @@ begin
 end;
 
 function TDlg_Login_messages.Exibe: TLayout;
+{$ifdef MSWindows}
+var
+  FMargem : single;
+{$endif}
 begin
   Result := Lay_dlg_messages;
+  {$ifdef Mswindows}
+  FMargem := (TForm(Self.Parent).Width - 320)/2;
+  RecDesignCaixa.Margins.Left := FMargem;
+  RecDesignCaixa.Margins.Right := FMargem;
+  Text_message.TextSettings.Font.Size := 14;
+  {$Endif}
   AnimaFundo.Start;
   AnimaDialogo.Start;
 end;
@@ -109,16 +119,13 @@ begin
 end;
 
 procedure TDlg_Login_messages.FormCreate(Sender: TObject);
+{$ifdef Android}
 var
  FMargem : single;
+{$endif}
 begin
-  {$Ifdef Android}
+  {$ifdef ANdroid}
   FMargem := (Screen.Width - 320)/2;
-  RecDesignCaixa.Margins.Left := FMargem;
-  RecDesignCaixa.Margins.Right := FMargem;
-  {$Endif}
-  {$Ifdef MSWindows}
-  FMargem := (Self.Parent.Width - 320)/2;
   RecDesignCaixa.Margins.Left := FMargem;
   RecDesignCaixa.Margins.Right := FMargem;
   {$endif}

@@ -6,7 +6,7 @@
         <MainSource>eTasks.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -122,6 +122,8 @@
         <AUP_ACCESS_COARSE_LOCATION>false</AUP_ACCESS_COARSE_LOCATION>
         <AUP_ACCESS_FINE_LOCATION>false</AUP_ACCESS_FINE_LOCATION>
         <AUP_CALL_PHONE>false</AUP_CALL_PHONE>
+        <EL_SecureFileSharing>true</EL_SecureFileSharing>
+        <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android64)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;ZCore;tethering;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;ZParseSql;dsnap;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;ZDbc;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;bindcomp;ZPlain;IndyIPClient;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -143,6 +145,10 @@
         <Android_NotificationIcon72>$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png</Android_NotificationIcon72>
         <Android_NotificationIcon96>$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png</Android_NotificationIcon96>
         <EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+        <EL_SecureFileSharing>true</EL_SecureFileSharing>
+        <VerInfo_Build>1</VerInfo_Build>
+        <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
+        <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;vclactnband;ACBr_TEFD;vclFireDAC;ZCore;ACBr_SATWS;tethering;svnui;FireDACADSDriver;ACBr_BPeDabpeESCPOS;ACBr_BPe;ACBr_MDFeDamdfeRL;ACBr_EDI;vcltouch;ACBr_NFe;ACBr_ONE;vcldb;bindcompfmx;svn;ACBrDFeReportRL;JOSE;IconFontsImageList;inetdb;ACBr_NFeDanfeESCPOS;ACBr_Diversos;RaizeComponentsVcl;FmxTeeUI;ACBr_LCDPR;fmx;FireDACIBDriver;fmxdae;vclib;ACBr_Ponto;dbexpress;IndyCore;vclx;ZParseSql;dsnap;FireDACCommon;ACBr_SATExtratoRL;ACBr_PCNComum;DelphiUCLPackage;RESTBackendComponents;ACBR_DeSTDA;VCLRESTComponents;ACBr_Reinf;soapserver;ACBr_SAT;vclie;bindengine;DBXMySQLDriver;CloudService;ACBr_PAF;FireDACMySQLDriver;ACBr_SATECFVirtual;ACBr_Sintegra;FireDACCommonODBC;FireDACCommonDriver;ACBr_GNRE;inet;IndyIPCommon;bindcompdbx;ACBr_TCP;ACBr_CTeDacteRL;vcl;IndyIPServer;ACBr_CTe;ACBr_SATExtratoESCPOS;TBGWebCharts;IndySystem;ACBr_NFeDanfeRL;IconFontsImageListFMX;ACBr_Integrador;dsnapcon;ACBre_Social;FireDACMSAccDriver;fmxFireDAC;vclimg;ACBr_SPEDImportar;TeeDB;FireDAC;ZDbc;ACBr_SPED;ACBr_MDFe;ACBr_Comum;ACBr_BoletoRL;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;ACBr_LFD;ACBr_GNREGuiaRL;FMXTee;soaprtl;DbxCommonDriver;ACBr_CIOT;ibxpress;Tee;ACBr_NFSeDanfseRL;xmlrtl;soapmidas;ibxbindings;fmxobj;vclwinx;ACBr_OpenSSL;rtl;DbxClientDriver;ACBr_DFeComum;CustomIPTransport;vcldsnap;ACBr_Convenio115;bindcomp;appanalytics;ACBr_Serial;ZPlain;IndyIPClient;bindcompvcl;TeeUI;ACBr_BlocoX;dbxcds;VclSmp;ACBr_NFCeECFVirtual;adortl;ACBr_Boleto;ACBr_ANe;dsnapxml;ACBr_SEF2;dbrtl;IndyProtocols;inetdbxpress;ACBr_NFSe;ACBr_MTER;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
@@ -182,6 +188,7 @@
         <Android_SplashImage470>Imagens\SplashScreens\eTasks_470x320.9.png</Android_SplashImage470>
         <Android_SplashImage640>Imagens\SplashScreens\eTasks_640x480.9.png</Android_SplashImage640>
         <Android_SplashImage960>Imagens\SplashScreens\e_tasks_960x720.9.png</Android_SplashImage960>
+        <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -216,25 +223,26 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Source\View\Android\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
-            <Form>Sheet_fotos</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Android\Dialogs\eTasks.View.Dialogs.Termos.pas">
-            <Form>Dlg_Termos</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Android\Dialogs\eTasks.View.Dialogs.Messages.pas">
-            <Form>Dlg_Login_messages</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Android\Dialogs\eTasks.View.Dialogs.Messages.Consts.pas"/>
-        <DCCReference Include="Source\View\Android\Dialogs\eTasks.View.Dialogs.Factory.pas"/>
         <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas">
             <Form>Form_Android_main</Form>
         </DCCReference>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas">
-            <Form>Form_Android_Login</Form>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas">
+            <Form>Form_Windows_Login</Form>
         </DCCReference>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.main.pas">
+            <Form>Form_Windows_main</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
+            <Form>Sheet_fotos</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Termos.pas">
+            <Form>Dlg_Termos</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Messages.pas">
+            <Form>Dlg_Login_messages</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Messages.Consts.pas"/>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Factory.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.LoggedUser.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.Interfaces.pas"/>
         <BuildConfiguration Include="Release">
@@ -400,6 +408,12 @@
                 <DeployFile LocalName="Android\Release\libeTasks.so" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Android">
                         <RemoteName>libeTasks.so</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\provider_paths.xml" Configuration="Debug" Class="AndroidFileProvider">
+                    <Platform Name="Android">
+                        <RemoteName>provider_paths.xml</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

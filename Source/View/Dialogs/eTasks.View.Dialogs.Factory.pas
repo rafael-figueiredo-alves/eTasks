@@ -11,6 +11,7 @@ Type
     Function DialogMessages : TDlg_Login_messages;
     Function DialogTermos   : TDlg_Termos;
     Function SheetFotos     : TSheet_fotos;
+    Function Pai (Value : TObject) : iViewDialogsFactory;
   end;
 
   TViewDialogsMessages = Class(TInterfacedObject, iViewDialogsFactory)
@@ -18,6 +19,7 @@ Type
      FSheetFotos : TSheet_fotos;
      FDialogMessages : TDlg_Login_messages;
      FDialogTermos : TDlg_Termos;
+     FPai          : tobject;
     Public
      Constructor Create;
      Destructor Destroy; Override;
@@ -25,9 +27,13 @@ Type
      Function DialogMessages : TDlg_Login_messages;
      Function DialogTermos   : TDlg_Termos;
      Function SheetFotos     : TSheet_fotos;
+     Function Pai (Value : Tobject) : iViewDialogsFactory;
   End;
 
 implementation
+
+uses
+  FMX.Forms, FMX.Types;
 
 { TViewDialogsMessages }
 
@@ -45,20 +51,38 @@ end;
 function TViewDialogsMessages.DialogMessages: TDlg_Login_messages;
 begin
   if not assigned(FDialogMessages) then
+  {$ifdef Android}
     FDialogMessages := TDlg_Login_messages.Create(nil);
+  {$endif}
+  {$ifdef MSWindows}
+    FDialogMessages := TDlg_Login_messages.Create(nil);
+    FDialogMessages.Parent := TFmxObject(FPai);
+  {$Endif}
   Result := FDialogMessages;
 end;
 
 function TViewDialogsMessages.DialogTermos: TDlg_Termos;
 begin
   if not Assigned(FDialogTermos) then
+  {$ifdef Android}
    FDialogTermos := TDlg_Termos.Create(nil);
+  {$endif}
+  {$ifdef MSWindows}
+   FDialogTermos := TDlg_Termos.Create(nil);
+   FDialogTermos.Parent := TFmxObject(FPai);
+  {$endif}
   Result := FDialogTermos;
 end;
 
 class function TViewDialogsMessages.New: iViewDialogsFactory;
 begin
   Result := Self.Create;
+end;
+
+function TViewDialogsMessages.Pai(Value: Tobject): iViewDialogsFactory;
+begin
+   Result := self;
+   FPai := value;
 end;
 
 function TViewDialogsMessages.SheetFotos: TSheet_fotos;
