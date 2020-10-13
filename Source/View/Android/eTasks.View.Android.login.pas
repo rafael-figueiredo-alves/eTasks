@@ -139,7 +139,7 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, FMX.DialogService;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -183,7 +183,7 @@ begin
        Dialogs := TViewDialogsMessages.New;
        Form_Android_Login.AddObject(
                                     Dialogs.DialogMessages
-                                                     .TipoMensagem(tpmErro_brancologin)
+                                                     .TipoMensagem(tpmBranco_login_email)
                                                      .AcaoBotao(Procedure ()
                                                                 begin
                                                                  Dialogs := nil;
@@ -202,7 +202,7 @@ begin
          Dialogs := TViewDialogsMessages.New;
          Form_Android_Login.AddObject(
                                       Dialogs.DialogMessages
-                                                     .TipoMensagem(tpmErro_brancologin)
+                                                     .TipoMensagem(tpmErro_login_Senha)
                                                      .AcaoBotao(Procedure ()
                                                                 begin
                                                                  Dialogs := nil;
@@ -223,7 +223,7 @@ begin
         Dialogs := TViewDialogsMessages.New;
         Form_Android_Login.AddObject(
                                       Dialogs.DialogMessages
-                                                     .TipoMensagem(tpmErro_email)
+                                                     .TipoMensagem(tpmInvalido_login_email)
                                                      .AcaoBotao(Procedure ()
                                                                 begin
                                                                  Dialogs := nil;
@@ -288,23 +288,42 @@ end;
 procedure TForm_Android_Login.DisplayGaleria(Sender: TObject;
   const APermissions: TArray<string>; const APostProc: TProc);
 begin
-  //Implementar minha caixa de mensagens
-  tdialogService.ShowMessage('É necessário dar permissão para acessar sua galeria para prosseguir e adicionar foto ao perfil',
-                             Procedure (Const AResult: TModalResult)
-                             begin
-                              APostProc;
-                             end);
+  Dialogs := TViewDialogsMessages.New;
+  Form_Android_Login.AddObject(
+                               Dialogs.DialogMessages
+                                          .AcaoBotao(Procedure ()
+                                                     begin
+                                                      Dialogs := nil;
+                                                      APostProc;
+                                                     end)
+                                          .AcaoFundo(Procedure ()
+                                                     begin
+                                                      Dialogs := nil;
+                                                     end)
+                                          .TipoMensagem(tpmPermissao_solicitar_galeria)
+                                          .Exibe
+                               );
+
 end;
 
 procedure TForm_Android_Login.DisplayTirarFoto(Sender: TObject;
   const APermissions: TArray<string>; const APostProc: TProc);
 begin
-  //Implementar minha caixa de mensagens
-  tdialogService.ShowMessage('É necessário dar permissão para tirar fotos para prosseguir e adicionar foto ao perfil',
-                             Procedure (Const AResult: TModalResult)
-                             begin
-                              APostProc;
-                             end);
+  Dialogs := TViewDialogsMessages.New;
+  Form_Android_Login.AddObject(
+                               Dialogs.DialogMessages
+                                         .AcaoBotao(Procedure ()
+                                                    begin
+                                                     Dialogs := nil;
+                                                     APostProc;
+                                                    end)
+                                         .AcaoFundo(Procedure ()
+                                                    begin
+                                                     Dialogs := nil;
+                                                    end)
+                                         .TipoMensagem(tpmPermissao_solicitar_camera)
+                                         .Exibe
+                              );
 end;
 
 procedure TForm_Android_Login.FormCreate(Sender: TObject);
@@ -407,7 +426,22 @@ begin
      (AGrantResults[1] = TPermissionStatus.Granted) then
     ActFotoGaleria.Execute
    else
-    TDialogService.ShowMessage('Não foi possível acessar a camera devido a falta de permissões, ok?');
+    begin
+      Dialogs := TViewDialogsMessages.New;
+      Form_Android_Login.AddObject(
+                                   Dialogs.DialogMessages
+                                             .AcaoBotao(Procedure ()
+                                                        begin
+                                                          Dialogs := nil;
+                                                        end)
+                                             .AcaoFundo(Procedure ()
+                                                        begin
+                                                          Dialogs := nil;
+                                                        end)
+                                             .TipoMensagem(tpmPermissao_negada_galeria)
+                                             .Exibe
+                                  );
+    end;
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);
@@ -464,7 +498,22 @@ begin
      (AGrantResults[2] = TPermissionStatus.Granted) then
     ActFotoCamera.Execute
    else
-    TDialogService.ShowMessage('Não foi possível acessar a camera devido a falta de permissões, ok?');
+    begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Android_Login.AddObject(
+                                  Dialogs.DialogMessages
+                                              .AcaoBotao(Procedure ()
+                                                         begin
+                                                          Dialogs := nil;
+                                                         end)
+                                              .AcaoFundo(Procedure ()
+                                                         begin
+                                                          Dialogs := nil;
+                                                         end)
+                                              .TipoMensagem(tpmPermissao_negada_camera)
+                                              .Exibe
+                                   );
+    end;
 end;
 
 procedure TForm_Android_Login.UpdateKBBounds;

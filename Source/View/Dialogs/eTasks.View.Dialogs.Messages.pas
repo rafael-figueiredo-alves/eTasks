@@ -29,6 +29,11 @@ type
     btn_entendi: TImage;
     AnimaFundo: TFloatAnimation;
     AnimaDialogo: TFloatAnimation;
+    Img_conta_invalida: TImage;
+    Img_Permissao_solicita: TImage;
+    Img_Permissao_negada: TImage;
+    Img_Email_invalido: TImage;
+    Img_senha_invalida: TImage;
     procedure Button_messageClick(Sender: TObject);
     procedure RecEscurecerClick(Sender: TObject);
     procedure AnimaFundoFinish(Sender: TObject);
@@ -102,6 +107,13 @@ var
   FMargem : single;
 {$endif}
 begin
+  if (Length(Text_message.Text) < 90) then
+   Lay_caixa_msg.Height := 110
+  else
+   if (Length(Text_message.Text) >= 90) and (Length(Text_message.Text) <= 200) then
+    Lay_caixa_msg.Height := 150
+   else
+    Lay_caixa_msg.Height := 200;
   Result := Lay_dlg_messages;
   {$ifdef Mswindows}
   FMargem := (TForm(Self.Parent).Width - 320)/2;
@@ -149,46 +161,139 @@ begin
   Result := Self;
   FTipoMensagem := Value;
   case FTipoMensagem of
-    tpmErro_senha: Begin
-                    Img_message.Bitmap    := Img_erro.Bitmap;
-                    Button_message.Bitmap := btn_entendi.Bitmap;
-                    Text_message.Text     := ErroSenhaLogin;
-                   end;
-    tpmErro_email: Begin
-                    Img_message.Bitmap    := Img_erro.Bitmap;
-                    Button_message.Bitmap := btn_entendi.Bitmap;
-                    Text_message.Text     := ErroEmailLogin;
-                   end;
-    tpmErro_brancologin: Begin
-                          Img_message.Bitmap    := Img_erro.Bitmap;
+    //Mensagens referentes ao Login
+    tpmErro_login_Senha:
+                        begin
+                          Img_message.Bitmap    := Img_conta_invalida.Bitmap;
+                          Text_message.Text     := Erro_Senha_Login;
                           Button_message.Bitmap := btn_entendi.Bitmap;
-                          Text_message.Text     := ErroBrancoLogin;
-                         end;
-    tpmErro_senha_cad: Begin
-                        Img_message.Bitmap    := Img_erro.Bitmap;
-                        Button_message.Bitmap := btn_entendi.Bitmap;
-                        Text_message.Text     := ErroSenhaCad;
-                       end;
-    tpmErro_email_cad: Begin
-                        Img_message.Bitmap    := Img_erro.Bitmap;
-                        Button_message.Bitmap := btn_entendi.Bitmap;
-                        Text_message.Text     := ErroEmailCad;
-                       end;
-    tpm_branco_cad: Begin
-                      Img_message.Bitmap    := Img_erro.Bitmap;
-                      Button_message.Bitmap := btn_entendi.Bitmap;
-                      Text_message.Text     := ErroBrancoCad;
-                    end;
-    tpmEnvioEmail: Begin
-                    Img_message.Bitmap    := Img_email.Bitmap;
-                    Button_message.Bitmap := btn_entendi.Bitmap;
-                    Text_message.Text     := EnvioEmail;
-                   end;
-    tpmSucessoConta: Begin
-                      Img_message.Bitmap    := Img_sucesso.Bitmap;
-                      Button_message.Bitmap := Btn_comecar.Bitmap;
-                      Text_message.Text     := SucessoConta;
-                     end;
+                        end;
+    tpmErro_login_Email:
+                        begin
+                          Img_message.Bitmap    := Img_conta_invalida.Bitmap;
+                          Text_message.Text     := Erro_Email_Login;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_login_email:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_Email_Login;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_login_senha:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_Senha_Login;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmInvalido_login_email:
+                        begin
+                          Img_message.Bitmap    := Img_Email_invalido.Bitmap;
+                          Text_message.Text     := Invalido_email_login;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmInvalido_login_senha:
+                        begin
+                          Img_message.Bitmap    := Img_senha_invalida.Bitmap;
+                          Text_message.Text     := Invalido_senha_login;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+
+    //Mensagens referentes ao resetamento de senha
+    tpmErro_resetar_email:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Erro_resetar_senha;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmInvalido_resetar_email:
+                        begin
+                          Img_message.Bitmap    := Img_Email_invalido.Bitmap;
+                          Text_message.Text     := Invalido_email_resetar;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_resetar_email:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_email_resetar;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmSucesso_resetar:
+                        begin
+                          Img_message.Bitmap    := Img_email.Bitmap;
+                          Text_message.Text     := Sucesso_resetar_senha;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+
+    //Mensagens referentes as permissões de acesso a câmera e galeria
+    tpmPermissao_solicitar_camera:
+                        begin
+                          Img_message.Bitmap    := Img_Permissao_solicita.Bitmap;
+                          Text_message.Text     := Permissao_solicitar_camera;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmPermissao_negada_camera:
+                          begin
+                          Img_message.Bitmap    := Img_Permissao_negada.Bitmap;
+                          Text_message.Text     := Permissao_negada_camera;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmPermissao_solicitar_galeria:
+                        begin
+                          Img_message.Bitmap    := Img_Permissao_solicita.Bitmap;
+                          Text_message.Text     := Permissao_solicitar_galeria;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmPermissao_negada_galeria:
+                        begin
+                          Img_message.Bitmap    := Img_Permissao_negada.Bitmap;
+                          Text_message.Text     := Permissao_negada_galeria;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+
+    //Mensagens referentes a criação de conta de usuário
+    tpmErro_criar_conta:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Erro_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_criar_nome:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_nome_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_criar_email:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_email_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmBranco_criar_senha:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Branco_senha_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmInvalido_criar_email:
+                        begin
+                          Img_message.Bitmap    := Img_Email_invalido.Bitmap;
+                          Text_message.Text     := Invalido_email_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmInvalido_criar_senha:
+                        begin
+                          Img_message.Bitmap    := Img_senha_invalida.Bitmap;
+                          Text_message.Text     := Invalido_senha_criar_conta;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmSucesso_criar_conta:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Sucesso_criar_conta;
+                          Button_message.Bitmap := Btn_comecar.Bitmap;
+                        end;
   end;
 end;
 
