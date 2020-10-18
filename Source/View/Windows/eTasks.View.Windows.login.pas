@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.TabControl,
-  FMX.Layouts, FMX.Edit, FMX.Effects, eTasks.View.Dialogs.Factory;
+  FMX.Layouts, FMX.Edit, FMX.Effects, eTasks.View.Dialogs.Factory, FMX.Media,
+  FMX.Ani;
 
 type
   TForm_Windows_Login = class(TForm)
@@ -249,6 +250,7 @@ procedure TForm_Windows_Login.Btn_Login_mostrar_senhaClick(Sender: TObject);
 begin
    Edit_Login_Password.Password := not Edit_Login_Password.Password;
 end;
+
 
 procedure TForm_Windows_Login.Btn_Termos_privacidadeClick(Sender: TObject);
 begin
