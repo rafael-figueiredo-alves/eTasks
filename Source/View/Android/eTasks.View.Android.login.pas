@@ -118,6 +118,8 @@ type
     procedure RestorePosition;
     procedure UpdateKBBounds;
     Procedure CriarConta;
+    Procedure EfetuarLogin;
+    Procedure EsqueciSenha;
     Procedure TirarFotoPermissao (sender: TObject; Const APermissions: Tarray<string>;
                                   const AGrantResults: TArray<TPermissionStatus>);
     Procedure GaleriaPermissao (sender: TObject; Const APermissions: Tarray<string>;
@@ -167,7 +169,7 @@ end;
 
 procedure TForm_Android_Login.Btn_efetuar_loginClick(Sender: TObject);
 begin
-    Nav_Tela_Login.GotoVisibleTab(1);
+    EfetuarLogin;
 end;
 
 procedure TForm_Android_Login.Btn_EntrarClick(Sender: TObject);
@@ -202,7 +204,7 @@ begin
          Dialogs := TViewDialogsMessages.New;
          Form_Android_Login.AddObject(
                                       Dialogs.DialogMessages
-                                                     .TipoMensagem(tpmErro_login_Senha)
+                                                     .TipoMensagem(tpmBranco_login_Senha)
                                                      .AcaoBotao(Procedure ()
                                                                 begin
                                                                  Dialogs := nil;
@@ -218,12 +220,33 @@ begin
     end
    else
     begin
-      if not TRegEx.IsMatch(Edit_Login_email.Text, ValidEmails) then
+      if (not TRegEx.IsMatch(Edit_Login_email.Text, ValidEmails)) or (Length(Edit_Login_Password.Text) < 6) then
        begin
-        Dialogs := TViewDialogsMessages.New;
-        Form_Android_Login.AddObject(
-                                      Dialogs.DialogMessages
+        if not TRegEx.IsMatch(Edit_Login_email.Text, ValidEmails) then
+         begin
+          Dialogs := TViewDialogsMessages.New;
+          Form_Android_Login.AddObject(
+                                       Dialogs.DialogMessages
                                                      .TipoMensagem(tpmInvalido_login_email)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_Login_email.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                  Dialogs := nil;
+                                                                end)
+                                                     .Exibe);
+         end
+        else
+         begin
+          if Length(Edit_Login_Password.Text) < 6 then
+           begin
+            Dialogs := TViewDialogsMessages.New;
+            Form_Android_Login.AddObject(
+                                         Dialogs.DialogMessages
+                                                     .TipoMensagem(tpmInvalido_login_senha)
                                                      .AcaoBotao(Procedure ()
                                                                 begin
                                                                  Dialogs := nil;
@@ -234,19 +257,22 @@ begin
                                                                   Dialogs := nil;
                                                                 end)
                                                      .Exibe);
-       end;
+           end;
+         end;
+       end
+      else
+       //Login efetuado com sucesso
     end;
-
 end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
 begin
-   Nav_Tela_Login.GotoVisibleTab(3);
+   EsqueciSenha;
 end;
 
 procedure TForm_Android_Login.Btn_Esqueci_senha_VoltarClick(Sender: TObject);
 begin
-   Nav_Tela_Login.GotoVisibleTab(1);
+   EfetuarLogin;
 end;
 
 procedure TForm_Android_Login.Btn_Login_mostrar_senhaClick(Sender: TObject);
@@ -324,6 +350,19 @@ begin
                                          .TipoMensagem(tpmPermissao_solicitar_camera)
                                          .Exibe
                               );
+end;
+
+procedure TForm_Android_Login.EfetuarLogin;
+begin
+   Edit_Login_Password.Text := '';
+   Edit_Login_email.Text    := '';
+   Nav_Tela_Login.GotoVisibleTab(1);
+end;
+
+procedure TForm_Android_Login.EsqueciSenha;
+begin
+  Edit_esqueci_conta_email.Text := '';
+  Nav_Tela_Login.GotoVisibleTab(3);
 end;
 
 procedure TForm_Android_Login.FormCreate(Sender: TObject);
@@ -479,8 +518,7 @@ end;
 
 procedure TForm_Android_Login.Img_CriarConta_voltarClick(Sender: TObject);
 begin
-
-   Nav_Tela_Login.GotoVisibleTab(1);
+  efetuarLogin;
 end;
 
 procedure TForm_Android_Login.TabInicioClick(Sender: TObject);

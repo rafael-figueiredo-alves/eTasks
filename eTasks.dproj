@@ -6,7 +6,7 @@
         <MainSource>eTasks.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -226,12 +226,11 @@
         <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas">
             <Form>Form_Android_main</Form>
         </DCCReference>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas">
-            <Form>Form_Android_Login</Form>
-        </DCCReference>
         <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas">
             <Form>Form_Windows_Login</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.main.pas">
+            <Form>Form_Windows_main</Form>
         </DCCReference>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
             <Form>Sheet_fotos</Form>

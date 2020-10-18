@@ -87,8 +87,14 @@ end;
 
 function TViewDialogsMessages.SheetFotos: TSheet_fotos;
 begin
-  if not assigned(FSheetFotos) then
+  if not Assigned(FSheetFotos) then
+  {$ifdef Android}
    FSheetFotos := TSheet_fotos.Create(nil);
+  {$endif}
+  {$ifdef MSWindows}
+   FSheetFotos := TSheet_fotos.Create(nil);
+   FSheetFotos.Parent := TFmxObject(FPai);
+  {$endif}
   Result := FSheetFotos;
 end;
 

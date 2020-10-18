@@ -112,6 +112,12 @@ end;
 
 function TSheet_fotos.Exibe: TLayout;
 begin
+   {$ifdef MSWINDOWS}
+   Lay_caixa_msg.Width := (TForm(Self.Parent)).Width;
+   Lay_caixa_msg.Position.Y := (TForm(Self.Parent)).Height + 260;
+   AnimaSheet.StartValue := Lay_caixa_msg.Position.Y;
+   AnimaSheet.StopValue  := (TForm(Self.Parent)).Height - 260;
+   {$Endif}
    Result := Lay_sheet_fotos;
    AnimaFundo.Start;
    AnimaSheet.Start;
@@ -124,10 +130,12 @@ end;
 
 procedure TSheet_fotos.FormCreate(Sender: TObject);
 begin
+    {$ifdef Android}
     Lay_caixa_msg.Width := Screen.Width;
     Lay_caixa_msg.Position.Y := Screen.Height + 240;
     AnimaSheet.StartValue := Lay_caixa_msg.Position.Y;
     AnimaSheet.StopValue  := Screen.Height - 240;
+    {$endif}
     AnimaSheet.Inverse := False;
     AnimaFundo.Inverse := False;
     FTipoAcao := taFundo;
