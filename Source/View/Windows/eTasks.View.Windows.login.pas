@@ -90,6 +90,7 @@ type
     Lay_suporte_1: TLayout;
     Lay_suporte_central: TLayout;
     TimerSplash: TTimer;
+    SelecionaFoto: TOpenDialog;
     procedure FormResize(Sender: TObject);
     procedure TimerSplashTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -106,9 +107,10 @@ type
     procedure Btn_EntrarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure Btn_Esqueci_conta_enviarClick(Sender: TObject);
+    procedure Btn_criar_conta_criarClick(Sender: TObject);
   private
     { Private declarations }
-    Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
     Termos      : iViewDialogsFactory;
     Procedure EfetuarLogin;
@@ -134,6 +136,105 @@ Const
 procedure TForm_Windows_Login.Btn_criar_contaClick(Sender: TObject);
 begin
   CriarConta;
+end;
+
+procedure TForm_Windows_Login.Btn_criar_conta_criarClick(Sender: TObject);
+begin
+  if (Edit_criar_conta_nome.Text.IsEmpty) then
+   begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmBranco_criar_nome)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_criar_conta_nome.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+   end;
+  if (Edit_Criar_conta_email.Text.IsEmpty) then
+   begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmBranco_criar_email)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_criar_conta_email.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+   end;
+  if (Edit_criar_conta_senha.Text.IsEmpty) then
+   begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmBranco_criar_senha)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_criar_conta_senha.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+   end;
+  if not TRegEx.IsMatch(Edit_Criar_conta_email.Text, ValidEmails) then
+   begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmInvalido_criar_email)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_criar_conta_email.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+   end;
+  if Length(Edit_criar_conta_senha.Text) < 6 then
+   begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmInvalido_criar_senha)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_criar_conta_senha.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+   end;
 end;
 
 procedure TForm_Windows_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -241,6 +342,53 @@ begin
    EsqueciSenha;
 end;
 
+procedure TForm_Windows_Login.Btn_Esqueci_conta_enviarClick(Sender: TObject);
+begin
+  if (Edit_esqueci_conta_email.Text.IsEmpty) then
+   begin
+     Dialogs := tViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                    .TipoMensagem(tpmBranco_resetar_email)
+                                                    .AcaoBotao(Procedure()
+                                                               begin
+                                                                Dialogs := nil;
+                                                                Edit_esqueci_conta_email.SetFocus;
+                                                               end)
+                                                    .AcaoFundo(Procedure ()
+                                                               begin
+                                                                Dialogs := nil;
+                                                               end)
+                                                    .Exibe
+                                 );
+   end
+  else
+   begin
+    if not TRegEx.IsMatch(Edit_esqueci_conta_email.Text, ValidEmails) then
+     begin
+       Dialogs := tViewDialogsMessages.New;
+       Form_Windows_Login.AddObject(
+                                    Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tpmInvalido_resetar_email)
+                                                     .AcaoBotao(Procedure()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 Edit_esqueci_conta_email.SetFocus;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                   );
+     end
+    else
+     begin
+
+     end;
+   end;
+end;
+
 procedure TForm_Windows_Login.Btn_Esqueci_senha_VoltarClick(Sender: TObject);
 begin
   EfetuarLogin;
@@ -294,12 +442,8 @@ procedure TForm_Windows_Login.FormKeyUp(Sender: TObject; var Key: Word;
 begin
   if Key = vkEscape then
    begin
-    if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Termos)) then
+    if (Assigned(Dialogs)) or (Assigned(Termos)) then
      begin
-      if Assigned(sheet_fotos) then
-       begin
-        Sheet_fotos.SheetFotos.Fechar;
-       end;
       if Assigned(dialogs) then
        begin
         dialogs.DialogMessages.Fechar;
@@ -350,24 +494,8 @@ end;
 
 procedure TForm_Windows_Login.Foto_usuarioClick(Sender: TObject);
 begin
-  Sheet_fotos := TViewDialogsMessages.New;
-  Form_Windows_Login.AddObject(
-                               Sheet_fotos.Pai(Self).SheetFotos
-                                                   .AcaoFundo(Procedure ()
-                                                              Begin
-                                                               Sheet_fotos := nil;
-                                                              end)
-                                                   .AcaoFoto(Procedure ()
-                                                             begin
-                                                              Sheet_fotos := nil;
-                                                              //PermissionsService.RequestPermissions(tLibraryAndroid.PermissaoCamera, TirarFotoPermissao, DisplayTirarFoto);
-                                                             end)
-                                                   .AcaoGaleria(Procedure ()
-                                                             begin
-                                                              Sheet_fotos := nil;
-                                                              //PermissionsService.RequestPermissions(tLibraryAndroid.PermissaoGaleria, GaleriaPermissao, DisplayGaleria);
-                                                             end)
-                                                   .Exibe);
+  if SelecionaFoto.Execute then
+   Foto_usuario.Fill.Bitmap.Bitmap.LoadFromFile(SelecionaFoto.FileName);
 end;
 
 procedure TForm_Windows_Login.Img_CriarConta_voltarClick(Sender: TObject);

@@ -38,11 +38,30 @@
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="Win64\Debug\eTasks.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>eTasks.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
             <RemoteName>Logo44x44.png</RemoteName>
             <DeployClass>UWP_DelphiLogo44</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="eTasks.todo" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>eTasks.todo</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
