@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.TabControl,
   FMX.Layouts, FMX.Edit, FMX.Effects, eTasks.View.Dialogs.Factory, FMX.Media,
-  FMX.Ani;
+  FMX.Ani, FMX.Menus;
 
 type
   TForm_Windows_Login = class(TForm)
@@ -113,9 +113,12 @@ type
     { Private declarations }
     Dialogs     : iViewDialogsFactory;
     Termos      : iViewDialogsFactory;
+    sheet_fotos : iViewDialogsFactory;
     Procedure EfetuarLogin;
     Procedure CriarConta;
     Procedure EsqueciSenha;
+    Procedure TirarFotoCamera;
+    Procedure PegarFotoGaleria;
   public
     { Public declarations }
   end;
@@ -126,7 +129,8 @@ var
 implementation
 
 uses
-  eTasks.View.Dialogs.Messages.Consts, System.RegularExpressions;
+  eTasks.View.Dialogs.Messages.Consts, System.RegularExpressions,
+  eTasks.View.Dialogs.TirarFoto, eTasks.Controller.Login, eTasks.View.Windows.main;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -139,6 +143,8 @@ begin
 end;
 
 procedure TForm_Windows_Login.Btn_criar_conta_criarClick(Sender: TObject);
+Var
+ Erro : integer;
 begin
   if (Edit_criar_conta_nome.Text.IsEmpty) then
    begin
@@ -235,6 +241,36 @@ begin
                                  );
      exit
    end;
+   tControllerLogin.New
+                     .Password(Edit_criar_conta_senha.Text)
+                     .Email(Edit_Criar_conta_email.Text)
+                     .CriarConta(Erro);
+   if erro = -1 then
+    begin
+      if not Assigned(Form_windows_main) then
+       Application.CreateForm(TForm_windows_main, Form_windows_main);
+      Application.MainForm := Form_windows_main;
+      Form_windows_main.Show;
+      Close;
+    end
+   else
+    begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+    end;
 end;
 
 procedure TForm_Windows_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -494,8 +530,24 @@ end;
 
 procedure TForm_Windows_Login.Foto_usuarioClick(Sender: TObject);
 begin
-  if SelecionaFoto.Execute then
-   Foto_usuario.Fill.Bitmap.Bitmap.LoadFromFile(SelecionaFoto.FileName);
+  Sheet_fotos := TViewDialogsMessages.New;
+  Form_windows_Login.AddObject(
+                               Sheet_fotos.Pai(self).SheetFotos
+                                                   .AcaoFundo(Procedure ()
+                                                              Begin
+                                                               Sheet_fotos := nil;
+                                                              end)
+                                                   .AcaoFoto(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              TirarFotoCamera;
+                                                             end)
+                                                   .AcaoGaleria(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              PegarFotoGaleria;
+                                                             end)
+                                                   .Exibe);
 end;
 
 procedure TForm_Windows_Login.Img_CriarConta_voltarClick(Sender: TObject);
@@ -508,11 +560,35 @@ begin
   CriarConta;
 end;
 
+procedure TForm_Windows_Login.PegarFotoGaleria;
+begin
+  if SelecionaFoto.Execute then
+   Foto_usuario.Fill.Bitmap.Bitmap.LoadFromFile(SelecionaFoto.FileName);
+end;
+
 procedure TForm_Windows_Login.TimerSplashTimer(Sender: TObject);
 begin
   TabPrincipal.Next();
   Nav_Tela_Login.ActiveTab := TabInicio;
   TimerSplash.Enabled := False;
+end;
+
+procedure TForm_Windows_Login.TirarFotoCamera;
+Var
+ form_camera : TForm_camera;
+begin
+  if not Assigned(form_camera) then
+   Application.CreateForm(TForm_Camera, form_camera);
+  try
+   form_camera.ShowModal(Procedure (ModalResult : TModalResult)
+                         begin
+                          if ModalResult = mrOk then
+                           Foto_usuario.Fill.Bitmap.Bitmap := form_camera.Imagem;
+                         end);
+
+  finally
+   form_camera.DisposeOf;
+  end;
 end;
 
 end.

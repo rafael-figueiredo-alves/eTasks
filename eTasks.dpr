@@ -3,11 +3,13 @@ program eTasks;
 uses
   System.StartUpCopy,
   {$IFDEF ANDROID}
-  eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas' {Form_Android_main},
-  eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas' {Form_Android_login},
+  eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
+  eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas', {Form_Android_login}
+  eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas', {Form_android_main}
   {$ENDIF }
   {$IFDEF MSWINDOWS}
-  eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
+  eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas', {Form_windows_login}
+  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',  {Form_windows_main}
   {$ENDIF }
   FMX.Forms,
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
@@ -17,7 +19,12 @@ uses
   eTasks.View.Dialogs.Factory in 'Source\View\Dialogs\eTasks.View.Dialogs.Factory.pas',
   eTasks.Model.LoggedUser in 'Source\Model\eTasks.Model.LoggedUser.pas',
   eTasks.Model.Interfaces in 'Source\Model\eTasks.Model.Interfaces.pas',
-  eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas';
+  eTasks.View.Dialogs.TirarFoto in 'Source\View\Dialogs\eTasks.View.Dialogs.TirarFoto.pas' {Form_Camera},
+  eTasks.Model.Auth in 'Source\Model\eTasks.Model.Auth.pas',
+  eTasks.Model.Consts in 'Source\Model\eTasks.Model.Consts.pas',
+  eTasks.Controller.Interfaces in 'Source\Controller\eTasks.Controller.Interfaces.pas',
+  eTasks.Controller.Login in 'Source\Controller\eTasks.Controller.Login.pas',
+  eTasks.Model.Factory in 'Source\Model\eTasks.Model.Factory.pas';
 
 {$R *.res}
 
@@ -39,4 +46,5 @@ begin
   {$ENDIF}
   Application.Run;
 end.
+
 

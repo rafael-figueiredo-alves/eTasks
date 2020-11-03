@@ -6,7 +6,7 @@
         <MainSource>eTasks.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -222,13 +222,9 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas">
-            <Form>Form_Android_main</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas">
-            <Form>Form_Android_login</Form>
-        </DCCReference>
+        <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
         <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.main.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
             <Form>Sheet_fotos</Form>
         </DCCReference>
@@ -242,7 +238,14 @@
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Factory.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.LoggedUser.pas"/>
         <DCCReference Include="Source\Model\eTasks.Model.Interfaces.pas"/>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.TirarFoto.pas">
+            <Form>Form_Camera</Form>
+        </DCCReference>
+        <DCCReference Include="Source\Model\eTasks.Model.Auth.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Consts.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Interfaces.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Login.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Factory.pas"/>
         <None Include="eTasks.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

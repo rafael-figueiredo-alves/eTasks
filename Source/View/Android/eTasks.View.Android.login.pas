@@ -143,7 +143,7 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -164,6 +164,8 @@ begin
 end;
 
 procedure TForm_Android_Login.Btn_criar_conta_criarClick(Sender: TObject);
+Var
+  Erro : Integer;
 begin
   if (Edit_criar_conta_nome.Text.IsEmpty) then
    begin
@@ -260,6 +262,35 @@ begin
                                  );
      exit
    end;
+   tControllerLogin.New
+                     .Email(Edit_Criar_conta_email.Text)
+                     .Password(Edit_criar_conta_senha.Text)
+                     .CriarConta(erro);
+   if erro = -1 then
+    begin
+      if not Assigned(Form_android_main) then
+       Application.CreateForm(TForm_Android_main, Form_Android_main);
+      Application.MainForm := Form_Android_main;
+      Form_Android_main.Show;
+      Close;
+    end
+   else
+    begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Android_Login.AddObject(
+                                  Dialogs.DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+    end;
 end;
 
 procedure TForm_Android_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -582,7 +613,14 @@ begin
 end;
 
 procedure TForm_Android_Login.Foto_usuarioClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
 begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
   Sheet_fotos := TViewDialogsMessages.New;
   Form_Android_Login.AddObject(
                                Sheet_fotos.SheetFotos

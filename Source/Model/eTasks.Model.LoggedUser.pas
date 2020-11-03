@@ -11,6 +11,7 @@ Type
      FEmail : String;
      FPassword : String;
      FToken : String;
+     FRefreshToken : string;
      FuID : String;
      FFoto : String;
      FLogged : string;
@@ -27,6 +28,8 @@ Type
      Function Password (Value : String) : iModelLoggedUser; Overload;
      Function Token : String; Overload;
      Function Token (Value : String) : iModelLoggedUser; Overload;
+     Function RefreshToken : String; Overload;
+     Function RefreshToken (Value : String) : iModelLoggedUser; Overload;
      Function uID : string; Overload;
      Function uID (Value : String) : iModelLoggedUser; Overload;
      Function Foto : String; Overload;
@@ -46,7 +49,7 @@ implementation
 
 Uses
   System.IOUtils, System.SysUtils, inifiles, IdCoder,
-  IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent;
+  IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent {$ifdef Android}, Posix.Unistd {$endif} ;
 
 function TModelLoggedUser.Conectar: iModelLoggedUser;
 Var
@@ -62,12 +65,13 @@ begin
     UserInfo.WriteString('LoggedUser', 'Password', FPassword);
     UserInfo.WriteString('LoggedUser', 'uID', FuID);
     UserInfo.WriteString('LoggedUser', 'Token', FToken);
+    UserInfo.WriteString('LoggedUser', 'RefreshToken', FRefreshToken);
     UserInfo.WriteString('LoggedUser', 'Foto', FFoto);
     UserInfo.WriteString('LoggedUser', 'Logged', FLogged);
   Finally
     UserInfo.DisposeOf;
   End;
-end;  
+end;
 
 constructor TModelLoggedUser.Create;
 Var
@@ -82,6 +86,7 @@ begin
     FPassword := UserInfo.ReadString('LoggedUser', 'Password', '');
     FuID := UserInfo.ReadString('LoggedUser', 'uID', '');
     FToken := UserInfo.ReadString('LoggedUser', 'Token', '');
+    FRefreshToken := UserInfo.ReadString('LoggedUser', 'RefreshToken', '');
     FFoto := UserInfo.ReadString('LoggedUser', 'Foto', '');
     FLogged := UserInfo.ReadString('LoggedUser', 'Logged', '');
   Finally
@@ -172,6 +177,17 @@ begin
   finally
     FEncoder.DisposeOf;
   end;
+end;
+
+function TModelLoggedUser.RefreshToken(Value: String): iModelLoggedUser;
+begin
+  Result := Self;
+  FRefreshToken := Value;
+end;
+
+function TModelLoggedUser.RefreshToken: String;
+begin
+  Result := FRefreshToken;
 end;
 
 function TModelLoggedUser.Token(Value: String): iModelLoggedUser;
