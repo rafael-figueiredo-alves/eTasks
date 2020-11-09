@@ -10,6 +10,9 @@ type
     Function Email (Value : String) : iControllerLogin;
     Function Foto (value : string) : iControllerLogin;
     Function CriarConta (out Erro : integer) : iControllerLogin;
+    Function EfetuarLogin (Out Erro : integer) : iControllerLogin;
+    Function EfetuarLogout : Boolean;
+    Function EsqueciConta (out erro : integer) : boolean;
   end;
 
 implementation

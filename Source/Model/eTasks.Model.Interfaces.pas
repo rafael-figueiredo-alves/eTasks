@@ -27,7 +27,7 @@ Type
     Function Foto (Value : String) : iModelLoggedUser; Overload;
     Function Logged : string; Overload;
     Function Logged (Value : string) : iModelLoggedUser; Overload;
-    Function Conectar : iModelLoggedUser;
+    Function Conectar : Boolean;
     Function Logout : Boolean;
   end;
 

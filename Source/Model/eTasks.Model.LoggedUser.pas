@@ -36,7 +36,7 @@ Type
      Function Foto (Value : String) : iModelLoggedUser; Overload;
      Function Logged : string; Overload;
      Function Logged (Value : string) : iModelLoggedUser; Overload;
-     Function Conectar : iModelLoggedUser;
+     Function Conectar : Boolean;
      Function Logout : Boolean;
   End;
 
@@ -51,12 +51,11 @@ Uses
   System.IOUtils, System.SysUtils, inifiles, IdCoder,
   IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent {$ifdef Android}, Posix.Unistd {$endif} ;
 
-function TModelLoggedUser.Conectar: iModelLoggedUser;
+function TModelLoggedUser.Conectar: Boolean;
 Var
   UserInfo : TIniFile;
   arq_ini  : String;
 begin
-  Result := Self;
   arq_ini := TPath.Combine(TPath.GetDocumentsPath, File_User);
   UserInfo := TIniFile.Create(arq_ini);
   Try
@@ -68,6 +67,7 @@ begin
     UserInfo.WriteString('LoggedUser', 'RefreshToken', FRefreshToken);
     UserInfo.WriteString('LoggedUser', 'Foto', FFoto);
     UserInfo.WriteString('LoggedUser', 'Logged', FLogged);
+    Result := True;
   Finally
     UserInfo.DisposeOf;
   End;

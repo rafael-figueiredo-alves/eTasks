@@ -130,7 +130,8 @@ implementation
 
 uses
   eTasks.View.Dialogs.Messages.Consts, System.RegularExpressions,
-  eTasks.View.Dialogs.TirarFoto, eTasks.Controller.Login, eTasks.View.Windows.main;
+  eTasks.View.Dialogs.TirarFoto, eTasks.Controller.Login, eTasks.View.Windows.main,
+  eTasks.libraries.Imagens64;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -242,7 +243,9 @@ begin
      exit
    end;
    tControllerLogin.New
+                     .Nome(Edit_criar_conta_nome.Text)
                      .Password(Edit_criar_conta_senha.Text)
+                     .Foto(timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap))
                      .Email(Edit_Criar_conta_email.Text)
                      .CriarConta(Erro);
    if erro = -1 then
@@ -285,6 +288,8 @@ begin
 end;
 
 procedure TForm_Windows_Login.Btn_EntrarClick(Sender: TObject);
+Var
+  Erro : integer;
 begin
    if (Edit_Login_email.Text.IsEmpty) Or (Edit_Login_Password.Text.IsEmpty) then
     begin
@@ -371,6 +376,36 @@ begin
       else
        ShowMessage('Login efetuado com sucesso');
     end;
+   tControllerLogin.New
+                     .Password(Edit_Login_Password.Text)
+                     .Email(Edit_Login_email.Text)
+                     .EfetuarLogin(Erro);
+   if erro = -1 then
+    begin
+      if not Assigned(Form_windows_main) then
+       Application.CreateForm(TForm_windows_main, Form_windows_main);
+      Application.MainForm := Form_windows_main;
+      Form_windows_main.Show;
+      Close;
+    end
+   else
+    begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Windows_Login.AddObject(
+                                  Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+    end;
 end;
 
 procedure TForm_Windows_Login.Btn_esqueci_contaClick(Sender: TObject);
@@ -379,6 +414,8 @@ begin
 end;
 
 procedure TForm_Windows_Login.Btn_Esqueci_conta_enviarClick(Sender: TObject);
+var
+  Erro : integer;
 begin
   if (Edit_esqueci_conta_email.Text.IsEmpty) then
    begin
@@ -420,7 +457,44 @@ begin
      end
     else
      begin
-
+     begin
+       if tControllerLogin.New.Email(Edit_esqueci_conta_email.Text).EsqueciConta(erro) then
+        begin
+         Dialogs := TViewDialogsMessages.New;
+         Form_Windows_Login.AddObject(
+                                      Dialogs.Pai(self).DialogMessages
+                                                         .TipoMensagem(tpmSucesso_resetar)
+                                                         .AcaoBotao(Procedure ()
+                                                                    begin
+                                                                     Dialogs := nil;
+                                                                     EfetuarLogin;
+                                                                    end)
+                                                         .AcaoFundo(Procedure ()
+                                                                    begin
+                                                                     Dialogs := nil;
+                                                                     EfetuarLogin
+                                                                    end)
+                                                         .Exibe
+                                      );
+        end
+       else
+        begin
+         Dialogs := TViewDialogsMessages.New;
+         Form_windows_Login.AddObject(
+                                      Dialogs.Pai(self).DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+        end;
+    end;
      end;
    end;
 end;

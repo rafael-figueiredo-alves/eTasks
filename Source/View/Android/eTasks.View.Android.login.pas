@@ -108,6 +108,7 @@ type
     procedure ActFotoGaleriaDidFinishTaking(Image: TBitmap);
     procedure Btn_Esqueci_conta_enviarClick(Sender: TObject);
     procedure Btn_criar_conta_criarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -166,7 +167,13 @@ end;
 procedure TForm_Android_Login.Btn_criar_conta_criarClick(Sender: TObject);
 Var
   Erro : Integer;
+  FService : IFMXVirtualKeyboardService;
 begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
   if (Edit_criar_conta_nome.Text.IsEmpty) then
    begin
      Dialogs := TViewDialogsMessages.New;
@@ -265,6 +272,7 @@ begin
    tControllerLogin.New
                      .Email(Edit_Criar_conta_email.Text)
                      .Password(Edit_criar_conta_senha.Text)
+                     .Nome(Edit_criar_conta_nome.Text)
                      .CriarConta(erro);
    if erro = -1 then
     begin
@@ -305,11 +313,15 @@ begin
 end;
 
 procedure TForm_Android_Login.Btn_EntrarClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
+ Erro     : integer;
 begin
-     {Application.CreateForm(TForm_Android_main, Form_Android_Main);
-     Application.MainForm := Form_Android_main;
-     Form_Android_main.Show;
-     Close;}
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
    if (Edit_Login_email.Text.IsEmpty) Or (Edit_Login_Password.Text.IsEmpty) then
     begin
      if Edit_Login_email.Text.IsEmpty then
@@ -393,17 +405,61 @@ begin
          end;
        end
       else
-       //Login efetuado com sucesso
+   tControllerLogin.New
+                     .Password(Edit_Login_Password.Text)
+                     .Email(Edit_Login_email.Text)
+                     .EfetuarLogin(Erro);
+   if erro = -1 then
+    begin
+      if not Assigned(Form_Android_main) then
+       Application.CreateForm(TForm_Android_main, Form_Android_main);
+      Application.MainForm := Form_Android_main;
+      Form_Android_main.Show;
+      Close;
+    end
+   else
+    begin
+     Dialogs := TViewDialogsMessages.New;
+     Form_Android_Login.AddObject(
+                                  Dialogs.DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+     exit
+    end;
     end;
 end;
 
 procedure TForm_Android_Login.Btn_esqueci_contaClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
 begin
-   EsqueciSenha;
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
+  EsqueciSenha;
 end;
 
 procedure TForm_Android_Login.Btn_Esqueci_conta_enviarClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
+ Erro : integer;
 begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
   if (Edit_esqueci_conta_email.Text.IsEmpty) then
    begin
      Dialogs := tViewDialogsMessages.New;
@@ -443,8 +499,43 @@ begin
      end
     else
      begin
-
-     end;
+       if tControllerLogin.New.Email(Edit_esqueci_conta_email.Text).EsqueciConta(erro) then
+        begin
+         Dialogs := TViewDialogsMessages.New;
+         Form_Android_Login.AddObject(
+                                      Dialogs.DialogMessages
+                                                     .TipoMensagem(tpmSucesso_resetar)
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 EfetuarLogin;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                 EfetuarLogin
+                                                                end)
+                                                     .Exibe
+                                 );
+        end
+       else
+        begin
+         Dialogs := TViewDialogsMessages.New;
+         Form_Android_Login.AddObject(
+                                      Dialogs.DialogMessages
+                                                     .TipoMensagem(tTipoMensagem(erro))
+                                                     .AcaoBotao(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .AcaoFundo(Procedure ()
+                                                                begin
+                                                                 Dialogs := nil;
+                                                                end)
+                                                     .Exibe
+                                 );
+        end;
+    end;
    end;
 end;
 
@@ -459,7 +550,14 @@ begin
 end;
 
 procedure TForm_Android_Login.Btn_Termos_privacidadeClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
 begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
   Termos := TViewDialogsMessages.New;
   Form_Android_Login.AddObject(
                                Termos.DialogTermos
@@ -595,6 +693,18 @@ begin
     end;
 end;
 
+procedure TForm_Android_Login.FormShow(Sender: TObject);
+begin
+  Nav_Tela_Login.ActiveTab := TabInicio;
+  Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+  Edit_criar_conta_nome.Text  := '';
+  Edit_Criar_conta_email.Text := '';
+  Edit_criar_conta_senha.Text := '';
+  Edit_esqueci_conta_email.Text := '';
+  Edit_Login_Password.Text := '';
+  Edit_Login_email.Text    := '';
+end;
+
 procedure TForm_Android_Login.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
@@ -669,8 +779,15 @@ begin
 end;
 
 procedure TForm_Android_Login.Link_criar_contaClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
 begin
-   CriarConta;
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
+  CriarConta;
 end;
 
 procedure TForm_Android_Login.Nav_Tela_LoginChange(Sender: TObject);

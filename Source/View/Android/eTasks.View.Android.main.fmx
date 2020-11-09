@@ -9,5 +9,13 @@ object Form_Android_main: TForm_Android_main
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
+  object Button1: TButton
+    Position.X = 128.000000000000000000
+    Position.Y = 64.000000000000000000
+    TabOrder = 0
+    Text = 'Button1'
+    OnClick = Button1Click
+  end
 end

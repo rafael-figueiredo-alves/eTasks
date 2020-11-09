@@ -21,12 +21,15 @@ Type
      Function Email (Value : String) : iControllerLogin;
      Function Foto (value : string) : iControllerLogin;
      Function CriarConta (out Erro : integer) : iControllerLogin;
+     Function EfetuarLogin (Out Erro : integer) : iControllerLogin;
+     Function EfetuarLogout : Boolean;
+     Function EsqueciConta (out erro : integer) : boolean;
   End;
 
 implementation
 
 uses
-  eTasks.Model.Interfaces, eTasks.Model.Factory;
+  eTasks.Model.Interfaces, eTasks.Model.Factory, System.SysUtils;
 
 { TControllerLogin }
 
@@ -57,7 +60,19 @@ begin
       erro := integer(tpmInvalido_criar_senha);
    end
   else
-   Erro := -1;
+   begin
+    TModelFactory.New.LoggedUser
+                       .Nome(FNome)
+                       .Email(FEmail)
+                       .Password(FPassword)
+                       .Token(auth_credentials.idToken)
+                       .RefreshToken(auth_credentials.RefreshToken)
+                       .uID(auth_credentials.uID)
+                       .Foto(FFoto)
+                       .Logged(DateTimeToStr(now))
+                       .Conectar;
+    Erro := -1;
+   end;
 end;
 
 destructor TControllerLogin.Destroy;
@@ -66,10 +81,66 @@ begin
   inherited;
 end;
 
+function TControllerLogin.EfetuarLogin(out Erro: integer): iControllerLogin;
+Var
+ auth_credentials : TAuthUser;
+ error : string;
+begin
+  Result := self;
+  Erro := -1;
+  auth_credentials := TModelFactory.New.Auth
+                                        .Email(FEmail)
+                                        .Password(FPassword)
+                                        .EfetuarLogin(error);
+
+  if (error <> '') then
+   begin
+     if error = 'Email não existe' then
+      Erro := integer(tpmErro_login_Email);
+     if error = 'Senha invalida' then
+      Erro := integer(tpmErro_login_senha);
+     if error = 'Usuário desativado' then          //Criar um tipo para este erro
+      erro := integer(tpmErro_login_Email);
+   end
+  else
+   begin
+    TModelFactory.New.LoggedUser
+                       .Nome(FNome)
+                       .Email(FEmail)
+                       .Password(FPassword)
+                       .Token(auth_credentials.idToken)
+                       .RefreshToken(auth_credentials.RefreshToken)
+                       .uID(auth_credentials.uID)
+                       .Foto(FFoto)
+                       .Logged(DateTimeToStr(now))
+                       .Conectar;
+    Erro := -1;
+   end;
+end;
+
+function TControllerLogin.EfetuarLogout: Boolean;
+begin
+  Result := TModelFactory.New.LoggedUser.Logout;
+end;
+
 function TControllerLogin.Email(Value: String): iControllerLogin;
 begin
    Result := Self;
    FEmail := Value;
+end;
+
+function TControllerLogin.EsqueciConta(out erro: integer): boolean;
+Var
+ error : string;
+begin
+  Erro := -1;
+  Result := TModelFactory.New.Auth.Email(FEmail).EsqueciConta(error);
+
+  if (error <> '') then
+   begin
+     if error = 'Email não existe' then
+      Erro := integer(tpmErro_resetar_email);
+   end;
 end;
 
 function TControllerLogin.Foto(value: string): iControllerLogin;

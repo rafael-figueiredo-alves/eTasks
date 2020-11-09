@@ -80,7 +80,7 @@ begin
     Result.RefreshToken := LRefresh;
 
    if Obj.TryGetValue('localId', LuID) then
-    Result.uID := LRefresh;
+    Result.uID := LuID;
 
    if Obj.TryGetValue('error', ObjError) then
     begin
@@ -104,8 +104,54 @@ begin
 end;
 
 function TModelAuth.EfetuarLogin(out Erro: String): TAuthUser;
+Var
+ Auth         : iFirebaseAuth;
+ AResponse    : IFirebaseResponse;
+ Resposta     : TJSONValue;
+ LToken       : string;
+ LRefresh     : string;
+ LuID         : string;
+ Obj          : TJSONObject;
+ ObjError     : TJSONObject;
+ ErrorMessage : string;
 begin
+  Auth := TFirebaseAuth.Create;
+  Auth.SetApiKey(Firebase_api_key);
+  AResponse := Auth.SignInWithEmailAndPassword(FEmail, FPassword);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
 
+   Obj := Resposta as TJSONObject;
+
+   Erro := '';
+
+   if Obj.TryGetValue('idToken', ltoken) then
+    Result.idToken := LToken;
+
+   if Obj.TryGetValue('refreshToken', LRefresh) then
+    Result.RefreshToken := LRefresh;
+
+   if Obj.TryGetValue('localId', LuID) then
+    Result.uID := LuID;
+
+   if Obj.TryGetValue('error', ObjError) then
+    begin
+      ObjError.TryGetValue('message', ErrorMessage);
+      if ErrorMessage = 'EMAIL_NOT_FOUND' then
+       Erro := 'Email não existe'
+      else if ErrorMessage = 'INVALID_PASSWORD' then
+       erro := 'Senha invalida'
+      else if (Pos('USER_DISABLED', ErrorMessage) > 0) then
+       erro :=  'Usuário desativado';
+    end;
+
+    if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 function TModelAuth.Email(Value: String): iModelAuth;
@@ -115,8 +161,43 @@ begin
 end;
 
 function TModelAuth.EsqueciConta(out Erro: String): Boolean;
+Var
+ Auth         : iFirebaseAuth;
+ AResponse    : IFirebaseResponse;
+ Resposta     : TJSONValue;
+ Obj          : TJSONObject;
+ ObjError     : TJSONObject;
+ ErrorMessage : string;
 begin
-   Result := False;
+  Auth := TFirebaseAuth.Create;
+  Auth.SetApiKey(Firebase_api_key);
+  AResponse := Auth.SendResetPassword(FEmail);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
+
+   Obj := Resposta as TJSONObject;
+
+   Erro := '';
+
+   if Obj.TryGetValue('error', ObjError) then
+    begin
+      ObjError.TryGetValue('message', ErrorMessage);
+      if ErrorMessage = 'EMAIL_NOT_FOUND' then
+       Erro := 'Email não existe';
+    end;
+
+    if Erro = '' then
+     Result := True
+    else
+     Result := false;
+
+    if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 function TModelAuth.Foto(Value: String): iModelAuth;
