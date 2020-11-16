@@ -63,6 +63,12 @@ end;
 
 procedure TForm_Camera.FormCreate(Sender: TObject);
 begin
+  {$ifdef Android}
+  Imagem_camera.WrapMode := TImageWrapMode.Stretch;
+  {$endif}
+  {$ifdef MSWindows}
+  Imagem_camera.WrapMode := TImageWrapMode.Fit;
+  {$endif}
   TThread.Synchronize(tthread.Current, LigarCamera);
 end;
 

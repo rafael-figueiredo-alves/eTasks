@@ -71,6 +71,12 @@ begin
                        .Foto(FFoto)
                        .Logged(DateTimeToStr(now))
                        .Conectar;
+    TModelFactory.New.Usuario
+                       .uID(auth_credentials.uID)
+                       .Foto(FFoto)
+                       .Email(FEmail)
+                       .Nome(FNome)
+                       .Gravar(auth_credentials.idToken, error);
     Erro := -1;
    end;
 end;
@@ -114,6 +120,11 @@ begin
                        .Foto(FFoto)
                        .Logged(DateTimeToStr(now))
                        .Conectar;
+    Error := TModelFactory.New.Usuario
+                        .uID(auth_credentials.uID)
+                        .Ler(auth_credentials.idToken, error)
+                        .Nome;
+    Error := Error;
     Erro := -1;
    end;
 end;

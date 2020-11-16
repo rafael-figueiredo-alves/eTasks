@@ -144,19 +144,47 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login, eTasks.View.Dialogs.EditarFoto;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
 
 procedure TForm_Android_Login.ActFotoCameraDidFinishTaking(Image: TBitmap);
+Var
+  form_Editar_Foto : TForm_Editar_foto;
 begin
-   Foto_usuario.Fill.Bitmap.Bitmap := Image;
+     if not Assigned(form_editar_foto) then
+      form_Editar_Foto := TForm_Editar_foto.Create(Self);
+     try
+      form_editar_foto.Editar_foto.Bitmap := Image;
+      form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
+                                 begin
+                                  if ModalResult = mrOk then
+                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                 end);
+     finally
+      //form_Editar_Foto.DisposeOf;
+     end;
 end;
 
 procedure TForm_Android_Login.ActFotoGaleriaDidFinishTaking(Image: TBitmap);
+Var
+  form_Editar_Foto : TForm_Editar_foto;
 begin
-  Foto_usuario.Fill.Bitmap.Bitmap := Image;
+     if not Assigned(form_editar_foto) then
+      Application.CreateForm(TForm_Editar_foto, form_Editar_Foto);
+     try
+      form_editar_foto.Editar_foto.Bitmap := Image;
+      form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
+                                 begin
+                                  if ModalResult = mrOk then
+                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                  //form_Editar_Foto.DisposeOf;
+                                 end);
+
+     finally
+      //form_Editar_Foto.DisposeOf;
+     end;
 end;
 
 procedure TForm_Android_Login.Btn_criar_contaClick(Sender: TObject);
@@ -820,7 +848,7 @@ end;
 
 procedure TForm_Android_Login.Img_CriarConta_voltarClick(Sender: TObject);
 begin
-  efetuarLogin;
+   efetuarLogin;
 end;
 
 procedure TForm_Android_Login.TabInicioClick(Sender: TObject);

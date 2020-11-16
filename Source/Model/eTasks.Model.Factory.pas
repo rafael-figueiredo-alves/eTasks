@@ -20,7 +20,7 @@ Type
 implementation
 
 uses
-  eTasks.Model.Auth, eTasks.Model.LoggedUser;
+  eTasks.Model.Auth, eTasks.Model.LoggedUser,eTasks.Model.Usuarios;
 
 { TModelFactory }
 
@@ -52,7 +52,7 @@ end;
 
 function TModelFactory.Usuario: iModelUsuario;
 begin
-
+  Result := tModelUsuarios.New;
 end;
 
 end.

@@ -131,7 +131,7 @@ implementation
 uses
   eTasks.View.Dialogs.Messages.Consts, System.RegularExpressions,
   eTasks.View.Dialogs.TirarFoto, eTasks.Controller.Login, eTasks.View.Windows.main,
-  eTasks.libraries.Imagens64;
+  eTasks.libraries.Imagens64, eTasks.View.Dialogs.EditarFoto;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -374,37 +374,38 @@ begin
          end;
        end
       else
-       ShowMessage('Login efetuado com sucesso');
-    end;
-   tControllerLogin.New
-                     .Password(Edit_Login_Password.Text)
-                     .Email(Edit_Login_email.Text)
-                     .EfetuarLogin(Erro);
-   if erro = -1 then
-    begin
-      if not Assigned(Form_windows_main) then
-       Application.CreateForm(TForm_windows_main, Form_windows_main);
-      Application.MainForm := Form_windows_main;
-      Form_windows_main.Show;
-      Close;
-    end
-   else
-    begin
-     Dialogs := TViewDialogsMessages.New;
-     Form_Windows_Login.AddObject(
-                                  Dialogs.Pai(self).DialogMessages
-                                                     .TipoMensagem(tTipoMensagem(erro))
-                                                     .AcaoBotao(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .AcaoFundo(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .Exibe
-                                 );
-     exit
+       begin
+        tControllerLogin.New
+                         .Password(Edit_Login_Password.Text)
+                         .Email(Edit_Login_email.Text)
+                         .EfetuarLogin(Erro);
+        if erro = -1 then
+         begin
+          if not Assigned(Form_windows_main) then
+           Application.CreateForm(TForm_windows_main, Form_windows_main);
+          Application.MainForm := Form_windows_main;
+          Form_windows_main.Show;
+          Close;
+         end
+        else
+         begin
+          Dialogs := TViewDialogsMessages.New;
+          Form_Windows_Login.AddObject(
+                                       Dialogs.Pai(self).DialogMessages
+                                                          .TipoMensagem(tTipoMensagem(erro))
+                                                          .AcaoBotao(Procedure ()
+                                                                     begin
+                                                                      Dialogs := nil;
+                                                                     end)
+                                                         .AcaoFundo(Procedure ()
+                                                                    begin
+                                                                     Dialogs := nil;
+                                                                    end)
+                                                         .Exibe
+                                        );
+          exit
+         end;
+       end;
     end;
 end;
 
@@ -635,9 +636,25 @@ begin
 end;
 
 procedure TForm_Windows_Login.PegarFotoGaleria;
+Var
+  form_Editar_Foto : TForm_Editar_foto;
 begin
-  if SelecionaFoto.Execute then
-   Foto_usuario.Fill.Bitmap.Bitmap.LoadFromFile(SelecionaFoto.FileName);
+   if SelecionaFoto.Execute = true then
+    begin
+     if not Assigned(form_editar_foto) then
+      Application.CreateForm(TForm_Editar_foto, form_Editar_Foto);
+     try
+      form_editar_foto.Editar_foto.Bitmap.LoadFromFile(SelecionaFoto.FileName);
+      form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
+                                 begin
+                                  if ModalResult = mrOk then
+                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                 end);
+
+     finally
+      form_Editar_Foto.DisposeOf;
+     end;
+    end;
 end;
 
 procedure TForm_Windows_Login.TimerSplashTimer(Sender: TObject);
@@ -650,6 +667,7 @@ end;
 procedure TForm_Windows_Login.TirarFotoCamera;
 Var
  form_camera : TForm_camera;
+ form_Editar_Foto : TForm_Editar_foto;
 begin
   if not Assigned(form_camera) then
    Application.CreateForm(TForm_Camera, form_camera);
@@ -657,7 +675,20 @@ begin
    form_camera.ShowModal(Procedure (ModalResult : TModalResult)
                          begin
                           if ModalResult = mrOk then
-                           Foto_usuario.Fill.Bitmap.Bitmap := form_camera.Imagem;
+                          begin
+                          if not Assigned(form_editar_foto) then
+                           Application.CreateForm(TForm_Editar_foto, form_Editar_Foto);
+                           try
+                            form_editar_foto.Editar_foto.Bitmap := form_camera.Imagem;
+                            form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
+                                                                  begin
+                                                                   if ModalResult = mrOk then
+                                                                    Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                                                   end);
+                           finally
+                            form_Editar_Foto.DisposeOf;
+                           end;
+                          end;
                          end);
 
   finally

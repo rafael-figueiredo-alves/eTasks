@@ -82,17 +82,54 @@ Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Dados     : TJSONValue;
+  JsonStr   : string;
+  Resposta     : TJSONValue;
 begin
   Result := Self;
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(Token);
-  ADataBase.Put([FuID+'.json'], Dados);
+  JsonStr := '{"nome" : "' + FNome + '", "email" : "' + FEmail + '", "foto" : "' + FFoto + '"}';
+  Dados := TJSONObject.ParseJSONValue(JsonStr);
+  AResponse := ADataBase.Put([FuID+'.json'], Dados);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
+
+   if Resposta <> Dados then
+    erro := 'Erro';
+
+    if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 function TModelUsuarios.Ler(Token: string; out erro: string): iModelUsuario;
+Var
+  ADataBase : IFirebaseDatabase;
+  AResponse : iFirebaseResponse;
+  Resposta     : TJSONValue;
 begin
-  Result := self;
+  Result := Self;
+  ADatabase := tfirebaseDatabase.Create;
+  ADataBase.SetBaseURI(BaseUrl);
+  ADataBase.SetToken(Token);
+  AResponse := ADataBase.get([FuID+'.json']);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
+
+   FNome := Resposta.GetValue<string>('nome');
+
+    if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 class function TModelUsuarios.New: iModelUsuario;

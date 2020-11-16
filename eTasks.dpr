@@ -4,6 +4,8 @@ uses
   System.StartUpCopy,
   {$IFDEF ANDROID}
   eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
+  eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas',
+  eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
@@ -24,7 +26,8 @@ uses
   eTasks.Controller.Login in 'Source\Controller\eTasks.Controller.Login.pas',
   eTasks.Model.Factory in 'Source\Model\eTasks.Model.Factory.pas',
   eTasks.libraries.Imagens64 in 'Source\Libraries\eTasks.libraries.Imagens64.pas',
-  eTasks.Model.Usuarios in 'Source\Model\eTasks.Model.Usuarios.pas';
+  eTasks.Model.Usuarios in 'Source\Model\eTasks.Model.Usuarios.pas',
+  eTasks.View.Dialogs.EditarFoto in 'Source\View\Dialogs\eTasks.View.Dialogs.EditarFoto.pas' {Form_Editar_foto};
 
 {$R *.res}
 
@@ -46,4 +49,5 @@ begin
   {$ENDIF}
   Application.Run;
 end.
+
 
