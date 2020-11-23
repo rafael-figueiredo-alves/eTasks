@@ -1,0 +1,98 @@
+object Form_loading: TForm_loading
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 660
+  ClientWidth = 370
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Lay_loading: TLayout
+    Align = Contents
+    Size.Width = 370.000000000000000000
+    Size.Height = 660.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object RecEscurecer: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Opacity = 0.500000000000000000
+      Size.Width = 370.000000000000000000
+      Size.Height = 660.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object AnimaFundo: TFloatAnimation
+        Duration = 0.200000002980232200
+        OnFinish = AnimaFundoFinish
+        PropertyName = 'Opacity'
+        StartValue = 0.000000000000000000
+        StopValue = 0.500000000000000000
+      end
+    end
+    object Lay_centro: TLayout
+      Align = Center
+      Size.Width = 280.000000000000000000
+      Size.Height = 300.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object LabelMensagem: TLabel
+        Align = Bottom
+        StyledSettings = [Family, Style]
+        Position.Y = 260.000000000000000000
+        Size.Width = 280.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 22.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        Text = 'Aguarde ...'
+        TabOrder = 0
+      end
+      object ArcoAzul: TArc
+        Align = Client
+        Margins.Left = 20.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 20.000000000000000000
+        Margins.Bottom = 20.000000000000000000
+        Size.Width = 240.000000000000000000
+        Size.Height = 220.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFF1AA4F3
+        Stroke.Thickness = 10.000000000000000000
+        Stroke.Cap = Round
+        EndAngle = -90.000000000000000000
+        object AnimaArcoAzul: TFloatAnimation
+          Duration = 1.000000000000000000
+          Loop = True
+          PropertyName = 'StartAngle'
+          StartValue = 0.000000000000000000
+          StopValue = 360.000000000000000000
+        end
+        object ArcoAmarelo: TArc
+          Align = Client
+          Margins.Left = 15.000000000000000000
+          Margins.Top = 15.000000000000000000
+          Margins.Right = 15.000000000000000000
+          Margins.Bottom = 15.000000000000000000
+          Size.Width = 210.000000000000000000
+          Size.Height = 190.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = xFFFCDE3F
+          Stroke.Thickness = 10.000000000000000000
+          Stroke.Cap = Round
+          StartAngle = -450.000000000000000000
+          EndAngle = -90.000000000000000000
+          object AnimaArcoAmarelo: TFloatAnimation
+            Duration = 1.000000000000000000
+            Loop = True
+            PropertyName = 'StartAngle'
+            StartValue = -90.000000000000000000
+            StopValue = -450.000000000000000000
+          end
+        end
+      end
+    end
+  end
+end

@@ -254,6 +254,11 @@
             <Form>Form_Editar_foto</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.loading.pas">
+            <Form>Form_loading</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Source\Libraries\eTasks.libraries.pas"/>
         <None Include="eTasks.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

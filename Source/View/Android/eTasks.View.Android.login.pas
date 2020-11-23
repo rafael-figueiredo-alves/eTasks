@@ -114,6 +114,7 @@ type
     Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
     Termos      : iViewDialogsFactory;
+    Loading     : iViewDialogsFactory;
     FKBBounds: TRectF;
     FNeedOffset: Boolean;
     procedure CalcContentBoundsProc(Sender: TObject;
@@ -144,7 +145,8 @@ implementation
 
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login, eTasks.View.Dialogs.EditarFoto;
+  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login, eTasks.View.Dialogs.EditarFoto,
+  eTasks.libraries.Imagens64, eTasks.libraries;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -297,36 +299,59 @@ begin
                                  );
      exit
    end;
-   tControllerLogin.New
-                     .Email(Edit_Criar_conta_email.Text)
-                     .Password(Edit_criar_conta_senha.Text)
-                     .Nome(Edit_criar_conta_nome.Text)
-                     .CriarConta(erro);
-   if erro = -1 then
-    begin
-      if not Assigned(Form_android_main) then
-       Application.CreateForm(TForm_Android_main, Form_Android_main);
-      Application.MainForm := Form_Android_main;
-      Form_Android_main.Show;
-      Close;
-    end
-   else
-    begin
-     Dialogs := TViewDialogsMessages.New;
-     Form_Android_Login.AddObject(
-                                  Dialogs.DialogMessages
-                                                     .TipoMensagem(tTipoMensagem(erro))
-                                                     .AcaoBotao(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .AcaoFundo(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .Exibe
-                                 );
-    end;
+   teTasksLibrary.CustomThread(
+                               Procedure ()
+                               begin
+                                Loading := tviewdialogsmessages.New;
+                                Form_Android_Login.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Criando conta. Aguarde ... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                               end,
+                               Procedure ()
+                               begin
+                                tControllerLogin.New
+                                                 .Email(Edit_Criar_conta_email.Text)
+                                                 .Password(Edit_criar_conta_senha.Text)
+                                                 .Foto(timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap))
+                                                 .Nome(Edit_criar_conta_nome.Text)
+                                                 .CriarConta(erro);
+                               end,
+                               Procedure ()
+                               begin
+                                Loading.Loading.Fechar;
+                                if erro = -1 then
+                                 begin
+                                  if not Assigned(Form_android_main) then
+                                   Application.CreateForm(TForm_Android_main, Form_Android_main);
+                                  Application.MainForm := Form_Android_main;
+                                  Form_Android_main.Show;
+                                  Close;
+                                 end
+                                else
+                                 begin
+                                  Dialogs := TViewDialogsMessages.New;
+                                  Form_Android_Login.AddObject(
+                                                               Dialogs.DialogMessages
+                                                                        .TipoMensagem(tTipoMensagem(erro))
+                                                                        .AcaoBotao(Procedure ()
+                                                                                   begin
+                                                                                    Dialogs := nil;
+                                                                                   end)
+                                                                        .AcaoFundo(Procedure ()
+                                                                                   begin
+                                                                                    Dialogs := nil;
+                                                                                   end)
+                                                                        .Exibe
+                                                                );
+                                 end;
+                               end
+                              );
 end;
 
 procedure TForm_Android_Login.Btn_Criar_conta_mostar_senhaClick(
@@ -433,36 +458,59 @@ begin
          end;
        end
       else
-   tControllerLogin.New
-                     .Password(Edit_Login_Password.Text)
-                     .Email(Edit_Login_email.Text)
-                     .EfetuarLogin(Erro);
-   if erro = -1 then
-    begin
-      if not Assigned(Form_Android_main) then
-       Application.CreateForm(TForm_Android_main, Form_Android_main);
-      Application.MainForm := Form_Android_main;
-      Form_Android_main.Show;
-      Close;
-    end
-   else
-    begin
-     Dialogs := TViewDialogsMessages.New;
-     Form_Android_Login.AddObject(
-                                  Dialogs.DialogMessages
-                                                     .TipoMensagem(tTipoMensagem(erro))
-                                                     .AcaoBotao(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .AcaoFundo(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .Exibe
-                                 );
-     exit
-    end;
+       begin
+         teTasksLibrary.CustomThread(
+                                     procedure ()
+                                     begin
+                                      Loading := tViewDialogsMessages.New;
+                                      Form_Android_Login.AddObject(
+                                                                   Loading.Loading
+                                                                             .Mensagem('Entrando ... ')
+                                                                             .AcaoLimpa(Procedure ()
+                                                                                        begin
+                                                                                         Loading := nil;
+                                                                                        end)
+                                                                  );
+                                     end,
+                                     procedure ()
+                                     begin
+                                      tControllerLogin.New
+                                                       .Password(Edit_Login_Password.Text)
+                                                       .Email(Edit_Login_email.Text)
+                                                       .EfetuarLogin(Erro);
+                                     end,
+                                     procedure ()
+                                     begin
+                                      Loading.Loading.Fechar;
+                                      if erro = -1 then
+                                       begin
+                                        if not Assigned(Form_Android_main) then
+                                         Application.CreateForm(TForm_Android_main, Form_Android_main);
+                                        Application.MainForm := Form_Android_main;
+                                        Form_Android_main.Show;
+                                        Close;
+                                       end
+                                      else
+                                       begin
+                                        Dialogs := TViewDialogsMessages.New;
+                                        Form_Android_Login.AddObject(
+                                                                     Dialogs.DialogMessages
+                                                                              .TipoMensagem(tTipoMensagem(erro))
+                                                                              .AcaoBotao(Procedure ()
+                                                                                         begin
+                                                                                          Dialogs := nil;
+                                                                                         end)
+                                                                              .AcaoFundo(Procedure ()
+                                                                                         begin
+                                                                                          Dialogs := nil;
+                                                                                          end)
+                                                                              .Exibe
+                                                                     );
+                                        exit
+                                       end;
+                                     end
+                                    );
+       end;
     end;
 end;
 
@@ -482,6 +530,7 @@ procedure TForm_Android_Login.Btn_Esqueci_conta_enviarClick(Sender: TObject);
 Var
  FService : IFMXVirtualKeyboardService;
  Erro : integer;
+ EsqueciSenha : Boolean;
 begin
   TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
   if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
@@ -527,42 +576,63 @@ begin
      end
     else
      begin
-       if tControllerLogin.New.Email(Edit_esqueci_conta_email.Text).EsqueciConta(erro) then
-        begin
-         Dialogs := TViewDialogsMessages.New;
-         Form_Android_Login.AddObject(
-                                      Dialogs.DialogMessages
-                                                     .TipoMensagem(tpmSucesso_resetar)
-                                                     .AcaoBotao(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                 EfetuarLogin;
-                                                                end)
-                                                     .AcaoFundo(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                 EfetuarLogin
-                                                                end)
-                                                     .Exibe
+      teTasksLibrary.CustomThread(
+                                  procedure ()
+                                  begin
+                                    Loading := tviewdialogsmessages.New;
+                                    Form_Android_Login.AddObject(Loading.Loading
+                                                                          .Mensagem('Enviando solicitação ... ')
+                                                                          .AcaoLimpa(Procedure ()
+                                                                                     begin
+                                                                                      Loading := nil;
+                                                                                     end)
+                                                                );
+                                  end,
+                                  procedure ()
+                                  begin
+                                   EsqueciSenha := tControllerLogin.New.Email(Edit_esqueci_conta_email.Text).EsqueciConta(erro);
+                                  end,
+                                  procedure ()
+                                  begin
+                                    Loading.Loading.Fechar;
+                                    if EsqueciSenha then
+                                     begin
+                                      Dialogs := TViewDialogsMessages.New;
+                                      Form_Android_Login.AddObject(
+                                                                   Dialogs.DialogMessages
+                                                                            .TipoMensagem(tpmSucesso_resetar)
+                                                                            .AcaoBotao(Procedure ()
+                                                                                       begin
+                                                                                        Dialogs := nil;
+                                                                                        EfetuarLogin;
+                                                                                       end)
+                                                                            .AcaoFundo(Procedure ()
+                                                                                       begin
+                                                                                        Dialogs := nil;
+                                                                                        EfetuarLogin
+                                                                                       end)
+                                                                            .Exibe
+                                                                  );
+                                     end
+                                    else
+                                     begin
+                                      Dialogs := TViewDialogsMessages.New;
+                                      Form_Android_Login.AddObject(
+                                                                   Dialogs.DialogMessages
+                                                                             .TipoMensagem(tTipoMensagem(erro))
+                                                                             .AcaoBotao(Procedure ()
+                                                                                        begin
+                                                                                         Dialogs := nil;
+                                                                                        end)
+                                                                             .AcaoFundo(Procedure ()
+                                                                                        begin
+                                                                                         Dialogs := nil;
+                                                                                        end)
+                                                                             .Exibe
+                                                                   );
+                                     end;
+                                  end
                                  );
-        end
-       else
-        begin
-         Dialogs := TViewDialogsMessages.New;
-         Form_Android_Login.AddObject(
-                                      Dialogs.DialogMessages
-                                                     .TipoMensagem(tTipoMensagem(erro))
-                                                     .AcaoBotao(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .AcaoFundo(Procedure ()
-                                                                begin
-                                                                 Dialogs := nil;
-                                                                end)
-                                                     .Exibe
-                                 );
-        end;
     end;
    end;
 end;
@@ -693,7 +763,7 @@ begin
        end
       else
        begin
-         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Termos)) then
+         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Termos)) or (Assigned(Loading)) then
           begin
             Key := 0;
             if Assigned(sheet_fotos) then

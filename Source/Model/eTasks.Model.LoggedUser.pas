@@ -56,7 +56,12 @@ Var
   UserInfo : TIniFile;
   arq_ini  : String;
 begin
+  {$ifdef Android}
   arq_ini := TPath.Combine(TPath.GetDocumentsPath, File_User);
+  {$endif}
+  {$ifdef MSWINDOWS}
+  arq_ini := TPath.Combine(ExtractFilePath(ParamStr(0)) , File_User);
+  {$endif}
   UserInfo := TIniFile.Create(arq_ini);
   Try
     UserInfo.WriteString('LoggedUser', 'Nome', FNome);
@@ -78,7 +83,12 @@ Var
   UserInfo : TIniFile;
   arq_ini  : String;
 begin
+  {$ifdef Android}
   arq_ini := TPath.Combine(TPath.GetDocumentsPath, File_User);
+  {$endif}
+  {$ifdef MSWINDOWS}
+  arq_ini := TPath.Combine(ExtractFilePath(ParamStr(0)) , File_User);
+  {$endif}
   UserInfo := TIniFile.Create(arq_ini);
   Try
     FNome := UserInfo.ReadString('LoggedUser', 'Nome', '');
@@ -135,7 +145,12 @@ end;
 
 function TModelLoggedUser.Logout: Boolean;
 begin
+  {$ifdef Android}
   Result := DeleteFile(TPath.Combine(TPath.GetDocumentsPath, File_User));
+  {$endif}
+  {$ifdef MSWindows}
+  Result := DeleteFile(TPath.Combine(ExtractFilePath(ParamStr(0)), File_User));
+  {$endif}
 end;
 
 class function TModelLoggedUser.New: iModelLoggedUser;
@@ -213,8 +228,16 @@ begin
 end;
 
 class function TModelLoggedUser.Verificar: boolean;
+Var
+  Arq_ini : string;
 begin
-  if not FileExists(TPath.Combine(TPath.GetDocumentsPath, File_User)) then
+  {$ifdef Android}
+  arq_ini := TPath.Combine(TPath.GetDocumentsPath, File_User);
+  {$endif}
+  {$ifdef MSWINDOWS}
+  arq_ini := TPath.Combine(ExtractFilePath(ParamStr(0)) , File_User);
+  {$endif}
+  if not FileExists(Arq_ini) then
    Result := False
   else
    Result := True;

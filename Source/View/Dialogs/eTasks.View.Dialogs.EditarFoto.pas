@@ -33,6 +33,7 @@ type
     procedure Corte_fotoMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Single);
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     Procedure Captura;
@@ -115,6 +116,14 @@ end;
 procedure TForm_Editar_foto.Corte_fotoResize(Sender: TObject);
 begin
    SombraAjuste;
+end;
+
+procedure TForm_Editar_foto.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+   {$ifdef ANDROID}
+   Action := TCloseAction.caFree;
+   {$endif}
 end;
 
 procedure TForm_Editar_foto.FormCreate(Sender: TObject);

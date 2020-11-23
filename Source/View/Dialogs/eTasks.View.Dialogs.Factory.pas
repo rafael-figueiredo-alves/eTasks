@@ -2,7 +2,8 @@ unit eTasks.View.Dialogs.Factory;
 
 interface
 
-Uses eTasks.View.Dialogs.Messages, eTasks.View.Dialogs.Termos, eTasks.View.Dialogs.SheetFotos;
+Uses eTasks.View.Dialogs.Messages, eTasks.View.Dialogs.Termos, eTasks.View.Dialogs.SheetFotos,
+  eTasks.View.Dialogs.loading;
 
 Type
 
@@ -11,15 +12,17 @@ Type
     Function DialogMessages : TDlg_Login_messages;
     Function DialogTermos   : TDlg_Termos;
     Function SheetFotos     : TSheet_fotos;
+    Function Loading        : TForm_Loading;
     Function Pai (Value : TObject) : iViewDialogsFactory;
   end;
 
   TViewDialogsMessages = Class(TInterfacedObject, iViewDialogsFactory)
     Private
-     FSheetFotos : TSheet_fotos;
-     FDialogMessages : TDlg_Login_messages;
-     FDialogTermos : TDlg_Termos;
-     FPai          : tobject;
+     FSheetFotos      : TSheet_fotos;
+     FDialogMessages  : TDlg_Login_messages;
+     FDialogTermos    : TDlg_Termos;
+     FLoading         : TForm_loading;
+     FPai             : tobject;
     Public
      Constructor Create;
      Destructor Destroy; Override;
@@ -27,6 +30,7 @@ Type
      Function DialogMessages : TDlg_Login_messages;
      Function DialogTermos   : TDlg_Termos;
      Function SheetFotos     : TSheet_fotos;
+     Function Loading        : TForm_Loading;
      Function Pai (Value : Tobject) : iViewDialogsFactory;
   End;
 
@@ -72,6 +76,13 @@ begin
    FDialogTermos.Parent := TFmxObject(FPai);
   {$endif}
   Result := FDialogTermos;
+end;
+
+function TViewDialogsMessages.Loading: TForm_Loading;
+begin
+  if not Assigned(FLoading) then
+   FLoading := TForm_loading.Create(nil);
+  Result := FLoading;
 end;
 
 class function TViewDialogsMessages.New: iViewDialogsFactory;

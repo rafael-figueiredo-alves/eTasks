@@ -27,7 +27,9 @@ uses
   eTasks.Model.Factory in 'Source\Model\eTasks.Model.Factory.pas',
   eTasks.libraries.Imagens64 in 'Source\Libraries\eTasks.libraries.Imagens64.pas',
   eTasks.Model.Usuarios in 'Source\Model\eTasks.Model.Usuarios.pas',
-  eTasks.View.Dialogs.EditarFoto in 'Source\View\Dialogs\eTasks.View.Dialogs.EditarFoto.pas' {Form_Editar_foto};
+  eTasks.View.Dialogs.EditarFoto in 'Source\View\Dialogs\eTasks.View.Dialogs.EditarFoto.pas' {Form_Editar_foto},
+  eTasks.View.Dialogs.loading in 'Source\View\Dialogs\eTasks.View.Dialogs.loading.pas' {Form_loading},
+  eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas';
 
 {$R *.res}
 
@@ -49,5 +51,4 @@ begin
   {$ENDIF}
   Application.Run;
 end.
-
 
