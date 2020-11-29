@@ -162,7 +162,10 @@ begin
       form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
                                  begin
                                   if ModalResult = mrOk then
-                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                   begin
+                                    Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                    Foto_usuario.TagString := 'WithPhoto';
+                                   end;
                                  end);
      finally
       //form_Editar_Foto.DisposeOf;
@@ -180,7 +183,10 @@ begin
       form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
                                  begin
                                   if ModalResult = mrOk then
-                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                   begin
+                                    Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                    Foto_usuario.TagString := 'WithPhoto';
+                                   end;
                                   //form_Editar_Foto.DisposeOf;
                                  end);
 
@@ -198,6 +204,7 @@ procedure TForm_Android_Login.Btn_criar_conta_criarClick(Sender: TObject);
 Var
   Erro : Integer;
   FService : IFMXVirtualKeyboardService;
+  FFotoPerfil : string;
 begin
   TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
   if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
@@ -315,10 +322,14 @@ begin
                                end,
                                Procedure ()
                                begin
+                                if Foto_usuario.TagString = 'WithPhoto' then
+                                 FFotoPerfil := timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap)
+                                else
+                                 FFotoPerfil := '';
                                 tControllerLogin.New
                                                  .Email(Edit_Criar_conta_email.Text)
                                                  .Password(Edit_criar_conta_senha.Text)
-                                                 .Foto(timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap))
+                                                 .Foto(FFotoPerfil)
                                                  .Nome(Edit_criar_conta_nome.Text)
                                                  .CriarConta(erro);
                                end,
@@ -470,6 +481,7 @@ begin
                                                                                         begin
                                                                                          Loading := nil;
                                                                                         end)
+                                                                             .Exibe
                                                                   );
                                      end,
                                      procedure ()
@@ -586,6 +598,7 @@ begin
                                                                                      begin
                                                                                       Loading := nil;
                                                                                      end)
+                                                                          .Exibe
                                                                 );
                                   end,
                                   procedure ()
@@ -679,6 +692,7 @@ end;
 procedure TForm_Android_Login.CriarConta;
 begin
   Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+  Foto_usuario.TagString := 'WithoutPhoto';
   Edit_criar_conta_nome.Text  := '';
   Edit_Criar_conta_email.Text := '';
   Edit_criar_conta_senha.Text := '';
@@ -795,6 +809,7 @@ procedure TForm_Android_Login.FormShow(Sender: TObject);
 begin
   Nav_Tela_Login.ActiveTab := TabInicio;
   Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+  Foto_usuario.TagString := 'WithoutPhoto';
   Edit_criar_conta_nome.Text  := '';
   Edit_Criar_conta_email.Text := '';
   Edit_criar_conta_senha.Text := '';

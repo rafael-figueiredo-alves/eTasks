@@ -147,6 +147,7 @@ end;
 procedure TForm_Windows_Login.Btn_criar_conta_criarClick(Sender: TObject);
 Var
  Erro : integer;
+ FFotoPerfil : string;
 begin
   if (Edit_criar_conta_nome.Text.IsEmpty) then
    begin
@@ -259,10 +260,14 @@ begin
                                end,
                                Procedure ()
                                begin
+                                 if Foto_usuario.TagString = 'WithPhoto' then
+                                  FFotoPerfil := timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap)
+                                 else
+                                  FFotoPerfil := '';
                                  tControllerLogin.New
                                                   .Nome(Edit_criar_conta_nome.Text)
                                                   .Password(Edit_criar_conta_senha.Text)
-                                                  .Foto(timagens64.toBase64(Foto_usuario.Fill.Bitmap.Bitmap))
+                                                  .Foto(FFotoPerfil)
                                                   .Email(Edit_Criar_conta_email.Text)
                                                   .CriarConta(Erro);
                                end,
@@ -596,6 +601,7 @@ end;
 procedure TForm_Windows_Login.CriarConta;
 begin
   Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+  Foto_usuario.TagString := 'WithoutPhoto';
   Edit_criar_conta_nome.Text  := '';
   Edit_Criar_conta_email.Text := '';
   Edit_criar_conta_senha.Text := '';
@@ -718,7 +724,10 @@ begin
       form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
                                  begin
                                   if ModalResult = mrOk then
-                                   Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                   begin
+                                    Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                    Foto_usuario.TagString := 'WithPhoto';
+                                   end;
                                  end);
 
      finally
@@ -753,7 +762,10 @@ begin
                             form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
                                                                   begin
                                                                    if ModalResult = mrOk then
-                                                                    Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                                                    begin
+                                                                     Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                                                     Foto_usuario.TagString := 'WithPhoto';
+                                                                    end;
                                                                    end);
                            finally
                             form_Editar_Foto.DisposeOf;
