@@ -126,7 +126,9 @@ begin
      exit
    end;
 
-   FNome := Resposta.GetValue<string>('nome');
+   FNome  := Resposta.GetValue<string>('nome' );
+   FEmail := Resposta.GetValue<string>('email');
+   FFoto  := Resposta.GetValue<string>('foto' );
 
     if Assigned(resposta) then
      Resposta.DisposeOf;

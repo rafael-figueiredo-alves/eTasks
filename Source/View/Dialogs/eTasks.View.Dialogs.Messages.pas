@@ -198,6 +198,12 @@ begin
                           Text_message.Text     := Invalido_senha_login;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
+    tpmUsuario_desativado_login:
+                        begin
+                          Img_message.Bitmap    := Img_erro.Bitmap;
+                          Text_message.Text     := Usuario_desativado;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
 
     //Mensagens referentes ao resetamento de senha
     tpmErro_resetar_email:

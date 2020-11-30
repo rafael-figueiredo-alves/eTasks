@@ -106,7 +106,7 @@ begin
      if error = 'Senha invalida' then
       Erro := integer(tpmErro_login_senha);
      if error = 'Usuário desativado' then          //Criar um tipo para este erro
-      erro := integer(tpmErro_login_Email);
+      erro := integer(tpmUsuario_desativado_login);
    end
   else
    begin
@@ -120,11 +120,6 @@ begin
                        .Foto(FFoto)
                        .Logged(DateTimeToStr(now))
                        .Conectar;
-    Error := TModelFactory.New.Usuario
-                        .uID(auth_credentials.uID)
-                        .Ler(auth_credentials.idToken, error)
-                        .Nome;
-    Error := Error;
     Erro := -1;
    end;
 end;

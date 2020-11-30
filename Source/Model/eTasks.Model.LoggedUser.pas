@@ -49,7 +49,7 @@ implementation
 
 Uses
   System.IOUtils, System.SysUtils, inifiles, IdCoder,
-  IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent {$ifdef Android}, Posix.Unistd {$endif} ;
+  IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent, System.DateUtils, eTasks.Model.Factory {$ifdef Android}, Posix.Unistd {$endif} ;
 
 function TModelLoggedUser.Conectar: Boolean;
 Var
@@ -201,7 +201,23 @@ begin
 end;
 
 function TModelLoggedUser.RefreshToken: String;
+Var auth_credentials : TAuthUser;
+    error : string;
 begin
+  if Now >= IncHour(StrToDateTime(FLogged))  then
+   begin
+    auth_credentials := TModelFactory.New.Auth
+                                           .Email(FEmail)
+                                           .Password(Password)
+                                           .EfetuarLogin(error);
+    if Error = '' then
+     begin
+      FToken := auth_credentials.idToken;
+      FRefreshToken := auth_credentials.RefreshToken;
+      FLogged := DateTimeToStr(now);
+      Conectar;
+     end;
+   end;
   Result := FRefreshToken;
 end;
 
@@ -212,7 +228,23 @@ begin
 end;
 
 function TModelLoggedUser.Token: String;
+Var auth_credentials : TAuthUser;
+    error : string;
 begin
+  if Now >= IncHour(StrToDateTime(FLogged))  then
+   begin
+    auth_credentials := TModelFactory.New.Auth
+                                           .Email(FEmail)
+                                           .Password(Password)
+                                           .EfetuarLogin(error);
+    if Error = '' then
+     begin
+      FToken := auth_credentials.idToken;
+      FRefreshToken := auth_credentials.RefreshToken;
+      FLogged := DateTimeToStr(now);
+      Conectar;
+     end;
+   end;
   Result := FToken;
 end;
 

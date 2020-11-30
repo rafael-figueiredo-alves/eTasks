@@ -4,7 +4,7 @@ interface
 
 Type
 
- tTipoMensagem = (tpmErro_login_Senha, tpmErro_login_Email, tpmBranco_login_email, tpmBranco_login_senha, tpmInvalido_login_email, tpmInvalido_login_senha,
+ tTipoMensagem = (tpmErro_login_Senha, tpmErro_login_Email, tpmBranco_login_email, tpmBranco_login_senha, tpmInvalido_login_email, tpmInvalido_login_senha, tpmUsuario_desativado_login,
                   tpmErro_resetar_email, tpmInvalido_resetar_email, tpmBranco_resetar_email, tpmSucesso_resetar,
                   tpmPermissao_solicitar_camera, tpmPermissao_negada_camera, tpmPermissao_solicitar_galeria, tpmPermissao_negada_galeria,
                   tpmErro_criar_conta, tpmBranco_criar_nome, tpmBranco_criar_email, tpmBranco_criar_senha, tpmInvalido_criar_email, tpmInvalido_criar_senha, tpmSucesso_criar_conta);
@@ -18,6 +18,7 @@ Type
   Branco_Senha_Login   = 'Para efetuar login é necessário informar senha. Por favor tente novamente.';
   Invalido_email_login = 'O email fornecido não é válido. Verifique se digitou corretamente e tente novamente.';
   Invalido_senha_login = 'A senha informada parece não ser válida por conter menos de 6 caracteres. Verifique e tente novamente.';
+  Usuario_desativado   = 'Sentimos em informar que o usuário informado foi desativado do sistema. Contate nosso suporte para mais informações.';
 
   //Mensagens referentes a solicitação de Permissões
   Permissao_solicitar_camera  = 'Para tirar uma foto para o perfil de usuário, o eTasks precisa da sua permissão para habilitar a câmera.';

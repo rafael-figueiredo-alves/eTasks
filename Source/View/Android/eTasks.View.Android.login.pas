@@ -124,6 +124,7 @@ type
     Procedure CriarConta;
     Procedure EfetuarLogin;
     Procedure EsqueciSenha;
+    Procedure TirarFotoCamera;
     Procedure TirarFotoPermissao (sender: TObject; Const APermissions: Tarray<string>;
                                   const AGrantResults: TArray<TPermissionStatus>);
     Procedure GaleriaPermissao (sender: TObject; Const APermissions: Tarray<string>;
@@ -146,7 +147,7 @@ implementation
 Uses
   eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
   eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login, eTasks.View.Dialogs.EditarFoto,
-  eTasks.libraries.Imagens64, eTasks.libraries;
+  eTasks.libraries.Imagens64, eTasks.libraries, eTasks.View.Dialogs.TirarFoto;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';
@@ -941,6 +942,41 @@ begin
     Nav_Tela_Login.GotoVisibleTab(2);
 end;
 
+procedure TForm_Android_Login.TirarFotoCamera;
+Var
+ form_camera : TForm_camera;
+ form_Editar_Foto : TForm_Editar_foto;
+begin
+  if not Assigned(form_camera) then
+   Application.CreateForm(TForm_Camera, form_camera);
+  try
+   form_camera.ShowModal(Procedure (ModalResult : TModalResult)
+                         begin
+                          if ModalResult = mrOk then
+                          begin
+                          if not Assigned(form_editar_foto) then
+                           Application.CreateForm(TForm_Editar_foto, form_Editar_Foto);
+                           try
+                            form_editar_foto.Editar_foto.Bitmap := form_camera.Imagem;
+                            form_editar_foto.ShowModal(Procedure (ModalResult : TModalResult)
+                                                                  begin
+                                                                   if ModalResult = mrOk then
+                                                                    begin
+                                                                     Foto_usuario.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
+                                                                     Foto_usuario.TagString := 'WithPhoto';
+                                                                    end;
+                                                                   end);
+                           finally
+                            //form_Editar_Foto.DisposeOf;
+                           end;
+                          end;
+                         end);
+
+  finally
+   //form_camera.DisposeOf;
+  end;
+end;
+
 procedure TForm_Android_Login.TirarFotoPermissao(sender: TObject;
   const APermissions: Tarray<string>;
   const AGrantResults: TArray<TPermissionStatus>);
@@ -949,7 +985,8 @@ begin
      (AGrantResults[0] = TPermissionStatus.Granted) and
      (AGrantResults[1] = TPermissionStatus.Granted) and
      (AGrantResults[2] = TPermissionStatus.Granted) then
-    ActFotoCamera.Execute
+     TirarFotoCamera
+    //ActFotoCamera.Execute
    else
     begin
      Dialogs := TViewDialogsMessages.New;

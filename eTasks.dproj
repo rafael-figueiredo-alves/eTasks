@@ -189,6 +189,8 @@
         <Android_SplashImage640>Imagens\SplashScreens\eTasks_640x480.9.png</Android_SplashImage640>
         <Android_SplashImage960>Imagens\SplashScreens\e_tasks_960x720.9.png</Android_SplashImage960>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
+        <Android_AppId>1:164825974763:android:d63a54c130623c2822bbae</Android_AppId>
+        <Android_GcmDefaultSenderId>164825974763</Android_GcmDefaultSenderId>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>

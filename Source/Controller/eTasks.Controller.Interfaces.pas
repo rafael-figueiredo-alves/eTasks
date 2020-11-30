@@ -15,6 +15,13 @@ type
     Function EsqueciConta (out erro : integer) : boolean;
   end;
 
+  iControllerUsuario = interface
+    ['{55101E59-30B7-4A9E-8E88-507C4D8B0E24}']
+    Function Nome  : String;
+    Function Email : string;
+    Function Foto  : string;
+  end;
+
 implementation
 
 end.
