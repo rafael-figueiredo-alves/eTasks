@@ -91,6 +91,7 @@ function TControllerLogin.EfetuarLogin(out Erro: integer): iControllerLogin;
 Var
  auth_credentials : TAuthUser;
  error : string;
+ Erro1  : string;
 begin
   Result := self;
   Erro := -1;
@@ -105,11 +106,22 @@ begin
       Erro := integer(tpmErro_login_Email);
      if error = 'Senha invalida' then
       Erro := integer(tpmErro_login_senha);
-     if error = 'Usuário desativado' then          //Criar um tipo para este erro
+     if error = 'Usuário desativado' then
       erro := integer(tpmUsuario_desativado_login);
    end
   else
    begin
+     FFoto :=
+      TModelFactory.New.Usuario
+                       .uID(auth_credentials.uID)
+                       .Ler(auth_credentials.idToken, erro1)
+                         .Foto;
+     FNome :=
+      TModelFactory.New.Usuario
+                       .uID(auth_credentials.uID)
+                       .Ler(auth_credentials.idToken, erro1)
+                         .Nome;
+
     TModelFactory.New.LoggedUser
                        .Nome(FNome)
                        .Email(FEmail)

@@ -17,9 +17,14 @@ type
 
   iControllerUsuario = interface
     ['{55101E59-30B7-4A9E-8E88-507C4D8B0E24}']
-    Function Nome  : String;
-    Function Email : string;
-    Function Foto  : string;
+    Function Nome  : String; overload;
+    Function Email : string; overload;
+    Function Foto  : string; overload;
+    Function Nome (Value : String) : iControllerUsuario; overload;
+    Function Email (Value : String) : iControllerUsuario; overload;
+    Function Foto (Value : String) : iControllerUsuario; overload;
+    Function Ler : iControllerUsuario;
+    function Salvar : iControllerUsuario;
   end;
 
 implementation

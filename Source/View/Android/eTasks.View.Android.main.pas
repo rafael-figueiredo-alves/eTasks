@@ -21,8 +21,8 @@ type
     ShadowEffect2: TShadowEffect;
     Img_user_sem_photo: TImage;
     MainMenu: TMultiView;
-    Fundo_main_menu: TRectangle;
     Btn_fecha_main_menu: TImage;
+    FundoMenu: TRectangle;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);

@@ -3,7 +3,7 @@ unit eTasks.View.Dialogs.Factory;
 interface
 
 Uses eTasks.View.Dialogs.Messages, eTasks.View.Dialogs.Termos, eTasks.View.Dialogs.SheetFotos,
-  eTasks.View.Dialogs.loading;
+  eTasks.View.Dialogs.loading, eTasks.View.Dialogs.dialogYesNo;
 
 Type
 
@@ -13,6 +13,7 @@ Type
     Function DialogTermos   : TDlg_Termos;
     Function SheetFotos     : TSheet_fotos;
     Function Loading        : TForm_Loading;
+    Function DialogYesNo    : TDialogYesNo;
     Function Pai (Value : TObject) : iViewDialogsFactory;
   end;
 
@@ -22,6 +23,7 @@ Type
      FDialogMessages  : TDlg_Login_messages;
      FDialogTermos    : TDlg_Termos;
      FLoading         : TForm_loading;
+     FDialogYesNo     : TDialogYesNo;
      FPai             : tobject;
     Public
      Constructor Create;
@@ -31,6 +33,7 @@ Type
      Function DialogTermos   : TDlg_Termos;
      Function SheetFotos     : TSheet_fotos;
      Function Loading        : TForm_Loading;
+     Function DialogYesNo    : TDialogYesNo;
      Function Pai (Value : Tobject) : iViewDialogsFactory;
   End;
 
@@ -76,6 +79,19 @@ begin
    FDialogTermos.Parent := TFmxObject(FPai);
   {$endif}
   Result := FDialogTermos;
+end;
+
+function TViewDialogsMessages.DialogYesNo: TDialogYesNo;
+begin
+  if not Assigned(FDialogYesNo) then
+  {$ifdef Android}
+   FDialogYesNo := TDialogYesNo.Create(nil);
+  {$endif}
+  {$ifdef MSWindows}
+   FDialogYesNo := TDialogYesNo.Create(nil);
+   FDialogYesNo.Parent := TFmxObject(FPai);
+  {$endif}
+  Result := FDialogYesNo;
 end;
 
 function TViewDialogsMessages.Loading: TForm_Loading;
