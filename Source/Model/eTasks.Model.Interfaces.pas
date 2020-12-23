@@ -11,8 +11,6 @@ Type
 
   iModelLoggedUser = interface
     ['{B2E7F7D2-A4AF-42F6-AFF6-54D45618D4E0}']
-    Function Nome : String; Overload;
-    Function Nome (Value : String) : iModelLoggedUser; Overload;
     Function Email : string; Overload;
     Function Email (Value : String) : iModelLoggedUser; Overload;
     Function Password : String; Overload;
@@ -23,8 +21,6 @@ Type
     Function RefreshToken (Value : String) : iModelLoggedUser; Overload;
     Function uID : string; Overload;
     Function uID (Value : String) : iModelLoggedUser; Overload;
-    Function Foto : String; Overload;
-    Function Foto (Value : String) : iModelLoggedUser; Overload;
     Function Logged : string; Overload;
     Function Logged (Value : string) : iModelLoggedUser; Overload;
     Function Conectar : Boolean;

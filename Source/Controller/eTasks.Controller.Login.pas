@@ -62,13 +62,11 @@ begin
   else
    begin
     TModelFactory.New.LoggedUser
-                       .Nome(FNome)
                        .Email(FEmail)
                        .Password(FPassword)
                        .Token(auth_credentials.idToken)
                        .RefreshToken(auth_credentials.RefreshToken)
                        .uID(auth_credentials.uID)
-                       .Foto(FFoto)
                        .Logged(DateTimeToStr(now))
                        .Conectar;
     TModelFactory.New.Usuario
@@ -111,25 +109,13 @@ begin
    end
   else
    begin
-     FFoto :=
-      TModelFactory.New.Usuario
-                       .uID(auth_credentials.uID)
-                       .Ler(auth_credentials.idToken, erro1)
-                         .Foto;
-     FNome :=
-      TModelFactory.New.Usuario
-                       .uID(auth_credentials.uID)
-                       .Ler(auth_credentials.idToken, erro1)
-                         .Nome;
 
     TModelFactory.New.LoggedUser
-                       .Nome(FNome)
                        .Email(FEmail)
                        .Password(FPassword)
                        .Token(auth_credentials.idToken)
                        .RefreshToken(auth_credentials.RefreshToken)
                        .uID(auth_credentials.uID)
-                       .Foto(FFoto)
                        .Logged(DateTimeToStr(now))
                        .Conectar;
     Erro := -1;

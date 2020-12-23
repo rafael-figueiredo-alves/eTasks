@@ -9,11 +9,28 @@ object Form_Windows_Main: TForm_Windows_Main
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object Label1: TLabel
-    Position.X = 192.000000000000000000
-    Position.Y = 128.000000000000000000
+    Position.X = 184.000000000000000000
+    Position.Y = 72.000000000000000000
     Text = 'Principal'
     TabOrder = 1
+  end
+  object Label2: TLabel
+    Position.X = 184.000000000000000000
+    Position.Y = 96.000000000000000000
+    Text = 'Label2'
+    TabOrder = 2
+  end
+  object Circle1: TCircle
+    Fill.Bitmap.WrapMode = TileStretch
+    Fill.Kind = Bitmap
+    Position.X = 168.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 177.000000000000000000
+    Size.Height = 97.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
   end
 end

@@ -7,21 +7,17 @@ Uses eTasks.Model.Interfaces;
 Type
   TModelLoggedUser = Class(TInterfacedObject, iModelLoggedUser)
     Private
-     FNome : String;
      FEmail : String;
      FPassword : String;
      FToken : String;
      FRefreshToken : string;
      FuID : String;
-     FFoto : String;
      FLogged : string;
     Public
      Constructor Create;
      Destructor Destroy; Override;
      Class function New: iModelLoggedUser;
      Class Function Verificar : Boolean;
-     Function Nome : String; Overload;
-     Function Nome (Value : String) : iModelLoggedUser; Overload;
      Function Email : string; Overload;
      Function Email (Value : String) : iModelLoggedUser; Overload;
      Function Password : String; Overload;
@@ -32,8 +28,6 @@ Type
      Function RefreshToken (Value : String) : iModelLoggedUser; Overload;
      Function uID : string; Overload;
      Function uID (Value : String) : iModelLoggedUser; Overload;
-     Function Foto : String; Overload;
-     Function Foto (Value : String) : iModelLoggedUser; Overload;
      Function Logged : string; Overload;
      Function Logged (Value : string) : iModelLoggedUser; Overload;
      Function Conectar : Boolean;
@@ -64,13 +58,11 @@ begin
   {$endif}
   UserInfo := TIniFile.Create(arq_ini);
   Try
-    UserInfo.WriteString('LoggedUser', 'Nome', FNome);
     UserInfo.WriteString('LoggedUser', 'Email', FEmail);
     UserInfo.WriteString('LoggedUser', 'Password', FPassword);
     UserInfo.WriteString('LoggedUser', 'uID', FuID);
     UserInfo.WriteString('LoggedUser', 'Token', FToken);
     UserInfo.WriteString('LoggedUser', 'RefreshToken', FRefreshToken);
-    UserInfo.WriteString('LoggedUser', 'Foto', FFoto);
     UserInfo.WriteString('LoggedUser', 'Logged', FLogged);
     Result := True;
   Finally
@@ -91,13 +83,11 @@ begin
   {$endif}
   UserInfo := TIniFile.Create(arq_ini);
   Try
-    FNome := UserInfo.ReadString('LoggedUser', 'Nome', '');
     FEmail := UserInfo.ReadString('LoggedUser', 'Email', '');
     FPassword := UserInfo.ReadString('LoggedUser', 'Password', '');
     FuID := UserInfo.ReadString('LoggedUser', 'uID', '');
     FToken := UserInfo.ReadString('LoggedUser', 'Token', '');
     FRefreshToken := UserInfo.ReadString('LoggedUser', 'RefreshToken', '');
-    FFoto := UserInfo.ReadString('LoggedUser', 'Foto', '');
     FLogged := UserInfo.ReadString('LoggedUser', 'Logged', '');
   Finally
     UserInfo.DisposeOf;
@@ -119,17 +109,6 @@ function TModelLoggedUser.Email(Value: String): iModelLoggedUser;
 begin
   Result := Self;
   FEmail := Value;
-end;
-
-function TModelLoggedUser.Foto(Value: String): iModelLoggedUser;
-begin
-  Result := Self;
-  FFoto := Value;
-end;
-
-function TModelLoggedUser.Foto: String;
-begin
-  Result := FFoto;
 end;
 
 function TModelLoggedUser.Logged: string;
@@ -156,17 +135,6 @@ end;
 class function TModelLoggedUser.New: iModelLoggedUser;
 begin
   Result := Self.Create;
-end;
-
-function TModelLoggedUser.Nome(Value: String): iModelLoggedUser;
-begin
-  Result := Self;
-  FNome := Value;
-end;
-
-function TModelLoggedUser.Nome: String;
-begin
-  Result := FNome;
 end;
 
 function TModelLoggedUser.Password: String;
