@@ -4,8 +4,8 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup>
-        <DeviceId Condition="'$(Platform)'=='Android'"/>
-        <DeviceId Condition="'$(Platform)'=='Android64'"/>
+        <DeviceId Condition="'$(Platform)'=='Android'">42003880e44364f9</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android64'">42003880e44364f9</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='Win32'">
         <DeployFile Include="Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Debug'">
