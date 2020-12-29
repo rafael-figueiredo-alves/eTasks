@@ -11,7 +11,8 @@ Type
    Class Procedure Vibrar (Intervalo : integer);
    Class function PermissaoCamera  : TArray<string>;
    Class Function PermissaoGaleria : TArray<string>;
-
+   Class Procedure EnviarEmail(destinatario, assunto, texto : string);
+   Class Procedure AbrirLink(Link : string);
  End;
 
 implementation
@@ -26,7 +27,39 @@ Uses
   AndroidApi.JNIBridge,
   AndroidApi.JNI.App,
   AndroidApi.JNI.GraphicsContentViewText,
-  FMX.Helpers.Android;
+  FMX.Helpers.Android,
+  idURI,
+  Androidapi.Jni.Net;
+
+class procedure tLibraryAndroid.AbrirLink(Link: string);
+var
+  Intent: JIntent;
+begin
+   Intent := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW, TJnet_Uri.JavaClass.parse(StringToJString(TIdURI.URLEncode(link))));
+   TAndroidHelper.Activity.startActivity(Intent);
+end;
+
+class procedure tLibraryAndroid.EnviarEmail(destinatario, assunto,
+  texto: string);
+var
+  Intent : JIntent;
+  Destinatarios: TJavaObjectArray<JString>;
+begin
+  if Destinatario <> EmptyStr then
+    begin
+            Destinatarios := TJavaObjectArray<JString>.Create(1);
+
+            Intent := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_SEND);
+            Destinatarios.Items[0] := StringToJString(Destinatario);
+            Intent.putExtra(TJIntent.JavaClass.EXTRA_EMAIL, Destinatarios);
+            Intent.putExtra(TJIntent.JavaClass.EXTRA_SUBJECT, StringToJString(Assunto));
+            Intent.putExtra(TJIntent.JavaClass.EXTRA_TEXT, StringToJString(texto));
+            Intent.setType(StringToJString('plain/text'));
+            TAndroidHelper.Activity.startActivity(TJIntent.JavaClass.createChooser(Intent,
+              StrToJCharSequence('Qual aplicativo deseja usar para enviar um e-mail?')));
+    end;
+
+end;
 
 class function tLibraryAndroid.PermissaoCamera: TArray<string>;
 Var

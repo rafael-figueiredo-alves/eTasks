@@ -94,6 +94,10 @@ type
     Lay_github: TLayout;
     ListaAcoes: TActionList;
     ActFotoGaleria: TTakePhotoFromLibraryAction;
+    Lay_site_programador: TLayout;
+    Menu_Tarefas: TLayout;
+    Img_menu_tarefas: TImage;
+    txtTarefas: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -108,11 +112,21 @@ type
       Shift: TShiftState);
     procedure ListaTarefasItemClickEx(const Sender: TObject; ItemIndex: Integer;
       const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+    procedure FormShow(Sender: TObject);
+    procedure ListaTarefasPullRefresh(Sender: TObject);
+    procedure Lay_email_programadorClick(Sender: TObject);
+    procedure Lay_site_programadorClick(Sender: TObject);
+    procedure Lay_githubClick(Sender: TObject);
+    procedure Menu_TarefasClick(Sender: TObject);
+    procedure Menu_categoriasClick(Sender: TObject);
+    procedure Menu_metasClick(Sender: TObject);
+    procedure Menu_comprasClick(Sender: TObject);
+    procedure menu_ajudaClick(Sender: TObject);
+    procedure Btn_Add_tarefaClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
-    Termos      : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
     {FKBBounds: TRectF;
     FNeedOffset: Boolean;
@@ -129,10 +143,15 @@ type
                                 Const APostProc: TProc);
     Procedure DisplayGaleria (Sender: TObject; Const APermissions: TArray<string>;
                                 Const APostProc: TProc);
+    Procedure AtualizaInfoUsuarioLogado;
+    Procedure AtualizaListaTarefas(data: string);
+
 
     Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: integer);
   public
     { Public declarations }
+    Procedure AberturaFormPrincipal;
+    Procedure ListarTarefas(Data: string);
   end;
 
 var
@@ -146,6 +165,12 @@ Uses
   eTasks.libraries.Android, eTasks.Controller.Login, eTasks.View.Android.login, eTasks.Controller.Interfaces,
   eTasks.Controller.Usuario, eTasks.libraries.Imagens64, FMX.platform, eTasks.View.Dialogs.EditarFoto, eTasks.View.Dialogs.TirarFoto,
   FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts;
+
+procedure TForm_Android_main.AberturaFormPrincipal;
+begin
+  AtualizaInfoUsuarioLogado;
+  ListarTarefas(DateToStr(Now));
+end;
 
 procedure TForm_Android_main.ActFotoGaleriaDidFinishTaking(Image: TBitmap);
 Var
@@ -191,12 +216,53 @@ begin
     TListItemText(Objects.FindDrawable('txt_description')).Text := descricao;
 
     TListItemImage(Objects.FindDrawable('img_category')).Bitmap := Img_user_sem_photo.Bitmap;
+
+    TagString := status;
   end;
+end;
+
+procedure TForm_Android_main.AtualizaInfoUsuarioLogado;
+var
+ AUsuario : iControllerUsuario;
+ BitMap : TBitmap;
+begin
+  AUsuario := tControllerUsuario.New.Ler;
+  Perfil_nome.Text := AUsuario.Nome;
+  Perfil_email.Text := AUsuario.Email;
+  if AUsuario.Foto <> '' then
+   begin
+    BitMap := TImagens64.fromBase64(AUsuario.Foto);
+    Btn_Menu.Fill.Bitmap.Bitmap := BitMap;
+    Perfil_menu.Fill.Bitmap.Bitmap := BitMap;
+    Perfil_menu.TagString := 'WithPhoto';
+    BitMap.DisposeOf;
+   end
+  else
+   begin
+    Btn_Menu.Fill.Bitmap.Bitmap := Img_user_sem_photo.Bitmap;
+    Perfil_menu.Fill.Bitmap.Bitmap := Img_perfil_grande.Bitmap;
+    Perfil_menu.TagString := 'WithoutPhoto';
+   end;
+end;
+
+procedure TForm_Android_main.AtualizaListaTarefas(Data: string);
+begin
+  ListaTarefas.Items.Clear;
+  Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 0);
+  Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 0);
+  Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 0);
+  Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 0);
+  Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 0);
+end;
+
+procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
+begin
+ {todo 0 -oRafaelAlves -cImplementar: Evento para adicionar Tarefa}
 end;
 
 procedure TForm_Android_main.Btn_Avanca_dataClick(Sender: TObject);
 begin
-  Label_Data.Text := DateToStr(StrToDate(Label_Data.Text) + 1);
+  ListarTarefas(DateToStr(StrToDate(Label_Data.Text) + 1));
 end;
 
 procedure TForm_Android_main.Btn_fecha_main_menuClick(Sender: TObject);
@@ -222,7 +288,7 @@ end;
 
 procedure TForm_Android_main.Btn_Volta_dataClick(Sender: TObject);
 begin
-  Label_Data.Text := DateToStr(StrToDate(Label_Data.Text) - 1);
+  ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
 end;
 
 procedure TForm_Android_main.DisplayGaleria(Sender: TObject;
@@ -266,35 +332,11 @@ begin
 end;
 
 procedure TForm_Android_main.FormCreate(Sender: TObject);
-var
- AUsuario : iControllerUsuario;
- BitMap : TBitmap;
 begin
+  //Deixar formulário na tela todo e barra de status transparente
   tLibraryAndroid.TransparentNavBar;
-  AUsuario := tControllerUsuario.New.Ler;
-  Perfil_nome.Text := AUsuario.Nome;
-  Perfil_email.Text := AUsuario.Email;
-  if AUsuario.Foto <> '' then
-   begin
-    BitMap := TImagens64.fromBase64(AUsuario.Foto);
-    Btn_Menu.Fill.Bitmap.Bitmap := BitMap;
-    Perfil_menu.Fill.Bitmap.Bitmap := BitMap;
-    Perfil_menu.TagString := 'WithPhoto';
-    BitMap.DisposeOf;
-   end
-  else
-   begin
-    Btn_Menu.Fill.Bitmap.Bitmap := Img_user_sem_photo.Bitmap;
-    Perfil_menu.Fill.Bitmap.Bitmap := Img_perfil_grande.Bitmap;
-    Perfil_menu.TagString := 'WithoutPhoto';
-   end;
+  //Ajustar multi-view referente ao menu principal
   MainMenu.Width := Screen.Width + 2;
-  Label_Data.Text := DateToStr(Now);
-  Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 0);
-  Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 0);
-  Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 0);
-  Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 0);
-  Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 0);
 end;
 
 procedure TForm_Android_main.FormKeyUp(Sender: TObject; var Key: Word;
@@ -310,7 +352,7 @@ begin
        end
       else
        begin
-         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Termos)) or (Assigned(Loading)) then
+         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Loading)) then
           begin
             Key := 0;
             if Assigned(sheet_fotos) then
@@ -320,10 +362,6 @@ begin
             if Assigned(dialogs) then
              begin
               dialogs.DialogMessages.Fechar;
-             end;
-            if Assigned(Termos) then
-             begin
-              Termos.DialogTermos.Fechar;
              end;
           end
          else
@@ -348,6 +386,11 @@ begin
           end;
        end;
     end;
+end;
+
+procedure TForm_Android_main.FormShow(Sender: TObject);
+begin
+  AberturaFormPrincipal;
 end;
 
 procedure TForm_Android_main.GaleriaPermissao(sender: TObject;
@@ -377,6 +420,27 @@ begin
     end;
 end;
 
+procedure TForm_Android_main.Lay_email_programadorClick(Sender: TObject);
+begin
+  tLibraryAndroid.EnviarEmail('rafael.figueiredo.alves@gmail.com', 'Mais informações sobre o eTasks', 'Olá, Rafael, eu estou interessado em mais informações do projeto eTasks.');
+end;
+
+procedure TForm_Android_main.Lay_githubClick(Sender: TObject);
+begin
+  tLibraryAndroid.AbrirLink('https://github.com/rafael-figueiredo-alves');
+end;
+
+procedure TForm_Android_main.Lay_site_programadorClick(Sender: TObject);
+begin
+  tLibraryAndroid.AbrirLink('https://rafael-figueiredo-alves.github.io');
+end;
+
+procedure TForm_Android_main.ListarTarefas(Data: string);
+begin
+  Label_Data.Text := Data;
+  AtualizaListaTarefas(data);
+end;
+
 procedure TForm_Android_main.ListaTarefasItemClickEx(const Sender: TObject;
   ItemIndex: Integer; const LocalClickPos: TPointF;
   const ItemObject: TListItemDrawable);
@@ -399,9 +463,35 @@ begin
             end;
          end;
 
-      end;
+      end
+     else
+      ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
 
    end;
+end;
+
+procedure TForm_Android_main.ListaTarefasPullRefresh(Sender: TObject);
+begin
+  ListarTarefas(Label_Data.Text);
+  Add_tarefa('fazer', 'teste_pull_refresh', 'teste do pull refresh', 0);
+end;
+
+procedure TForm_Android_main.menu_ajudaClick(Sender: TObject);
+begin
+   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Ajuda}
+   MainMenu.HideMaster;
+end;
+
+procedure TForm_Android_main.Menu_categoriasClick(Sender: TObject);
+begin
+   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Categorias}
+   MainMenu.HideMaster;
+end;
+
+procedure TForm_Android_main.Menu_comprasClick(Sender: TObject);
+begin
+   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Compras}
+   MainMenu.HideMaster;
 end;
 
 procedure TForm_Android_main.menu_logoutClick(Sender: TObject);
@@ -417,9 +507,21 @@ begin
    end;
 end;
 
+procedure TForm_Android_main.Menu_metasClick(Sender: TObject);
+begin
+   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Metas}
+   MainMenu.HideMaster;
+end;
+
 procedure TForm_Android_main.Menu_sobreClick(Sender: TObject);
 begin
   Tab_menu.GotoVisibleTab(2);
+end;
+
+procedure TForm_Android_main.Menu_TarefasClick(Sender: TObject);
+begin
+   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Tarefas}
+   MainMenu.HideMaster;
 end;
 
 procedure TForm_Android_main.Perfil_edit_fotoClick(Sender: TObject);
