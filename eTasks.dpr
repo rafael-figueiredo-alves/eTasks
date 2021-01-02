@@ -9,7 +9,6 @@ uses
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
-  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
   {$ENDIF }
   FMX.Forms,
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
@@ -31,7 +30,8 @@ uses
   eTasks.View.Dialogs.loading in 'Source\View\Dialogs\eTasks.View.Dialogs.loading.pas' {Form_loading},
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',
   eTasks.View.Dialogs.dialogYesNo in 'Source\View\Dialogs\eTasks.View.Dialogs.dialogYesNo.pas' {DialogYesNo},
-  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas';
+  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
+  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {FormTasks};
 
 {$R *.res}
 
@@ -53,4 +53,8 @@ begin
   {$ENDIF}
   Application.Run;
 end.
+
+Application.CreateForm(TForm_Android_Login, Form_Android_Login);
+
+Application.CreateForm(TForm_Android_Login, Form_Android_Login);
 

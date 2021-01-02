@@ -164,7 +164,7 @@ implementation
 Uses
   eTasks.libraries.Android, eTasks.Controller.Login, eTasks.View.Android.login, eTasks.Controller.Interfaces,
   eTasks.Controller.Usuario, eTasks.libraries.Imagens64, FMX.platform, eTasks.View.Dialogs.EditarFoto, eTasks.View.Dialogs.TirarFoto,
-  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts;
+  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -519,9 +519,24 @@ begin
 end;
 
 procedure TForm_Android_main.Menu_TarefasClick(Sender: TObject);
+Var
+  Form_Tasks : tformTasks;
 begin
    {todo 0 -oRafaelAlves -cImplementar: Abrir form de Tarefas}
    MainMenu.HideMaster;
+
+   Form_Tasks := TFormTasks.Create(Application);
+   try
+     Form_Tasks.ShowModal(Procedure (ModalResult: TModalResult)
+                          begin
+                           case modalresult of
+                            mrOk : ShowMessage('OK');
+                            mrCancel : ShowMessage('Cancelar');
+                           end;
+                          end);
+   finally
+     Form_tasks.DisposeOf;
+   end;
 end;
 
 procedure TForm_Android_main.Perfil_edit_fotoClick(Sender: TObject);

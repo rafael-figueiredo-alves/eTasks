@@ -1,0 +1,25 @@
+var
+  Json   : TJSONObject;
+  Valor  : TJSONValue;
+  Bitmap : TBitmap;
+  Teste  : TResourceStream;
+  Teste1 : TStrings;
+begin
+  Teste1 := TStringList.Create;
+  Teste := TResourceStream.Create(Hinstance, 'Json_file', RT_RCDATA);
+  Teste.Position := 0;
+  Teste1.LoadFromStream(teste);
+  Json := TJSONObject.ParseJSONValue(teste1.Text) as TJSONObject;
+  Teste1.DisposeOf;
+  Teste.DisposeOf;
+  //Json := TJSONObject.ParseJSONValue(TEncoding.ANSI.GetBytes(TFile.ReadAllText('C:\Meus Projetos\eTasks\Source\categorias.json')), 0) as TJSONObject;
+  //Memo1.Lines.Add(Json.Format());
+  ShowMessage(Json.Count.ToString);
+  ShowMessage(Json.Pairs[100].JsonString.value + ' = '+Json.Pairs[100].JsonValue.value );
+  Valor := Json.GetValue(edit1.Text) as TJSONValue;
+  Memo1.Lines.Add(Valor.Value);
+  Memo1.Lines.Add(Valor.ToString);
+  Bitmap := timagens64.fromBase64(Valor.Value);
+  Image1.Bitmap := Bitmap;
+  Bitmap.DisposeOf;
+  Json.Free;

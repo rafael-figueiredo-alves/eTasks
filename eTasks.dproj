@@ -266,6 +266,10 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Source\Controller\eTasks.Controller.Usuario.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.tasks.pas">
+            <Form>FormTasks</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <None Include="eTasks.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -395,14 +399,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
                     <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
