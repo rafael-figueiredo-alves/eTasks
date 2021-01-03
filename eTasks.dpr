@@ -6,6 +6,7 @@ uses
   eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
   eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas',
   eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
+  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {FormTasks},
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
@@ -31,8 +32,7 @@ uses
   eTasks.View.Dialogs.loading in 'Source\View\Dialogs\eTasks.View.Dialogs.loading.pas' {Form_loading},
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',
   eTasks.View.Dialogs.dialogYesNo in 'Source\View\Dialogs\eTasks.View.Dialogs.dialogYesNo.pas' {DialogYesNo},
-  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
-  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {FormTasks};
+  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas';
 
 {$R *.res}
 

@@ -11,6 +11,8 @@ type
   TFormTasks = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,5 +25,15 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TFormTasks.FormCreate(Sender: TObject);
+begin
+  ShowMessage('Criando...');
+end;
+
+procedure TFormTasks.FormDestroy(Sender: TObject);
+begin
+  ShowMessage('Liberando da memória...');
+end;
 
 end.

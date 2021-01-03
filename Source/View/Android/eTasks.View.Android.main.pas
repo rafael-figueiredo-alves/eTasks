@@ -98,6 +98,10 @@ type
     Menu_Tarefas: TLayout;
     Img_menu_tarefas: TImage;
     txtTarefas: TLabel;
+    Lay_Lista_vazia: TLayout;
+    ListaVaziaFundo: TRectangle;
+    Image_sem_tarefas: TImage;
+    Label_sem_tarefas: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -248,11 +252,18 @@ end;
 procedure TForm_Android_main.AtualizaListaTarefas(Data: string);
 begin
   ListaTarefas.Items.Clear;
-  Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 0);
-  Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 0);
-  Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 0);
-  Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 0);
-  Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 0);
+  Lay_Lista_vazia.Visible := False;
+  if data = '04/01/2021' then
+   Lay_Lista_vazia.Visible := true
+  else
+   begin
+     Lay_Lista_vazia.Visible := false;
+     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 0);
+     Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 0);
+     Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 0);
+     Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 0);
+     Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 0);
+   end;
 end;
 
 procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
@@ -525,17 +536,17 @@ begin
    {todo 0 -oRafaelAlves -cImplementar: Abrir form de Tarefas}
    MainMenu.HideMaster;
 
-   Form_Tasks := TFormTasks.Create(Application);
+   Form_Tasks := TFormTasks.Create(nil);
    try
      Form_Tasks.ShowModal(Procedure (ModalResult: TModalResult)
                           begin
-                           case modalresult of
+                           {case modalresult of
                             mrOk : ShowMessage('OK');
                             mrCancel : ShowMessage('Cancelar');
-                           end;
+                           end;}
                           end);
    finally
-     Form_tasks.DisposeOf;
+     //Form_tasks.DisposeOf;
    end;
 end;
 
