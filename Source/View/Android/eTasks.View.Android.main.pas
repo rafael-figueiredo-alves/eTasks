@@ -127,6 +127,7 @@ type
     procedure Menu_comprasClick(Sender: TObject);
     procedure menu_ajudaClick(Sender: TObject);
     procedure Btn_Add_tarefaClick(Sender: TObject);
+    procedure Label_DataClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -202,7 +203,7 @@ end;
 procedure TForm_Android_main.Add_tarefa(Status, tarefa, descricao: string;
   categoria: string);
 Var
- bitmap : TBitmap;
+ img : TImage;
 begin
   with ListaTarefas.Items.Add do
   begin
@@ -221,9 +222,10 @@ begin
 
     TListItemText(Objects.FindDrawable('txt_description')).Text := descricao;
 
-    Bitmap := TImagens64.fromBase64(tcategorias.New.PegaImagem(categoria));
-    TListItemImage(Objects.FindDrawable('img_category')).Bitmap := bitmap;
-    bitmap.disposeof;
+    img := TImage.Create(nil);
+    img.Bitmap := TImagens64.fromBase64(tcategorias.New.PegaImagem(categoria));
+    TListItemImage(Objects.FindDrawable('img_category')).Bitmap := img.Bitmap;
+    img.disposeof;
 
     TagString := status;
   end;
@@ -433,6 +435,14 @@ begin
                                              .Exibe
                                   );
     end;
+end;
+
+procedure TForm_Android_main.Label_DataClick(Sender: TObject);
+var img: TBitmap;
+begin
+  img :=  TImagens64.fromBase64(tcategorias.New.PegaImagem('Cat_001'));
+  Btn_Menu.Fill.Bitmap.Bitmap := img;
+  img.DisposeOf;
 end;
 
 procedure TForm_Android_main.Lay_email_programadorClick(Sender: TObject);

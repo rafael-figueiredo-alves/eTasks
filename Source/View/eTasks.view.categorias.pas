@@ -26,7 +26,7 @@ implementation
 
 uses
   System.Classes, System.Types, FMX.Objects, eTasks.libraries.Imagens64, 
-  FMX.Graphics, System.Generics.Collections;
+  FMX.Graphics, System.Generics.Collections, System.SysUtils, system.IOutils;
 
 { TCategorias }
 
