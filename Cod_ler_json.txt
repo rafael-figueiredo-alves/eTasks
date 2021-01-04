@@ -1,3 +1,7 @@
+  ItemImage := ListBoxItem1.FindStyleResource('image1') as TImage;
+  if Assigned(ItemImage) then
+   ItemImage.Bitmap := Image1.Bitmap;
+
 var
   Json   : TJSONObject;
   Valor  : TJSONValue;

@@ -1,5 +1,7 @@
 program eTasks;
 
+{$R *.dres}
+
 uses
   System.StartUpCopy,
   {$IFDEF ANDROID}
@@ -32,7 +34,8 @@ uses
   eTasks.View.Dialogs.loading in 'Source\View\Dialogs\eTasks.View.Dialogs.loading.pas' {Form_loading},
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',
   eTasks.View.Dialogs.dialogYesNo in 'Source\View\Dialogs\eTasks.View.Dialogs.dialogYesNo.pas' {DialogYesNo},
-  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas';
+  eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
+  eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas';
 
 {$R *.res}
 
@@ -42,7 +45,9 @@ begin
   {$IFDEF ANDROID}
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   if not TModelLoggedUser.Verificar then
-   Application.CreateForm(TForm_Android_Login, Form_Android_Login)
+   Application.CreateForm(TForm_Android_Login, Form_Android_Login);
+  Application.CreateForm(TForm_Android_Login, Form_Android_Login);
+  Application.CreateForm(TForm_Android_Login, Form_Android_Login)
   else
    Application.CreateForm(TForm_Android_main, Form_Android_Main);
   {$ENDIF}
