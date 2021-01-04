@@ -64,11 +64,12 @@ begin
   lbitem             := TListBoxItem.Create(nil);
   lbitem.Parent      := ListBox1;
   lbitem.StyleLookup := 'ListBoxItem1Style1';
-  ItemImage          := lbitem.FindStyleResource('imgage2') as TImage;
+  {ItemImage          := lbitem.FindStyleResource('imgage2') as TImage;
   if Assigned(ItemImage) then
    begin
     ItemImage.Bitmap := Image1.Bitmap;
-   end;
+   end;}
+   lbitem.ItemData.Bitmap := Image1.Bitmap;
    ListBox1.EndUpdate;
 end;
 

@@ -45,9 +45,7 @@ begin
   {$IFDEF ANDROID}
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   if not TModelLoggedUser.Verificar then
-   Application.CreateForm(TForm_Android_Login, Form_Android_Login);
-  Application.CreateForm(TForm_Android_Login, Form_Android_Login);
-  Application.CreateForm(TForm_Android_Login, Form_Android_Login)
+   Application.CreateForm(TForm_Android_Login, Form_Android_Login)
   else
    Application.CreateForm(TForm_Android_main, Form_Android_Main);
   {$ENDIF}

@@ -151,7 +151,7 @@ type
     Procedure AtualizaListaTarefas(data: string);
 
 
-    Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: integer);
+    Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: string);
   public
     { Public declarations }
     Procedure AberturaFormPrincipal;
@@ -168,7 +168,7 @@ implementation
 Uses
   eTasks.libraries.Android, eTasks.Controller.Login, eTasks.View.Android.login, eTasks.Controller.Interfaces,
   eTasks.Controller.Usuario, eTasks.libraries.Imagens64, FMX.platform, eTasks.View.Dialogs.EditarFoto, eTasks.View.Dialogs.TirarFoto,
-  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks;
+  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks, eTasks.view.categorias;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -200,7 +200,9 @@ begin
 end;
 
 procedure TForm_Android_main.Add_tarefa(Status, tarefa, descricao: string;
-  categoria: integer);
+  categoria: string);
+Var
+ bitmap : TBitmap;
 begin
   with ListaTarefas.Items.Add do
   begin
@@ -219,7 +221,9 @@ begin
 
     TListItemText(Objects.FindDrawable('txt_description')).Text := descricao;
 
-    TListItemImage(Objects.FindDrawable('img_category')).Bitmap := Img_user_sem_photo.Bitmap;
+    Bitmap := TImagens64.fromBase64(tcategorias.New.PegaImagem(categoria));
+    TListItemImage(Objects.FindDrawable('img_category')).Bitmap := bitmap;
+    bitmap.disposeof;
 
     TagString := status;
   end;
@@ -258,11 +262,11 @@ begin
   else
    begin
      Lay_Lista_vazia.Visible := false;
-     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 0);
-     Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 0);
-     Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 0);
-     Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 0);
-     Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 0);
+     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 'Cat_001');
+     Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 'Cat_061');
+     Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 'Cat_010');
+     Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
+     Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
    end;
 end;
 
@@ -484,7 +488,7 @@ end;
 procedure TForm_Android_main.ListaTarefasPullRefresh(Sender: TObject);
 begin
   ListarTarefas(Label_Data.Text);
-  Add_tarefa('fazer', 'teste_pull_refresh', 'teste do pull refresh', 0);
+  Add_tarefa('fazer', 'teste_pull_refresh', 'teste do pull refresh', 'Cat_015');
 end;
 
 procedure TForm_Android_main.menu_ajudaClick(Sender: TObject);

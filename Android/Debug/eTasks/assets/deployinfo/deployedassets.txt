@@ -1,1 +1,2 @@
+.\assets\internal\categorias.json
 .\assets\internal\eTasks.todo

@@ -60,7 +60,6 @@ procedure TCategorias.MontaListagem(lista: tlistbox);
 Var
  lbitem    : TListBoxItem;
  Bitmap    : tbitmap;
- ItemImage : TImage;
  item      : integer;
 begin
   lista.BeginUpdate;
@@ -70,15 +69,11 @@ begin
      begin
        lbitem             := TListBoxItem.Create(nil);
        lbitem.Parent      := lista;
-       lbitem.StyleLookup := 'ListBoxItem_EstiloCategoria';
+       lbitem.StyleLookup := 'Estilo_Categoria';
        lbitem.TagString   := FJson.Pairs[item].JsonString.Value;
-       ItemImage          := lbitem.FindStyleResource('img_categoria') as TImage;
-       if Assigned(ItemImage) then
-        begin
-         Bitmap           := TImagens64.fromBase64(FJson.Pairs[item].JsonValue.Value);
-         ItemImage.Bitmap := Bitmap;
-         Bitmap.DisposeOf;
-        end;
+       Bitmap           := TImagens64.fromBase64(FJson.Pairs[item].JsonValue.Value);
+       lbitem.ItemData.Bitmap := Bitmap;
+       Bitmap.DisposeOf;
      end;
   finally
    lista.EndUpdate;
