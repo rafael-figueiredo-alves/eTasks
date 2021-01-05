@@ -203,7 +203,8 @@ end;
 procedure TForm_Android_main.Add_tarefa(Status, tarefa, descricao: string;
   categoria: string);
 Var
- img : TImage;
+ img : TBitmap;
+ picture : TImage;
 begin
   with ListaTarefas.Items.Add do
   begin
@@ -222,10 +223,16 @@ begin
 
     TListItemText(Objects.FindDrawable('txt_description')).Text := descricao;
 
-    img := TImage.Create(nil);
-    img.Bitmap := TImagens64.fromBase64(tcategorias.New.PegaImagem(categoria));
-    TListItemImage(Objects.FindDrawable('img_category')).Bitmap := img.Bitmap;
-    img.disposeof;
+    img := TImagens64.fromBase64(tcategorias.New.PegaImagem(categoria));
+    picture := TImage.Create(nil);
+    try
+     TListItemImage(Objects.FindDrawable('img_category')).OwnsBitmap := True;
+     picture.Bitmap := img;
+     TListItemImage(Objects.FindDrawable('img_category')).Bitmap := picture.Bitmap;
+     img.disposeof;
+    finally
+     picture.DisposeOf;
+    end;
 
     TagString := status;
   end;
