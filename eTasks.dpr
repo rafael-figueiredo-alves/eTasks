@@ -8,11 +8,10 @@ uses
   eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
   eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas',
   eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
-  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {FormTasks},
+  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {Tela_Tarefas},
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
-  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
   {$ENDIF }
   FMX.Forms,
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
@@ -45,7 +44,7 @@ begin
   {$IFDEF ANDROID}
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   if not TModelLoggedUser.Verificar then
-   Application.CreateForm(TForm_Android_Login, Form_Android_Login)
+  Application.CreateForm(TForm_Android_Login, Form_Android_Login)
   else
    Application.CreateForm(TForm_Android_main, Form_Android_Main);
   {$ENDIF}

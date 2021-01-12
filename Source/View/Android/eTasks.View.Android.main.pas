@@ -9,9 +9,12 @@ uses
   FMX.MultiView, FMX.ListView.Types, FMX.ListView.Appearances,
   FMX.ListView.Adapters.Base, FMX.ListView, FMX.TabControl, FMX.Edit, eTasks.View.Dialogs.Factory,
   system.permissions, FMX.MediaLibrary.Actions, System.Actions, FMX.ActnList,
-  FMX.StdActns;
+  FMX.StdActns, FMX.Ani;
 
 type
+  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
+           TelaCategorias, TelaObjetivos, TelaListas, TelaAjuda);
+
   TForm_Android_main = class(TForm)
     Lay_main: TLayout;
     Estilos_Login: TStyleBook;
@@ -102,6 +105,9 @@ type
     ListaVaziaFundo: TRectangle;
     Image_sem_tarefas: TImage;
     Label_sem_tarefas: TLabel;
+    RecAniForms: TRectangle;
+    ShadowEffect7: TShadowEffect;
+    AniAberturaFechaForm: TFloatAnimation;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -127,12 +133,13 @@ type
     procedure Menu_comprasClick(Sender: TObject);
     procedure menu_ajudaClick(Sender: TObject);
     procedure Btn_Add_tarefaClick(Sender: TObject);
-    procedure Label_DataClick(Sender: TObject);
+    procedure AniAberturaFechaFormFinish(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
+    FTela       : Telas;
     {FKBBounds: TRectF;
     FNeedOffset: Boolean;
     procedure CalcContentBoundsProc(Sender: TObject;
@@ -148,9 +155,11 @@ type
                                 Const APostProc: TProc);
     Procedure DisplayGaleria (Sender: TObject; Const APermissions: TArray<string>;
                                 Const APostProc: TProc);
+
     Procedure AtualizaInfoUsuarioLogado;
     Procedure AtualizaListaTarefas(data: string);
 
+    Procedure AbreTela (Tela : Telas);
 
     Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: string);
   public
@@ -175,6 +184,12 @@ procedure TForm_Android_main.AberturaFormPrincipal;
 begin
   AtualizaInfoUsuarioLogado;
   ListarTarefas(DateToStr(Now));
+end;
+
+procedure TForm_Android_main.AbreTela(Tela: Telas);
+begin
+  FTela := Tela;
+  AniAberturaFechaForm.Start;
 end;
 
 procedure TForm_Android_main.ActFotoGaleriaDidFinishTaking(Image: TBitmap);
@@ -238,6 +253,40 @@ begin
   end;
 end;
 
+procedure TForm_Android_main.AniAberturaFechaFormFinish(Sender: TObject);
+begin
+  if AniAberturaFechaForm.Inverse = false then
+   begin
+     case FTela of
+      TelaTarefas      : begin
+                          AniAberturaFechaForm.Inverse := True;
+                          if not Assigned(tela_Tarefas) then
+                            Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
+                          Tela_Tarefas.Acao(taLista);
+                          Tela_tarefas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                 Begin
+                                                   AniAberturaFechaForm.Start;
+                                                 End);
+                        end;
+      TelaTarefas_Novo : begin
+                          AniAberturaFechaForm.Inverse := True;
+                          if not Assigned(tela_Tarefas) then
+                            Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
+                          Tela_Tarefas.Acao(taNovo);
+                          Tela_tarefas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                 Begin
+                                                   AniAberturaFechaForm.Start;
+                                                 End);
+                        end;
+      TelaCategorias  : showmessage('a');
+      TelaObjetivos   : showmessage('a');
+      TelaListas      : showmessage('a');
+     end;
+   end
+  else
+   AniAberturaFechaForm.Inverse := False;
+end;
+
 procedure TForm_Android_main.AtualizaInfoUsuarioLogado;
 var
  AUsuario : iControllerUsuario;
@@ -281,7 +330,7 @@ end;
 
 procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
 begin
- {todo 0 -oRafaelAlves -cImplementar: Evento para adicionar Tarefa}
+  AbreTela(TelaTarefas_Novo);
 end;
 
 procedure TForm_Android_main.Btn_Avanca_dataClick(Sender: TObject);
@@ -444,14 +493,6 @@ begin
     end;
 end;
 
-procedure TForm_Android_main.Label_DataClick(Sender: TObject);
-var img: TBitmap;
-begin
-  img :=  TImagens64.fromBase64(tcategorias.New.PegaImagem('Cat_001'));
-  Btn_Menu.Fill.Bitmap.Bitmap := img;
-  img.DisposeOf;
-end;
-
 procedure TForm_Android_main.Lay_email_programadorClick(Sender: TObject);
 begin
   tLibraryAndroid.EnviarEmail('rafael.figueiredo.alves@gmail.com', 'Mais informações sobre o eTasks', 'Olá, Rafael, eu estou interessado em mais informações do projeto eTasks.');
@@ -551,24 +592,10 @@ begin
 end;
 
 procedure TForm_Android_main.Menu_TarefasClick(Sender: TObject);
-Var
-  Form_Tasks : tformTasks;
 begin
    {todo 0 -oRafaelAlves -cImplementar: Abrir form de Tarefas}
    MainMenu.HideMaster;
-
-   Form_Tasks := TFormTasks.Create(nil);
-   try
-     Form_Tasks.ShowModal(Procedure (ModalResult: TModalResult)
-                          begin
-                           {case modalresult of
-                            mrOk : ShowMessage('OK');
-                            mrCancel : ShowMessage('Cancelar');
-                           end;}
-                          end);
-   finally
-     //Form_tasks.DisposeOf;
-   end;
+   AbreTela(TelaTarefas);
 end;
 
 procedure TForm_Android_main.Perfil_edit_fotoClick(Sender: TObject);
