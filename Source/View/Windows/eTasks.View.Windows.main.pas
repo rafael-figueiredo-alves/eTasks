@@ -116,6 +116,9 @@ type
     procedure Btn_Volta_dataClick(Sender: TObject);
     procedure ListaTarefasUpdateObjects(const Sender: TObject;
       const AItem: TListViewItem);
+    procedure Lay_email_programadorClick(Sender: TObject);
+    procedure Lay_site_programadorClick(Sender: TObject);
+    procedure Lay_githubClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -144,7 +147,8 @@ uses
   eTasks.Controller.Usuario, eTasks.Controller.Interfaces,
   eTasks.libraries.Imagens64, eTasks.view.categorias,
   eTasks.View.Dialogs.TirarFoto, eTasks.View.Dialogs.EditarFoto,
-  eTasks.Controller.Login, eTasks.View.Windows.login;
+  eTasks.Controller.Login, eTasks.View.Windows.login,
+  eTasks.Libraries.Windows;
 
 {$R *.fmx}
 
@@ -284,6 +288,21 @@ end;
 procedure TForm_Windows_Main.FormShow(Sender: TObject);
 begin
    AberturaFormPrincipal;
+end;
+
+procedure TForm_Windows_Main.Lay_email_programadorClick(Sender: TObject);
+begin
+  tLibraryWindows.EnviarEmail('rafael.figueiredo.alves@gmail.com', 'Mais informações sobre o eTasks', 'Olá, Rafael, eu estou interessado em mais informações do projeto eTasks.');
+end;
+
+procedure TForm_Windows_Main.Lay_githubClick(Sender: TObject);
+begin
+  tLibraryWindows.AbrirLink('https://github.com/rafael-figueiredo-alves');
+end;
+
+procedure TForm_Windows_Main.Lay_site_programadorClick(Sender: TObject);
+begin
+  tLibraryWindows.AbrirLink('https://rafael-figueiredo-alves.github.io');
 end;
 
 procedure TForm_Windows_Main.ListarTarefas(Data: string);

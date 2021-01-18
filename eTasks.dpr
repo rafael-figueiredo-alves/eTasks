@@ -8,11 +8,12 @@ uses
   eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
   eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas',
   eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
-  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas' {Tela_Tarefas},
+  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas',
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
   eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
+  eTasks.libraries.Windows in 'Source\Libraries\eTasks.libraries.Windows.pas',
   {$ENDIF }
   FMX.Forms,
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
