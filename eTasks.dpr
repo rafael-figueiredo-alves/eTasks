@@ -12,6 +12,7 @@ uses
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
+  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
   {$ENDIF }
   FMX.Forms,
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
