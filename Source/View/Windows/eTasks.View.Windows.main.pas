@@ -114,6 +114,8 @@ type
     procedure Btn_fecha_main_menuClick(Sender: TObject);
     procedure Tab_menuChange(Sender: TObject);
     procedure Btn_Volta_dataClick(Sender: TObject);
+    procedure ListaTarefasUpdateObjects(const Sender: TObject;
+      const AItem: TListViewItem);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -223,7 +225,7 @@ begin
   else
    begin
      Lay_Lista_vazia.Visible := false;
-     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 'Cat_001');
+     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste 1', 'Cat_001');
      Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 'Cat_061');
      Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 'Cat_010');
      Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
@@ -317,6 +319,17 @@ begin
       ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
 
    end;
+end;
+
+procedure TForm_Windows_Main.ListaTarefasUpdateObjects(const Sender: TObject;
+  const AItem: TListViewItem);
+Var
+  txt : TListItemText;
+begin
+  txt := TListItemText(AItem.Objects.FindDrawable('txt_titulo'));
+  txt.Width := ListaTarefas.Width - txt.PlaceOffset.X - 68;
+  txt := TListItemText(AItem.Objects.FindDrawable('txt_description'));
+  txt.Width := ListaTarefas.Width - txt.PlaceOffset.X - 68;
 end;
 
 procedure TForm_Windows_Main.menu_logoutClick(Sender: TObject);
