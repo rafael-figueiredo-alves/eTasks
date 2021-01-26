@@ -26,6 +26,7 @@ Type
      Function Foto : string; overload;
      Function Gravar (Token : string; out erro : string) : iModelUsuario;
      Function Ler (Token : string; out erro : string) : iModelUsuario;
+     Function Editar (Token : string; out erro : string) : iModelUsuario;
   End;
 
   Const
@@ -59,6 +60,36 @@ function TModelUsuarios.Email(Value: string): iModelUsuario;
 begin
   Result := Self;
   FEmail := Value;
+end;
+
+function TModelUsuarios.Editar(Token: string; out erro: string): iModelUsuario;
+Var
+  ADataBase : IFirebaseDatabase;
+  AResponse : iFirebaseResponse;
+  Dados     : TJSONValue;
+  JsonStr   : string;
+  Resposta     : TJSONValue;
+begin
+  Result := Self;
+  ADatabase := tfirebaseDatabase.Create;
+  ADataBase.SetBaseURI(BaseUrl);
+  ADataBase.SetToken(Token);
+  JsonStr := '{"nome" : "' + FNome + '", "foto" : "' + FFoto + '"}';
+  Dados := TJSONObject.ParseJSONValue(JsonStr);
+  AResponse := ADataBase.Patch([FuID+'.json'], Dados);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
+
+   if Resposta <> Dados then
+    erro := 'Erro';
+
+    if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 function TModelUsuarios.Email: string;

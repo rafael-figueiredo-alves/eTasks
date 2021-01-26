@@ -134,6 +134,7 @@ type
     procedure menu_ajudaClick(Sender: TObject);
     procedure Btn_Add_tarefaClick(Sender: TObject);
     procedure AniAberturaFechaFormFinish(Sender: TObject);
+    procedure btn_salvar_perfilClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -178,7 +179,8 @@ implementation
 Uses
   eTasks.libraries.Android, eTasks.Controller.Login, eTasks.View.Android.login, eTasks.Controller.Interfaces,
   eTasks.Controller.Usuario, eTasks.libraries.Imagens64, FMX.platform, eTasks.View.Dialogs.EditarFoto, eTasks.View.Dialogs.TirarFoto,
-  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks, eTasks.view.categorias;
+  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks, eTasks.view.categorias,
+  eTasks.libraries;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -292,28 +294,35 @@ var
  AUsuario : iControllerUsuario;
  BitMap : TBitmap;
 begin
-  AUsuario := tControllerUsuario.New.Ler;
-  Perfil_nome.Text := AUsuario.Nome;
-  Perfil_email.Text := AUsuario.Email;
-  if AUsuario.Foto <> '' then
-   begin
-    BitMap := TImagens64.fromBase64(AUsuario.Foto);
-    Btn_Menu.Fill.Bitmap.Bitmap := BitMap;
-    Perfil_menu.Fill.Bitmap.Bitmap := BitMap;
-    Perfil_menu.TagString := 'WithPhoto';
-    BitMap.DisposeOf;
-   end
-  else
-   begin
-    Btn_Menu.Fill.Bitmap.Bitmap := Img_user_sem_photo.Bitmap;
-    Perfil_menu.Fill.Bitmap.Bitmap := Img_perfil_grande.Bitmap;
-    Perfil_menu.TagString := 'WithoutPhoto';
-   end;
+  teTasksLibrary.CustomThread(nil, Procedure ()
+                                   begin
+                                    AUsuario := tControllerUsuario.New.Ler;
+                                   end,
+                                   Procedure ()
+                                   begin
+                                    Perfil_nome.Text := AUsuario.Nome;
+                                    Perfil_email.Text := AUsuario.Email;
+                                    if AUsuario.Foto <> '' then
+                                      begin
+                                        BitMap := TImagens64.fromBase64(AUsuario.Foto);
+                                        Btn_Menu.Fill.Bitmap.Bitmap := BitMap;
+                                        Perfil_menu.Fill.Bitmap.Bitmap := BitMap;
+                                        Perfil_menu.TagString := 'WithPhoto';
+                                        BitMap.DisposeOf;
+                                      end
+                                    else
+                                     begin
+                                       Btn_Menu.Fill.Bitmap.Bitmap := Img_user_sem_photo.Bitmap;
+                                       Perfil_menu.Fill.Bitmap.Bitmap := Img_perfil_grande.Bitmap;
+                                       Perfil_menu.TagString := 'WithoutPhoto';
+                                     end;
+                                   end);
 end;
 
 procedure TForm_Android_main.AtualizaListaTarefas(Data: string);
 begin
   ListaTarefas.Items.Clear;
+  ListaTarefas.BeginUpdate;
   Lay_Lista_vazia.Visible := False;
   if data = '04/01/2021' then
    Lay_Lista_vazia.Visible := true
@@ -326,6 +335,7 @@ begin
      Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
      Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
    end;
+  ListaTarefas.EndUpdate;
 end;
 
 procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
@@ -355,8 +365,55 @@ end;
 procedure TForm_Android_main.btn_perfilClick(Sender: TObject);
 begin
   Perfil_edit_foto.Fill.Bitmap.Bitmap := Perfil_menu.Fill.Bitmap.Bitmap;
+  Perfil_edit_foto.TagString := Perfil_menu.TagString;
   Edit_perfil_nome.Text := Perfil_nome.Text;
   Tab_menu.GotoVisibleTab(1);
+end;
+
+procedure TForm_Android_main.btn_salvar_perfilClick(Sender: TObject);
+var
+ FFotoPerfil : string;
+ FService : IFMXVirtualKeyboardService;
+begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
+   teTasksLibrary.CustomThread(
+                               Procedure ()
+                               begin
+                                Loading := tviewdialogsmessages.New;
+                                Form_Android_main.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Alterando conta. Aguarde ... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                               end,
+                               Procedure ()
+                               begin
+                                if Perfil_edit_foto.TagString = 'WithPhoto' then
+                                 FFotoPerfil := timagens64.toBase64(Perfil_edit_foto.Fill.Bitmap.Bitmap)
+                                else
+                                 FFotoPerfil := '';
+                                tControllerUsuario.New
+                                                 .Foto(FFotoPerfil)
+                                                 .Nome(Edit_perfil_nome.Text)
+                                                 .Alterar;
+                               end,
+                               Procedure ()
+                               begin
+                                Loading.Loading.Fechar;
+                                Perfil_menu.Fill.Bitmap.Bitmap := Perfil_edit_foto.Fill.Bitmap.Bitmap;
+                                Btn_Menu.Fill.Bitmap.Bitmap := Perfil_edit_foto.Fill.Bitmap.Bitmap;
+                                Perfil_nome.Text := Edit_perfil_nome.Text;
+                                Tab_menu.GotoVisibleTab(0);
+                               end
+                              );
 end;
 
 procedure TForm_Android_main.Btn_Volta_dataClick(Sender: TObject);
@@ -463,7 +520,10 @@ end;
 
 procedure TForm_Android_main.FormShow(Sender: TObject);
 begin
-  AberturaFormPrincipal;
+  if teTasksLibrary.CheckInternet = true then
+    AberturaFormPrincipal
+   else
+    ShowMessage('Sem conexão');
 end;
 
 procedure TForm_Android_main.GaleriaPermissao(sender: TObject;

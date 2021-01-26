@@ -24,6 +24,7 @@ Type
      Function Foto (Value : String) : iControllerUsuario; overload;
      Function Ler : iControllerUsuario;
      function Salvar : iControllerUsuario;
+     Function Alterar : iControllerUsuario;
   End;
 
 implementation
@@ -32,6 +33,18 @@ uses
   eTasks.Model.Interfaces, eTasks.Model.Usuarios, eTasks.Model.LoggedUser;
 
 { TControllerUsuario }
+
+function TControllerUsuario.Alterar: iControllerUsuario;
+Var
+ Error : String;
+begin
+  Result := Self;
+  TModelUsuarios.New
+                  .uID(FuID)
+                  .Nome(FNome)
+                  .Foto(FFoto)
+                  .Editar(FToken, error);
+end;
 
 constructor TControllerUsuario.Create;
 begin

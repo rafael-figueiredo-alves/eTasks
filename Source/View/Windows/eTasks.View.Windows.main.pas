@@ -103,6 +103,7 @@ type
     Lay_site_programador: TLayout;
     Btn_fecha_main_menu: TImage;
     SelecionaFoto: TOpenDialog;
+    StyleBook1: TStyleBook;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -119,6 +120,9 @@ type
     procedure Lay_email_programadorClick(Sender: TObject);
     procedure Lay_site_programadorClick(Sender: TObject);
     procedure Lay_githubClick(Sender: TObject);
+    procedure btn_perfilClick(Sender: TObject);
+    procedure Perfil_edit_fotoClick(Sender: TObject);
+    procedure btn_salvar_perfilClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -148,7 +152,8 @@ uses
   eTasks.libraries.Imagens64, eTasks.view.categorias,
   eTasks.View.Dialogs.TirarFoto, eTasks.View.Dialogs.EditarFoto,
   eTasks.Controller.Login, eTasks.View.Windows.login,
-  eTasks.Libraries.Windows;
+  eTasks.Libraries.Windows, eTasks.libraries,
+  eTasks.View.Dialogs.Messages.Consts;
 
 {$R *.fmx}
 
@@ -260,6 +265,53 @@ begin
    end;
 end;
 
+procedure TForm_Windows_Main.btn_perfilClick(Sender: TObject);
+begin
+  Perfil_edit_foto.Fill.Bitmap.Bitmap := Perfil_menu.Fill.Bitmap.Bitmap;
+  Perfil_edit_foto.TagString := Perfil_menu.TagString;
+  Edit_perfil_nome.Text := Perfil_nome.Text;
+  Tab_menu.GotoVisibleTab(1);
+end;
+
+procedure TForm_Windows_Main.btn_salvar_perfilClick(Sender: TObject);
+Var
+ FFotoPerfil : string;
+begin
+   teTasksLibrary.CustomThread(
+                               procedure ()
+                               begin
+                                 loading := tviewDialogsMessages.New;
+                                 Form_Windows_main.AddObject(loading.Loading
+                                                                        .Mensagem('Alterando conta. Aguarde ...')
+                                                                        .AcaoLimpa(Procedure ()
+                                                                                   begin
+                                                                                    loading := nil;
+                                                                                   end)
+                                                                        .Exibe
+                                                             );
+                               end,
+                               Procedure ()
+                               begin
+                                 if Perfil_edit_foto.TagString = 'WithPhoto' then
+                                  FFotoPerfil := timagens64.toBase64(Perfil_edit_foto.Fill.Bitmap.Bitmap)
+                                 else
+                                  FFotoPerfil := '';
+                                 tControllerUsuario.New
+                                                  .Nome(Edit_perfil_nome.Text)
+                                                  .Foto(FFotoPerfil)
+                                                  .Alterar;
+                               end,
+                               Procedure ()
+                               begin
+                                loading.Loading.Fechar;
+                                   Perfil_menu.Fill.Bitmap.Bitmap := Perfil_edit_foto.Fill.Bitmap.Bitmap;
+                                   Btn_Menu.Fill.Bitmap.Bitmap := Perfil_edit_foto.Fill.Bitmap.Bitmap;
+                                   Perfil_nome.Text := Edit_perfil_nome.Text;
+                                   Tab_menu.GotoVisibleTab(0);
+                               end
+                              );
+end;
+
 procedure TForm_Windows_Main.Btn_Volta_dataClick(Sender: TObject);
 begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
@@ -274,6 +326,7 @@ begin
   if self.Width >= 740 then
    begin
      MainMenu.Mode := TMultiViewMode.Panel;
+     Tab_menu.ActiveTab := Tab_menu_principal;
      Btn_Menu.Visible := False;
      Btn_fecha_main_menu.Visible := False;
    end
@@ -287,7 +340,10 @@ end;
 
 procedure TForm_Windows_Main.FormShow(Sender: TObject);
 begin
-   AberturaFormPrincipal;
+  if teTasksLibrary.CheckInternet = true then
+    AberturaFormPrincipal
+   else
+    ShowMessage('Sem conexão');
 end;
 
 procedure TForm_Windows_Main.Lay_email_programadorClick(Sender: TObject);
@@ -392,6 +448,28 @@ begin
       form_Editar_Foto.DisposeOf;
      end;
     end;
+end;
+
+procedure TForm_Windows_Main.Perfil_edit_fotoClick(Sender: TObject);
+begin
+  Sheet_fotos := TViewDialogsMessages.New;
+  Form_windows_main.AddObject(
+                               Sheet_fotos.Pai(self).SheetFotos
+                                                   .AcaoFundo(Procedure ()
+                                                              Begin
+                                                               Sheet_fotos := nil;
+                                                              end)
+                                                   .AcaoFoto(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              TirarFotoCamera;
+                                                             end)
+                                                   .AcaoGaleria(Procedure ()
+                                                             begin
+                                                              Sheet_fotos := nil;
+                                                              PegarFotoGaleria;
+                                                             end)
+                                                   .Exibe);
 end;
 
 procedure TForm_Windows_Main.Tab_menuChange(Sender: TObject);

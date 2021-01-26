@@ -75,6 +75,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="Source\categorias.json" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>categorias.json</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Condition="'$(Config)'=='Release'">

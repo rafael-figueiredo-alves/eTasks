@@ -25,6 +25,7 @@ type
     Function Foto (Value : String) : iControllerUsuario; overload;
     Function Ler : iControllerUsuario;
     function Salvar : iControllerUsuario;
+    Function Alterar : iControllerUsuario;
   end;
 
 implementation

@@ -16,14 +16,43 @@ Type
                                  AOnError                   : TProcedureExcept = nil;
                                  const ADoCompleteWithError : Boolean = True
                                 );
+    Class Function CheckInternet : Boolean;
   end;
 
 implementation
 
 uses
-  System.Classes;
+  System.Classes,
+  System.Net.URLClient,
+  System.Net.HttpClient,
+  System.Net.HttpClientComponent,
+  IdHTTP;
 
 { teTasksLibrary }
+
+class function teTasksLibrary.CheckInternet: Boolean;
+var
+  Net : TNetHTTPClient;
+begin
+  Result := False;
+  Net := TNetHTTPClient.Create(nil);
+  try
+   try
+    Net.Get('https://etasks-d6988.firebaseio.com/etasks/v1/users.json');
+   except
+    on E: Exception do begin
+      if not (E is EIdHTTPProtocolException) then begin
+        Result := False;
+        Net.DisposeOf;
+        Exit;
+      end;
+    end;
+   end;
+  finally
+    Net.DisposeOf;
+  end;
+  Result := True;
+end;
 
 class procedure teTasksLibrary.CustomThread(AOnStart, AOnProcess,
   AOnComplete: TProc; AOnError: TProcedureExcept;

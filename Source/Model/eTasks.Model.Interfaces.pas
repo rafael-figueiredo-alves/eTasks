@@ -52,6 +52,7 @@ Type
     Function Foto : string; overload;
     Function Gravar (Token : string; out erro : string) : iModelUsuario;
     Function Ler (Token : string; out erro : string) : iModelUsuario;
+    Function Editar (Token : string; out erro : string) : iModelUsuario;
   end;
 
   iModelFactory = Interface
