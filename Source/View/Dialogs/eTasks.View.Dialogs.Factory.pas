@@ -3,7 +3,8 @@ unit eTasks.View.Dialogs.Factory;
 interface
 
 Uses eTasks.View.Dialogs.Messages, eTasks.View.Dialogs.Termos, eTasks.View.Dialogs.SheetFotos,
-  eTasks.View.Dialogs.loading, eTasks.View.Dialogs.dialogYesNo;
+  eTasks.View.Dialogs.loading, eTasks.View.Dialogs.dialogYesNo,
+  eTasks.View.Dialogs.Calendar;
 
 Type
 
@@ -14,6 +15,7 @@ Type
     Function SheetFotos     : TSheet_fotos;
     Function Loading        : TForm_Loading;
     Function DialogYesNo    : TDialogYesNo;
+    Function Calendar       : TDlg_Calendar;
     Function Pai (Value : TObject) : iViewDialogsFactory;
   end;
 
@@ -24,6 +26,7 @@ Type
      FDialogTermos    : TDlg_Termos;
      FLoading         : TForm_loading;
      FDialogYesNo     : TDialogYesNo;
+     FCalendar        : TDlg_Calendar;
      FPai             : tobject;
     Public
      Constructor Create;
@@ -34,6 +37,7 @@ Type
      Function SheetFotos     : TSheet_fotos;
      Function Loading        : TForm_Loading;
      Function DialogYesNo    : TDialogYesNo;
+     Function Calendar       : TDlg_Calendar;
      Function Pai (Value : Tobject) : iViewDialogsFactory;
   End;
 
@@ -43,6 +47,19 @@ uses
   FMX.Forms, FMX.Types;
 
 { TViewDialogsMessages }
+
+function TViewDialogsMessages.Calendar: TDlg_Calendar;
+begin
+  if not assigned(FCalendar) then
+  {$ifdef Android}
+    FCalendar := TDlg_Calendar.Create(nil);
+  {$endif}
+  {$ifdef MSWindows}
+    FCalendar := TDlg_Calendar.Create(nil);
+    FCalendar.Parent := TFmxObject(FPai);
+  {$Endif}
+  Result := FCalendar;
+end;
 
 constructor TViewDialogsMessages.Create;
 begin

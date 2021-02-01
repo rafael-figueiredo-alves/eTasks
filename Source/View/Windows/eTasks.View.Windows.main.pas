@@ -123,11 +123,13 @@ type
     procedure btn_perfilClick(Sender: TObject);
     procedure Perfil_edit_fotoClick(Sender: TObject);
     procedure btn_salvar_perfilClick(Sender: TObject);
+    procedure Label_DataClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
+    FCalendar   : iViewDialogsFactory;
 
     Procedure TirarFotoCamera;
     Procedure PegarFotoGaleria;
@@ -344,6 +346,24 @@ begin
     AberturaFormPrincipal
    else
     ShowMessage('Sem conexão');
+end;
+
+procedure TForm_Windows_Main.Label_DataClick(Sender: TObject);
+begin
+  FCalendar := TViewDialogsMessages.New;
+  Form_Windows_Main.AddObject(
+                               FCalendar.Pai(Form_Windows_Main).Calendar
+                                            .Data(StrToDate(Label_Data.Text))
+                                            .AcaoBotao(Procedure ()
+                                                       begin
+                                                         ListarTarefas(DateToStr(FCalendar.Calendar.Data));
+                                                         FCalendar := nil;
+                                                       end)
+                                            .AcaoFundo(Procedure ()
+                                                       begin
+                                                         FCalendar := nil;
+                                                       end)
+                                            .Exibe);
 end;
 
 procedure TForm_Windows_Main.Lay_email_programadorClick(Sender: TObject);

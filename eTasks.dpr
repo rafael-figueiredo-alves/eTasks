@@ -36,7 +36,8 @@ uses
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',
   eTasks.View.Dialogs.dialogYesNo in 'Source\View\Dialogs\eTasks.View.Dialogs.dialogYesNo.pas' {DialogYesNo},
   eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
-  eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas';
+  eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas',
+  eTasks.View.Dialogs.Calendar in 'Source\View\Dialogs\eTasks.View.Dialogs.Calendar.pas' {Dlg_Calendar};
 
 {$R *.res}
 
@@ -46,7 +47,7 @@ begin
   {$IFDEF ANDROID}
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   if not TModelLoggedUser.Verificar then
-  Application.CreateForm(TForm_Android_Login, Form_Android_Login)
+   Application.CreateForm(TForm_Android_Login, Form_Android_Login)
   else
    Application.CreateForm(TForm_Android_main, Form_Android_Main);
   {$ENDIF}

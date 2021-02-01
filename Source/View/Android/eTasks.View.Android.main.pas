@@ -135,11 +135,13 @@ type
     procedure Btn_Add_tarefaClick(Sender: TObject);
     procedure AniAberturaFechaFormFinish(Sender: TObject);
     procedure btn_salvar_perfilClick(Sender: TObject);
+    procedure Label_DataClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
     Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
+    FCalendar   : iViewDialogsFactory;
     FTela       : Telas;
     {FKBBounds: TRectF;
     FNeedOffset: Boolean;
@@ -551,6 +553,31 @@ begin
                                              .Exibe
                                   );
     end;
+end;
+
+procedure TForm_Android_main.Label_DataClick(Sender: TObject);
+Var
+ FService : IFMXVirtualKeyboardService;
+begin
+  TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+  if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+   begin
+    FService.HideVirtualKeyboard;
+   end;
+  FCalendar := TViewDialogsMessages.New;
+  Form_Android_Main.AddObject(
+                               FCalendar.Calendar
+                                            .Data(StrToDate(Label_Data.Text))
+                                            .AcaoBotao(Procedure ()
+                                                       begin
+                                                         ListarTarefas(DateToStr(FCalendar.Calendar.Data));
+                                                         FCalendar := nil;
+                                                       end)
+                                            .AcaoFundo(Procedure ()
+                                                       begin
+                                                         FCalendar := nil;
+                                                       end)
+                                            .Exibe);
 end;
 
 procedure TForm_Android_main.Lay_email_programadorClick(Sender: TObject);
