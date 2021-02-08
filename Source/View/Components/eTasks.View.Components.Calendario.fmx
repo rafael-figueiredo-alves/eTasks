@@ -1,0 +1,1362 @@
+object Calendario: TCalendario
+  Align = Client
+  Size.Width = 300.000000000000000000
+  Size.Height = 340.000000000000000000
+  Size.PlatformDefault = False
+  object Fundo: TRectangle
+    Align = Client
+    Fill.Color = claWhite
+    Size.Width = 300.000000000000000000
+    Size.Height = 80.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object Lay_ano: TLayout
+      Align = Top
+      Margins.Top = 4.000000000000000000
+      Position.Y = 4.000000000000000000
+      Size.Width = 300.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Label_ano: TLabel
+        Align = Center
+        StyledSettings = [Family]
+        Size.Width = 70.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 24.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = xFF336699
+        TextSettings.HorzAlign = Center
+        Text = '2021'
+        TabOrder = 0
+      end
+      object Btn_Volta_Ano: TImage
+        MultiResBitmap = <
+          item
+            Width = 32
+            Height = 32
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+              F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              042F494441545847ED974D6C5B4510C767D72F4E23054A389524A527C497504A
+              9A5408215029B9A1D648A85784543B4ED4A81009D25BD5131F15D02FA5B65384
+              380322940B6A5A211042509A841C8828F45091348803945611A18EBDC37FC6EB
+              9067FBB9369772E84F4AE67976BD3B333B6F674CB7B9D5182F1BA22F3D7E3F3B
+              9B2067061CB92E6B69B3E89DA3056369D1B09DB26C26BF3B95FA49BFD0000D19
+              F0682AD36789DEC0F4A7BDAA3E8ECE31D9B19953C969AF89A4AE01DB52D91662
+              7A878C1B26B2065EFF012F3F8631A72956BC985F6E5F9479F1F6E56E66F300FE
+              763171C292BD1B5630B33D7147E7D2E817870E1574C11A441AF0C8D07847B06A
+              3EB2D6EE70CEFD658C7D3BD8F0F7E1F3C7F75FF7536AB27DE4E89D851BADAFB2
+              33A338A23689466135FEFCDCFB2FFEE9A784A869807A4EFC9986DCD115673931
+              9B4B5FF0C30DB175F0644F8CCD2758630BD6F872E55AC7C0FC077BF27E780D44
+              B30612766CEE98169C8B6D6F7673E1FBECD09C2B048F33B945ECF264EBC6DF0F
+              FBA110551128251C9F4766AFC4027EE2426678D60F45D29BCCEC2D5A3E3B971D
+              BAEC556B60AC17B9F1153C6D65C3FD3313E9193FA45445A094EDD6C89937B479
+              2AF312264F0445FBF943C327DABD7A0DD9D01A4414994986B176989001F29E6B
+              E891ED92705E1D896E4E06C78553B37C747E7CDFB20E5462E84DE4C15543F619
+              E4C67D5EAB840C60177B4EA4BC6A37CBF6F59BE39B076672E923A5E76AA67383
+              D760C4A43CE3A24AA8D2133680DC4E91C6BA4F551141C873E297A773E9AAD056
+              823CD035210754E10919609CDD2212D9FB832A6AD08CE7EBB14161DE3FDEEBA5
+              1232C059B749641B9BDF5451C1B65466A459CFCBC4F3F1257D30AE53A52764C0
+              AD207C0444BF8A5CB5EE1E5554008F8F8BE772CF4B2470631EF04337E54650EC
+              D207DCAC2A3D9511F845FEB958F141FD540339732633EA3FBE2639E19FEB82DA
+              505E53F728138E00EAB948A96AAA88A064447391309677AB34E68C2A3C610362
+              45140F4DB08454355546D04C2460E046845E9D42613BAD4A4FC8005CBD1731F1
+              9CD47329A95E1DC9BF9180F1CEECAF751597E031ECD481B27E0645EA67AF542A
+              7300DEDB3109ADD47329245E1D891AC19C2CC4DC8E5A57B114372746E27E0F28
+              86B5C3D4EC077A93D963C6D08894D2A2A1C750E54299DB283D8327BB624CDFA0
+              0674C3B323D313831AADF554454090364A8E42BE882AF76D5F32DBEF871AA67F
+              6F6EAB2DD2D7B2061C39DBDEB9F48A1F0A11D992F5BCF0DE5D414BFE4398B853
+              7A032DA9A86A5A58EAA009873397B0239736A0A99972F9F89EA65AB2324F1D3C
+              185CBFB2E92D2CB40F865844E52ACA99B459F2B6FCB812AC6A53DA5668E996F7
+              1C456C175AF6DD98D921678ED58F89E7FFA9295D0FC2F930EAC4EB98FEAC57D5
+              45424E6CC62ABB9F5A346440196926A49E6B4965B71941E9D601CBE81D79015D
+              D4147EB84CCEBE9BBCA4FADBFCFF21FA0786BEC35ABFAA8AEC0000000049454E
+              44AE426082}
+            FileName = 'C:\Meus Projetos\eTasks\Imagens\Interface\Avan'#231'ar.png'
+          end>
+        Align = Center
+        Cursor = crHandPoint
+        Margins.Right = 120.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = Btn_Volta_AnoClick
+      end
+      object Btn_avanca_ano: TImage
+        MultiResBitmap = <
+          item
+            Width = 32
+            Height = 32
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+              F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              0434494441545847ED974F6CD44514C7DFCCEFD72D4DAA584FD816F162FC1753
+              2C2D218468107A33B02686AB3171B7DB86066CA2E54638A112F99FB2BBAD319E
+              D558F162A8C4688C51A42D3DD8887AB2A5C48322A4B1B2DD9DE1FBDECE36CCF6
+              B7DB5FBDE0814FD2BED937B3336FDEBC99F796EE73AF514EC6A22B33FC84353A
+              4946F518326D5AD346D61B43B34AD39CB27A5C5B35F6E368FA17F9420C6219F0
+              5C3ADBA589DEC1F0179DAA3E862E5AD24393A3A909A7A9495D03B6A4730D64E9
+              0429D34FA41576FD1776F9298C394F41E96A61A1798EC7259A17DAAD554FE26F
+              8F259BD4A41F8615D65A7DF681D6F9C1AF8F1C29CA8411D434E0D9BEE1967049
+              7DA2B5DE698CF947297D3C5CF7EFB14B670EDC724322D93A70EAC1E2EDC6B7AC
+              518338A226F6467129F1CAF487AFFDED8678441A203B27FB85B8DCD035A36D72
+              2A9FB9ECBA63B1B9F75C4760D567986313E6F866F1664BCFCC47FB0AAE7B1978
+              3302763B163796668D09B6AE7571E64AAE6FDA14C3ED96CC1C5679BE71FD9FC7
+              5C97C70A0F9403CE5E42642F06A1DD7139DB3FE5BA96E9E83DF75860D4EEC991
+              CCA853D5A43395ED446C7C8B9D365A65BBF19D49D725ACF04039DAB5E2338F5A
+              FCE9FEB3CD61497F8501239DE9EC41A7AE092FA8153C8AC8246531B78F6700DF
+              73713DA29D03CEA93D6686F72F586D4F715B913A11C7080C7C1771704391DE8D
+              D878DC6905CF006B829759F255AB17ED93F9CC495CB737F8AAB11108DA43AE2B
+              92897CEF4D1831C66D3C5449513A7C03C8EC62A9B4F95C1475281BA106DDC7A3
+              AB790271207342F688C2E119A08CDEC412D1FB932856612D9ED06171C6351F75
+              52F00C30DA6C60D964D51FA28841B527B6A4B303AEED912824E6A5A14CAB4887
+              67C0BDC03F02A2EB2C97B479441431E0B367F7973FD94313F9CC9972DBE77658
+              6A93065E56918E6A0FFCCEFF4C507A4A3EADC2DD8B732C60F115F7BC02724365
+              4E59A382EF01E473969CD5445187EA9D732C94DBD1286DF78A54EA82281CBE01
+              4109C9437693E4AC26CA08D6B27306B7633D5C2F9B42623B2F4A8767009EDEAB
+              187891F339A754A7F6E0A758197580DBBCF86A3B2F6387B0520BD2FA0524A95F
+              9D52A88E014CAA87F85E733EE744E2D4CBF0535C0CCC4E541BA9388B737233FC
+              56E07D0F29C0DC3E91F540672A775A291AE0545A52B46D3AD7E7456E5C9035DB
+              024BDF2307B463672727467AF168F9ACF000C365141F057F1199EF87AE54AEDB
+              75C5A6FBF5FC665DA2EF780E6CE4CBE6D6F9375D9747CD92ACE3D50F1E0A1B0A
+              1FC3C45D5C1B484A455693C4520709389C39BB1DB1B40E45CDB82924F6ADA924
+              ABF0C2E1C3E1AD6B1BDEC344FB618886576E209D7199C5B7E5E7C570498AD2A6
+              62433BDF7324B13D28D9F762640B9F39663FCD3BFF4F45E9DDC09DCF204FBC8D
+              E12F39555DD8E564D55075F513452C032A7031C1F95C52AA351BE19476E9D016
+              B5A39D4515358E1F2E6353EFA77E13FD7DFEFF10DD014E0AC15AFD4A31130000
+              000049454E44AE426082}
+          end>
+        Align = Center
+        Cursor = crHandPoint
+        Margins.Left = 120.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = Btn_avanca_anoClick
+      end
+    end
+    object Lay_mes: TLayout
+      Align = Top
+      Margins.Top = 4.000000000000000000
+      Position.Y = 40.000000000000000000
+      Size.Width = 300.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object Label_mes: TLabel
+        Align = Center
+        StyledSettings = [Family]
+        Size.Width = 150.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 24.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = xFF336699
+        TextSettings.HorzAlign = Center
+        Text = 'Dezembro'
+        TabOrder = 0
+      end
+      object Btn_volta_mes: TImage
+        MultiResBitmap = <
+          item
+            Width = 32
+            Height = 32
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+              F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              0435494441545847ED975D6C544514C7CF99B9DDD2A48AF509DB224FC6AF9862
+              6989314683D837036B62783526EC76DBD0204DB4BC119E1489CA57CAEE16637C
+              5663C517433146638C226DE9830DA00F84961A1FFC803456B677E670CEECB4F6
+              EEDEBBECFA820FFC92DD73F7CCBD3367FE73EE9C59B8CB9D06BDAD8B9EDCE8C3
+              64551A2CF619321D5AC346F11B03734AE33C929A5084E33F9ECA5E760FD4415D
+              013C99CDF72880437CFBF3DE551B0B5F12A891A9539949EF49A466005BB28526
+              20780FD00C0268B460FE40D29F7230A7419B4BA5C5D679B92FD5BAD849848FF0
+              6707814D2BD0F7B32E44A44FDCD3BE30FCF5C183A1EB3086C4009E18186D0B96
+              F113A5D43663CCDF4AE9778375FF1C3E777CEF0D7F4B2C5B878EDE1BDE6C7EC3
+              1A1CE6256A1135C2E5D4CB331FBEFA97BF25426C006EE6405F38C90D5CB39AD2
+              D3C5DC79DF5C179BFB4F7669C2CFB88F4D1CC4374BD7DBFA663FDA55F2CDABB0
+              9A3188EC3CB82198B3A4B7363AB870A1303063C3E0690233CFA33CDBBCFEF7C3
+              BE29429502E584B3E738B397822678E67C7E70DA3725D29DC9EF368ACECE1406
+              AE78D72ADCD66D2D7EAB019A4951EFD4586ECA3739AA142867BB4659F3BA06CF
+              E65F43C4B120545F3D3678A2D5BB579101B5624535778DC47D47890420EFB948
+              2FD92E09E7DD89B8C10179B978D5341D9D1DDDB3E81A2A41789B73E94F04F502
+              E7C643DEEB88044056BF24565EB5DB65FBDAC1F9C9FD53C5DC91F2753593C5FE
+              EB3CD2B85CF34695764E4F3400B0DBC5A2B29F3B4702919903ED9B2CE6AAA4AD
+              84F708D727DB3EE7F0440240A33689E5ECFDC939626864E66B514138EB2F1FF4
+              D61109C06AB3416C0BE16FCE51C1966C7EA8D199AF902AA516DC059A76673D91
+              00EE04D12500F855ECB2B20F3847053CE3E33273D9E74509DE31F7FBA6DB7233
+              301D62897756E7F054288057E59B97E251F733065973AE74C3FEE79B9213FEBA
+              2664D1F5C97B861B6385A8025CCFC54A55738E04CA4134A6042ADAE92CE219E7
+              F04403D0868B8724984D4B5573CE041A5182035CCF1B919B945574DA393D9100
+              78EBBD24E553EAB99454EF4EE45F253878837BE3B6E23234C25B719BB5F60C17
+              A99FBDD3519103327B3522D24A3D9742E2DD89B82088326160B7C56DC552DC0C
+              D87DAC800D4073DF5162CF03DD99C231441892526A109FE22A17C9DC7AE9EA3F
+              D9A189BE47D09D3CB3239363FD4EADB5542920C8314A96421EE42AF7434FA6D0
+              EB9BEAA67777713386F49DF4C13975B6B57DE175DF1421F148D6F5CA07F7054D
+              A58F39C4ED7236702595AB9A2B2C357009C76B2EB26BD0EB2CC1842DA5763574
+              245BE1B90307821BD736BCA348ED71F59C4B2A68926396BC2D1797826577286D
+              099B3AE53DE722B6030CEE94849335E7278EC9CCFFD3A1742D2CE7E356D9B7F8
+              F617BDAB262239108E549E7EE2A82B8015E43021F55C4A2ABF261B59E24ED7A0
+              69CE5A9A435413FCC7657CFAFDCC2FCE7F97FF3F00B7001E1AC8588103100F00
+              00000049454E44AE426082}
+            FileName = 'C:\Meus Projetos\eTasks\Imagens\Interface\Avan'#231'ar.png'
+          end>
+        Align = Center
+        Cursor = crHandPoint
+        Margins.Right = 200.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = Btn_volta_mesClick
+      end
+      object Btn_Avanca_mes: TImage
+        MultiResBitmap = <
+          item
+            Width = 32
+            Height = 32
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+              F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              0437494441545847ED974F4C9C4514C0DF9BF9584A82AD78AA40AD97C67F3154
+              0A8D3146535B6EA65D13D3AB3171978594D49228BD353DF9A7D1FE0DDD5D30C6
+              B31AB1BD34456334C6682D200789B53D09C578F04F1B2276D999E77BB303E92C
+              DF2E1F5EEAA1BF04DE7C6FBE6FE6CD9B37F3DEC25DEE34E86522BA72C30F9155
+              69B0D863C8B4690D5B446F0CCC2A8D73486A5C118E7D3F9AFDD97D908044063C
+              91CD772980B7F8F5E7BCAA3E163E27504393A39909AFA9495D0376640B0D4070
+              1CD0F40368B460FE40D29FB031E7409B2BA585E639792FD5BCD04E840FF3DF5E
+              029B56A0EF63BF10913E734FEBFCE097478F96DD8031D434E0F1BEE19668093F
+              564AED32C6FCAD947E37DAF0CFB14BA70FDEF4AFC4B273E0E4C6F2ADC6D7ADC1
+              41DEA226F1467929F5E2F4072FFFE55F098835C0AD1CE88273B981EB56537AAA
+              98BBECBB13B1BDF76C8726FC94C7D8CA467CB578A3A567E6C3FD25DFBD027B33
+              06713B4F6E08662DE99DEB9D5CF8A1D0376DCBD15304668E6779A671D3EFC77C
+              57C02A0F5402CE5EE2C85E8C1AE0E9CBF9FE29DFB54247EFD907B5C53D9323B9
+              51AFAA496726DF692D7EAD011A4951377F33E9BB1CAB3C5089768DB2E771933F
+              DA7FA6392AAB2F1071A4339B7FD5AB6B22136AC51ED53C34128F1D121820E75C
+              5C2FD12E01E7D50133C3071648D3496923E0F12446F08B6F732CFD89A0F6706C
+              6CF35A47600059FD8248396AF5A27DB2983B414087E4A889111CB4877D572C13
+              C5DE1B3CD398B4F9A24A3BA5273400EC6E91A8EC79A7A843C50835E81FDF58CB
+              137C47B83159F638852730008DDA2A92A3F747A75883F5784245E519DF7CC04B
+              476080D566B3C826C2DF9C2201D59ED891CD0FF87640AA949A770D34AD4E7A02
+              03EE04E11600FC2A7249D9FB9D2201B2F7E2FECA131D9E28E64E57DA21B722D3
+              2692F866750A4F9507F017F9CF5BF1887B5C83DB279758E0C9579DF365C8A21B
+              93EF0F37C732A107389F8B94ACE61475A85EB9C442A51D0F2ADAE724E245A7F0
+              840668C3C9435663D392D59C3286F5AC5CE0D3B1892F22B728ABE89C537A0203
+              F8EABD22E953F2B9A454AF0E90AB180D1E94B64CBED6CA2BD0105FC52DD6DA8B
+              9CA4AE7AA5A32A0664503524E75AF2B92412AF5E41AEE272647771B5914932B9
+              243703F6107BC046A079EC90D87AA0335338850803924A0DE293D385BE207293
+              C259B34D137D8BA0DB79652726467AF9D20A59E50141CA28D90AF99033DF775D
+              9942B7EF4A4CF72BC5ED58A66F640C8EA9CF9A5BE75FF35D01354BB28E97DEBF
+              376A287DC426EE96DAC0A554CE6A2EB1D4C1051CEFB9B85D83DE6009C66D29B5
+              7F5D25D932CF1E3912DDBCBEF91D45EA80CBE79C5241939459725A7E5A8C965C
+              51DA546E689773CE496C2F18DC2701277BCE5F9C9295FFA7A2F476D89D8F5965
+              DFE4D79FF7AABA88CB8170A8BAFA89239101CB483121F95C522A1F932DECE276
+              D7A169D65A9A4554E3FCC3656CEABDCC35A7BFCBFF1F807F01E557C658F90AB6
+              E30000000049454E44AE426082}
+          end>
+        Align = Center
+        Cursor = crHandPoint
+        Margins.Left = 200.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = Btn_Avanca_mesClick
+      end
+    end
+  end
+  object Tab_Cal: TTabControl
+    Align = Bottom
+    Position.Y = 80.000000000000000000
+    Size.Width = 300.000000000000000000
+    Size.Height = 260.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'tabcontrolstyle'
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = None
+    Sizes = (
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s
+      300s
+      260s)
+    object mes_1: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_1'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object Lay_calendario: TLayout
+        Align = Client
+        Size.Width = 300.000000000000000000
+        Size.Height = 260.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object Lay_dias_semana: TLayout
+          Align = Top
+          Size.Width = 300.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object Linha_inf_dias_semana: TLine
+            Align = Bottom
+            LineType = Bottom
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Position.Y = 23.000000000000000000
+            Size.Width = 281.000000000000000000
+            Size.Height = 2.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Color = xFF336699
+            Stroke.Thickness = 2.000000000000000000
+          end
+          object Label_domingo: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Dom'
+            TabOrder = 7
+          end
+          object Label_segunda: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Seg'
+            TabOrder = 6
+          end
+          object Label_terca: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Ter'
+            TabOrder = 5
+          end
+          object Label_quarta: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Qua'
+            TabOrder = 4
+          end
+          object Label_quinta: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Qui'
+            TabOrder = 3
+          end
+          object Label_sexta: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'Sex'
+            TabOrder = 2
+          end
+          object Label_sabado: TLabel
+            Align = Left
+            StyledSettings = [Family]
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.HorzAlign = Center
+            TextSettings.VertAlign = Trailing
+            Text = 'S'#225'b'
+            TabOrder = 1
+          end
+        end
+        object Lay_semana_1: TLayout
+          Align = Top
+          Margins.Top = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 30.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          object Dia_1: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+            object Seletor: TArc
+              Align = Client
+              HitTest = False
+              Size.Width = 32.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFFFCDE3F
+              Stroke.Thickness = 4.000000000000000000
+              StartAngle = 135.000000000000000000
+              EndAngle = 270.000000000000000000
+              object AnimaSeletor: TFloatAnimation
+                Duration = 0.200000002980232200
+                PropertyName = 'EndAngle'
+                StartValue = 0.000000000000000000
+                StopValue = 270.000000000000000000
+              end
+            end
+          end
+          object Dia_2: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_3: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_4: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_5: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_6: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_7: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+        object Lay_semana_2: TLayout
+          Align = Top
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 67.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          object Dia_8: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+          end
+          object Dia_9: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_10: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_11: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_12: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_13: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_14: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+        object Lay_semana_3: TLayout
+          Align = Top
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 104.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          object Dia_15: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+          end
+          object Dia_16: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_17: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_18: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_19: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_20: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_21: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+        object Lay_semana_4: TLayout
+          Align = Top
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 141.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          object Dia_22: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+          end
+          object Dia_23: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_24: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_25: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_26: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_27: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_28: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+        object Lay_semana_5: TLayout
+          Align = Top
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 178.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          object Dia_29: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+          end
+          object Dia_30: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_31: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_32: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_33: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_34: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_35: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+        object Lay_semana_6: TLayout
+          Align = Top
+          Margins.Bottom = 5.000000000000000000
+          Position.Y = 215.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object Dia_36: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Left = 9.500000000000000000
+            Margins.Right = 9.500000000000000000
+            Position.X = 9.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = '1'
+            TabOrder = 6
+            OnClick = Dia_1Click
+          end
+          object Dia_37: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 51.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '2'
+            TabOrder = 5
+            OnClick = Dia_1Click
+          end
+          object Dia_38: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 92.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '3'
+            TabOrder = 4
+            OnClick = Dia_1Click
+          end
+          object Dia_39: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 134.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '4'
+            TabOrder = 3
+            OnClick = Dia_1Click
+          end
+          object Dia_40: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 175.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '5'
+            TabOrder = 2
+            OnClick = Dia_1Click
+          end
+          object Dia_41: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 217.000000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '6'
+            TabOrder = 1
+            OnClick = Dia_1Click
+          end
+          object Dia_42: TLabel
+            Align = Left
+            Cursor = crHandPoint
+            StyledSettings = [Family]
+            HitTest = True
+            Margins.Right = 9.500000000000000000
+            Position.X = 258.500000000000000000
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 18.000000000000000000
+            TextSettings.HorzAlign = Center
+            Text = '7'
+            TabOrder = 0
+            OnClick = Dia_1Click
+          end
+        end
+      end
+    end
+    object mes_2: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_2'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_3: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_3'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_4: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_4'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_5: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_5'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_6: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_6'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_7: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_7'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_8: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_8'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_9: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_9'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_10: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_10'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_11: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_11'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+    object mes_12: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'mes_12'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+    end
+  end
+end

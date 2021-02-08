@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.Calendar, FMX.Objects, FMX.Ani, FMX.Layouts;
+  FMX.Controls.Presentation, FMX.Objects, FMX.Ani, FMX.Layouts;
 
 type
  TipoAcao = (taBotao, taFundo);
@@ -21,7 +21,7 @@ type
     Button_message_selecionar: TImage;
     AnimaDialogo: TFloatAnimation;
     Button_message_cancelar: TImage;
-    Calendar1: TCalendar;
+    Layout_calendario: TLayout;
     procedure RecEscurecerClick(Sender: TObject);
     procedure AnimaFundoFinish(Sender: TObject);
     procedure Button_message_selecionarClick(Sender: TObject);
@@ -33,6 +33,7 @@ type
     FAcaoFundo    : TProc;
     FTipoAcao     : TipoAcao;
     FData         : TDate;
+    Procedure PegaData(value: TDate);
   public
     { Public declarations }
     Function Exibe : TLayout;
@@ -51,6 +52,9 @@ implementation
 {$R *.fmx}
 
 { TDlg_Calendar }
+
+Uses
+ eTasks.View.Components.Calendario;
 
 function TDlg_Calendar.AcaoBotao(Value: TProc): TDlg_Calendar;
 begin
@@ -94,7 +98,6 @@ end;
 procedure TDlg_Calendar.Button_message_selecionarClick(Sender: TObject);
 begin
   FTipoAcao := taBotao;
-  FData := Calendar1.Date;
   AnimaDialogo.Inverse := True;
   AnimaFundo.Inverse := True;
   AnimaDialogo.Start;
@@ -110,7 +113,6 @@ function TDlg_Calendar.Data(Value: TDate): TDlg_calendar;
 begin
   Result := Self;
   FData := Value;
-  Calendar1.Date := Value;
 end;
 
 function TDlg_Calendar.Exibe: TLayout;
@@ -126,6 +128,7 @@ begin
   RecDesignCaixa.Margins.Right := FMargem;
   {$Endif}
   AnimaFundo.Start;
+  tCalendario.Create(Layout_calendario).EvSelecionaData(PegaData).Iniciar(FData, Layout_calendario);
   AnimaDialogo.Start;
 end;
 
@@ -148,6 +151,11 @@ begin
   AnimaDialogo.Inverse := False;
   AnimaFundo.Inverse := False;
   FTipoAcao := taFundo;
+end;
+
+procedure TDlg_Calendar.PegaData(value: TDate);
+begin
+  FData := value;
 end;
 
 procedure TDlg_Calendar.RecEscurecerClick(Sender: TObject);
