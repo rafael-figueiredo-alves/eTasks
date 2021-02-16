@@ -177,6 +177,7 @@ begin
    begin
      if Assigned(Resposta) then
       Resposta.DisposeOf;
+     Result := false;
      exit
    end;
 

@@ -34,7 +34,6 @@ class function teTasksLibrary.CheckInternet: Boolean;
 var
   Net : TNetHTTPClient;
 begin
-  Result := False;
   Net := TNetHTTPClient.Create(nil);
   try
    try

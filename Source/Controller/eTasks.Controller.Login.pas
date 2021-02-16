@@ -89,7 +89,6 @@ function TControllerLogin.EfetuarLogin(out Erro: integer): iControllerLogin;
 Var
  auth_credentials : TAuthUser;
  error : string;
- Erro1  : string;
 begin
   Result := self;
   Erro := -1;

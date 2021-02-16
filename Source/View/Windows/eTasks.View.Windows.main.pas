@@ -127,7 +127,7 @@ type
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
-    Dialogs     : iViewDialogsFactory;
+    //Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
     FCalendar   : iViewDialogsFactory;
 
