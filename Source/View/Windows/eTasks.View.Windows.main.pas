@@ -9,9 +9,12 @@ uses
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
   FMX.Edit, FMX.TabControl, FMX.MultiView, System.Actions, FMX.ActnList,
   FMX.StdActns, FMX.MediaLibrary.Actions, FMX.ListView, FMX.Effects,
-  eTasks.View.Dialogs.Factory;
+  eTasks.View.Dialogs.Factory, FMX.Ani;
 
 type
+  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
+           TelaCategorias, TelaObjetivos, TelaListas, TelaAjuda);
+
   TForm_Windows_Main = class(TForm)
     Img_Afazer: TImage;
     Img_Concluido: TImage;
@@ -104,6 +107,26 @@ type
     Btn_fecha_main_menu: TImage;
     SelecionaFoto: TOpenDialog;
     StyleBook1: TStyleBook;
+    Lay_sem_conexao: TLayout;
+    Fundo_sem_cenxao: TRectangle;
+    Lay_image_sem_conexao: TLayout;
+    Image_sem_conexao: TImage;
+    Lay_btn_tentar_novamente: TLayout;
+    Btn_Tentar_Novamente: TRoundRect;
+    ShadowEffect7: TShadowEffect;
+    Label_tentar_novamente: TLabel;
+    Image_btn_tentar_novamente: TImage;
+    Animar_Tentar_novamente: TFloatAnimation;
+    Lay_splash_screen: TLayout;
+    Rec_splash_fundo: TRectangle;
+    Logo: TImage;
+    Sai_splash_screen: TFloatAnimation;
+    Sai_sem_conexao: TFloatAnimation;
+    RecAniForms: TRectangle;
+    ShadowEffect8: TShadowEffect;
+    AniAberturaFechaForm: TFloatAnimation;
+    Lay_container: TLayout;
+    Button1: TButton;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -124,6 +147,17 @@ type
     procedure Perfil_edit_fotoClick(Sender: TObject);
     procedure btn_salvar_perfilClick(Sender: TObject);
     procedure Label_DataClick(Sender: TObject);
+    procedure Btn_Tentar_NovamenteClick(Sender: TObject);
+    procedure Sai_splash_screenFinish(Sender: TObject);
+    procedure Sai_sem_conexaoFinish(Sender: TObject);
+    procedure Btn_Add_tarefaClick(Sender: TObject);
+    procedure AniAberturaFechaFormFinish(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Menu_TarefasClick(Sender: TObject);
+    procedure Menu_categoriasClick(Sender: TObject);
+    procedure Menu_metasClick(Sender: TObject);
+    procedure Menu_comprasClick(Sender: TObject);
+    procedure menu_ajudaClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -131,11 +165,15 @@ type
     Loading     : iViewDialogsFactory;
     FCalendar   : iViewDialogsFactory;
 
+    FTela       : Telas;
+
     Procedure TirarFotoCamera;
     Procedure PegarFotoGaleria;
 
     Procedure AtualizaInfoUsuarioLogado;
     Procedure AtualizaListaTarefas(data: string);
+
+    Procedure AbreTela(Tela : Telas);
 
     Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: string);
   public
@@ -164,6 +202,12 @@ procedure TForm_Windows_Main.AberturaFormPrincipal;
 begin
   AtualizaInfoUsuarioLogado;
   ListarTarefas(DateToStr(Now));
+end;
+
+procedure TForm_Windows_Main.AbreTela(Tela: Telas);
+begin
+  FTela := Tela;
+  AniAberturaFechaForm.Start;
 end;
 
 procedure TForm_Windows_Main.Add_tarefa(Status, tarefa, descricao,
@@ -201,6 +245,23 @@ begin
 
     TagString := status;
   end;
+end;
+
+procedure TForm_Windows_Main.AniAberturaFechaFormFinish(Sender: TObject);
+begin
+  if (AniAberturaFechaForm.Inverse = false) then
+   begin
+     AniAberturaFechaForm.Inverse := True;
+     case FTela of
+      TelaTarefas      : Showmessage('b');
+      TelaTarefas_Novo : showmessage('c');
+      TelaCategorias  : showmessage('a');
+      TelaObjetivos   : showmessage('a');
+      TelaListas      : showmessage('a');
+     end;
+   end
+  else
+   AniAberturaFechaForm.Inverse := False;
 end;
 
 procedure TForm_Windows_Main.AtualizaInfoUsuarioLogado;
@@ -242,6 +303,11 @@ begin
      Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
      Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
    end;
+end;
+
+procedure TForm_Windows_Main.Btn_Add_tarefaClick(Sender: TObject);
+begin
+  AbreTela(TelaTarefas_Novo);
 end;
 
 procedure TForm_Windows_Main.Btn_Avanca_dataClick(Sender: TObject);
@@ -314,9 +380,53 @@ begin
                               );
 end;
 
+procedure TForm_Windows_Main.Btn_Tentar_NovamenteClick(Sender: TObject);
+Var
+ TemConexao : Boolean;
+begin
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Animar_Tentar_novamente.Start;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             AberturaFormPrincipal;
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             if Animar_Tentar_novamente.Running = true then
+                                                              Animar_Tentar_novamente.Stop;
+                                                             Sai_sem_conexao.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                if Animar_Tentar_novamente.Running = true then
+                                 Animar_Tentar_novamente.Stop;
+                               end;
+                             end);
+end;
+
 procedure TForm_Windows_Main.Btn_Volta_dataClick(Sender: TObject);
 begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
+end;
+
+procedure TForm_Windows_Main.Button1Click(Sender: TObject);
+begin
+ AniAberturaFechaForm.Start;
 end;
 
 procedure TForm_Windows_Main.FormResize(Sender: TObject);
@@ -338,14 +448,49 @@ begin
      Btn_Menu.Visible := True;
      Btn_fecha_main_menu.Visible := True;
    end;
+   RecAniForms.Height := Self.Height + 50;
+   RecAniForms.Width := Lay_main.Width;
+   RecAniForms.Position.X := 0;
+   AniAberturaFechaForm.StartValue := Self.Height +50;
+   if RecAniForms.Position.Y <> -50 then
+    RecAniForms.Position.Y := Self.Height +50;
 end;
 
 procedure TForm_Windows_Main.FormShow(Sender: TObject);
+Var
+ TemConexao : Boolean;
 begin
-  if teTasksLibrary.CheckInternet = true then
-    AberturaFormPrincipal
-   else
-    ShowMessage('Sem conexão');
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Lay_splash_screen.Visible := True;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             AberturaFormPrincipal;
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             Sai_splash_screen.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                 Sai_splash_screen.Start;
+                                 Lay_sem_conexao.Visible   := true;
+                               end;
+                             end);
 end;
 
 procedure TForm_Windows_Main.Label_DataClick(Sender: TObject);
@@ -427,6 +572,27 @@ begin
   txt.Width := ListaTarefas.Width - txt.PlaceOffset.X - 68;
 end;
 
+procedure TForm_Windows_Main.menu_ajudaClick(Sender: TObject);
+begin
+  if RecAniForms.Position.Y = -50 then
+   AniAberturaFechaForm.Inverse := False;
+  AbreTela(TelaAjuda);
+end;
+
+procedure TForm_Windows_Main.Menu_categoriasClick(Sender: TObject);
+begin
+  if RecAniForms.Position.Y = -50 then
+   AniAberturaFechaForm.Inverse := False;
+ AbreTela(TelaCategorias);
+end;
+
+procedure TForm_Windows_Main.Menu_comprasClick(Sender: TObject);
+begin
+  if RecAniForms.Position.Y = -50 then
+   AniAberturaFechaForm.Inverse := False;
+  AbreTela(TelaListas);
+end;
+
 procedure TForm_Windows_Main.menu_logoutClick(Sender: TObject);
 begin
   if tControllerLogin.New.EfetuarLogout = true then
@@ -440,9 +606,23 @@ begin
    end;
 end;
 
+procedure TForm_Windows_Main.Menu_metasClick(Sender: TObject);
+begin
+  if RecAniForms.Position.Y = -50 then
+   AniAberturaFechaForm.Inverse := False;
+ AbreTela(TelaObjetivos);
+end;
+
 procedure TForm_Windows_Main.Menu_sobreClick(Sender: TObject);
 begin
   Tab_menu.GotoVisibleTab(2);
+end;
+
+procedure TForm_Windows_Main.Menu_TarefasClick(Sender: TObject);
+begin
+  if RecAniForms.Position.Y = -50 then
+   AniAberturaFechaForm.Inverse := False;
+  AbreTela(TelaTarefas);
 end;
 
 procedure TForm_Windows_Main.PegarFotoGaleria;
@@ -490,6 +670,16 @@ begin
                                                               PegarFotoGaleria;
                                                              end)
                                                    .Exibe);
+end;
+
+procedure TForm_Windows_Main.Sai_sem_conexaoFinish(Sender: TObject);
+begin
+  Lay_sem_conexao.Visible := False;
+end;
+
+procedure TForm_Windows_Main.Sai_splash_screenFinish(Sender: TObject);
+begin
+  Lay_splash_screen.Visible := False;
 end;
 
 procedure TForm_Windows_Main.Tab_menuChange(Sender: TObject);

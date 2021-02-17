@@ -108,6 +108,21 @@ type
     RecAniForms: TRectangle;
     ShadowEffect7: TShadowEffect;
     AniAberturaFechaForm: TFloatAnimation;
+    Lay_sem_conexao: TLayout;
+    Fundo_sem_cenxao: TRectangle;
+    Lay_image_sem_conexao: TLayout;
+    Image_sem_conexao: TImage;
+    Lay_btn_tentar_novamente: TLayout;
+    Btn_Tentar_Novamente: TRoundRect;
+    ShadowEffect8: TShadowEffect;
+    Label_tentar_novamente: TLabel;
+    Image_btn_tentar_novamente: TImage;
+    Animar_Tentar_novamente: TFloatAnimation;
+    Lay_splash_screen: TLayout;
+    Rec_splash_fundo: TRectangle;
+    Logo: TImage;
+    Sai_splash_screen: TFloatAnimation;
+    Sai_sem_conexao: TFloatAnimation;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -136,6 +151,8 @@ type
     procedure AniAberturaFechaFormFinish(Sender: TObject);
     procedure btn_salvar_perfilClick(Sender: TObject);
     procedure Label_DataClick(Sender: TObject);
+    procedure Btn_Tentar_NovamenteClick(Sender: TObject);
+    procedure Sai_sem_conexaoFinish(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -418,6 +435,45 @@ begin
                               );
 end;
 
+procedure TForm_Android_main.Btn_Tentar_NovamenteClick(Sender: TObject);
+Var
+ TemConexao : Boolean;
+begin
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Animar_Tentar_novamente.Start;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             AberturaFormPrincipal;
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             if Animar_Tentar_novamente.Running = true then
+                                                              Animar_Tentar_novamente.Stop;
+                                                             Sai_sem_conexao.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                if Animar_Tentar_novamente.Running = true then
+                                 Animar_Tentar_novamente.Stop;
+                               end;
+                             end);
+end;
+
 procedure TForm_Android_main.Btn_Volta_dataClick(Sender: TObject);
 begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
@@ -521,11 +577,40 @@ begin
 end;
 
 procedure TForm_Android_main.FormShow(Sender: TObject);
+Var
+ TemConexao : Boolean;
 begin
-  if teTasksLibrary.CheckInternet = true then
-    AberturaFormPrincipal
-   else
-    ShowMessage('Sem conexão');
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Lay_splash_screen.Visible := True;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             AberturaFormPrincipal;
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             Sai_splash_screen.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                 Sai_splash_screen.Start;
+                                 Lay_sem_conexao.Visible   := true;
+                               end;
+                             end);
 end;
 
 procedure TForm_Android_main.GaleriaPermissao(sender: TObject;
@@ -713,6 +798,11 @@ begin
                                                              end)
                                                    .Exibe);
 end;
+procedure TForm_Android_main.Sai_sem_conexaoFinish(Sender: TObject);
+begin
+  Lay_sem_conexao.Visible := False;
+end;
+
 procedure TForm_Android_main.TirarFotoCamera;
 Var
  form_camera : TForm_camera;
