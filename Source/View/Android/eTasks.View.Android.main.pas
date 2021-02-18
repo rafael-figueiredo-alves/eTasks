@@ -153,6 +153,7 @@ type
     procedure Label_DataClick(Sender: TObject);
     procedure Btn_Tentar_NovamenteClick(Sender: TObject);
     procedure Sai_sem_conexaoFinish(Sender: TObject);
+    procedure Sai_splash_screenFinish(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -196,10 +197,21 @@ implementation
 {$R *.fmx}
 
 Uses
-  eTasks.libraries.Android, eTasks.Controller.Login, eTasks.View.Android.login, eTasks.Controller.Interfaces,
-  eTasks.Controller.Usuario, eTasks.libraries.Imagens64, FMX.platform, eTasks.View.Dialogs.EditarFoto, eTasks.View.Dialogs.TirarFoto,
-  FMX.VirtualKeyboard, eTasks.View.Dialogs.Messages.Consts, eTasks.View.Android.tasks, eTasks.view.categorias,
-  eTasks.libraries;
+  eTasks.libraries.Android,
+  eTasks.Controller.Login,
+  eTasks.View.Android.login,
+  eTasks.Controller.Interfaces,
+  eTasks.Controller.Usuario,
+  eTasks.libraries.Imagens64,
+  FMX.platform,
+  eTasks.View.Dialogs.EditarFoto,
+  eTasks.View.Dialogs.TirarFoto,
+  FMX.VirtualKeyboard,
+  eTasks.View.Dialogs.Messages.Consts,
+  eTasks.View.Android.tasks,
+  eTasks.view.categorias,
+  eTasks.libraries,
+  eTasks.View.Android.help;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -278,9 +290,9 @@ procedure TForm_Android_main.AniAberturaFechaFormFinish(Sender: TObject);
 begin
   if AniAberturaFechaForm.Inverse = false then
    begin
+     AniAberturaFechaForm.Inverse := True;
      case FTela of
       TelaTarefas      : begin
-                          AniAberturaFechaForm.Inverse := True;
                           if not Assigned(tela_Tarefas) then
                             Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
                           Tela_Tarefas.Acao(taLista);
@@ -288,9 +300,8 @@ begin
                                                  Begin
                                                    AniAberturaFechaForm.Start;
                                                  End);
-                        end;
+                         end;
       TelaTarefas_Novo : begin
-                          AniAberturaFechaForm.Inverse := True;
                           if not Assigned(tela_Tarefas) then
                             Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
                           Tela_Tarefas.Acao(taNovo);
@@ -298,10 +309,18 @@ begin
                                                  Begin
                                                    AniAberturaFechaForm.Start;
                                                  End);
-                        end;
-      TelaCategorias  : showmessage('a');
-      TelaObjetivos   : showmessage('a');
-      TelaListas      : showmessage('a');
+                         end;
+      TelaCategorias   : showmessage('a');
+      TelaObjetivos    : showmessage('a');
+      TelaListas       : showmessage('a');
+      TelaAjuda        : begin
+                          if not Assigned(Form_Android_Ajuda) then
+                            Application.CreateForm(TForm_Android_Ajuda, Form_Android_Ajuda);
+                          Form_Android_Ajuda.ShowModal(Procedure (ModalResult: TModalResult)
+                                                       Begin
+                                                        AniAberturaFechaForm.Start;
+                                                       End);
+                         end;
      end;
    end
   else
@@ -725,6 +744,7 @@ procedure TForm_Android_main.menu_ajudaClick(Sender: TObject);
 begin
    {todo 0 -oRafaelAlves -cImplementar: Abrir form de Ajuda}
    MainMenu.HideMaster;
+   AbreTela(TelaAjuda);
 end;
 
 procedure TForm_Android_main.Menu_categoriasClick(Sender: TObject);
@@ -801,6 +821,11 @@ end;
 procedure TForm_Android_main.Sai_sem_conexaoFinish(Sender: TObject);
 begin
   Lay_sem_conexao.Visible := False;
+end;
+
+procedure TForm_Android_main.Sai_splash_screenFinish(Sender: TObject);
+begin
+  Lay_splash_screen.Visible := False;
 end;
 
 procedure TForm_Android_main.TirarFotoCamera;

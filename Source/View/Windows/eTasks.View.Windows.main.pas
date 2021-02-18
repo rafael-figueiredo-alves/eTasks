@@ -9,7 +9,7 @@ uses
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
   FMX.Edit, FMX.TabControl, FMX.MultiView, System.Actions, FMX.ActnList,
   FMX.StdActns, FMX.MediaLibrary.Actions, FMX.ListView, FMX.Effects,
-  eTasks.View.Dialogs.Factory, FMX.Ani;
+  eTasks.View.Dialogs.Factory, FMX.Ani, eTasks.View.Windows.telas;
 
 type
   Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
@@ -126,7 +126,6 @@ type
     ShadowEffect8: TShadowEffect;
     AniAberturaFechaForm: TFloatAnimation;
     Lay_container: TLayout;
-    Button1: TButton;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -152,7 +151,6 @@ type
     procedure Sai_sem_conexaoFinish(Sender: TObject);
     procedure Btn_Add_tarefaClick(Sender: TObject);
     procedure AniAberturaFechaFormFinish(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure Menu_TarefasClick(Sender: TObject);
     procedure Menu_categoriasClick(Sender: TObject);
     procedure Menu_metasClick(Sender: TObject);
@@ -166,6 +164,8 @@ type
     FCalendar   : iViewDialogsFactory;
 
     FTela       : Telas;
+
+    FTelaAjuda : iWindowsTelas;
 
     Procedure TirarFotoCamera;
     Procedure PegarFotoGaleria;
@@ -255,9 +255,20 @@ begin
      case FTela of
       TelaTarefas      : Showmessage('b');
       TelaTarefas_Novo : showmessage('c');
-      TelaCategorias  : showmessage('a');
-      TelaObjetivos   : showmessage('a');
-      TelaListas      : showmessage('a');
+      TelaCategorias   : showmessage('a');
+      TelaObjetivos    : showmessage('a');
+      TelaListas       : showmessage('a');
+      TelaAjuda        : begin
+                           FTelaAjuda := tWindowsTelas.New;
+                           Lay_container.AddObject(FTelaAjuda.Tela_Ajuda
+                                                                 .BtnVoltarClick(Procedure ()
+                                                                                 begin
+                                                                                   AniAberturaFechaForm.Start;
+                                                                                   FTelaAjuda := nil;
+                                                                                 end)
+                                                                  .Exibir
+                                                   );
+                         end;
      end;
    end
   else
@@ -424,11 +435,6 @@ begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
 end;
 
-procedure TForm_Windows_Main.Button1Click(Sender: TObject);
-begin
- AniAberturaFechaForm.Start;
-end;
-
 procedure TForm_Windows_Main.FormResize(Sender: TObject);
 begin
   if Self.Width <= 380 then
@@ -574,6 +580,8 @@ end;
 
 procedure TForm_Windows_Main.menu_ajudaClick(Sender: TObject);
 begin
+  if MainMenu.Mode = TMultiViewMode.Drawer then
+   MainMenu.HideMaster;
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
   AbreTela(TelaAjuda);
@@ -581,6 +589,8 @@ end;
 
 procedure TForm_Windows_Main.Menu_categoriasClick(Sender: TObject);
 begin
+  if MainMenu.Mode = TMultiViewMode.Drawer then
+   MainMenu.HideMaster;
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
  AbreTela(TelaCategorias);
@@ -588,6 +598,8 @@ end;
 
 procedure TForm_Windows_Main.Menu_comprasClick(Sender: TObject);
 begin
+  if MainMenu.Mode = TMultiViewMode.Drawer then
+   MainMenu.HideMaster;
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
   AbreTela(TelaListas);
@@ -608,6 +620,8 @@ end;
 
 procedure TForm_Windows_Main.Menu_metasClick(Sender: TObject);
 begin
+  if MainMenu.Mode = TMultiViewMode.Drawer then
+   MainMenu.HideMaster;
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
  AbreTela(TelaObjetivos);
@@ -620,6 +634,8 @@ end;
 
 procedure TForm_Windows_Main.Menu_TarefasClick(Sender: TObject);
 begin
+  if MainMenu.Mode = TMultiViewMode.Drawer then
+   MainMenu.HideMaster;
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
   AbreTela(TelaTarefas);
