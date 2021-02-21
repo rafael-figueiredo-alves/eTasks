@@ -88,7 +88,6 @@ type
     Lay_logo_centro: TLayout;
     Logo_eTasks: TImage;
     Lay_btn_atuatlizações: TLayout;
-    Btn_busca_atualizacao: TImage;
     Lay_copyright: TLayout;
     Img_copyright: TImage;
     Lay_contatos_sobre: TLayout;
@@ -123,6 +122,11 @@ type
     Logo: TImage;
     Sai_splash_screen: TFloatAnimation;
     Sai_sem_conexao: TFloatAnimation;
+    btn_atualizar: TRoundRect;
+    ShadowEffect9: TShadowEffect;
+    Btn_atualizar_label: TLabel;
+    btn_atualizar_img: TImage;
+    Ani_btn_atualizar: TFloatAnimation;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -154,6 +158,7 @@ type
     procedure Btn_Tentar_NovamenteClick(Sender: TObject);
     procedure Sai_sem_conexaoFinish(Sender: TObject);
     procedure Sai_splash_screenFinish(Sender: TObject);
+    procedure btn_atualizarClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -381,6 +386,24 @@ begin
   AbreTela(TelaTarefas_Novo);
 end;
 
+procedure TForm_Android_main.btn_atualizarClick(Sender: TObject);
+begin
+ teTasksLibrary.CustomThread(
+                             Procedure ()
+                             begin
+                               Ani_btn_atualizar.Start;
+                             end,
+                             Procedure ()
+                             begin
+                               sleep (5000);
+                             end,
+                             Procedure ()
+                             Begin
+                               ani_btn_atualizar.Stop;
+                             End
+                            );
+end;
+
 procedure TForm_Android_main.Btn_Avanca_dataClick(Sender: TObject);
 begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) + 1));
@@ -559,7 +582,7 @@ begin
        end
       else
        begin
-         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Loading)) then
+         if (Assigned(Sheet_fotos)) or (Assigned(Dialogs)) or (Assigned(Loading)) or (Assigned(FCalendar)) then
           begin
             Key := 0;
             if Assigned(sheet_fotos) then
@@ -569,6 +592,10 @@ begin
             if Assigned(dialogs) then
              begin
               dialogs.DialogMessages.Fechar;
+             end;
+            if Assigned(FCalendar) then
+             begin
+              FCalendar.Calendar.Fechar;
              end;
           end
          else

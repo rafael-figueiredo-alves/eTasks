@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl,
   FMX.Objects, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
   FMX.Edit, eTasks.View.Dialogs.Factory, FMX.MediaLibrary.Actions,
-  System.Actions, FMX.ActnList, FMX.StdActns, system.permissions;
+  System.Actions, FMX.ActnList, FMX.StdActns, system.permissions, FMX.Ani;
 
 type
   TForm_Android_Login = class(TForm)
@@ -83,6 +83,21 @@ type
     ActFotoGaleria: TTakePhotoFromLibraryAction;
     ActFotoCamera: TTakePhotoFromCameraAction;
     Img_semfoto: TImage;
+    Lay_sem_conexao: TLayout;
+    Fundo_sem_cenxao: TRectangle;
+    Lay_image_sem_conexao: TLayout;
+    Image_sem_conexao: TImage;
+    Lay_btn_tentar_novamente: TLayout;
+    Btn_Tentar_Novamente: TRoundRect;
+    ShadowEffect8: TShadowEffect;
+    Label_tentar_novamente: TLabel;
+    Image_btn_tentar_novamente: TImage;
+    Animar_Tentar_novamente: TFloatAnimation;
+    Sai_sem_conexao: TFloatAnimation;
+    Lay_splash_screen: TLayout;
+    Rec_splash_fundo: TRectangle;
+    Logo: TImage;
+    Sai_splash_screen: TFloatAnimation;
     procedure FormCreate(Sender: TObject);
     procedure Btn_efetuar_loginClick(Sender: TObject);
     procedure TabInicioClick(Sender: TObject);
@@ -109,6 +124,9 @@ type
     procedure Btn_Esqueci_conta_enviarClick(Sender: TObject);
     procedure Btn_criar_conta_criarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Sai_splash_screenFinish(Sender: TObject);
+    procedure Sai_sem_conexaoFinish(Sender: TObject);
+    procedure Btn_Tentar_NovamenteClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -661,6 +679,53 @@ begin
    Edit_Login_Password.Password := not Edit_Login_Password.Password;
 end;
 
+procedure TForm_Android_Login.Btn_Tentar_NovamenteClick(Sender: TObject);
+Var
+ TemConexao : Boolean;
+begin
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Animar_Tentar_novamente.Start;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                              Nav_Tela_Login.ActiveTab := TabInicio;
+                                                              Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+                                                              Foto_usuario.TagString := 'WithoutPhoto';
+                                                              Edit_criar_conta_nome.Text  := '';
+                                                              Edit_Criar_conta_email.Text := '';
+                                                              Edit_criar_conta_senha.Text := '';
+                                                              Edit_esqueci_conta_email.Text := '';
+                                                              Edit_Login_Password.Text := '';
+                                                              Edit_Login_email.Text    := '';
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             if Animar_Tentar_novamente.Running = true then
+                                                              Animar_Tentar_novamente.Stop;
+                                                             Sai_sem_conexao.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                if Animar_Tentar_novamente.Running = true then
+                                 Animar_Tentar_novamente.Stop;
+                               end;
+                             end);
+end;
+
 procedure TForm_Android_Login.Btn_Termos_privacidadeClick(Sender: TObject);
 Var
  FService : IFMXVirtualKeyboardService;
@@ -807,16 +872,48 @@ begin
 end;
 
 procedure TForm_Android_Login.FormShow(Sender: TObject);
+Var
+ TemConexao : Boolean;
 begin
-  Nav_Tela_Login.ActiveTab := TabInicio;
-  Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
-  Foto_usuario.TagString := 'WithoutPhoto';
-  Edit_criar_conta_nome.Text  := '';
-  Edit_Criar_conta_email.Text := '';
-  Edit_criar_conta_senha.Text := '';
-  Edit_esqueci_conta_email.Text := '';
-  Edit_Login_Password.Text := '';
-  Edit_Login_email.Text    := '';
+ teTasksLibrary.CustomThread(Procedure ()
+                             begin
+                               Lay_splash_screen.Visible := True;
+                             end,
+                             Procedure ()
+                             Begin
+                              TemConexao := teTasksLibrary.CheckInternet;
+                             End,
+                             Procedure ()
+                             begin
+                              if TemConexao = true then
+                               begin
+                                teTasksLibrary.CustomThread(Procedure ()
+                                                            Begin
+
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                              Nav_Tela_Login.ActiveTab := TabInicio;
+                                                              Foto_usuario.Fill.Bitmap.Bitmap := Img_semfoto.Bitmap;
+                                                              Foto_usuario.TagString := 'WithoutPhoto';
+                                                              Edit_criar_conta_nome.Text  := '';
+                                                              Edit_Criar_conta_email.Text := '';
+                                                              Edit_criar_conta_senha.Text := '';
+                                                              Edit_esqueci_conta_email.Text := '';
+                                                              Edit_Login_Password.Text := '';
+                                                              Edit_Login_email.Text    := '';
+                                                            End,
+                                                            Procedure ()
+                                                            Begin
+                                                             Sai_splash_screen.Start;
+                                                            End);
+                               end
+                              else
+                               begin
+                                 Sai_splash_screen.Start;
+                                 Lay_sem_conexao.Visible   := true;
+                               end;
+                             end);
 end;
 
 procedure TForm_Android_Login.FormVirtualKeyboardHidden(Sender: TObject;
@@ -930,6 +1027,16 @@ begin
 
   FScroll.ViewportPosition := PointF(FScroll.ViewportPosition.X, 0);
   FScroll.RealignContent;
+end;
+
+procedure TForm_Android_Login.Sai_sem_conexaoFinish(Sender: TObject);
+begin
+  Lay_sem_conexao.Visible := False;
+end;
+
+procedure TForm_Android_Login.Sai_splash_screenFinish(Sender: TObject);
+begin
+  Lay_splash_screen.Visible := False;
 end;
 
 procedure TForm_Android_Login.Img_CriarConta_voltarClick(Sender: TObject);
