@@ -16,7 +16,8 @@ Type
                                  AOnError                   : TProcedureExcept = nil;
                                  const ADoCompleteWithError : Boolean = True
                                 );
-    Class Function CheckInternet : Boolean;
+    Class Function CheckInternet                         : Boolean;
+    Class Function CheckUpdate (out nome_versao: string) : Boolean;
   end;
 
 implementation
@@ -26,7 +27,9 @@ uses
   System.Net.URLClient,
   System.Net.HttpClient,
   System.Net.HttpClientComponent,
-  IdHTTP;
+  IdHTTP,
+  rest.json,
+  System.JSON;
 
 { teTasksLibrary }
 
@@ -37,7 +40,7 @@ begin
   Net := TNetHTTPClient.Create(nil);
   try
    try
-    Net.Get('https://etasks-d6988.firebaseio.com/etasks/v1/users.json');
+    Net.Get('https://etasks-d6988.firebaseio.com/etasks/v1/version.json');
    except
     on E: Exception do begin
       if not (E is EIdHTTPProtocolException) then begin
@@ -51,6 +54,42 @@ begin
     Net.DisposeOf;
   end;
   Result := True;
+end;
+
+class function teTasksLibrary.CheckUpdate(out nome_versao: string): Boolean;
+Var
+ Rest   : TNetHTTPClient;
+ Resp   : IHTTPResponse;
+ Obj    : tjsonObject;
+ Versao : integer;
+Const
+ Versao_eTasks = 1; 
+begin
+  Result := False;
+  Rest := TNetHTTPClient.Create(nil);
+  try
+    try
+     Resp := rest.Get('https://etasks-d6988.firebaseio.com/etasks/v1/version.json');
+     Obj := TJSONObject.ParseJSONValue(Resp.ContentAsString()) as TJSONObject;
+     Versao := Obj.GetValue('version').Value.ToInteger;
+     nome_versao := Obj.GetValue('versionname').Value; 
+     if Versao > Versao_eTasks then
+      Result := True
+     else
+      Result := false;
+     Obj.DisposeOf;
+    except
+     on E: Exception do begin
+      if not (E is EIdHTTPProtocolException) then begin
+        Result := False;
+        Rest.DisposeOf;
+        Exit;     
+     end;
+     end;
+    end;
+  finally
+    Rest.DisposeOf;
+  end;
 end;
 
 class procedure teTasksLibrary.CustomThread(AOnStart, AOnProcess,

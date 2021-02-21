@@ -387,6 +387,9 @@ begin
 end;
 
 procedure TForm_Android_main.btn_atualizarClick(Sender: TObject);
+Var
+ Update_available : Boolean;
+ Versao           : string;
 begin
  teTasksLibrary.CustomThread(
                              Procedure ()
@@ -395,11 +398,15 @@ begin
                              end,
                              Procedure ()
                              begin
-                               sleep (5000);
+                               Update_available := teTasksLibrary.CheckUpdate(versao);
                              end,
                              Procedure ()
                              Begin
                                ani_btn_atualizar.Stop;
+                               if Update_available = true then
+                                ShowMessage('Há uma nova versão do eTasks disponível!'+#13+versao)
+                               else
+                                ShowMessage('Você já está usando a versão mais atual do eTasks!'+#13+versao);
                              End
                             );
 end;

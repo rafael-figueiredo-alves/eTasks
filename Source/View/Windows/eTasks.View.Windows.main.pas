@@ -96,7 +96,6 @@ type
     Lay_logo_centro: TLayout;
     Logo_eTasks: TImage;
     Lay_btn_atuatlizações: TLayout;
-    Btn_busca_atualizacao: TImage;
     Lay_copyright: TLayout;
     Img_copyright: TImage;
     Lay_contatos_sobre: TLayout;
@@ -126,6 +125,11 @@ type
     ShadowEffect8: TShadowEffect;
     AniAberturaFechaForm: TFloatAnimation;
     Lay_container: TLayout;
+    btn_atualizar: TRoundRect;
+    ShadowEffect9: TShadowEffect;
+    Btn_atualizar_label: TLabel;
+    btn_atualizar_img: TImage;
+    Ani_btn_atualizar: TFloatAnimation;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -156,6 +160,7 @@ type
     procedure Menu_metasClick(Sender: TObject);
     procedure Menu_comprasClick(Sender: TObject);
     procedure menu_ajudaClick(Sender: TObject);
+    procedure btn_atualizarClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -319,6 +324,31 @@ end;
 procedure TForm_Windows_Main.Btn_Add_tarefaClick(Sender: TObject);
 begin
   AbreTela(TelaTarefas_Novo);
+end;
+
+procedure TForm_Windows_Main.btn_atualizarClick(Sender: TObject);
+Var
+ Update_available : Boolean;
+ Versao           : string;
+begin
+ teTasksLibrary.CustomThread(
+                             Procedure ()
+                             begin
+                               Ani_btn_atualizar.Start;
+                             end,
+                             Procedure ()
+                             begin
+                               Update_available := teTasksLibrary.CheckUpdate(versao);
+                             end,
+                             Procedure ()
+                             Begin
+                               ani_btn_atualizar.Stop;
+                               if Update_available = true then
+                                ShowMessage('Há uma nova versão do eTasks disponível!'+#13+versao)
+                               else
+                                ShowMessage('Você já está usando a versão mais atual do eTasks!'+#13+versao);
+                             End
+                            );
 end;
 
 procedure TForm_Windows_Main.Btn_Avanca_dataClick(Sender: TObject);
