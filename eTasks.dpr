@@ -6,10 +6,6 @@ uses
   System.StartUpCopy,
   {$IFDEF ANDROID}
   eTasks.libraries.Android in 'Source\Libraries\eTasks.libraries.Android.pas',
-  eTasks.View.Android.login in 'Source\View\Android\eTasks.View.Android.login.pas',
-  eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
-  eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas',
-  eTasks.View.Android.help in 'Source\View\Android\eTasks.View.Android.help.pas' {Form_Android_Ajuda},
   {$ENDIF }
   {$IFDEF MSWINDOWS}
   eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
@@ -41,7 +37,8 @@ uses
   eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
   eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas',
   eTasks.View.Dialogs.Calendar in 'Source\View\Dialogs\eTasks.View.Dialogs.Calendar.pas' {Dlg_Calendar},
-  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas' {Calendario: TFrame};
+  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas' {Calendario: TFrame},
+  eTasks.Model.Tarefas in 'Source\Model\eTasks.Model.Tarefas.pas';
 
 {$R *.res}
 

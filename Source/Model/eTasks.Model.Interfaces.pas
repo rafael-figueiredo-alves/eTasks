@@ -2,6 +2,9 @@ unit eTasks.Model.Interfaces;
 
 interface
 
+uses
+  System.JSON;
+
 Type
   TAuthUser = Record
     uID : string;
@@ -55,11 +58,43 @@ Type
     Function Editar (Token : string; out erro : string) : iModelUsuario;
   end;
 
+  iModelCategorias = interface
+    ['{B040C54C-AE21-4742-8E73-F5A89E1F0DF6}']
+    Function NovaCategoria (Categoria : TJSONObject; out Erro : string) : iModelCategorias;
+    Function EditarCategoria (Categoria : TJSONObject; id : string; out erro : string) : iModelCategorias;
+    Function ExcluirCategoria (id : string; out erro : string) : iModelCategorias;
+    Function ExibeCategoria (id : string; out erro : string) : TJSONObject;
+    Function ListarCategorias (out erro : string) : TJSONObject;
+  end;
+
+  iModelTarefas = interface
+    ['{48D702E1-9215-4011-9858-0CC634A4911B}']
+    Function CriarTarefa (Tarefa: tJSONObject; out erro : string) : iModelTarefas;
+    Function EditarTarefa (Tarefa: TJSONObject; id : string; out erro : string) : iModelTarefas;
+    Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
+    Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
+    Function ExibeTarefa (id : string; out erro : string) : TJSONObject;
+    Function ListarTarefas (data : string; out erro : string) : TJSONObject;
+  end;
+
+  iModelMetas = interface
+    ['{14F9BA8E-5291-4481-8373-A24AD644C537}']
+    Function CriarMeta (Meta: tJSONObject; out erro : string) : iModelMetas;
+    Function EditarMeta (Meta: TJSONObject; id : string; out erro : string) : iModelMetas;
+    Function ExcluirMeta (id : string; out erro : string) : iModelMetas;
+    Function MudarStatusMeta (id, status : string; out erro : string) : iModelMetas;
+    Function ExibeMeta (id : string; out erro : string) : TJSONObject;
+    Function ListarMetas (out erro : string) : TJSONObject;
+  end;
+
   iModelFactory = Interface
     ['{73B16EAC-77A3-44F6-B656-BB1512B8EE57}']
     Function LoggedUser : iModelLoggedUser;
     Function Auth       : iModelAuth;
     Function Usuario    : iModelUsuario;
+    //Function Categorias : iModelCategorias;
+    //Function Tarefas    : iModelTarefas;
+    //Function Metas      : iModelMetas;
   End;
 
 implementation
