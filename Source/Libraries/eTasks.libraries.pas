@@ -35,8 +35,21 @@ uses
 
 class function teTasksLibrary.CheckInternet: Boolean;
 var
-  Net : TNetHTTPClient;
+  Net : THTTPClient;
 begin
+  Result := false;
+
+  try
+    net := THTTPClient.Create;
+    try
+      Result := Net.Head('https://google.com').StatusCode < 400;
+    except
+    end;
+  finally
+    net.DisposeOf;
+  end;
+
+ { //Codigo usado anteriormente (será removido assim que testado)
   Net := TNetHTTPClient.Create(nil);
   try
    try
@@ -54,6 +67,7 @@ begin
     Net.DisposeOf;
   end;
   Result := True;
+  }
 end;
 
 class function teTasksLibrary.CheckUpdate(out nome_versao: string): Boolean;
