@@ -3,7 +3,7 @@ unit eTasks.Controller.Interfaces;
 interface
 
 uses
-  FMX.ListView;
+  FMX.ListView, System.Generics.Collections;
 
 type
   iControllerLogin = interface
@@ -31,9 +31,33 @@ type
     Function Alterar : iControllerUsuario;
   end;
 
+  tTarefaLista = record
+    id        : string;
+    tarefa    : string;
+    descricao : string;
+    status    : string;
+    Cat_icon  : string;
+  end;
+
+  TTarefa = record
+    id        : string;
+    tarefa    : string;
+    descricao : string;
+    status    : string;
+    data      : string;
+    categoria : string;
+    Cat_icon  : string;
+    Cat_id    : string;
+  end;
+
   iControllerTarefas = interface
     ['{F31D8E0D-49A3-4F5F-8F1A-1669F279F576}']
-    Function ListarTarefas(Lista: tlistview; data: string; out erro : string) : iControllerTarefas;
+    Function ListarTarefas(data: string; out erro : string) : tdictionary<string, TTarefaLista>;
+    Function NovaTarefa(Tarefa: TTarefa; out erro : string) : icontrollerTarefas;
+    Function EditarTarefa(Tarefa: TTarefa; id: string; out erro : string) : iControllerTarefas;
+    Function DeletarTarefa(id : string; out erro : string) : iControllerTarefas;
+    Function ExibeTarefa(id : string; out erro : string) : iControllerTarefas;
+    Function MudaStatus(id, status : string; out Erro : string) : iControllerTarefas;
   end;
 
 implementation
