@@ -180,7 +180,7 @@ type
 
     Procedure AbreTela(Tela : Telas);
 
-    Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: string);
+    Procedure Add_tarefa (id, Status, tarefa, descricao: string; categoria: string);
   public
     { Public declarations }
     Procedure AberturaFormPrincipal;
@@ -216,7 +216,7 @@ begin
   AniAberturaFechaForm.Start;
 end;
 
-procedure TForm_Windows_Main.Add_tarefa(Status, tarefa, descricao,
+procedure TForm_Windows_Main.Add_tarefa(id, Status, tarefa, descricao,
   categoria: string);
 Var
  img : TBitmap;
@@ -249,7 +249,7 @@ begin
 
     end;
 
-    TagString := status;
+    TagString := id;
   end;
 end;
 
@@ -315,10 +315,10 @@ begin
   Lay_Lista_vazia.Visible := False;
   ListadeTarefas := tdictionary<string, tTarefaLista>.create;
   tcontrollerTarefas.New.ListarTarefas(ListadeTarefas, data, erro);
-  if ListadeTarefas.Count <> -1 then
+  if ListadeTarefas.Count <> 0 then
    begin
      for Tarefa in ListadeTarefas.Values do
-      Add_tarefa(Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+      Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
    end
   else
    Lay_Lista_vazia.Visible := True;

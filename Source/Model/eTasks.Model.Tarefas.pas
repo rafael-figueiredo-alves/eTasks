@@ -84,8 +84,8 @@ begin
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
   Query := TDictionary<string, string>.create;
-  query.Add('orderBy', 'data');
-  query.Add('equalTo', data);
+  query.Add('orderBy', '"data"');
+  query.Add('equalTo', '"'+data+'"');
   Query.TrimExcess;
   AResponse := ADataBase.get([FuID+'.json'], query);
   query.DisposeOf;
@@ -94,11 +94,12 @@ begin
    begin
      if Assigned(Resposta) then
       Resposta.DisposeOf;
+     erro := 'Erro_001';
      Result := '';
      exit
    end;
 
-   Result := (Resposta as TJSONObject).ToString;
+   Result := Resposta.ToString;
 
    if Assigned(resposta) then
      Resposta.DisposeOf;

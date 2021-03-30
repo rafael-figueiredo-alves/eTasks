@@ -187,7 +187,7 @@ type
 
     Procedure AbreTela (Tela : Telas);
 
-    Procedure Add_tarefa (Status, tarefa, descricao: string; categoria: string);
+    Procedure Add_tarefa (id, Status, tarefa, descricao: string; categoria: string);
   public
     { Public declarations }
     Procedure AberturaFormPrincipal;
@@ -216,7 +216,9 @@ Uses
   eTasks.View.Android.tasks,
   eTasks.view.categorias,
   eTasks.libraries,
-  eTasks.View.Android.help;
+  eTasks.View.Android.help,
+  System.Generics.Collections,
+  eTasks.Controller.Tarefas;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -253,7 +255,7 @@ begin
      end;
 end;
 
-procedure TForm_Android_main.Add_tarefa(Status, tarefa, descricao: string;
+procedure TForm_Android_main.Add_tarefa(id, Status, tarefa, descricao: string;
   categoria: string);
 Var
  img : TBitmap;
@@ -287,7 +289,7 @@ begin
      picture.DisposeOf;
     end;
 
-    TagString := status;
+    TagString := id;
   end;
 end;
 
@@ -363,8 +365,25 @@ begin
 end;
 
 procedure TForm_Android_main.AtualizaListaTarefas(Data: string);
+Var
+  ListadeTarefas : tdictionary<string, tTarefaLista>;
+  erro : string;
+  Tarefa : tTarefaLista;
 begin
-  ListaTarefas.Items.Clear;
+  listaTarefas.Items.Clear;
+  Lay_Lista_vazia.Visible := False;
+  ListadeTarefas := tdictionary<string, tTarefaLista>.create;
+  tcontrollerTarefas.New.ListarTarefas(ListadeTarefas, data, erro);
+  if ListadeTarefas.Count <> 0 then
+   begin
+     for Tarefa in ListadeTarefas.Values do
+      Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+   end
+  else
+   Lay_Lista_vazia.Visible := True;
+  ListadeTarefas.DisposeOf;
+
+  {ListaTarefas.Items.Clear;
   ListaTarefas.BeginUpdate;
   Lay_Lista_vazia.Visible := False;
   if data = '04/01/2021' then
@@ -378,7 +397,7 @@ begin
      Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
      Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
    end;
-  ListaTarefas.EndUpdate;
+  ListaTarefas.EndUpdate;}
 end;
 
 procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
@@ -771,7 +790,7 @@ end;
 procedure TForm_Android_main.ListaTarefasPullRefresh(Sender: TObject);
 begin
   ListarTarefas(Label_Data.Text);
-  Add_tarefa('fazer', 'teste_pull_refresh', 'teste do pull refresh', 'Cat_015');
+  Add_tarefa('00011', 'fazer', 'teste_pull_refresh', 'teste do pull refresh', 'Cat_015');
 end;
 
 procedure TForm_Android_main.menu_ajudaClick(Sender: TObject);

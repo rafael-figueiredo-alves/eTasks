@@ -73,7 +73,7 @@ begin
   Result := self;
   Json := tmodelFactory.New.Tarefas(FuID, FToken).ListarTarefas(data, error);
   ListaJson := TJSONObject.ParseJSONValue(TEncoding.ASCII.GetBytes(Json), 0) as tJsonObject;
-  if Error <> '' then
+  if Error = '' then
    begin
      if ListaJson <> nil then
       begin
@@ -82,7 +82,7 @@ begin
            JsonValores :=  ListaJson.Pairs[tasks].JsonValue as TJSONObject;
            Tarefa.id := ListaJson.Pairs[tasks].JsonString.Value;
            Tarefa.tarefa    := JsonValores.GetValue('tarefa').Value;
-           Tarefa.descricao := JsonValores.GetValue('descricao').Value;
+           Tarefa.descricao := JsonValores.GetValue('descricao').Value + JsonValores.GetValue('data').Value;
            Tarefa.status    := JsonValores.GetValue('status').Value;
            jsonCategoria := JsonValores.GetValue('categoria') as TJSONObject;
            Tarefa.Cat_icon := jsonCategoria.GetValue('cat_icon').Value;
