@@ -198,7 +198,8 @@ uses
   eTasks.View.Dialogs.TirarFoto, eTasks.View.Dialogs.EditarFoto,
   eTasks.Controller.Login, eTasks.View.Windows.login,
   eTasks.Libraries.Windows, eTasks.libraries,
-  eTasks.View.Dialogs.Messages.Consts;
+  eTasks.View.Dialogs.Messages.Consts, System.Generics.Collections,
+  eTasks.Controller.Tarefas;
 
 {$R *.fmx}
 
@@ -305,8 +306,26 @@ begin
 end;
 
 procedure TForm_Windows_Main.AtualizaListaTarefas(data: string);
+Var
+  ListadeTarefas : tdictionary<string, tTarefaLista>;
+  erro : string;
+  Tarefa : tTarefaLista;
 begin
-  ListaTarefas.Items.Clear;
+  listaTarefas.Items.Clear;
+  Lay_Lista_vazia.Visible := False;
+  ListadeTarefas := tdictionary<string, tTarefaLista>.create;
+  tcontrollerTarefas.New.ListarTarefas(ListadeTarefas, data, erro);
+  if ListadeTarefas.Count <> -1 then
+   begin
+     for Tarefa in ListadeTarefas.Values do
+      Add_tarefa(Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+   end
+  else
+   Lay_Lista_vazia.Visible := True;
+  ListadeTarefas.DisposeOf;
+
+
+  {ListaTarefas.Items.Clear;
   Lay_Lista_vazia.Visible := False;
   if data = '04/01/2021' then
    Lay_Lista_vazia.Visible := true
@@ -318,7 +337,7 @@ begin
      Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 'Cat_010');
      Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
      Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
-   end;
+   end;}
 end;
 
 procedure TForm_Windows_Main.Btn_Add_tarefaClick(Sender: TObject);

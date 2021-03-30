@@ -74,7 +74,7 @@ Type
     Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
     Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
     Function ExibeTarefa (id : string; out erro : string) : TJSONObject;
-    Function ListarTarefas (data : string; out erro : string) : TJSONObject;
+    Function ListarTarefas (data : string; out erro : string) : string;
   end;
 
   iModelMetas = interface
@@ -93,7 +93,7 @@ Type
     Function Auth       : iModelAuth;
     Function Usuario    : iModelUsuario;
     //Function Categorias : iModelCategorias;
-    //Function Tarefas    : iModelTarefas;
+    Function Tarefas(uID, Token : string) : iModelTarefas;
     //Function Metas      : iModelMetas;
   End;
 

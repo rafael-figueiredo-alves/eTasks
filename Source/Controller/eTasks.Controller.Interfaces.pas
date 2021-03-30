@@ -52,7 +52,7 @@ type
 
   iControllerTarefas = interface
     ['{F31D8E0D-49A3-4F5F-8F1A-1669F279F576}']
-    Function ListarTarefas(data: string; out erro : string) : tdictionary<string, TTarefaLista>;
+    function ListarTarefas(Listagem : TDictionary<string,tTarefaLista>;data: string; out erro: string): iControllerTarefas;
     Function NovaTarefa(Tarefa: TTarefa; out erro : string) : icontrollerTarefas;
     Function EditarTarefa(Tarefa: TTarefa; id: string; out erro : string) : iControllerTarefas;
     Function DeletarTarefa(id : string; out erro : string) : iControllerTarefas;

@@ -19,7 +19,7 @@ Type
      Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
      Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
      Function ExibeTarefa (id : string; out erro : string) : TJSONObject;
-     Function ListarTarefas (data : string; out erro : string) : TJSONObject;
+     Function ListarTarefas (data : string; out erro : string) : string;
   End;
 
   Const
@@ -73,7 +73,7 @@ begin
 end;
 
 function TModelTarefas.ListarTarefas(data: string;
-  out erro: string): TJSONObject;
+  out erro: string): string;
 Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
@@ -86,6 +86,7 @@ begin
   Query := TDictionary<string, string>.create;
   query.Add('orderBy', 'data');
   query.Add('equalTo', data);
+  Query.TrimExcess;
   AResponse := ADataBase.get([FuID+'.json'], query);
   query.DisposeOf;
   Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
@@ -93,11 +94,11 @@ begin
    begin
      if Assigned(Resposta) then
       Resposta.DisposeOf;
-     Result := nil;
+     Result := '';
      exit
    end;
 
-   Result := Resposta as TJSONObject;
+   Result := (Resposta as TJSONObject).ToString;
 
    if Assigned(resposta) then
      Resposta.DisposeOf;
