@@ -253,39 +253,39 @@
         </DCCReference>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Messages.Consts.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Factory.pas"/>
-        <DCCReference Include="Source\Model\eTasks.Model.LoggedUser.pas"/>
-        <DCCReference Include="Source\Model\eTasks.Model.Interfaces.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.TirarFoto.pas">
             <Form>Form_Camera</Form>
         </DCCReference>
-        <DCCReference Include="Source\Model\eTasks.Model.Auth.pas"/>
-        <DCCReference Include="Source\Model\eTasks.Model.Consts.pas"/>
-        <DCCReference Include="Source\Controller\eTasks.Controller.Interfaces.pas"/>
-        <DCCReference Include="Source\Controller\eTasks.Controller.Login.pas"/>
-        <DCCReference Include="Source\Model\eTasks.Model.Factory.pas"/>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.Imagens64.pas"/>
-        <DCCReference Include="Source\Model\eTasks.Model.Usuarios.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.EditarFoto.pas">
             <Form>Form_Editar_foto</Form>
         </DCCReference>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.loading.pas">
             <Form>Form_loading</Form>
         </DCCReference>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.dialogYesNo.pas">
             <Form>DialogYesNo</Form>
         </DCCReference>
-        <DCCReference Include="Source\Controller\eTasks.Controller.Usuario.pas"/>
-        <DCCReference Include="Source\View\eTasks.view.categorias.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.Calendar.pas">
             <Form>Dlg_Calendar</Form>
         </DCCReference>
+        <DCCReference Include="Source\Model\eTasks.Model.LoggedUser.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Interfaces.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Auth.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Consts.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Factory.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Usuarios.pas"/>
+        <DCCReference Include="Source\Model\eTasks.Model.Tarefas.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Interfaces.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Login.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Usuario.pas"/>
+        <DCCReference Include="Source\Controller\eTasks.Controller.Tarefas.pas"/>
+        <DCCReference Include="Source\Libraries\eTasks.libraries.Imagens64.pas"/>
+        <DCCReference Include="Source\Libraries\eTasks.libraries.pas"/>
+        <DCCReference Include="Source\View\eTasks.view.categorias.pas"/>
         <DCCReference Include="Source\View\Components\eTasks.View.Components.Calendario.pas">
             <Form>Calendario</Form>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="Source\Model\eTasks.Model.Tarefas.pas"/>
-        <DCCReference Include="Source\Controller\eTasks.Controller.Tarefas.pas"/>
         <None Include="eTasks.todo"/>
         <RcItem Include="Source\categorias.json">
             <ContainerId>ResourceItem</ContainerId>
@@ -425,6 +425,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Configuration="Debug" Class="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
@@ -433,12 +439,6 @@
                 </DeployFile>
                 <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
                     <Platform Name="Android64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Configuration="Debug" Class="Android_LauncherIcon48">
-                    <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -193,12 +193,18 @@ var
 implementation
 
 uses
-  eTasks.Controller.Usuario, eTasks.Controller.Interfaces,
-  eTasks.libraries.Imagens64, eTasks.view.categorias,
-  eTasks.View.Dialogs.TirarFoto, eTasks.View.Dialogs.EditarFoto,
-  eTasks.Controller.Login, eTasks.View.Windows.login,
-  eTasks.Libraries.Windows, eTasks.libraries,
-  eTasks.View.Dialogs.Messages.Consts, System.Generics.Collections,
+  eTasks.Controller.Usuario,
+  eTasks.Controller.Interfaces,
+  eTasks.libraries.Imagens64,
+  eTasks.view.categorias,
+  eTasks.View.Dialogs.TirarFoto,
+  eTasks.View.Dialogs.EditarFoto,
+  eTasks.Controller.Login,
+  eTasks.View.Windows.login,
+  eTasks.Libraries.Windows,
+  eTasks.libraries,
+  eTasks.View.Dialogs.Messages.Consts,
+  System.Generics.Collections,
   eTasks.Controller.Tarefas;
 
 {$R *.fmx}
@@ -590,6 +596,9 @@ end;
 procedure TForm_Windows_Main.ListaTarefasItemClickEx(const Sender: TObject;
   ItemIndex: Integer; const LocalClickPos: TPointF;
   const ItemObject: TListItemDrawable);
+var
+ tarefa : iControllerTarefas;
+ erro   : string;
 begin
   if TListView(sender).Selected <> nil then
    begin
@@ -611,8 +620,14 @@ begin
 
       end
      else
-      ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
-
+      begin
+       tarefa := TControllerTarefas.New.id(TListView(sender).Items[ItemIndex].TagString).ExibeTarefa(Erro);
+       ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString + #13
+                   +'Tarefa: '+ tarefa.tarefa + #13
+                   +'Descrição: '+ tarefa.descricao + #13
+                   +'Categoria: '+ tarefa.categoria
+                  );
+      end;
    end;
 end;
 

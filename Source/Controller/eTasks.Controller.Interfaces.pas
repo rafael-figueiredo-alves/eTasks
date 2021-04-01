@@ -53,11 +53,27 @@ type
   iControllerTarefas = interface
     ['{F31D8E0D-49A3-4F5F-8F1A-1669F279F576}']
     function ListarTarefas(Listagem : TDictionary<string,tTarefaLista>;data: string; out erro: string): iControllerTarefas;
-    Function NovaTarefa(Tarefa: TTarefa; out erro : string) : icontrollerTarefas;
-    Function EditarTarefa(Tarefa: TTarefa; id: string; out erro : string) : iControllerTarefas;
-    Function DeletarTarefa(id : string; out erro : string) : iControllerTarefas;
-    Function ExibeTarefa(id : string; out erro : string) : iControllerTarefas;
-    Function MudaStatus(id, status : string; out Erro : string) : iControllerTarefas;
+    Function NovaTarefa(out erro : string) : icontrollerTarefas;
+    Function EditarTarefa(out erro : string) : iControllerTarefas;
+    Function DeletarTarefa(out erro : string) : iControllerTarefas;
+    Function ExibeTarefa(out erro : string) : iControllerTarefas;
+    Function MudaStatus(out Erro : string) : iControllerTarefas;
+    Function id(value : string) : iControllerTarefas; overload;
+    Function id : string; overload;
+    Function tarefa(value : string) : iControllerTarefas; overload;
+    Function tarefa : string; overload;
+    Function descricao(value : string) : iControllerTarefas; overload;
+    Function descricao : string; overload;
+    Function data(value : string) : iControllerTarefas; overload;
+    Function data : string; overload;
+    function Status(Value : string) : iControllerTarefas; overload;
+    Function status : string; overload;
+    Function categoria(value : string) : iControllerTarefas; overload;
+    Function categoria : string; overload;
+    Function Cat_icon(value : string) : iControllerTarefas; overload;
+    Function cat_icon : string; overload;
+    function cat_id(value : string) : iControllerTarefas; overload;
+    Function cat_id : string; overload;
   end;
 
 implementation

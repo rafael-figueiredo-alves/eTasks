@@ -73,7 +73,7 @@ Type
     Function EditarTarefa (Tarefa: TJSONObject; id : string; out erro : string) : iModelTarefas;
     Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
     Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
-    Function ExibeTarefa (id : string; out erro : string) : TJSONObject;
+    Function ExibeTarefa (id : string; out erro : string) : string;
     Function ListarTarefas (data : string; out erro : string) : string;
   end;
 

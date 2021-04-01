@@ -18,7 +18,7 @@ Type
      Function EditarTarefa (Tarefa: TJSONObject; id : string; out erro : string) : iModelTarefas;
      Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
      Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
-     Function ExibeTarefa (id : string; out erro : string) : TJSONObject;
+     Function ExibeTarefa (id : string; out erro : string) : string;
      Function ListarTarefas (data : string; out erro : string) : string;
   End;
 
@@ -35,7 +35,7 @@ Uses
    Firebase.response,
    Firebase.Database,
    System.json.writers,
-   eTasks.Model.Consts, System.Generics.Collections;
+   eTasks.Model.Consts, System.Generics.Collections, System.SysUtils;
 
 constructor TModelTarefas.Create(uID,Token: string);
 begin
@@ -67,9 +67,30 @@ begin
   Result := Self;
 end;
 
-function TModelTarefas.ExibeTarefa(id: string; out erro: string): TJSONObject;
+function TModelTarefas.ExibeTarefa(id: string; out erro: string): string;
+var
+  ADataBase : IFirebaseDatabase;
+  AResponse : iFirebaseResponse;
+  Resposta  : TJSONValue;
 begin
-  Result := nil;
+  ADatabase := tfirebaseDatabase.Create;
+  ADataBase.SetBaseURI(BaseUrl);
+  ADataBase.SetToken(FToken);
+  AResponse := ADataBase.get([FuID+'/'+id+'.json']);
+  Resposta := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(AResponse.ContentAsString),0);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     erro := 'Erro_001';
+     Result := '';
+     exit
+   end;
+
+   Result := resposta.ToString;
+
+   if Assigned(resposta) then
+     Resposta.DisposeOf;
 end;
 
 function TModelTarefas.ListarTarefas(data: string;
@@ -89,7 +110,7 @@ begin
   Query.TrimExcess;
   AResponse := ADataBase.get([FuID+'.json'], query);
   query.DisposeOf;
-  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  Resposta := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(AResponse.ContentAsString),0);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
      if Assigned(Resposta) then
@@ -99,7 +120,7 @@ begin
      exit
    end;
 
-   Result := Resposta.ToString;
+   Result := resposta.ToString;
 
    if Assigned(resposta) then
      Resposta.DisposeOf;
