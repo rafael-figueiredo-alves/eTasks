@@ -69,8 +69,8 @@ Type
 
   iModelTarefas = interface
     ['{48D702E1-9215-4011-9858-0CC634A4911B}']
-    Function CriarTarefa (Tarefa: tJSONObject; out erro : string) : iModelTarefas;
-    Function EditarTarefa (Tarefa: TJSONObject; id : string; out erro : string) : iModelTarefas;
+    Function CriarTarefa (Tarefa: tJSONValue; out erro : string) : iModelTarefas;
+    Function EditarTarefa (Tarefa: TJSONValue; id : string; out erro : string) : iModelTarefas;
     Function ExcluirTarefa (id : string; out erro : string) : iModelTarefas;
     Function MudarStatusTarefa (id, status : string; out erro : string) : iModelTarefas;
     Function ExibeTarefa (id : string; out erro : string) : string;

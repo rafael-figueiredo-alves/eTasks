@@ -3,13 +3,37 @@ unit eTasks.View.Android.main;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Effects, FMX.Objects,
-  FMX.MultiView, FMX.ListView.Types, FMX.ListView.Appearances,
-  FMX.ListView.Adapters.Base, FMX.ListView, FMX.TabControl, FMX.Edit, eTasks.View.Dialogs.Factory,
-  system.permissions, FMX.MediaLibrary.Actions, System.Actions, FMX.ActnList,
-  FMX.StdActns, FMX.Ani;
+  //eTasks - Required units
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Layouts,
+  FMX.Effects,
+  FMX.Objects,
+  FMX.MultiView,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base,
+  FMX.ListView,
+  FMX.TabControl,
+  FMX.Edit,
+  system.permissions,
+  FMX.MediaLibrary.Actions,
+  System.Actions,
+  FMX.ActnList,
+  FMX.StdActns,
+  FMX.Ani,
+  //eTasks - View dialogs factory
+  eTasks.View.Dialogs.Factory;
 
 type
   Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
@@ -202,23 +226,25 @@ implementation
 {$R *.fmx}
 
 Uses
+  //eTasks - Libraries
   eTasks.libraries.Android,
-  eTasks.Controller.Login,
-  eTasks.View.Android.login,
-  eTasks.Controller.Interfaces,
-  eTasks.Controller.Usuario,
   eTasks.libraries.Imagens64,
+  eTasks.libraries,
+  //eTasks - Form Units
+  eTasks.View.Android.login,
+  eTasks.View.Android.help,
+  eTasks.View.Android.tasks,
+  //eTasks - Controller units
+  eTasks.Controller.Interfaces,
+  eTasks.Controller.Factory,
+  //Required units
   FMX.platform,
+  FMX.VirtualKeyboard,
+  //eTasks - View function and dialog units
   eTasks.View.Dialogs.EditarFoto,
   eTasks.View.Dialogs.TirarFoto,
-  FMX.VirtualKeyboard,
   eTasks.View.Dialogs.Messages.Consts,
-  eTasks.View.Android.tasks,
-  eTasks.view.categorias,
-  eTasks.libraries,
-  eTasks.View.Android.help,
-  System.Generics.Collections,
-  eTasks.Controller.Tarefas;
+  eTasks.view.categorias;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -247,11 +273,10 @@ begin
                                     Perfil_edit_foto.Fill.Bitmap.Bitmap := Form_Editar_foto.Foto;
                                     Perfil_edit_foto.TagString := 'WithPhoto';
                                    end;
-                                  //form_Editar_Foto.DisposeOf;
                                  end);
 
      finally
-      //form_Editar_Foto.DisposeOf;
+
      end;
 end;
 
@@ -341,7 +366,7 @@ var
 begin
   teTasksLibrary.CustomThread(nil, Procedure ()
                                    begin
-                                    AUsuario := tControllerUsuario.New.Ler;
+                                    AUsuario := tControllerFactory.New.Usuario.Ler;
                                    end,
                                    Procedure ()
                                    begin
@@ -366,38 +391,44 @@ end;
 
 procedure TForm_Android_main.AtualizaListaTarefas(Data: string);
 Var
-  ListadeTarefas : tdictionary<string, tTarefaLista>;
   erro : string;
-  Tarefa : tTarefaLista;
+  Tarefas : iControllerTarefas;
+  Loading :  iViewDialogsFactory;
 begin
-  listaTarefas.Items.Clear;
-  Lay_Lista_vazia.Visible := False;
-  ListadeTarefas := tdictionary<string, tTarefaLista>.create;
-  tcontrollerTarefas.New.ListarTarefas(ListadeTarefas, data, erro);
-  if ListadeTarefas.Count <> 0 then
-   begin
-     for Tarefa in ListadeTarefas.Values do
-      Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
-   end
-  else
-   Lay_Lista_vazia.Visible := True;
-  ListadeTarefas.DisposeOf;
-
-  {ListaTarefas.Items.Clear;
-  ListaTarefas.BeginUpdate;
-  Lay_Lista_vazia.Visible := False;
-  if data = '04/01/2021' then
-   Lay_Lista_vazia.Visible := true
-  else
-   begin
-     Lay_Lista_vazia.Visible := false;
-     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste', 'Cat_001');
-     Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 'Cat_061');
-     Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 'Cat_010');
-     Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
-     Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
-   end;
-  ListaTarefas.EndUpdate;}
+  teTasksLibrary.CustomThread(Procedure()
+                              begin
+                                Loading := tviewdialogsmessages.New;
+                                Form_Android_main.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Buscando tarefas. Aguarde, por favor... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                              end,
+                              Procedure ()
+                              begin
+                                Tarefas := tcontrollerFactory.New.Tarefas.data(data).ListarTarefas(erro);
+                              end,
+                              Procedure ()
+                              Var
+                               tarefa : TTarefa;
+                              begin
+                                loading.Loading.Fechar;
+                                listaTarefas.Items.Clear;
+                                Lay_Lista_vazia.Visible := False;
+                                if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                 begin
+                                   ListaTarefas.BeginUpdate;
+                                   for Tarefa in Tarefas.ListagemdeTarefas.Values do
+                                    Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+                                   ListaTarefas.EndUpdate;
+                                 end
+                                else
+                                 Lay_Lista_vazia.Visible := True;
+                              end);
 end;
 
 procedure TForm_Android_main.Btn_Add_tarefaClick(Sender: TObject);
@@ -487,7 +518,7 @@ begin
                                  FFotoPerfil := timagens64.toBase64(Perfil_edit_foto.Fill.Bitmap.Bitmap)
                                 else
                                  FFotoPerfil := '';
-                                tControllerUsuario.New
+                                tControllerFactory.New.Usuario
                                                  .Foto(FFotoPerfil)
                                                  .Nome(Edit_perfil_nome.Text)
                                                  .Alterar;
@@ -589,7 +620,7 @@ end;
 
 procedure TForm_Android_main.FormCreate(Sender: TObject);
 begin
-  //Deixar formulário na tela todo e barra de status transparente
+  //Deixar formulário na tela toda e barra de status transparente
   tLibraryAndroid.TransparentNavBar;
   //Ajustar multi-view referente ao menu principal
   MainMenu.Width := Screen.Width + 2;
@@ -761,6 +792,8 @@ end;
 procedure TForm_Android_main.ListaTarefasItemClickEx(const Sender: TObject;
   ItemIndex: Integer; const LocalClickPos: TPointF;
   const ItemObject: TListItemDrawable);
+Var
+  ErroStatus : string;
 begin
   if TListView(sender).Selected <> nil then
    begin
@@ -770,13 +803,27 @@ begin
          begin
            if ItemObject.TagString = 'fazer' then
             begin
-             TListItemImage(ItemObject).Bitmap := Img_Concluido.Bitmap;
-             ItemObject.TagString := 'concluido';
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('concluido')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+                TListItemImage(ItemObject).Bitmap := Img_Concluido.Bitmap;
+                ItemObject.TagString := 'concluido';
+              end;
             end
            else
             begin
-             TListItemImage(ItemObject).Bitmap := Img_Afazer.Bitmap;
-             ItemObject.TagString := 'fazer';
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('fazer')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+               TListItemImage(ItemObject).Bitmap := Img_Afazer.Bitmap;
+               ItemObject.TagString := 'fazer';
+              end;
             end;
          end;
 
@@ -814,7 +861,7 @@ end;
 
 procedure TForm_Android_main.menu_logoutClick(Sender: TObject);
 begin
-  if tControllerLogin.New.EfetuarLogout = true then
+  if tControllerFactory.New.Login.EfetuarLogout = true then
    begin
       if not Assigned(Form_Android_login) then
        Application.CreateForm(TForm_Android_login, Form_Android_login);
@@ -906,13 +953,13 @@ begin
                                                                     end;
                                                                    end);
                            finally
-                            //form_Editar_Foto.DisposeOf;
+
                            end;
                           end;
                          end);
 
   finally
-   //form_camera.DisposeOf;
+
   end;
 end;
 
@@ -925,7 +972,6 @@ begin
      (AGrantResults[1] = TPermissionStatus.Granted) and
      (AGrantResults[2] = TPermissionStatus.Granted) then
      TirarFotoCamera
-    //ActFotoCamera.Execute
    else
     begin
      Dialogs := TViewDialogsMessages.New;

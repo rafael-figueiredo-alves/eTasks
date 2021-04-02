@@ -21,12 +21,13 @@ Type
      Fcategoria : string;
      Fcat_id    : string;
      FCat_icon  : string;
+     FListagemTarefas : TDictionary<string, tTarefa>;
      Function MontaJSONTarefa : tjsonvalue;
     Public
      Constructor Create;
      Destructor Destroy; Override;
      Class function New: iControllerTarefas;
-     function ListarTarefas(Listagem : TDictionary<string,tTarefaLista>;data: string; out erro: string): iControllerTarefas;
+     function ListarTarefas(out erro: string): iControllerTarefas;
      Function NovaTarefa(out erro : string) : icontrollerTarefas;
      Function EditarTarefa(out erro : string) : iControllerTarefas;
      Function DeletarTarefa(out erro : string) : iControllerTarefas;
@@ -48,12 +49,14 @@ Type
      Function cat_icon : string; overload;
      function cat_id(value : string) : iControllerTarefas; overload;
      Function cat_id : string; overload;
+     Function ListagemdeTarefas : TDictionary<string,TTarefa>;
   End;
 
 implementation
 
 uses
-  eTasks.Model.LoggedUser, eTasks.Model.Factory, System.SysUtils;
+  eTasks.Model.Factory,
+  System.SysUtils;
 
 { TControllerTarefas }
 
@@ -92,8 +95,8 @@ end;
 
 constructor TControllerTarefas.Create;
 begin
-  FuID := TModelLoggeduser.New.uID;
-  FToken := TModelLoggedUser.New.Token;
+  FuID := TModelFactory.New.LoggedUser.uID;
+  FToken := TModelFactory.New.LoggedUser.Token;
 end;
 
 function TControllerTarefas.data: string;
@@ -108,8 +111,12 @@ begin
 end;
 
 function TControllerTarefas.DeletarTarefa(out erro: string): iControllerTarefas;
+var
+  Error : string;
 begin
   Result := self;
+  TModelFactory.New.Tarefas(FuID, FToken).ExcluirTarefa(Fid, error);
+  erro := Error;
 end;
 
 function TControllerTarefas.descricao: string;
@@ -125,13 +132,18 @@ end;
 
 destructor TControllerTarefas.Destroy;
 begin
-
+  if Assigned(FListagemTarefas) then
+   FListagemTarefas.DisposeOf;
   inherited;
 end;
 
 function TControllerTarefas.EditarTarefa(out erro: string): iControllerTarefas;
+Var
+  Error : string;
 begin
   Result := self;
+  TModelFactory.New.Tarefas(FuID, FToken).EditarTarefa(MontaJSONTarefa, Fid, error);
+  erro := Error;
 end;
 
 function TControllerTarefas.ExibeTarefa(out erro: string): iControllerTarefas;
@@ -173,8 +185,12 @@ begin
   Fid := value;
 end;
 
-function TControllerTarefas.ListarTarefas(Listagem : TDictionary<string,tTarefaLista>;data: string;
-  out erro: string): iControllerTarefas;
+function TControllerTarefas.ListagemdeTarefas: TDictionary<string, TTarefa>;
+begin
+  Result := FListagemTarefas;
+end;
+
+function TControllerTarefas.ListarTarefas(out erro: string): iControllerTarefas;
 var
   Json          : string;
   ListaJson     : tjsonobject;
@@ -182,10 +198,11 @@ var
   jsonCategoria : TJSONObject;
   Error         : string;
   tasks         : integer;
-  Tarefa        : tTarefaLista;
+  Tarefa        : tTarefa;
 begin
   Result := self;
-  Json := tmodelFactory.New.Tarefas(FuID, FToken).ListarTarefas(data, error);
+  FListagemTarefas := TDictionary<string,TTarefa>.create;
+  Json := tmodelFactory.New.Tarefas(FuID, FToken).ListarTarefas(Fdata, error);
   ListaJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Json), 0) as tJsonObject;
   if Error = '' then
    begin
@@ -200,7 +217,7 @@ begin
            Tarefa.status    := JsonValores.GetValue('status').Value;
            jsonCategoria := JsonValores.GetValue('categoria') as TJSONObject;
            Tarefa.Cat_icon := jsonCategoria.GetValue('cat_icon').Value;
-           Listagem.Add(tarefa.id, tarefa);
+           FListagemTarefas.Add(tarefa.id, tarefa);
          end;
       end;
    end;
@@ -226,8 +243,12 @@ begin
 end;
 
 function TControllerTarefas.MudaStatus(out Erro: string): iControllerTarefas;
+Var
+  error : String;
 begin
   Result := self;
+  TModelFactory.New.Tarefas(FuID, FToken).MudarStatusTarefa(Fid, Fstatus, error);
+  Erro := error;
 end;
 
 class function TControllerTarefas.New: iControllerTarefas;
@@ -236,8 +257,12 @@ begin
 end;
 
 function TControllerTarefas.NovaTarefa(out erro: string): icontrollerTarefas;
+var
+  error : string;
 begin
   Result := self;
+  TModelFactory.New.Tarefas(FuID, FToken).CriarTarefa(MontaJSONTarefa, error);
+  Erro := error;
 end;
 
 function TControllerTarefas.Status: string;

@@ -3,7 +3,7 @@ unit eTasks.Controller.Interfaces;
 interface
 
 uses
-  FMX.ListView, System.Generics.Collections;
+  System.Generics.Collections;
 
 type
   iControllerLogin = interface
@@ -21,22 +21,14 @@ type
   iControllerUsuario = interface
     ['{55101E59-30B7-4A9E-8E88-507C4D8B0E24}']
     Function Nome  : String; overload;
-    Function Email : string; overload;
     Function Foto  : string; overload;
     Function Nome (Value : String) : iControllerUsuario; overload;
+    Function Email : string; overload;
     Function Email (Value : String) : iControllerUsuario; overload;
     Function Foto (Value : String) : iControllerUsuario; overload;
     Function Ler : iControllerUsuario;
     function Salvar : iControllerUsuario;
     Function Alterar : iControllerUsuario;
-  end;
-
-  tTarefaLista = record
-    id        : string;
-    tarefa    : string;
-    descricao : string;
-    status    : string;
-    Cat_icon  : string;
   end;
 
   TTarefa = record
@@ -52,7 +44,7 @@ type
 
   iControllerTarefas = interface
     ['{F31D8E0D-49A3-4F5F-8F1A-1669F279F576}']
-    function ListarTarefas(Listagem : TDictionary<string,tTarefaLista>;data: string; out erro: string): iControllerTarefas;
+    function ListarTarefas(out erro: string): iControllerTarefas;
     Function NovaTarefa(out erro : string) : icontrollerTarefas;
     Function EditarTarefa(out erro : string) : iControllerTarefas;
     Function DeletarTarefa(out erro : string) : iControllerTarefas;
@@ -74,6 +66,13 @@ type
     Function cat_icon : string; overload;
     function cat_id(value : string) : iControllerTarefas; overload;
     Function cat_id : string; overload;
+    Function ListagemdeTarefas : TDictionary<string,TTarefa>;
+  end;
+
+  iControllerFactory = interface
+    Function Usuario : iControllerUsuario;
+    Function Login   : iControllerLogin;
+    Function Tarefas : iControllerTarefas;
   end;
 
 implementation

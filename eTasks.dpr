@@ -46,6 +46,7 @@ uses
   eTasks.Controller.Login in 'Source\Controller\eTasks.Controller.Login.pas',
   eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
   eTasks.Controller.Tarefas in 'Source\Controller\eTasks.Controller.Tarefas.pas',
+  eTasks.Controller.Factory in 'Source\Controller\eTasks.Controller.Factory.pas',
   //eTasks - Commom libraries
   eTasks.libraries.Imagens64 in 'Source\Libraries\eTasks.libraries.Imagens64.pas',
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',

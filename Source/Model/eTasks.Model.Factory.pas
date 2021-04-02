@@ -21,7 +21,9 @@ Type
 implementation
 
 uses
-  eTasks.Model.Auth, eTasks.Model.LoggedUser,eTasks.Model.Usuarios,
+  eTasks.Model.Auth,
+  eTasks.Model.LoggedUser,
+  eTasks.Model.Usuarios,
   eTasks.Model.Tarefas;
 
 { TModelFactory }

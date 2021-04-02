@@ -42,8 +42,17 @@ implementation
 { TModelLoggedUser }
 
 Uses
-  System.IOUtils, System.SysUtils, inifiles, IdCoder,
-  IdCoder3to4, IdCoder00E, IdCoderXXE, IdBaseComponent, System.DateUtils, eTasks.Model.Factory {$ifdef Android}, Posix.Unistd {$endif} ;
+  System.IOUtils,
+  System.SysUtils,
+  inifiles,
+  IdCoder,
+  IdCoder3to4,
+  IdCoder00E,
+  IdCoderXXE,
+  IdBaseComponent,
+  System.DateUtils,
+  eTasks.Model.Factory
+  {$ifdef Android}, Posix.Unistd {$endif} ;
 
 function TModelLoggedUser.Conectar: Boolean;
 Var

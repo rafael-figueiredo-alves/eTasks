@@ -30,7 +30,8 @@ Type
 implementation
 
 uses
-  eTasks.Model.Interfaces, eTasks.Model.Usuarios, eTasks.Model.LoggedUser;
+  eTasks.Model.Interfaces,
+  eTasks.Model.Factory;
 
 { TControllerUsuario }
 
@@ -39,7 +40,7 @@ Var
  Error : String;
 begin
   Result := Self;
-  TModelUsuarios.New
+  TModelFactory.New.Usuario
                   .uID(FuID)
                   .Nome(FNome)
                   .Foto(FFoto)
@@ -48,8 +49,8 @@ end;
 
 constructor TControllerUsuario.Create;
 begin
-  FuID := TModelLoggeduser.New.uID;
-  FToken := TModelLoggedUser.New.Token;
+  FuID := TModelFactory.New.LoggedUser.uID;
+  FToken := TModelFactory.New.LoggedUser.Token;
 end;
 
 destructor TControllerUsuario.Destroy;
@@ -86,7 +87,7 @@ Var
  Error : string;
 begin
   Result := Self;
-  AModelUsuario := tModelUsuarios.New.uID(FuID).Ler(FToken, error);
+  AModelUsuario := tModelFactory.New.Usuario.uID(FuID).Ler(FToken, error);
   FNome  := AModelUsuario.Nome;
   FEmail := AModelUsuario.Email;
   FFoto  := AModelUsuario.Foto;
@@ -113,7 +114,7 @@ Var
  Error : String;
 begin
   Result := Self;
-  TModelUsuarios.New
+  TModelFactory.New.Usuario
                   .uID(FuID)
                   .Nome(FNome)
                   .Email(FEmail)

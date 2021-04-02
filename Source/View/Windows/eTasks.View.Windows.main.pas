@@ -3,13 +3,37 @@ unit eTasks.View.Windows.main;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts, FMX.ListBox,
-  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
-  FMX.Edit, FMX.TabControl, FMX.MultiView, System.Actions, FMX.ActnList,
-  FMX.StdActns, FMX.MediaLibrary.Actions, FMX.ListView, FMX.Effects,
-  eTasks.View.Dialogs.Factory, FMX.Ani, eTasks.View.Windows.telas;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Objects,
+  FMX.Layouts,
+  FMX.ListBox,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base,
+  FMX.Edit,
+  FMX.TabControl,
+  FMX.MultiView,
+  System.Actions,
+  FMX.ActnList,
+  FMX.StdActns,
+  FMX.MediaLibrary.Actions,
+  FMX.ListView,
+  FMX.Effects,
+  FMX.Ani,
+  //eTasks - View specific function units
+  eTasks.View.Dialogs.Factory,
+  eTasks.View.Windows.telas;
 
 type
   Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
@@ -193,19 +217,20 @@ var
 implementation
 
 uses
-  eTasks.Controller.Usuario,
+  //eTasks - Unit with Controller Interfaces and factory
   eTasks.Controller.Interfaces,
+  eTasks.Controller.factory,
+  //eTasks - Library units
   eTasks.libraries.Imagens64,
+  eTasks.Libraries.Windows,
+  eTasks.libraries,
+  //eTasks - View units
   eTasks.view.categorias,
   eTasks.View.Dialogs.TirarFoto,
   eTasks.View.Dialogs.EditarFoto,
-  eTasks.Controller.Login,
-  eTasks.View.Windows.login,
-  eTasks.Libraries.Windows,
-  eTasks.libraries,
   eTasks.View.Dialogs.Messages.Consts,
-  System.Generics.Collections,
-  eTasks.Controller.Tarefas;
+  //eTasks - Form units
+  eTasks.View.Windows.login;
 
 {$R *.fmx}
 
@@ -292,7 +317,7 @@ var
  AUsuario : iControllerUsuario;
  BitMap : TBitmap;
 begin
-  AUsuario := tControllerUsuario.New.Ler;
+  AUsuario := tControllerFactory.New.Usuario.Ler;
   Perfil_nome.Text := AUsuario.Nome;
   Perfil_email.Text := AUsuario.Email;
   if AUsuario.Foto <> '' then
@@ -313,37 +338,44 @@ end;
 
 procedure TForm_Windows_Main.AtualizaListaTarefas(data: string);
 Var
-  ListadeTarefas : tdictionary<string, tTarefaLista>;
   erro : string;
-  Tarefa : tTarefaLista;
+  Tarefas : iControllerTarefas;
+  Loading :  iViewDialogsFactory;
 begin
-  listaTarefas.Items.Clear;
-  Lay_Lista_vazia.Visible := False;
-  ListadeTarefas := tdictionary<string, tTarefaLista>.create;
-  tcontrollerTarefas.New.ListarTarefas(ListadeTarefas, data, erro);
-  if ListadeTarefas.Count <> 0 then
-   begin
-     for Tarefa in ListadeTarefas.Values do
-      Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
-   end
-  else
-   Lay_Lista_vazia.Visible := True;
-  ListadeTarefas.DisposeOf;
-
-
-  {ListaTarefas.Items.Clear;
-  Lay_Lista_vazia.Visible := False;
-  if data = '04/01/2021' then
-   Lay_Lista_vazia.Visible := true
-  else
-   begin
-     Lay_Lista_vazia.Visible := false;
-     Add_tarefa('fazer', 'Teste 0001', 'Este é um teste 1', 'Cat_001');
-     Add_tarefa('feito', 'Teste 0002', 'Este é um teste 2', 'Cat_061');
-     Add_tarefa('fazer', 'Teste 0003', 'Este é um teste 3', 'Cat_010');
-     Add_tarefa('fazer', 'Teste 0004', 'Este é um teste 4', 'Cat_078');
-     Add_tarefa('feito', 'Teste 0005', 'Este é um teste 5', 'Cat_025');
-   end;}
+  teTasksLibrary.CustomThread(Procedure()
+                              begin
+                                Loading := tviewdialogsmessages.New;
+                                Form_windows_main.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Buscando tarefas. Aguarde, por favor... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                              end,
+                              Procedure ()
+                              begin
+                                Tarefas := tcontrollerFactory.New.Tarefas.data(data).ListarTarefas(erro);
+                              end,
+                              Procedure ()
+                              Var
+                               tarefa : TTarefa;
+                              begin
+                                loading.Loading.Fechar;
+                                listaTarefas.Items.Clear;
+                                Lay_Lista_vazia.Visible := False;
+                                if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                 begin
+                                   ListaTarefas.BeginUpdate;
+                                   for Tarefa in Tarefas.ListagemdeTarefas.Values do
+                                    Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+                                   ListaTarefas.EndUpdate;
+                                 end
+                                else
+                                 Lay_Lista_vazia.Visible := True;
+                              end);
 end;
 
 procedure TForm_Windows_Main.Btn_Add_tarefaClick(Sender: TObject);
@@ -430,7 +462,7 @@ begin
                                   FFotoPerfil := timagens64.toBase64(Perfil_edit_foto.Fill.Bitmap.Bitmap)
                                  else
                                   FFotoPerfil := '';
-                                 tControllerUsuario.New
+                                  TControllerFactory.New.Usuario
                                                   .Nome(Edit_perfil_nome.Text)
                                                   .Foto(FFotoPerfil)
                                                   .Alterar;
@@ -599,6 +631,7 @@ procedure TForm_Windows_Main.ListaTarefasItemClickEx(const Sender: TObject;
 var
  tarefa : iControllerTarefas;
  erro   : string;
+ ErroStatus  : string;
 begin
   if TListView(sender).Selected <> nil then
    begin
@@ -608,20 +641,34 @@ begin
          begin
            if ItemObject.TagString = 'fazer' then
             begin
-             TListItemImage(ItemObject).Bitmap := Img_Concluido.Bitmap;
-             ItemObject.TagString := 'concluido';
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('concluido')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+               TListItemImage(ItemObject).Bitmap := Img_Concluido.Bitmap;
+               ItemObject.TagString := 'concluido';
+              end;
             end
            else
             begin
-             TListItemImage(ItemObject).Bitmap := Img_Afazer.Bitmap;
-             ItemObject.TagString := 'fazer';
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('fazer')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+               TListItemImage(ItemObject).Bitmap := Img_Afazer.Bitmap;
+               ItemObject.TagString := 'fazer';
+              end;
             end;
          end;
 
       end
      else
       begin
-       tarefa := TControllerTarefas.New.id(TListView(sender).Items[ItemIndex].TagString).ExibeTarefa(Erro);
+       tarefa := tControllerFactory.New.Tarefas.id(TListView(sender).Items[ItemIndex].TagString).ExibeTarefa(Erro);
        ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString + #13
                    +'Tarefa: '+ tarefa.tarefa + #13
                    +'Descrição: '+ tarefa.descricao + #13
@@ -671,7 +718,7 @@ end;
 
 procedure TForm_Windows_Main.menu_logoutClick(Sender: TObject);
 begin
-  if tControllerLogin.New.EfetuarLogout = true then
+  if TControllerFactory.New.Login.EfetuarLogout = true then
    begin
       if not Assigned(Form_windows_login) then
        Application.CreateForm(TForm_windows_login, Form_windows_login);
