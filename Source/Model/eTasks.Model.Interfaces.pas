@@ -60,11 +60,11 @@ Type
 
   iModelCategorias = interface
     ['{B040C54C-AE21-4742-8E73-F5A89E1F0DF6}']
-    Function NovaCategoria (Categoria : TJSONObject; out Erro : string) : iModelCategorias;
-    Function EditarCategoria (Categoria : TJSONObject; id : string; out erro : string) : iModelCategorias;
+    Function NovaCategoria (Categoria : TJSONValue; out Erro : string) : iModelCategorias;
+    Function EditarCategoria (Categoria : TJSONValue; id : string; out erro : string) : iModelCategorias;
     Function ExcluirCategoria (id : string; out erro : string) : iModelCategorias;
-    Function ExibeCategoria (id : string; out erro : string) : TJSONObject;
-    Function ListarCategorias (out erro : string) : TJSONObject;
+    Function ExibeCategoria (id : string; out erro : string) : string;
+    Function ListarCategorias (out erro : string) : string;
   end;
 
   iModelTarefas = interface
@@ -92,7 +92,7 @@ Type
     Function LoggedUser : iModelLoggedUser;
     Function Auth       : iModelAuth;
     Function Usuario    : iModelUsuario;
-    //Function Categorias : iModelCategorias;
+    Function Categorias(uID, Token: string)  : iModelCategorias;
     Function Tarefas(uID, Token : string) : iModelTarefas;
     //Function Metas      : iModelMetas;
   End;

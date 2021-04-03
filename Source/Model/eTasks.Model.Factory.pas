@@ -16,6 +16,7 @@ Type
      Function Auth                            : iModelAuth;
      Function Usuario                         : iModelUsuario;
      Function Tarefas(uID, Token : string)    : iModelTarefas;
+     Function Categorias(uID, Token: string)  : iModelCategorias;
   End;
 
 implementation
@@ -24,13 +25,18 @@ uses
   eTasks.Model.Auth,
   eTasks.Model.LoggedUser,
   eTasks.Model.Usuarios,
-  eTasks.Model.Tarefas;
+  eTasks.Model.Tarefas, eTasks.Model.Categorias;
 
 { TModelFactory }
 
 function TModelFactory.Auth: iModelAuth;
 begin
   Result := tModelAuth.New;
+end;
+
+function TModelFactory.Categorias(uID, Token: string) : iModelCategorias;
+begin
+  Result := tModelCategorias.new(uID, Token);
 end;
 
 constructor TModelFactory.Create;

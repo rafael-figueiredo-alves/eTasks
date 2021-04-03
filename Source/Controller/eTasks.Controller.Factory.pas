@@ -15,6 +15,7 @@ Type
      Function Usuario : iControllerUsuario;
      Function Login   : iControllerLogin;
      Function Tarefas : iControllerTarefas;
+     Function Categorias : iControllerCategorias;
   End;
 
 implementation
@@ -22,9 +23,14 @@ implementation
 uses
   eTasks.Controller.Login,
   eTasks.Controller.Tarefas,
-  eTasks.Controller.Usuario;
+  eTasks.Controller.Usuario, eTasks.Controller.Categorias;
 
 { TControllerFactory }
+
+function TControllerFactory.Categorias: iControllerCategorias;
+begin
+  Result := tControllerCategorias.new;
+end;
 
 constructor TControllerFactory.Create;
 begin

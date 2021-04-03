@@ -1,5 +1,28 @@
 program eTasks;
 
+{
+ ########################################################################
+
+       Projeto: eTasks
+        Versão: 1.0.1
+ Desenvolvedor: Rafael de Figueiredo Alves
+
+ Cópia Autorizada© 2021 - Rafael de Figueiredo Alves / DevPegasus
+
+ Descrição:
+ Projeto de App mobile (Android) e desktop (Windows) para gerenciamento de tarefas,
+ listas de mercado e metas com foco na produtividade e no bom humor.
+
+ Dedicatória:
+ "Eu, Rafael de Figueiredo Alves, desenvolvedor deste software, dedico o resultado deste
+  trabalho e fruto de tempo de dedicação e estudo aos grandes amores da minha vida:
+  Minha esposa Jailza, meu filho Davi e minha filha Rafaela. A paciência deles comigo e
+  o encorajamento que eles me deram e sempre dão foi o fator crucial para a concretização
+  deste projeto. A eles, todo o meu amor e admiração."
+
+ ########################################################################
+ }
+
 {$R *.dres}
 
 uses
@@ -41,12 +64,14 @@ uses
   eTasks.Model.Factory in 'Source\Model\eTasks.Model.Factory.pas',
   eTasks.Model.Usuarios in 'Source\Model\eTasks.Model.Usuarios.pas',
   eTasks.Model.Tarefas in 'Source\Model\eTasks.Model.Tarefas.pas',
+  eTasks.Model.Categorias in 'Source\Model\eTasks.Model.Categorias.pas',
   //eTasks - Controllers
   eTasks.Controller.Interfaces in 'Source\Controller\eTasks.Controller.Interfaces.pas',
   eTasks.Controller.Login in 'Source\Controller\eTasks.Controller.Login.pas',
   eTasks.Controller.Usuario in 'Source\Controller\eTasks.Controller.Usuario.pas',
   eTasks.Controller.Tarefas in 'Source\Controller\eTasks.Controller.Tarefas.pas',
   eTasks.Controller.Factory in 'Source\Controller\eTasks.Controller.Factory.pas',
+  eTasks.Controller.Categorias in 'Source\Controller\eTasks.Controller.Categorias.pas',
   //eTasks - Commom libraries
   eTasks.libraries.Imagens64 in 'Source\Libraries\eTasks.libraries.Imagens64.pas',
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',
@@ -75,4 +100,3 @@ begin
   {$ENDIF}
   Application.Run;
 end.
-
