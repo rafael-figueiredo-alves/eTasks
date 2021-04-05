@@ -73,6 +73,7 @@ begin
        lbitem.TagString   := FJson.Pairs[item].JsonString.Value;
        Bitmap           := TImagens64.fromBase64(FJson.Pairs[item].JsonValue.Value);
        lbitem.ItemData.Bitmap := Bitmap;
+       lbitem.Text := 'aaaaaaaaaaaaaaa';
        Bitmap.DisposeOf;
      end;
   finally

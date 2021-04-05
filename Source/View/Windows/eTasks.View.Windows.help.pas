@@ -17,20 +17,25 @@ type
     btn_menu_ajuda: TImage;
     Titulo_ajuda: TImage;
     Linha_sup_ajuda: TLine;
-    WB_ajuda: TWebBrowser;
     MenuAjuda: TMultiView;
     ListaTopicos: TListBox;
     SearchBox_topico_ajuda: TSearchBox;
     Lay_top_menu_ajuda: TLayout;
     Btn_Fecha_menu_ajuda: TImage;
     Label_menu_ajuda: TLabel;
-    Img_espelho: TImage;
     Lay_main_container: TLayout;
     Lay_container_wb: TLayout;
+    ListBox1: TListBox;
+    StyleBook1: TStyleBook;
+    Rectangle1: TRectangle;
+    ListBoxItem1: TListBoxItem;
     procedure Btn_voltarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btn_menu_ajudaClick(Sender: TObject);
-    procedure MenuAjudaHidden(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ListBox1ItemClick(const Sender: TCustomListBox;
+      const Item: TListBoxItem);
+    procedure ListBox1Click(Sender: TObject);
   private
     { Private declarations }
     FBtnVoltarClick : TProc;
@@ -45,6 +50,9 @@ var
 
 implementation
 
+uses
+  eTasks.view.categorias;
+
 {$R *.fmx}
 
 { TForm_Windows_Ajuda }
@@ -57,9 +65,6 @@ end;
 
 procedure TForm_Windows_Ajuda.btn_menu_ajudaClick(Sender: TObject);
 begin
-  Img_espelho.Bitmap := WB_ajuda.MakeScreenshot;
-  WB_ajuda.Visible := False;
-  Img_espelho.Visible := True;
   MenuAjuda.ShowMaster;
 end;
 
@@ -75,13 +80,27 @@ end;
 
 procedure TForm_Windows_Ajuda.FormCreate(Sender: TObject);
 begin
-  WB_ajuda.URL := 'https://rafael-figueiredo-alves.github.io/eTasks/';
+  tCategorias.New.MontaListagem(listbox1);
+  ListBox1.ItemIndex := 0;
+  //Rectangle1.Parent := ListBox1.Selected;
+  //Rectangle1.Visible := true;
 end;
 
-procedure TForm_Windows_Ajuda.MenuAjudaHidden(Sender: TObject);
+procedure TForm_Windows_Ajuda.FormShow(Sender: TObject);
 begin
-  WB_ajuda.Visible := true;
-  Img_espelho.Visible := false;
+  ListBox1.Clear;
+  tCategorias.New.MontaListagem(listbox1);
+end;
+
+procedure TForm_Windows_Ajuda.ListBox1Click(Sender: TObject);
+begin
+  ShowMessage('Teste 1');
+end;
+
+procedure TForm_Windows_Ajuda.ListBox1ItemClick(const Sender: TCustomListBox;
+  const Item: TListBoxItem);
+begin
+  ShowMessage('Teste '+Item.TagString);
 end;
 
 end.
