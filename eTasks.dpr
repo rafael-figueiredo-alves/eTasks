@@ -36,6 +36,7 @@ uses
   eTasks.View.Android.main in 'Source\View\Android\eTasks.View.Android.main.pas',
   eTasks.View.Android.tasks in 'Source\View\Android\eTasks.View.Android.tasks.pas',
   eTasks.View.Android.help in 'Source\View\Android\eTasks.View.Android.help.pas' {Form_Android_Ajuda},
+  eTasks.View.Android.Categories in 'Source\View\Android\eTasks.View.Android.Categories.pas',
   {$ENDIF }
   //eTasks - Specific View units for Windows
   {$IFDEF MSWINDOWS}
@@ -43,7 +44,6 @@ uses
   eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
   eTasks.libraries.Windows in 'Source\Libraries\eTasks.libraries.Windows.pas',
   eTasks.View.Windows.help in 'Source\View\Windows\eTasks.View.Windows.help.pas' {Form_Windows_Ajuda},
-  eTasks.View.Windows.telas in 'Source\View\Windows\eTasks.View.Windows.telas.pas',
   {$ENDIF }
   //eTasks - View dialog units
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},

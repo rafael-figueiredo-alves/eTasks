@@ -36,7 +36,7 @@ uses
   eTasks.View.Dialogs.Factory;
 
 type
-  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
+  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar, TelaTarefas_exibe,
            TelaCategorias, TelaObjetivos, TelaListas, TelaAjuda);
 
   TForm_Android_main = class(TForm)
@@ -325,22 +325,31 @@ begin
      AniAberturaFechaForm.Inverse := True;
      case FTela of
       TelaTarefas      : begin
-                          if not Assigned(tela_Tarefas) then
-                            Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
+                          if not Assigned(Tela_tarefas) then
+                            Application.CreateForm(Ttela_tarefas, Tela_Tarefas);
                           Tela_Tarefas.Acao(taLista);
-                          Tela_tarefas.ShowModal(Procedure (ModalResult: TModalResult)
+                          Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
                                                  Begin
                                                    AniAberturaFechaForm.Start;
                                                  End);
                          end;
       TelaTarefas_Novo : begin
-                          if not Assigned(tela_Tarefas) then
-                            Application.CreateForm(TTela_Tarefas, Tela_Tarefas);
+                          if not Assigned(Tela_tarefas) then
+                            Application.CreateForm(Ttela_tarefas, Tela_Tarefas);
                           Tela_Tarefas.Acao(taNovo);
-                          Tela_tarefas.ShowModal(Procedure (ModalResult: TModalResult)
-                                                 Begin
-                                                   AniAberturaFechaForm.Start;
-                                                 End);
+                          Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                       Begin
+                                                         AniAberturaFechaForm.Start;
+                                                       End);
+                         end;
+      TelaTarefas_Exibe : begin
+                          if not Assigned(Tela_tarefas) then
+                            Application.CreateForm(Ttela_tarefas, Tela_Tarefas);
+                          Tela_Tarefas.Acao(taExibe);
+                          Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                       Begin
+                                                         AniAberturaFechaForm.Start;
+                                                       End);
                          end;
       TelaCategorias   : showmessage('a');
       TelaObjetivos    : showmessage('a');
@@ -829,7 +838,8 @@ begin
 
       end
      else
-      ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
+      AbreTela(TelaTarefas_exibe);
+      //ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
 
    end;
 end;
