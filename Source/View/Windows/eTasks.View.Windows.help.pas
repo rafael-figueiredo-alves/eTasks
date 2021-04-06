@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.Objects, FMX.WebBrowser, FMX.StdCtrls, FMX.Edit, FMX.SearchBox,
-  FMX.ListBox, FMX.Controls.Presentation, FMX.MultiView;
+  FMX.ListBox, FMX.Controls.Presentation, FMX.MultiView, FMX.Effects;
 
 type
   TForm_Windows_Ajuda = class(TForm)
@@ -25,10 +25,14 @@ type
     Label_menu_ajuda: TLabel;
     Lay_main_container: TLayout;
     Lay_container_wb: TLayout;
-    Rectangle1: TRectangle;
     ListBox1: TListBox;
     ListBoxItem1: TListBoxItem;
     StyleBook1: TStyleBook;
+    Label1: TLabel;
+    Image1: TImage;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxItem4: TListBoxItem;
     procedure Btn_voltarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btn_menu_ajudaClick(Sender: TObject);
@@ -79,9 +83,23 @@ begin
 end;
 
 procedure TForm_Windows_Ajuda.FormCreate(Sender: TObject);
+Var
+ item : integer;
 begin
   tCategorias.New.MontaListagem(listbox1);
-  ListBox1.ItemIndex := 0;
+  for item := 1 to ListBox1.Count-1 do
+   begin
+    if ListBox1.ListItems[item].TagString = 'Cat_052' then
+     begin
+       Label1.Text := 'Cat_052';
+       Image1.Parent := ListBox1.ListItems[item];
+       image1.BringToFront;
+     end;
+   end;
+  {ListBox1.ItemIndex := 0;
+  label1.Text :=  ListBox1.Selected.TagString;
+  image1.Parent := ListBox1.Selected;
+  image1.BringToFront;}
   //Rectangle1.Parent := ListBox1.Selected;
   //Rectangle1.Visible := true;
 end;
@@ -94,13 +112,15 @@ end;
 
 procedure TForm_Windows_Ajuda.ListBox1Click(Sender: TObject);
 begin
-  ShowMessage('Teste 1');
+  //ShowMessage('Teste 1');
 end;
 
 procedure TForm_Windows_Ajuda.ListBox1ItemClick(const Sender: TCustomListBox;
   const Item: TListBoxItem);
 begin
-  ShowMessage('Teste '+Item.TagString);
+  Label1.Text := Item.TagString;
+  image1.Parent := Item;
+  image1.BringToFront;
 end;
 
 end.
