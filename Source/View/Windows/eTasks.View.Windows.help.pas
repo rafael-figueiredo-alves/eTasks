@@ -25,10 +25,10 @@ type
     Label_menu_ajuda: TLabel;
     Lay_main_container: TLayout;
     Lay_container_wb: TLayout;
-    ListBox1: TListBox;
-    StyleBook1: TStyleBook;
     Rectangle1: TRectangle;
+    ListBox1: TListBox;
     ListBoxItem1: TListBoxItem;
+    StyleBook1: TStyleBook;
     procedure Btn_voltarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btn_menu_ajudaClick(Sender: TObject);

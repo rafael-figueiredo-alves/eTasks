@@ -22,6 +22,7 @@ type
     Memo1: TMemo;
     AnimaFundo: TFloatAnimation;
     AnimaDialogo: TFloatAnimation;
+    StyleBook1: TStyleBook;
     procedure RecEscurecerClick(Sender: TObject);
     procedure Button_messageClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

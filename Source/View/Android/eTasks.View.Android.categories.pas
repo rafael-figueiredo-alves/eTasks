@@ -3,12 +3,30 @@ unit eTasks.View.Android.categories;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
-  FMX.Ani, FMX.ScrollBox, FMX.Memo, FMX.Edit, FMX.Effects, FMX.Objects,
-  FMX.ListView, FMX.Controls.Presentation, FMX.StdCtrls, FMX.TabControl,
-  FMX.Layouts, FMX.ListBox;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base,
+  FMX.Ani,
+  FMX.ScrollBox,
+  FMX.Edit,
+  FMX.Effects,
+  FMX.Objects,
+  FMX.ListView,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.TabControl,
+  FMX.Layouts,
+  FMX.ListBox;
 
 type
   tipo_acao = (taSelecionar, taListar);
@@ -48,7 +66,8 @@ type
     Image1: TImage;
     Edit1: TEdit;
     Image2: TImage;
-    ListBox1: TListBox;
+    ListaImagemCategoria: TListBox;
+    Btn_apaga_categoria: TImage;
     StyleBook1: TStyleBook;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
@@ -110,7 +129,7 @@ begin
                     title_EditaCategoria.Visible   := False;
                     title_NovaCategoria.Visible    := False;
                     TabCategorias.ActiveTab        := TabEditaCategoria;
-                    TCategorias.New.MontaListagem(ListBox1);
+                    TCategorias.New.MontaListagem(ListaImagemCategoria);
                    end;
   end;
   AnimaStatus.Start;
