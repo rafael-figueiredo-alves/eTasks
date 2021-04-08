@@ -2,7 +2,9 @@ unit eTasks.view.categorias;
 
 interface
 
-Uses fmx.listbox, system.json;
+Uses
+  fmx.listbox,
+  system.json;
 
 Type
   iCategorias = interface
@@ -25,8 +27,14 @@ Type
 implementation
 
 uses
-  System.Classes, System.Types, FMX.Objects, eTasks.libraries.Imagens64, 
-  FMX.Graphics, System.Generics.Collections, System.SysUtils, system.IOutils;
+  System.Classes,
+  System.Types,
+  FMX.Objects,
+  eTasks.libraries.Imagens64,
+  FMX.Graphics,
+  System.Generics.Collections,
+  System.SysUtils,
+  system.IOutils;
 
 { TCategorias }
 

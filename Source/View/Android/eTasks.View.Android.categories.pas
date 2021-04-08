@@ -26,7 +26,7 @@ uses
   FMX.StdCtrls,
   FMX.TabControl,
   FMX.Layouts,
-  FMX.ListBox;
+  FMX.ListBox, FMX.SearchBox;
 
 type
   tipo_acao = (taSelecionar, taListar);
@@ -44,7 +44,7 @@ type
     Lay_tarefa_container: TLayout;
     Rec_tarefa: TRectangle;
     ShadowEffect1: TShadowEffect;
-    Edit_tarefa: TEdit;
+    Edit_categoria: TEdit;
     Lay_descricao_edit: TLayout;
     Linha_descricao_edit: TLine;
     Label_descricao_edit: TLabel;
@@ -61,17 +61,27 @@ type
     title_NovaCategoria: TImage;
     RecStatus: TRectangle;
     AnimaStatus: TFloatAnimation;
-    Rectangle1: TRectangle;
+    Rec_caixa_pesquisa: TRectangle;
     ShadowEffect2: TShadowEffect;
-    Image1: TImage;
-    Edit1: TEdit;
-    Image2: TImage;
+    Img_btn_pesquisar: TImage;
+    Ed_pesquisa: TEdit;
+    Btn_Seleciona: TImage;
     ListaImagemCategoria: TListBox;
     Btn_apaga_categoria: TImage;
     StyleBook1: TStyleBook;
+    ListaCategorias: TListBox;
+    Seletor: TImage;
+    Lay_sem_categorias: TLayout;
+    Image_sem_categorias: TImage;
+    Label_sem_categorias: TLabel;
+    SearchBox1: TSearchBox;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure AnimaStatusFinish(Sender: TObject);
+    Procedure MontaListaExibe;
+    Procedure MontaListaSeleciona;
+    procedure Ed_pesquisaTyping(Sender: TObject);
+    procedure Btn_Add_tarefaClick(Sender: TObject);
   private
     { Private declarations }
     fTipoAcao : tipo_acao;
@@ -90,7 +100,10 @@ implementation
 { TTela_categorias }
 
 Uses
-  eTasks.view.categorias;
+  eTasks.view.categorias,
+  eTasks.Controller.Interfaces,
+  eTasks.Controller.Factory,
+  eTasks.libraries.Imagens64;
 
 procedure TTela_categorias.Acao(Acao: tipo_acao);
 begin
@@ -115,24 +128,115 @@ begin
   AnimaStatus.Start;
 end;
 
+procedure TTela_categorias.Btn_Add_tarefaClick(Sender: TObject);
+begin
+  TCategorias.New.MontaListagem(ListaImagemCategoria);
+  Edit_categoria.Text := '';
+  ListaImagemCategoria.ItemIndex := 0;
+  Seletor.Parent := ListaImagemCategoria.Selected;
+  Seletor.Visible := True;
+  Seletor.BringToFront;
+  TabCategorias.GotoVisibleTab(1);
+end;
+
+procedure TTela_categorias.Ed_pesquisaTyping(Sender: TObject);
+begin
+  SearchBox1.Text := Ed_pesquisa.Text;
+end;
+
 procedure TTela_categorias.FormShow(Sender: TObject);
 begin
+  Seletor.Parent := Self;
+  Seletor.Visible := False;
   case FTipoAcao of
     taSelecionar : begin
                     title_Categorias.Visible := True;
                     title_EditaCategoria.Visible   := False;
                     title_NovaCategoria.Visible    := False;
                     TabCategorias.ActiveTab        := TabListaCategoria;
+                    MontaListaSeleciona;
                    end;
     taListar     : begin
                     title_Categorias.Visible := True;
                     title_EditaCategoria.Visible   := False;
                     title_NovaCategoria.Visible    := False;
-                    TabCategorias.ActiveTab        := TabEditaCategoria;
-                    TCategorias.New.MontaListagem(ListaImagemCategoria);
+                    TabCategorias.ActiveTab        := TabListaCategoria;
+                    MontaListaExibe;
                    end;
   end;
   AnimaStatus.Start;
+end;
+
+procedure TTela_categorias.MontaListaExibe;
+Var
+ lbitem     : TListBoxItem;
+ Bitmap     : tbitmap;
+ Categorias : iControllerCategorias;
+ Categoria  : TCategoria;
+ erro: string;
+begin
+  ListaCategorias.BeginUpdate;
+  Lay_sem_categorias.Visible := False;
+  ListaCategorias.Clear;
+  Categorias := tcontrollerfactory.New.Categorias.ListarCategorias(erro);
+  if Categorias.ListagemCategorias.Count <> 0 then
+   begin
+    for Categoria in Categorias.ListagemCategorias.Values do
+     begin
+       lbitem             := TListBoxItem.Create(nil);
+       lbitem.Parent      := ListaCategorias;
+       lbitem.StyleLookup := 'ListBoxItem_Exibe';
+       lbitem.TagString   := Categoria.cat_id;
+       lbitem.ItemData.Detail := Categoria.cat_icon;
+       lbitem.Text        := Categoria.categoria;
+       Bitmap             := timagens64.fromBase64(TCategorias.New.PegaImagem(Categoria.cat_icon));
+       lbitem.ItemData.Bitmap := Bitmap;
+       lbitem.Selectable := false;
+       Bitmap.DisposeOf;
+     end;
+   end
+  else
+   Lay_sem_categorias.Visible := True;
+  ListaCategorias.EndUpdate;
+  Btn_Seleciona.Visible := False;
+end;
+
+procedure TTela_categorias.MontaListaSeleciona;
+Var
+ lbitem     : TListBoxItem;
+ Bitmap     : tbitmap;
+ Categorias : iControllerCategorias;
+ Categoria  : TCategoria;
+ erro: string;
+begin
+  ListaCategorias.BeginUpdate;
+  Lay_sem_categorias.Visible := False;
+  ListaCategorias.Clear;
+  Categorias := tcontrollerfactory.New.Categorias.ListarCategorias(erro);
+  if Categorias.ListagemCategorias.Count <> 0 then
+   begin
+    for Categoria in Categorias.ListagemCategorias.Values do
+     begin
+       lbitem             := TListBoxItem.Create(nil);
+       lbitem.Parent      := ListaCategorias;
+       lbitem.StyleLookup := 'ListBoxItem_Seleciona';
+       lbitem.TagString   := Categoria.cat_id;
+       lbitem.Text        := Categoria.categoria;
+       lbitem.ItemData.Detail := Categoria.cat_icon;
+       Bitmap             := timagens64.fromBase64(TCategorias.New.PegaImagem(Categoria.cat_icon));
+       lbitem.ItemData.Bitmap := Bitmap;
+       lbitem.Selectable := true;
+       Bitmap.DisposeOf;
+       ListaCategorias.ItemIndex := 0;
+       Btn_Seleciona.Visible := True;
+     end;
+   end
+  else
+   begin
+     Lay_sem_categorias.Visible := True;
+     Btn_Seleciona.Visible := False;
+   end;
+  ListaCategorias.EndUpdate;
 end;
 
 end.
