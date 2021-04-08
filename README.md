@@ -12,10 +12,26 @@
 
  ## Rafael de Figueiredo Alves
 
- #Screenshots
+ # Screenshots
 
  ## Windows
 
+![Splashscreen](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png)
+
+![Tela principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form.png)
  
- 
- 
+ ![Tela principal (tela inteira)](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_2.png)
+
+ ![Menu principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_menu.png)
+
+## Android
+
+Vou disponibilizar imagens em breve.
+
+# Instruções para poder abrir o projeto no Delphi
+
+O projeto do **eTasks** usa a biblioteca do Firebase criada pelo [Daniele Spinetti](https://github.com/spinettaro). A biblioteca foi baixada do github do [Adriano Santos Treinamentos](https://github.com/adrianosantostreina/FirebaseClasses).
+
+Para facilitar o trabalho de instalação da dependência, eu utilizei e sugiro que usem o [Boss](https://github.com/HashLoad/boss). Para tal, basta executar o seguinte comando (depois que o Boss estiver instalado em seu computador):
+
+`boss install https://github.com/adrianosantostreina/FirebaseClasses`
