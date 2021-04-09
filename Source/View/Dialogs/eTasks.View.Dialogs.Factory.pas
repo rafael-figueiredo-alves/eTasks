@@ -2,8 +2,12 @@ unit eTasks.View.Dialogs.Factory;
 
 interface
 
-Uses eTasks.View.Dialogs.Messages, eTasks.View.Dialogs.Termos, eTasks.View.Dialogs.SheetFotos,
-  eTasks.View.Dialogs.loading, eTasks.View.Dialogs.dialogYesNo,
+Uses
+  eTasks.View.Dialogs.Messages,
+  eTasks.View.Dialogs.Termos,
+  eTasks.View.Dialogs.SheetFotos,
+  eTasks.View.Dialogs.loading,
+  eTasks.View.Dialogs.dialogYesNo,
   eTasks.View.Dialogs.Calendar;
 
 Type

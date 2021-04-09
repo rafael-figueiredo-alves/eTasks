@@ -57,6 +57,7 @@ var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
+  pegaErro: TJSONValue;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
@@ -71,7 +72,7 @@ begin
      exit
    end;
 
-   if Resposta <> Categoria then
+   if Resposta.TryGetValue('Error', pegaErro) then
     erro := 'Erro'
    else
     erro := '';
@@ -86,6 +87,7 @@ Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
+  pegaErro: TJSONValue;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
@@ -100,7 +102,7 @@ begin
      exit
    end;
 
-   if not Resposta.Null then
+   if Resposta.TryGetValue('Error', pegaErro) then
     erro := 'Erro'
    else
     erro := '';

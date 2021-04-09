@@ -234,6 +234,7 @@ Uses
   eTasks.View.Android.login,
   eTasks.View.Android.help,
   eTasks.View.Android.tasks,
+  eTasks.View.Android.categories,
   //eTasks - Controller units
   eTasks.Controller.Interfaces,
   eTasks.Controller.Factory,
@@ -351,7 +352,15 @@ begin
                                                          AniAberturaFechaForm.Start;
                                                        End);
                          end;
-      TelaCategorias   : showmessage('a');
+      TelaCategorias   : begin
+                          if not Assigned(Tela_categorias) then
+                            Application.CreateForm(TTela_categorias, Tela_categorias);
+                          Tela_categorias.Acao(taListar);
+                          Tela_categorias.ShowModal(Procedure (ModalResult: TModalResult)
+                                                       Begin
+                                                         AniAberturaFechaForm.Start;
+                                                       End);
+                         end;
       TelaObjetivos    : showmessage('a');
       TelaListas       : showmessage('a');
       TelaAjuda        : begin
@@ -859,8 +868,8 @@ end;
 
 procedure TForm_Android_main.Menu_categoriasClick(Sender: TObject);
 begin
-   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Categorias}
    MainMenu.HideMaster;
+   AbreTela(TelaCategorias);
 end;
 
 procedure TForm_Android_main.Menu_comprasClick(Sender: TObject);

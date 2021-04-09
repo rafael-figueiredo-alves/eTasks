@@ -34,15 +34,15 @@ object Form_loading: TForm_loading
     object Lay_centro: TLayout
       Align = Center
       Size.Width = 280.000000000000000000
-      Size.Height = 300.000000000000000000
+      Size.Height = 400.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
       object LabelMensagem: TLabel
         Align = Bottom
         StyledSettings = [Family, Style]
-        Position.Y = 260.000000000000000000
+        Position.Y = 300.000000000000000000
         Size.Width = 280.000000000000000000
-        Size.Height = 40.000000000000000000
+        Size.Height = 100.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 22.000000000000000000
         TextSettings.FontColor = claWhite
@@ -57,7 +57,7 @@ object Form_loading: TForm_loading
         Margins.Right = 20.000000000000000000
         Margins.Bottom = 20.000000000000000000
         Size.Width = 240.000000000000000000
-        Size.Height = 220.000000000000000000
+        Size.Height = 260.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = xFF1AA4F3
         Stroke.Thickness = 10.000000000000000000
@@ -77,7 +77,7 @@ object Form_loading: TForm_loading
           Margins.Right = 15.000000000000000000
           Margins.Bottom = 15.000000000000000000
           Size.Width = 210.000000000000000000
-          Size.Height = 190.000000000000000000
+          Size.Height = 230.000000000000000000
           Size.PlatformDefault = False
           Stroke.Color = xFFFCDE3F
           Stroke.Thickness = 10.000000000000000000

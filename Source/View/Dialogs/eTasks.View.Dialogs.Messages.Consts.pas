@@ -7,7 +7,8 @@ Type
  tTipoMensagem = (tpmErro_login_Senha, tpmErro_login_Email, tpmBranco_login_email, tpmBranco_login_senha, tpmInvalido_login_email, tpmInvalido_login_senha, tpmUsuario_desativado_login,
                   tpmErro_resetar_email, tpmInvalido_resetar_email, tpmBranco_resetar_email, tpmSucesso_resetar,
                   tpmPermissao_solicitar_camera, tpmPermissao_negada_camera, tpmPermissao_solicitar_galeria, tpmPermissao_negada_galeria,
-                  tpmErro_criar_conta, tpmBranco_criar_nome, tpmBranco_criar_email, tpmBranco_criar_senha, tpmInvalido_criar_email, tpmInvalido_criar_senha, tpmSucesso_criar_conta);
+                  tpmErro_criar_conta, tpmBranco_criar_nome, tpmBranco_criar_email, tpmBranco_criar_senha, tpmInvalido_criar_email, tpmInvalido_criar_senha, tpmSucesso_criar_conta,
+                  tpmCategoria_Editada, tpmCategoria_Inserida);
 
  ResourceString
 
@@ -40,6 +41,10 @@ Type
   Branco_email_resetar   = 'Para poder resetar a senha, é necessário informar um email válido. Por favor informe e tente novamente.';
   Erro_resetar_senha     = 'Não encontramos nenhuma conta com este email. Verifique o email informado e tente novamente, ou crie uma nova conta.';
   Sucesso_resetar_senha  = 'Parabéns, seu pedido de resetamento de senha foi enviado e em instantes você receberá um email com instruções para definir uma nova senha. Aguarde!';
+
+  //Mensagens referentes a Categorias
+  Categoria_Editada  = 'Categoria editada com sucesso!';
+  Categoria_Inserida = 'Categoria criada com sucesso!';
 
 implementation
 
