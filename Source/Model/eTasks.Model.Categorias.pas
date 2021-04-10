@@ -152,7 +152,10 @@ begin
    begin
      if Assigned(Resposta) then
       Resposta.DisposeOf;
-     erro := 'Erro_001';
+     if Resposta.Null then
+      erro := 'vazio'
+     else
+      erro := 'Erro_001';
      Result := '';
      exit
    end;

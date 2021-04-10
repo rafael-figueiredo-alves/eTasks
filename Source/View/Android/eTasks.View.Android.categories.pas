@@ -93,6 +93,8 @@ type
     procedure ListaImagemCategoriaItemClick(const Sender: TCustomListBox;
       const Item: TListBoxItem);
     procedure Btn_OKClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Btn_apaga_categoriaClick(Sender: TObject);
   private
     { Private declarations }
     fTipoAcao  : tipo_acao;
@@ -181,7 +183,6 @@ end;
 
 procedure TTela_categorias.Btn_Add_tarefaClick(Sender: TObject);
 begin
-  TCategorias.New.MontaListagem(ListaImagemCategoria);
   Edit_categoria.Text := '';
   ListaImagemCategoria.ItemIndex := 0;
   Seletor.Parent := ListaImagemCategoria.Selected;
@@ -189,7 +190,92 @@ begin
   Seletor.BringToFront;
   Btn_apaga_categoria.Visible := false;
   FOperacao := Inserir;
+  ListaImagemCategoria.ScrollToItem(ListaImagemCategoria.ListItems[0]);
   TabCategorias.GotoVisibleTab(1);
+end;
+
+procedure TTela_categorias.Btn_apaga_categoriaClick(Sender: TObject);
+Var
+ Erro      : string;
+ FMensagem : tTipoMensagem;
+begin
+  Dialogs := tviewDialogsMessages.New;
+  Tela_categorias.AddObject(
+    Dialogs.DialogYesNo
+             .Messagem('Tem certeza que deseja apagar esta categoria?')
+             .BtnYes(Procedure ()
+                     begin
+                      Dialogs.DialogYesNo.Fechar;
+                      Dialogs := nil;
+                      teTasksLibrary.CustomThread(Procedure ()
+                                                  begin
+                                                   Loading := tviewDialogsMessages.New;
+                                                   Tela_categorias.AddObject(Loading.Loading
+                                                                             .Mensagem('Aguarde ... Apagando categoria ...')
+                                                                             .AcaoLimpa(Procedure ()
+                                                                                        begin
+                                                                                         Loading := nil;
+                                                                                        end)
+                                                                             .Exibe
+                                                                           );
+                                                  end,
+                                                  Procedure ()
+                                                  begin
+                                                    TControllerFactory.New.Categorias
+                                                                            .Cat_id(FCat_id)
+                                                                            .DeletarCategoria(Erro);
+                                                    FMensagem := tpmCategoria_apagada;
+                                                  end,
+                                                  Procedure ()
+                                                  begin
+                                                   Loading.Loading.Fechar;
+                                                   if erro = '' then
+                                                    begin
+                                                     Dialogs := tviewdialogsmessages.New;
+                                                     Tela_categorias.AddObject(
+                                                           Dialogs.DialogMessages
+                                                                    .TipoMensagem(FMensagem)
+                                                                    .AcaoBotao(Procedure ()
+                                                                               begin
+                                                                                Dialogs := nil;
+                                                                                Seletor.Parent := Self;
+                                                                                Seletor.Visible := False;
+                                                                                TabCategorias.Previous();
+                                                                                case fTipoAcao of
+                                                                                 taSelecionar : MontaListaSeleciona;
+                                                                                 taListar     : MontaListaExibe;
+                                                                                end;
+                                                                                Ed_pesquisa.Text := '';
+                                                                                SearchBox1.Text  := '';
+                                                                               end)
+                                                                    .AcaoFundo(Procedure ()
+                                                                               begin
+                                                                                Dialogs := nil;
+                                                                                Seletor.Parent := Self;
+                                                                                Seletor.Visible := False;
+                                                                                TabCategorias.Previous();
+                                                                                case fTipoAcao of
+                                                                                 taSelecionar : MontaListaSeleciona;
+                                                                                 taListar     : MontaListaExibe;
+                                                                                end;
+                                                                                Ed_pesquisa.Text := '';
+                                                                                SearchBox1.Text  := '';
+                                                                               end)
+                                                                    .Exibe
+                                                                      );
+                                                    end;
+                                                  end);
+                     end)
+             .BtnNo(Procedure ()
+                    begin
+                     Dialogs := nil;
+                    end)
+             .Fundo(procedure ()
+                    begin
+                     Dialogs := nil;
+                    end)
+             .Exibe
+  );
 end;
 
 procedure TTela_categorias.Btn_OKClick(Sender: TObject);
@@ -302,6 +388,11 @@ begin
   SearchBox1.Text := Ed_pesquisa.Text;
 end;
 
+procedure TTela_categorias.FormCreate(Sender: TObject);
+begin
+  TCategorias.New.MontaListagem(ListaImagemCategoria);
+end;
+
 procedure TTela_categorias.FormKeyUp(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 Var
@@ -357,7 +448,6 @@ begin
                  FCat_icon  := Item.ItemData.Detail;
                 end;
   taListar: begin
-             TCategorias.New.MontaListagem(ListaImagemCategoria);
              Edit_categoria.Text := Item.Text;
              FCat_id             := Item.TagString;
              for I := 1 to ListaImagemCategoria.Count-1 do
@@ -368,12 +458,13 @@ begin
                  Seletor.Parent := ListaImagemCategoria.ListItems[i];
                  Seletor.Visible := true;
                  Seletor.BringToFront;
+                 ListaImagemCategoria.ScrollToItem(TListBoxItem(Seletor.Parent));
                 end;
               end;
              Btn_apaga_categoria.Visible := True;
              FOperacao := Editar;
              TabCategorias.GotoVisibleTab(1);
-            end;
+            End;
  end;
 end;
 
@@ -437,6 +528,14 @@ begin
                                   Lay_sem_categorias.Visible := True;
                                  ListaCategorias.EndUpdate;
                                  Btn_Seleciona.Visible := False;
+                                end
+                               else
+                                begin
+                                  if Erro = 'vazio' then
+                                   begin
+                                   Lay_sem_categorias.Visible := True;
+                                   Btn_Seleciona.Visible := False;
+                                   end;
                                 end;
                               end);
 end;
@@ -489,6 +588,9 @@ begin
                                      lbitem.Selectable := true;
                                      Bitmap.DisposeOf;
                                      ListaCategorias.ItemIndex := 0;
+                                     FCat_id := ListaCategorias.Selected.TagString;
+                                     FCategoria := ListaCategorias.Selected.Text;
+                                     FCat_icon := ListaCategorias.Selected.ItemData.Detail;
                                      Btn_Seleciona.Visible := True;
                                     end;
                                   end
@@ -498,6 +600,14 @@ begin
                                    Btn_Seleciona.Visible := False;
                                   end;
                                  ListaCategorias.EndUpdate;
+                                end
+                               else
+                                begin
+                                  if Erro = 'vazio' then
+                                   begin
+                                    Lay_sem_categorias.Visible := True;
+                                    Btn_Seleciona.Visible := False;
+                                   end;
                                 end;
                               end);
 end;

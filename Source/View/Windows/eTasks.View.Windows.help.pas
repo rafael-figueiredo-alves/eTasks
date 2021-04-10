@@ -55,7 +55,8 @@ var
 implementation
 
 uses
-  eTasks.view.categorias;
+  eTasks.view.categorias, eTasks.Controller.Factory,
+  eTasks.Controller.Interfaces;
 
 {$R *.fmx}
 
@@ -117,10 +118,15 @@ end;
 
 procedure TForm_Windows_Ajuda.ListBox1ItemClick(const Sender: TCustomListBox;
   const Item: TListBoxItem);
+var erro: string;
+    categorias : iControllerCategorias;
+    i: integer;
 begin
   Label1.Text := Item.TagString;
   image1.Parent := Item;
   image1.BringToFront;
+  categorias := tControllerFactory.New.Categorias.ListarCategorias(erro);
+  i := categorias.ListagemCategorias.Count;
 end;
 
 end.

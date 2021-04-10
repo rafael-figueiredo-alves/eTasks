@@ -256,10 +256,22 @@ begin
       TelaCategorias : begin
                           if not Assigned(Tela_categorias) then
                             Application.CreateForm(TTela_categorias, Tela_categorias);
-                          Tela_Categorias.Acao(taListar);
+                          Tela_Categorias.Acao(taSelecionar);
                           Tela_Categorias.ShowModal(Procedure (ModalResult: TModalResult)
+                                                    var
+                                                     bitmap : TBitmap;
                                                     Begin
                                                      AnimaTelaCategorias.Start;
+                                                     if ModalResult = mrOk then
+                                                      begin
+                                                        bitmap := TImagens64.fromBase64(TCategorias.New.PegaImagem(Tela_categorias.cat_icon));
+                                                        FCategoria := Tela_categorias.Categoria;
+                                                        Fcat_id    := Tela_categorias.Cat_id;
+                                                        Fcat_icon  := Tela_categorias.cat_icon;
+                                                        Label_categoria_btn.Text := FCategoria;
+                                                        Img_categoria_btn.Bitmap := bitmap;
+                                                        bitmap.DisposeOf;
+                                                      end;
                                                     End);
                        end;
      end;

@@ -314,6 +314,12 @@ begin
                           Text_message.Text     := categoria_editada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
+    tpmCategoria_apagada:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := categoria_apagada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
   end;
 end;
 
