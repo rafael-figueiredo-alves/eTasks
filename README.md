@@ -16,7 +16,7 @@
 
  ## Windows
 
-![Splashscreen](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png)
+![Splashscreen](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png){:height="25%" width="25%"}
 
 ![Tela principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form.png)
  
@@ -26,7 +26,7 @@
 
 ## Android
 
-![eTasks_002](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_001.jpg) ![eTasks_002](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_002.jpg) ![eTasks_003](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_003.jpg)
+![eTasks_002](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_001.jpg){:height="25%" width="25%"} ![eTasks_002](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_002.jpg){:height="25%" width="25%"} ![eTasks_003](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_003.jpg){:height="25%" width="25%"}
 ![eTasks_004](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_004.jpg) ![eTasks_005](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_005.jpg) ![eTasks_006](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_006.jpg)
 ![eTasks_007](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_007.jpg) ![eTasks_008](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_008.jpg) ![eTasks_009](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_009.jpg)
 ![eTasks_010](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_010.jpg) ![eTasks_011](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_011.jpg) ![eTasks_012](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_012.jpg)
