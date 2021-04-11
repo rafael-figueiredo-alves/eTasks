@@ -16,14 +16,13 @@
 
  ## Windows
 
-<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png" width="25%" height="25%">
-![Splashscreen](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png){:height="25%" width="25%"}
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png" width="50%" height="50%">
 
-![Tela principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form.png)
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form.png" width="50%" height="50%">
  
- ![Tela principal (tela inteira)](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_2.png)
+ <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_2.png" width="50%" height="50%">
 
- ![Menu principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_menu.png)
+ <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form_menu.png" width="50%" height="50%">
 
 ## Android
 
