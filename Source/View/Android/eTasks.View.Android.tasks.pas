@@ -270,6 +270,7 @@ begin
                                                         Fcat_icon  := Tela_categorias.cat_icon;
                                                         Label_categoria_btn.Text := FCategoria;
                                                         Img_categoria_btn.Bitmap := bitmap;
+                                                        Img_categoria_btn.Visible := true;
                                                         bitmap.DisposeOf;
                                                       end;
                                                     End);
@@ -443,6 +444,8 @@ begin
               title_MinhasTarefas.Visible := False;
               title_EditaTarefa.Visible   := False;
               title_NovaTarefa.Visible    := True;
+              Img_categoria_btn.Visible   := false;
+              Label_categoria_btn.Text    := 'Selecione uma categoria';
               TabTarefas.ActiveTab        := TabNovoEditaTarefa;
             end;
     taEditar: begin

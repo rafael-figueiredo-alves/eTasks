@@ -58,7 +58,6 @@ type
     ToolBar: TLayout;
     Linha_titulo: TLine;
     Botao_voltar: TImage;
-    botao_ajuda: TImage;
     title_Categorias: TImage;
     title_EditaCategoria: TImage;
     title_NovaCategoria: TImage;
@@ -78,6 +77,7 @@ type
     Image_sem_categorias: TImage;
     Label_sem_categorias: TLabel;
     SearchBox1: TSearchBox;
+    botao_ajuda: TImage;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure AnimaStatusFinish(Sender: TObject);
@@ -407,30 +407,42 @@ begin
        end
       else
        begin
-         AnimaStatus.Start;
+         if (Assigned(Dialogs)) or (Assigned(Loading)) then
+          begin
+            Key := 0;
+            if Assigned(dialogs) then
+             begin
+              dialogs.DialogMessages.Fechar;
+             end;
+          end
+         else
+          begin
+           if TabCategorias.ActiveTab = TabEditaCategoria then
+            begin
+             Key := 0;
+             Botao_voltarClick(sender);
+            end
+          else
+           AnimaStatus.Start;
+          end;
        end;
     end;
 end;
 
 procedure TTela_categorias.FormShow(Sender: TObject);
 begin
-  Seletor.Parent := Self;
-  Seletor.Visible := False;
+  Seletor.Parent   := Self;
+  Seletor.Visible  := False;
+  Ed_pesquisa.Text := '';
+  SearchBox1.Text  := '';
+  ListaCategorias.Clear;
+  title_EditaCategoria.Visible   := False;
+  title_NovaCategoria.Visible    := False;
+  title_Categorias.Visible := True;
+  TabCategorias.ActiveTab := TabListaCategoria;
   case FTipoAcao of
-    taSelecionar : begin
-                    title_Categorias.Visible := True;
-                    title_EditaCategoria.Visible   := False;
-                    title_NovaCategoria.Visible    := False;
-                    TabCategorias.ActiveTab        := TabListaCategoria;
-                    MontaListaSeleciona;
-                   end;
-    taListar     : begin
-                    title_Categorias.Visible := True;
-                    title_EditaCategoria.Visible   := False;
-                    title_NovaCategoria.Visible    := False;
-                    TabCategorias.ActiveTab        := TabListaCategoria;
-                    MontaListaExibe;
-                   end;
+    taSelecionar : MontaListaSeleciona;
+    taListar     : MontaListaExibe;
   end;
   AnimaStatus.Start;
 end;
@@ -533,8 +545,9 @@ begin
                                 begin
                                   if Erro = 'vazio' then
                                    begin
-                                   Lay_sem_categorias.Visible := True;
-                                   Btn_Seleciona.Visible := False;
+                                    Listacategorias.Clear;
+                                    Lay_sem_categorias.Visible := True;
+                                    Btn_Seleciona.Visible := False;
                                    end;
                                 end;
                               end);
@@ -605,6 +618,7 @@ begin
                                 begin
                                   if Erro = 'vazio' then
                                    begin
+                                    ListaCategorias.Clear;
                                     Lay_sem_categorias.Visible := True;
                                     Btn_Seleciona.Visible := False;
                                    end;
