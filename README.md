@@ -16,7 +16,7 @@
 
  ## Windows
 
-<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png" width="100" height="100">
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png" width="25%" height="25%">
 ![Splashscreen](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_splash.png){:height="25%" width="25%"}
 
 ![Tela principal](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Windows/Windows_main_form.png)
