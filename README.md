@@ -12,7 +12,15 @@
 
  ## Rafael de Figueiredo Alves
 
- # Screenshots
+ # Instruções para poder abrir o projeto no Delphi
+
+O projeto do **eTasks** usa a biblioteca do Firebase criada pelo [Daniele Spinetti](https://github.com/spinettaro). A biblioteca foi baixada do github do [Adriano Santos Treinamentos](https://github.com/adrianosantostreina/FirebaseClasses).
+
+Para facilitar o trabalho de instalação da dependência, eu utilizei e sugiro que usem o [Boss](https://github.com/HashLoad/boss). Para tal, basta executar o seguinte comando (depois que o Boss estiver instalado em seu computador):
+
+`boss install https://github.com/adrianosantostreina/FirebaseClasses`
+
+ # :camera: Screenshots
 
  ## Windows
 
@@ -26,17 +34,5 @@
 
 ## Android
 
-<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_001.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_002.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_003.jpg" width="33%" height="33%">
-![eTasks_004](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_004.jpg) ![eTasks_005](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_005.jpg) ![eTasks_006](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_006.jpg)
-![eTasks_007](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_007.jpg) ![eTasks_008](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_008.jpg) ![eTasks_009](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_009.jpg)
-![eTasks_010](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_010.jpg) ![eTasks_011](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_011.jpg) ![eTasks_012](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_012.jpg)
-![eTasks_013](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_013.jpg ![eTasks_014](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_014.jpg) ![eTasks_015](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_015.jpg)
-![eTasks_016](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_016.jpg) ![eTasks_017](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_017.jpg) ![eTasks_018](https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_018.jpg)
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_001.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_002.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_003.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_004.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_005.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_006.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_007.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_008.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_009.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_010.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_011.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_012.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_013.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_014.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_015.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_016.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_017.jpg" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/screenshots/Android/eTasks_018.jpg" width="33%" height="33%">
 
-# Instruções para poder abrir o projeto no Delphi
-
-O projeto do **eTasks** usa a biblioteca do Firebase criada pelo [Daniele Spinetti](https://github.com/spinettaro). A biblioteca foi baixada do github do [Adriano Santos Treinamentos](https://github.com/adrianosantostreina/FirebaseClasses).
-
-Para facilitar o trabalho de instalação da dependência, eu utilizei e sugiro que usem o [Boss](https://github.com/HashLoad/boss). Para tal, basta executar o seguinte comando (depois que o Boss estiver instalado em seu computador):
-
-`boss install https://github.com/adrianosantostreina/FirebaseClasses`
