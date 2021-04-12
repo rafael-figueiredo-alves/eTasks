@@ -88,6 +88,7 @@ var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
+  pegaErro: TJSONValue;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
@@ -102,7 +103,7 @@ begin
      exit
    end;
 
-   if Resposta <> Tarefa then
+   if Resposta.TryGetValue('Error', pegaErro) then
     erro := 'Erro'
    else
     erro := '';
@@ -117,6 +118,7 @@ Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
+  pegaErro: TJSONValue;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
@@ -131,7 +133,7 @@ begin
      exit
    end;
 
-   if not Resposta.Null then
+   if Resposta.TryGetValue('Error', pegaErro) then
     erro := 'Erro'
    else
     erro := '';
@@ -173,6 +175,7 @@ Var
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
   Query     : tdictionary<string, string>;
+  pegaErro: TJSONValue;
 begin
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
@@ -188,10 +191,18 @@ begin
    begin
      if Assigned(Resposta) then
       Resposta.DisposeOf;
-     erro := 'Erro_001';
+     if Resposta.Null then
+      erro := 'vazio'
+     else
+      erro := 'Erro_001';
      Result := '';
      exit
    end;
+
+   if Resposta.TryGetValue('Error', pegaErro) then
+    erro := 'Erro'
+   else
+    erro := '';
 
    Result := resposta.ToString;
 

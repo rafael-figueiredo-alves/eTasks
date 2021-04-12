@@ -190,6 +190,7 @@ type
     Loading     : iViewDialogsFactory;
     FCalendar   : iViewDialogsFactory;
     FTela       : Telas;
+    FId_tarefa  : string;
     {FKBBounds: TRectF;
     FNeedOffset: Boolean;
     procedure CalcContentBoundsProc(Sender: TObject;
@@ -347,6 +348,7 @@ begin
                           if not Assigned(Tela_tarefas) then
                             Application.CreateForm(Ttela_tarefas, Tela_Tarefas);
                           Tela_Tarefas.Acao(taExibe);
+                          Tela_Tarefas.ID(FId_tarefa);
                           Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
                                                        Begin
                                                          AniAberturaFechaForm.Start;
@@ -435,17 +437,28 @@ begin
                                tarefa : TTarefa;
                               begin
                                 loading.Loading.Fechar;
-                                listaTarefas.Items.Clear;
-                                Lay_Lista_vazia.Visible := False;
-                                if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                if erro = '' then
                                  begin
-                                   ListaTarefas.BeginUpdate;
-                                   for Tarefa in Tarefas.ListagemdeTarefas.Values do
-                                    Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
-                                   ListaTarefas.EndUpdate;
+                                  listaTarefas.Items.Clear;
+                                  Lay_Lista_vazia.Visible := False;
+                                  if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                   begin
+                                    ListaTarefas.BeginUpdate;
+                                    for Tarefa in Tarefas.ListagemdeTarefas.Values do
+                                     Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+                                    ListaTarefas.EndUpdate;
+                                   end
+                                  else
+                                   Lay_Lista_vazia.Visible := True;
                                  end
                                 else
-                                 Lay_Lista_vazia.Visible := True;
+                                 begin
+                                   if erro = 'vazio' then
+                                    begin
+                                      ListaTarefas.Items.Clear;
+                                      Lay_Lista_vazia.Visible := true;
+                                    end;
+                                 end;
                               end);
 end;
 
@@ -847,9 +860,8 @@ begin
 
       end
      else
+      FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
       AbreTela(TelaTarefas_exibe);
-      //ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString);
-
    end;
 end;
 

@@ -14,7 +14,7 @@
  
  _Contribuições são bem vindas._
 
- ## Rafael de Figueiredo Alves
+ ## Rafael de Figueiredo Alves :vulcan_salute:
 
  # Instruções para poder abrir o projeto no Delphi
 

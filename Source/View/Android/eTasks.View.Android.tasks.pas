@@ -30,6 +30,8 @@ type
 
   Telas = (TelaCategorias);
 
+  Modos = (mEditar, mInserir);
+
   TTela_Tarefas = class(TForm)
     Lay_main: TLayout;
     TabTarefas: TTabControl;
@@ -133,6 +135,8 @@ type
     procedure Btn_dataClick(Sender: TObject);
     procedure AnimaTelaCategoriasFinish(Sender: TObject);
     procedure Btn_categoriaClick(Sender: TObject);
+    procedure ListaTarefasItemClickEx(const Sender: TObject; ItemIndex: Integer;
+      const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
   private
     { Private declarations }
     {FKBBounds: TRectF;
@@ -151,16 +155,23 @@ type
     Fcat_icon  : string;
     FTipoAcao  : tipo_acao;
     FTelas     : Telas;
-    Dialogs     : iViewDialogsFactory;
-    Loading     : iViewDialogsFactory;
-    FCalendar   : iViewDialogsFactory;
+    FModo      : Modos;
+    FMain      : Boolean;
+    FBack      : Boolean;
+    Dialogs    : iViewDialogsFactory;
+    Loading    : iViewDialogsFactory;
+    FCalendar  : iViewDialogsFactory;
     Procedure Add_tarefa (id, Status, tarefa, descricao: string; categoria: string);
     Procedure ListarTarefas(Data : string);
     Procedure AtualizaListaTarefas(Data : string);
     Procedure AbreTela (Tela : Telas);
+    Procedure EditarTarefa(Main : Boolean);
+    Procedure NovaTarefa(Main : Boolean);
+    Procedure ExibeTarefa(Main : Boolean);
   public
     { Public declarations }
     Procedure Acao (Acao : tipo_acao);
+    Procedure ID (value : string);
   end;
 
 var
@@ -309,17 +320,28 @@ begin
                                tarefa : TTarefa;
                               begin
                                 loading.Loading.Fechar;
-                                listaTarefas.Items.Clear;
-                                Lay_Lista_vazia.Visible := False;
-                                if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                if erro = '' then
                                  begin
-                                   ListaTarefas.BeginUpdate;
-                                   for Tarefa in Tarefas.ListagemdeTarefas.Values do
-                                    Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
-                                   ListaTarefas.EndUpdate;
+                                  listaTarefas.Items.Clear;
+                                  Lay_Lista_vazia.Visible := False;
+                                  if Tarefas.ListagemdeTarefas.Count <> 0 then
+                                   begin
+                                    ListaTarefas.BeginUpdate;
+                                    for Tarefa in Tarefas.ListagemdeTarefas.Values do
+                                     Add_tarefa(Tarefa.id, Tarefa.status, Tarefa.tarefa, Tarefa.descricao, Tarefa.Cat_icon);
+                                    ListaTarefas.EndUpdate;
+                                   end
+                                  else
+                                   Lay_Lista_vazia.Visible := True;
                                  end
                                 else
-                                 Lay_Lista_vazia.Visible := True;
+                                 begin
+                                   if erro = 'vazio' then
+                                    Begin
+                                      ListaTarefas.Items.Clear;
+                                      Lay_Lista_vazia.Visible := True;
+                                    End;
+                                 end;
                               end);
 end;
 
@@ -367,22 +389,53 @@ begin
 end;
 
 procedure TTela_Tarefas.Btn_statusClick(Sender: TObject);
+Var
+  ErroStatus : string;
 begin
   if Btn_status.TagString = 'fazer' then
    begin
-     Btn_status.Bitmap    := Img_Concluido.Bitmap;
-     Btn_status.TagString := 'concluido';
+     TControllerFactory.New.Tarefas
+                         .id(Fid)
+                         .Status('concluido')
+                         .MudaStatus(ErroStatus);
+     if ErroStatus = '' then
+      begin
+       Btn_status.Bitmap    := Img_Concluido.Bitmap;
+       Btn_status.TagString := 'concluido';
+       Fstatus              := 'concluido';
+      end;
    end
   else
    begin
-     Btn_status.Bitmap    := Img_Afazer.Bitmap;
-     Btn_status.TagString := 'fazer';
+     TControllerFactory.New.Tarefas
+                         .id(Fid)
+                         .Status('fazer')
+                         .MudaStatus(ErroStatus);
+     if ErroStatus = '' then
+      begin
+       Btn_status.Bitmap    := Img_Afazer.Bitmap;
+       Btn_status.TagString := 'fazer';
+       Fstatus              := 'fazer';
+      end;
    end;
 end;
 
 procedure TTela_Tarefas.Btn_Volta_dataClick(Sender: TObject);
 begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
+end;
+
+procedure TTela_Tarefas.EditarTarefa(Main : Boolean);
+begin
+  if Main then
+   TabTarefas.ActiveTab := TabNovoEditaTarefa
+  else
+   TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
+
+  title_MinhasTarefas.Visible := False;
+  title_EditaTarefa.Visible   := True;
+  title_NovaTarefa.Visible    := False;
+
 end;
 
 procedure TTela_Tarefas.Ed_descricaoEnter(Sender: TObject);
@@ -396,11 +449,54 @@ end;
 
 procedure TTela_Tarefas.Ed_descricaoExit(Sender: TObject);
 begin
-  if Ed_descricao.Text = '' then
+  if Ed_descricao.Text.IsEmpty then
    begin
      Ed_descricao.Text := 'Digite aqui uma descrição para a tarefa';
      Ed_descricao.FontColor := $00686868;
    end;
+end;
+
+procedure TTela_Tarefas.ExibeTarefa(Main : Boolean);
+Var
+  Erro    : string;
+  Tarefas : iControllerTarefas;
+  bitmap  : TBitmap;
+begin
+  if main then
+   TabTarefas.ActiveTab := TabExibeTarefa
+  else
+   TabTarefas.GotoVisibleTab(TabExibeTarefa.Index);
+
+  title_MinhasTarefas.Visible := True;
+  title_EditaTarefa.Visible   := False;
+  title_NovaTarefa.Visible    := False;
+
+  Tarefas := tcontrollerfactory.New.Tarefas;
+  Tarefas.cat_id(Fid);
+  Tarefas.ExibeTarefa(Erro);
+
+  FTarefa    := Tarefas.tarefa;
+  FDescricao := Tarefas.descricao;
+  Fdata      := Tarefas.data;
+  FCategoria := Tarefas.categoria;
+  Fcat_id    := Tarefas.cat_id;
+  Fcat_icon  := Tarefas.Cat_icon;
+  Fstatus    := Tarefas.Status;
+
+  Label_tarefa.Text     := FTarefa;
+  Label_descricao.Text  := Fdescricao;
+  Label_categoria.Text  := FCategoria;
+  Label_data_exibe.Text := FormatDateTime('dd "de" mmmm "de" yyyy', StrToDate(Fdata));
+
+  if Fstatus = 'fazer' then
+   Btn_status.Bitmap := Img_Afazer.Bitmap
+  else
+   Btn_status.Bitmap := Img_Concluido.Bitmap;
+  Btn_status.TagString := Fstatus;
+
+  bitmap := TImagens64.fromBase64(TCategorias.New.PegaImagem(Fcat_icon));
+  Img_Categoria_exibe.Bitmap := bitmap;
+  bitmap.DisposeOf;
 end;
 
 procedure TTela_Tarefas.FormKeyUp(Sender: TObject; var Key: Word;
@@ -431,7 +527,13 @@ begin
           end
          else
           begin
-           AnimaStatus.Start;
+           if TabTarefas.ActiveTab <> TabListaTarefa then
+            begin
+              Key := 0;
+              TabTarefas.GotoVisibleTab(0);
+            end
+           else
+            AnimaStatus.Start;
           end;
        end;
     end;
@@ -441,27 +543,18 @@ procedure TTela_Tarefas.FormShow(Sender: TObject);
 begin
   case FTipoAcao of
     taNovo: begin
-              title_MinhasTarefas.Visible := False;
-              title_EditaTarefa.Visible   := False;
-              title_NovaTarefa.Visible    := True;
-              Img_categoria_btn.Visible   := false;
-              Label_categoria_btn.Text    := 'Selecione uma categoria';
-              TabTarefas.ActiveTab        := TabNovoEditaTarefa;
+             FMain := True;
+             FBack := False;
+             NovaTarefa(FMain);
             end;
-    taEditar: begin
-              title_MinhasTarefas.Visible := False;
-              title_EditaTarefa.Visible   := True;
-              title_NovaTarefa.Visible    := False;
-              TabTarefas.ActiveTab        := TabNovoEditaTarefa;
-              end;
     taExibe: begin
-              title_MinhasTarefas.Visible := True;
-              title_EditaTarefa.Visible   := False;
-              title_NovaTarefa.Visible    := False;
-              TabTarefas.ActiveTab        := TabExibeTarefa;
-              Btn_status.TagString := 'fazer';
+               FMain := true;
+               FBack := True;
+               ExibeTarefa(FMain);
              end;
     taLista: begin
+              FMain := False;
+              FBack := True;
               title_MinhasTarefas.Visible := True;
               title_EditaTarefa.Visible   := False;
               title_NovaTarefa.Visible    := False;
@@ -470,6 +563,11 @@ begin
              end;
   end;
   AnimaStatus.Start;
+end;
+
+procedure TTela_Tarefas.ID(value: string);
+begin
+  Fid := value;
 end;
 
 procedure TTela_Tarefas.Label_DataClick(Sender: TObject);
@@ -501,7 +599,79 @@ procedure TTela_Tarefas.ListarTarefas(Data: string);
 begin
   Label_Data.Text := Data;
   AtualizaListaTarefas(data);
+end;
 
+
+procedure TTela_Tarefas.ListaTarefasItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+Var
+  ErroStatus : string;
+begin
+  if TListView(sender).Selected <> nil then
+   begin
+     if ItemObject is TListItemImage then
+      begin
+        if ItemObject.Name = 'img_status' then
+         begin
+           if ItemObject.TagString = 'fazer' then
+            begin
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('concluido')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+                TListItemImage(ItemObject).Bitmap := Img_Concluido.Bitmap;
+                ItemObject.TagString := 'concluido';
+              end;
+            end
+           else
+            begin
+             TControllerFactory.New.Tarefas
+                                     .id(TListView(sender).Items[ItemIndex].TagString)
+                                     .Status('fazer')
+                                     .MudaStatus(ErroStatus);
+             if ErroStatus = '' then
+              begin
+               TListItemImage(ItemObject).Bitmap := Img_Afazer.Bitmap;
+               ItemObject.TagString := 'fazer';
+              end;
+            end;
+         end;
+
+      end
+     else
+      begin
+        //Implementar edição/exibição da tarefa
+      end;
+
+   end;
+end;
+
+procedure TTela_Tarefas.NovaTarefa(Main : Boolean);
+begin
+  if Main then
+   TabTarefas.ActiveTab := TabNovoEditaTarefa
+  else
+   TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
+  title_MinhasTarefas.Visible := False;
+  title_EditaTarefa.Visible   := False;
+  title_NovaTarefa.Visible    := True;
+  Img_categoria_btn.Visible   := false;
+  Label_categoria_btn.Text    := 'Selecione uma categoria';
+  Ed_descricao.FontColor := $00686868;
+  Ed_descricao.Text := 'Digite aqui uma descrição para a tarefa';
+  Edit_tarefa.Text  := '';
+  Fid := '';
+  FTarefa := '';
+  FDescricao := '';
+  Fdata := DateToStr(now);
+  Label_data_btn.Text := FormatDateTime('dd "de" mmmm "de" yyyy', StrToDate(Fdata));
+  FCategoria := '';
+  Fcat_id    := '';
+  Fcat_icon  := '';
+  Fstatus    := 'fazer';
 end;
 
 end.
