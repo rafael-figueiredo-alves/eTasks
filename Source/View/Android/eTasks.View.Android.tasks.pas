@@ -130,13 +130,14 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
     procedure Btn_statusClick(Sender: TObject);
-    procedure Ed_descricaoEnter(Sender: TObject);
-    procedure Ed_descricaoExit(Sender: TObject);
     procedure Btn_dataClick(Sender: TObject);
     procedure AnimaTelaCategoriasFinish(Sender: TObject);
     procedure Btn_categoriaClick(Sender: TObject);
     procedure ListaTarefasItemClickEx(const Sender: TObject; ItemIndex: Integer;
       const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+    procedure Btn_Add_tarefaClick(Sender: TObject);
+    procedure TabTarefasChange(Sender: TObject);
+    procedure Btn_edita_taskClick(Sender: TObject);
   private
     { Private declarations }
     {FKBBounds: TRectF;
@@ -348,7 +349,36 @@ end;
 procedure TTela_Tarefas.Botao_voltarClick(Sender: TObject);
 begin
   //ModalResult := mrOk;
-  AnimaStatus.Start;
+  if (FMain = true) then
+   begin
+     if (TabTarefas.ActiveTab = TabNovoEditaTarefa) and (FBack = true) then
+      TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+     else
+      AnimaStatus.Start;
+   end
+  else
+   begin
+     if (TabTarefas.ActiveTab = TabNovoEditaTarefa) then
+      begin
+       if FModo = mEditar then
+        TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+       else
+        TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+      end
+     else
+      begin
+       if TabTarefas.ActiveTab = TabExibeTarefa then
+        TabTarefas.GotoVisibleTab(TabListaTarefa.Index)
+       else
+        AnimaStatus.Start;
+      end;
+   end;
+end;
+
+procedure TTela_Tarefas.Btn_Add_tarefaClick(Sender: TObject);
+begin
+  FModo := mInserir;
+  NovaTarefa(false);
 end;
 
 procedure TTela_Tarefas.Btn_Avanca_dataClick(Sender: TObject);
@@ -386,6 +416,12 @@ begin
                                                          FCalendar := nil;
                                                        end)
                                             .Exibe);
+end;
+
+procedure TTela_Tarefas.Btn_edita_taskClick(Sender: TObject);
+begin
+  FModo := mEditar;
+  EditarTarefa(FMain);
 end;
 
 procedure TTela_Tarefas.Btn_statusClick(Sender: TObject);
@@ -427,33 +463,20 @@ end;
 
 procedure TTela_Tarefas.EditarTarefa(Main : Boolean);
 begin
-  if Main then
-   TabTarefas.ActiveTab := TabNovoEditaTarefa
-  else
-   TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
+  TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
 
   title_MinhasTarefas.Visible := False;
   title_EditaTarefa.Visible   := True;
   title_NovaTarefa.Visible    := False;
 
-end;
+  Edit_tarefa.Text          := FTarefa;
+  Ed_descricao.Lines.Clear;
+  Ed_descricao.Lines.Add(FDescricao);
+  Img_categoria_btn.Visible := true;
+  Img_categoria_btn.Bitmap  := Img_Categoria_exibe.Bitmap;
+  Label_categoria_btn.Text  := FCategoria;
+  Label_data_btn.Text       := Label_data_exibe.Text;
 
-procedure TTela_Tarefas.Ed_descricaoEnter(Sender: TObject);
-begin
-  if Ed_descricao.Text = 'Digite aqui uma descrição para a tarefa' then
-   begin
-     Ed_descricao.Lines.Clear;
-     Ed_descricao.FontColor := talphacolors.Black;
-   end;
-end;
-
-procedure TTela_Tarefas.Ed_descricaoExit(Sender: TObject);
-begin
-  if Ed_descricao.Text.IsEmpty then
-   begin
-     Ed_descricao.Text := 'Digite aqui uma descrição para a tarefa';
-     Ed_descricao.FontColor := $00686868;
-   end;
 end;
 
 procedure TTela_Tarefas.ExibeTarefa(Main : Boolean);
@@ -472,7 +495,7 @@ begin
   title_NovaTarefa.Visible    := False;
 
   Tarefas := tcontrollerfactory.New.Tarefas;
-  Tarefas.cat_id(Fid);
+  Tarefas.id(Fid);
   Tarefas.ExibeTarefa(Erro);
 
   FTarefa    := Tarefas.tarefa;
@@ -527,13 +550,31 @@ begin
           end
          else
           begin
-           if TabTarefas.ActiveTab <> TabListaTarefa then
+           Key := 0;
+           if (FMain = true) then
             begin
-              Key := 0;
-              TabTarefas.GotoVisibleTab(0);
+             if (TabTarefas.ActiveTab = TabNovoEditaTarefa) and (FBack = true) then
+              TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+             else
+              AnimaStatus.Start;
             end
            else
-            AnimaStatus.Start;
+            begin
+             if (TabTarefas.ActiveTab = TabNovoEditaTarefa) then
+              begin
+               if FModo = mEditar then
+                TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+               else
+                TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+              end
+             else
+              begin
+               if TabTarefas.ActiveTab = TabExibeTarefa then
+                TabTarefas.GotoVisibleTab(TabListaTarefa.Index)
+               else
+                AnimaStatus.Start;
+              end;
+            end;
           end;
        end;
     end;
@@ -643,7 +684,9 @@ begin
       end
      else
       begin
-        //Implementar edição/exibição da tarefa
+        Fid := TListView(sender).Items[ItemIndex].TagString;
+        FMain := False;
+        ExibeTarefa(false);
       end;
 
    end;
@@ -660,8 +703,8 @@ begin
   title_NovaTarefa.Visible    := True;
   Img_categoria_btn.Visible   := false;
   Label_categoria_btn.Text    := 'Selecione uma categoria';
-  Ed_descricao.FontColor := $00686868;
-  Ed_descricao.Text := 'Digite aqui uma descrição para a tarefa';
+  Ed_descricao.Lines.Clear;
+  Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
   Edit_tarefa.Text  := '';
   Fid := '';
   FTarefa := '';
@@ -672,6 +715,36 @@ begin
   Fcat_id    := '';
   Fcat_icon  := '';
   Fstatus    := 'fazer';
+end;
+
+procedure TTela_Tarefas.TabTarefasChange(Sender: TObject);
+begin
+  case TabTarefas.ActiveTab.Index of
+   0: begin                                    //tabPrincipal ou Lista
+       title_MinhasTarefas.Visible := True;
+       title_EditaTarefa.Visible   := False;
+       title_NovaTarefa.Visible    := False;
+      end;
+   1: begin                                     //tabExibe
+       title_MinhasTarefas.Visible := True;
+       title_EditaTarefa.Visible   := False;
+       title_NovaTarefa.Visible    := False;
+      end;
+   2: begin                                      //tabEditaNovo
+       if FModo = mEditar then
+        begin
+         title_MinhasTarefas.Visible := False;
+         title_EditaTarefa.Visible   := True;
+         title_NovaTarefa.Visible    := False;
+        end
+       else
+        begin
+         title_MinhasTarefas.Visible := False;
+         title_EditaTarefa.Visible   := False;
+         title_NovaTarefa.Visible    := True;
+        end;
+      end;
+  end;
 end;
 
 end.

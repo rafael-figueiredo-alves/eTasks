@@ -868,7 +868,6 @@ end;
 procedure TForm_Android_main.ListaTarefasPullRefresh(Sender: TObject);
 begin
   ListarTarefas(Label_Data.Text);
-  Add_tarefa('00011', 'fazer', 'teste_pull_refresh', 'teste do pull refresh', 'Cat_015');
 end;
 
 procedure TForm_Android_main.menu_ajudaClick(Sender: TObject);

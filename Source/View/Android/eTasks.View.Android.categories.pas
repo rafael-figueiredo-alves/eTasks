@@ -78,6 +78,7 @@ type
     Label_sem_categorias: TLabel;
     SearchBox1: TSearchBox;
     botao_ajuda: TImage;
+    ValidaCategoria: TTimer;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure AnimaStatusFinish(Sender: TObject);
@@ -95,6 +96,7 @@ type
     procedure Btn_OKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Btn_apaga_categoriaClick(Sender: TObject);
+    procedure ValidaCategoriaTimer(Sender: TObject);
   private
     { Private declarations }
     fTipoAcao  : tipo_acao;
@@ -183,6 +185,7 @@ end;
 
 procedure TTela_categorias.Btn_Add_tarefaClick(Sender: TObject);
 begin
+  ValidaCategoria.Enabled := True;;
   Edit_categoria.Text := '';
   ListaImagemCategoria.ItemIndex := 0;
   Seletor.Parent := ListaImagemCategoria.Selected;
@@ -335,6 +338,7 @@ begin
                                                                                 Dialogs := nil;
                                                                                 Seletor.Parent := Self;
                                                                                 Seletor.Visible := False;
+                                                                                ValidaCategoria.Enabled := False;
                                                                                 TabCategorias.Previous();
                                                                                 case fTipoAcao of
                                                                                  taSelecionar : MontaListaSeleciona;
@@ -348,6 +352,7 @@ begin
                                                                                 Dialogs := nil;
                                                                                 Seletor.Parent := Self;
                                                                                 Seletor.Visible := False;
+                                                                                ValidaCategoria.Enabled := False;
                                                                                 TabCategorias.Previous();
                                                                                 case fTipoAcao of
                                                                                  taSelecionar : MontaListaSeleciona;
@@ -475,6 +480,7 @@ begin
               end;
              Btn_apaga_categoria.Visible := True;
              FOperacao := Editar;
+             ValidaCategoria.Enabled := True;
              TabCategorias.GotoVisibleTab(1);
             End;
  end;
@@ -624,6 +630,11 @@ begin
                                    end;
                                 end;
                               end);
+end;
+
+procedure TTela_categorias.ValidaCategoriaTimer(Sender: TObject);
+begin
+  Btn_OK.Enabled := not Edit_categoria.Text.IsEmpty;
 end;
 
 end.
