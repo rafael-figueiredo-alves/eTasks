@@ -97,6 +97,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Btn_apaga_categoriaClick(Sender: TObject);
     procedure ValidaCategoriaTimer(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     fTipoAcao  : tipo_acao;
@@ -391,6 +392,12 @@ end;
 procedure TTela_categorias.Ed_pesquisaTyping(Sender: TObject);
 begin
   SearchBox1.Text := Ed_pesquisa.Text;
+end;
+
+procedure TTela_categorias.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  //Action := TCloseAction.caFree;
+  //Tela_categorias := nil;
 end;
 
 procedure TTela_categorias.FormCreate(Sender: TObject);

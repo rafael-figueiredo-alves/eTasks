@@ -127,6 +127,7 @@ type
     procedure Sai_splash_screenFinish(Sender: TObject);
     procedure Sai_sem_conexaoFinish(Sender: TObject);
     procedure Btn_Tentar_NovamenteClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -817,6 +818,13 @@ procedure TForm_Android_Login.EsqueciSenha;
 begin
   Edit_esqueci_conta_email.Text := '';
   Nav_Tela_Login.GotoVisibleTab(3);
+end;
+
+procedure TForm_Android_Login.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+  Form_Android_Login := nil;
 end;
 
 procedure TForm_Android_Login.FormCreate(Sender: TObject);

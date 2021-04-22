@@ -121,6 +121,7 @@ type
     Rect_abrir_categorias: TRectangle;
     ShadowEffect2: TShadowEffect;
     AnimaTelaCategorias: TFloatAnimation;
+    ValidaTarefa: TTimer;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure AnimaStatusFinish(Sender: TObject);
@@ -138,6 +139,10 @@ type
     procedure Btn_Add_tarefaClick(Sender: TObject);
     procedure TabTarefasChange(Sender: TObject);
     procedure Btn_edita_taskClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Ed_descricaoEnter(Sender: TObject);
+    procedure Ed_descricaoExit(Sender: TObject);
+    procedure ValidaTarefaTimer(Sender: TObject);
   private
     { Private declarations }
     {FKBBounds: TRectF;
@@ -352,7 +357,10 @@ begin
   if (FMain = true) then
    begin
      if (TabTarefas.ActiveTab = TabNovoEditaTarefa) and (FBack = true) then
-      TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+      begin
+       TabTarefas.GotoVisibleTab(TabExibeTarefa.Index);
+       ValidaTarefa.Enabled := false;
+      end
      else
       AnimaStatus.Start;
    end
@@ -364,6 +372,7 @@ begin
         TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
        else
         TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+       ValidaTarefa.Enabled := false;
       end
      else
       begin
@@ -465,6 +474,7 @@ procedure TTela_Tarefas.EditarTarefa(Main : Boolean);
 begin
   TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
 
+  ValidaTarefa.Enabled        := true;
   title_MinhasTarefas.Visible := False;
   title_EditaTarefa.Visible   := True;
   title_NovaTarefa.Visible    := False;
@@ -477,6 +487,24 @@ begin
   Label_categoria_btn.Text  := FCategoria;
   Label_data_btn.Text       := Label_data_exibe.Text;
 
+end;
+
+procedure TTela_Tarefas.Ed_descricaoEnter(Sender: TObject);
+begin
+  if Ed_descricao.Lines.Text = 'Digite aqui uma descrição para a tarefa' then
+   begin
+     Ed_descricao.FontColor := $FF000000;
+     Ed_descricao.Lines.Clear;
+   end;
+end;
+
+procedure TTela_Tarefas.Ed_descricaoExit(Sender: TObject);
+begin
+  if Ed_descricao.Lines.Text = '' then
+   begin
+     Ed_descricao.FontColor := $FF686868;
+     Ed_descricao.Lines.Text := 'Digite aqui uma descrição para a tarefa';
+   end;
 end;
 
 procedure TTela_Tarefas.ExibeTarefa(Main : Boolean);
@@ -522,6 +550,17 @@ begin
   bitmap.DisposeOf;
 end;
 
+procedure TTela_Tarefas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if Assigned(Tela_categorias) then
+   begin
+     Tela_categorias.DisposeOf;
+     Tela_categorias := nil;
+   end;
+  Action := TCloseAction.caFree;
+  Tela_Tarefas := nil;
+end;
+
 procedure TTela_Tarefas.FormKeyUp(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 Var
@@ -554,7 +593,10 @@ begin
            if (FMain = true) then
             begin
              if (TabTarefas.ActiveTab = TabNovoEditaTarefa) and (FBack = true) then
-              TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
+              begin
+               TabTarefas.GotoVisibleTab(TabExibeTarefa.Index);
+               ValidaTarefa.Enabled := false;
+              end
              else
               AnimaStatus.Start;
             end
@@ -566,6 +608,7 @@ begin
                 TabTarefas.GotoVisibleTab(TabExibeTarefa.Index)
                else
                 TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+               ValidaTarefa.Enabled := false;
               end
              else
               begin
@@ -698,12 +741,14 @@ begin
    TabTarefas.ActiveTab := TabNovoEditaTarefa
   else
    TabTarefas.GotoVisibleTab(TabNovoEditaTarefa.Index);
+  ValidaTarefa.Enabled        := true;
   title_MinhasTarefas.Visible := False;
   title_EditaTarefa.Visible   := False;
   title_NovaTarefa.Visible    := True;
   Img_categoria_btn.Visible   := false;
   Label_categoria_btn.Text    := 'Selecione uma categoria';
   Ed_descricao.Lines.Clear;
+  Ed_descricao.FontColor := $FF686868;
   Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
   Edit_tarefa.Text  := '';
   Fid := '';
@@ -745,6 +790,11 @@ begin
         end;
       end;
   end;
+end;
+
+procedure TTela_Tarefas.ValidaTarefaTimer(Sender: TObject);
+begin
+  Btn_OK.enabled := (not Edit_tarefa.Text.IsEmpty) and (Label_categoria_btn.Text <> 'Selecione uma categoria');
 end;
 
 end.

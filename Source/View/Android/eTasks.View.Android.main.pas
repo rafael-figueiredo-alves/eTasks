@@ -183,6 +183,7 @@ type
     procedure Sai_sem_conexaoFinish(Sender: TObject);
     procedure Sai_splash_screenFinish(Sender: TObject);
     procedure btn_atualizarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -333,6 +334,7 @@ begin
                           Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
                                                  Begin
                                                    AniAberturaFechaForm.Start;
+                                                   ListarTarefas(Label_Data.Text);
                                                  End);
                          end;
       TelaTarefas_Novo : begin
@@ -342,6 +344,7 @@ begin
                           Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
                                                        Begin
                                                          AniAberturaFechaForm.Start;
+                                                         ListarTarefas(Label_Data.Text);
                                                        End);
                          end;
       TelaTarefas_Exibe : begin
@@ -352,6 +355,7 @@ begin
                           Tela_Tarefas.ShowModal(Procedure (ModalResult: TModalResult)
                                                        Begin
                                                          AniAberturaFechaForm.Start;
+                                                         ListarTarefas(Label_Data.Text);
                                                        End);
                          end;
       TelaCategorias   : begin
@@ -649,6 +653,13 @@ begin
                               );
 end;
 
+procedure TForm_Android_main.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+  Form_Android_main := nil;
+end;
+
 procedure TForm_Android_main.FormCreate(Sender: TObject);
 begin
   //Deixar formulário na tela toda e barra de status transparente
@@ -856,12 +867,18 @@ begin
                ItemObject.TagString := 'fazer';
               end;
             end;
+         end
+        else
+         begin
+          FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
+          AbreTela(TelaTarefas_exibe);
          end;
-
       end
      else
-      FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
-      AbreTela(TelaTarefas_exibe);
+      begin
+       FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
+       AbreTela(TelaTarefas_exibe);
+      end;
    end;
 end;
 
