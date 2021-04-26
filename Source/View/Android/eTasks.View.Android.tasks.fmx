@@ -5892,8 +5892,8 @@ object Tela_Tarefas: TTela_Tarefas
                 TabOrder = 1
                 OnEnter = Ed_descricaoEnter
                 OnExit = Ed_descricaoExit
-                Viewport.Width = 300.000000000000000000
-                Viewport.Height = 130.000000000000000000
+                Viewport.Width = 292.000000000000000000
+                Viewport.Height = 122.000000000000000000
               end
             end
           end

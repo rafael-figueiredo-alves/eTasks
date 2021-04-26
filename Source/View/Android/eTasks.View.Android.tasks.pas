@@ -415,19 +415,87 @@ begin
                            .CustomThread(
                                          procedure ()
                                          Begin
-
+                                          Loading := TViewDialogsMessages.New;
+                                          Tela_Tarefas
+                                           .AddObject(
+                                                      Loading
+                                                       .Loading
+                                                         .Mensagem('Aguarde... Apagando tarefa!')
+                                                         .AcaoLimpa(
+                                                                    procedure ()
+                                                                    begin
+                                                                      Loading := nil;
+                                                                    end
+                                                                   )
+                                                         .Exibe
+                                                     );
                                          End,
                                          procedure ()
                                          Begin
-
+                                          TControllerFactory
+                                           .New
+                                            .Tarefas
+                                             .id(Fid)
+                                              .DeletarTarefa(erro);
+                                          FMensagem := tpmTasks_Apagada;
                                          End,
                                          procedure ()
                                          Begin
-
+                                          Loading.Loading.Fechar;
+                                          if erro = '' then
+                                           begin
+                                            Dialogs := TViewDialogsMessages.New;
+                                            Tela_Tarefas
+                                             .AddObject(
+                                                        Dialogs
+                                                         .DialogMessages
+                                                          .TipoMensagem(FMensagem)
+                                                          .AcaoBotao(
+                                                                     Procedure ()
+                                                                     begin
+                                                                      Dialogs := nil;
+                                                                      if FMain = true then
+                                                                       AnimaStatus.Start
+                                                                      else
+                                                                       begin
+                                                                        TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+                                                                        ListarTarefas(Label_Data.Text);
+                                                                       end;
+                                                                     end
+                                                                    )
+                                                          .AcaoFundo(
+                                                                     Procedure ()
+                                                                     begin
+                                                                      Dialogs := nil;
+                                                                      if FMain = true then
+                                                                       AnimaStatus.Start
+                                                                      else
+                                                                       begin
+                                                                        TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+                                                                        ListarTarefas(Label_Data.Text);
+                                                                       end;
+                                                                     end
+                                                                    )
+                                                          .Exibe
+                                                       );
+                                           end;
                                          End
                                         );
                         end
                        )
+                .BtnNo(
+                       procedure ()
+                       begin
+                        Dialogs := nil;
+                       end
+                      )
+                .Fundo(
+                       procedure ()
+                       begin
+                        Dialogs := nil;
+                       end
+                      )
+                .Exibe
             );
 end;
 
