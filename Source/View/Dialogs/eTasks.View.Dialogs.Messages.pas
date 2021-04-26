@@ -320,6 +320,26 @@ begin
                           Text_message.Text     := categoria_apagada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
+
+    //Mensagens referentes a Tasks
+    tpmTasks_Inserida:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Tasks_Inserida;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmTasks_editada:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Tasks_editada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmTasks_apagada:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Tasks_apagada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
   end;
 end;
 

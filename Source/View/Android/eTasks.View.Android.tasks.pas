@@ -629,6 +629,7 @@ begin
     taNovo: begin
              FMain := True;
              FBack := False;
+             FModo := mInserir;
              NovaTarefa(FMain);
             end;
     taExibe: begin

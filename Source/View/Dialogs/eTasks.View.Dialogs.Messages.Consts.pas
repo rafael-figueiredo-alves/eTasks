@@ -8,7 +8,8 @@ Type
                   tpmErro_resetar_email, tpmInvalido_resetar_email, tpmBranco_resetar_email, tpmSucesso_resetar,
                   tpmPermissao_solicitar_camera, tpmPermissao_negada_camera, tpmPermissao_solicitar_galeria, tpmPermissao_negada_galeria,
                   tpmErro_criar_conta, tpmBranco_criar_nome, tpmBranco_criar_email, tpmBranco_criar_senha, tpmInvalido_criar_email, tpmInvalido_criar_senha, tpmSucesso_criar_conta,
-                  tpmCategoria_Editada, tpmCategoria_Inserida, tpmCategoria_Apagada);
+                  tpmCategoria_Editada, tpmCategoria_Inserida, tpmCategoria_Apagada,
+                  tpmTasks_Editada, tpmTasks_Inserida, tpmTasks_Apagada);
 
  ResourceString
 
@@ -46,6 +47,11 @@ Type
   Categoria_Editada  = 'Categoria editada com sucesso!';
   Categoria_Inserida = 'Categoria criada com sucesso!';
   Categoria_Apagada  = 'Categoria foi apagada com sucesso!';
+
+  //Mensagens referentes a Categorias
+  Tasks_Editada  = 'Tarefa editada com sucesso!';
+  Tasks_Inserida = 'Tarefa criada com sucesso!';
+  Tasks_Apagada  = 'Tarefa foi apagada com sucesso!';
 
 implementation
 
