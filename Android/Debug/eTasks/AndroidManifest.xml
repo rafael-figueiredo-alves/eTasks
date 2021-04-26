@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.jrdsistemas.eTasks"
+        package="br.devpegasus.eTasks"
         android:versionCode="1"
         android:versionName="1.0.1"
         android:installLocation="auto">
@@ -26,7 +26,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.jrdsistemas.eTasks.fileprovider"
+            android:authorities="br.devpegasus.eTasks.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

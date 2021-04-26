@@ -143,6 +143,9 @@ type
     procedure Ed_descricaoEnter(Sender: TObject);
     procedure Ed_descricaoExit(Sender: TObject);
     procedure ValidaTarefaTimer(Sender: TObject);
+    procedure Btn_OKClick(Sender: TObject);
+    procedure Edit_tarefaExit(Sender: TObject);
+    procedure Btn_apaga_taskClick(Sender: TObject);
   private
     { Private declarations }
     {FKBBounds: TRectF;
@@ -198,7 +201,9 @@ uses
   eTasks.libraries,
   eTasks.view.categorias,
   //eTasks - Form de Categorias
-  eTasks.View.Android.categories;
+  eTasks.View.Android.categories,
+  //eTasks - constantes de mensagens
+  eTasks.View.Dialogs.Messages.Consts;
 
 {$R *.fmx}
 
@@ -390,6 +395,42 @@ begin
   NovaTarefa(false);
 end;
 
+procedure TTela_Tarefas.Btn_apaga_taskClick(Sender: TObject);
+Var
+ erro      : string;
+ FMensagem : tTipoMensagem;
+begin
+ Dialogs := TViewDialogsMessages.New;
+ Tela_Tarefas
+  .AddObject(
+             Dialogs
+              .DialogYesNo
+                .Messagem('Tem certeza que deseja apagar esta tarefa?')
+                .BtnYes(
+                        procedure ()
+                        begin
+                         Dialogs.DialogYesNo.Fechar;
+                         Dialogs := nil;
+                         teTasksLibrary
+                           .CustomThread(
+                                         procedure ()
+                                         Begin
+
+                                         End,
+                                         procedure ()
+                                         Begin
+
+                                         End,
+                                         procedure ()
+                                         Begin
+
+                                         End
+                                        );
+                        end
+                       )
+            );
+end;
+
 procedure TTela_Tarefas.Btn_Avanca_dataClick(Sender: TObject);
 begin
    ListarTarefas(DateToStr(StrToDate(Label_Data.Text) + 1));
@@ -431,6 +472,134 @@ procedure TTela_Tarefas.Btn_edita_taskClick(Sender: TObject);
 begin
   FModo := mEditar;
   EditarTarefa(FMain);
+end;
+
+procedure TTela_Tarefas.Btn_OKClick(Sender: TObject);
+Var
+ Erro      : string;
+ FMensagem : tTipoMensagem;
+begin
+  teTasksLibrary.CustomThread(
+                              Procedure ()
+                              var
+                               msg : string;
+                              begin
+                                Loading := TViewDialogsMessages.New;
+                                case Fmodo of
+                                  mEditar:  msg := 'Aguarde... Salvando modificações!';
+                                  mInserir: msg := 'Aguarde... Salvando nova tarefa!';
+                                end;
+                                Tela_Tarefas.AddObject(
+                                                       Loading
+                                                        .Loading
+                                                         .Mensagem(msg)
+                                                         .AcaoLimpa(
+                                                                    Procedure()
+                                                                    begin
+                                                                     Loading := nil;
+                                                                    end
+                                                                   )
+                                                         .Exibe
+                                                      );
+                              end,
+                              Procedure ()
+                              begin
+                                case FModo of
+                                  mEditar:
+                                   begin
+                                     TControllerFactory
+                                       .New
+                                         .Tarefas
+                                           .id(Fid)
+                                           .tarefa(FTarefa)
+                                           .descricao(FDescricao)
+                                           .data(Fdata)
+                                           .cat_id(Fcat_id)
+                                           .categoria(FCategoria)
+                                           .Cat_icon(Fcat_icon)
+                                           .Status(Fstatus)
+                                           .EditarTarefa(erro);
+                                     FMensagem := tpmTasks_Editada;
+                                   end;
+                                  mInserir:
+                                   begin
+                                     TControllerFactory
+                                       .New
+                                         .Tarefas
+                                           .id(Fid)
+                                           .tarefa(FTarefa)
+                                           .descricao(FDescricao)
+                                           .data(Fdata)
+                                           .cat_id(Fcat_id)
+                                           .categoria(FCategoria)
+                                           .Cat_icon(Fcat_icon)
+                                           .Status(Fstatus)
+                                           .NovaTarefa(erro);
+                                     FMensagem := tpmTasks_Inserida;
+                                   end;
+                                end;
+                              end,
+                              Procedure ()
+                              begin
+                                Loading.Loading.Fechar;
+                                if Erro = '' then
+                                 begin
+                                   Dialogs := TViewDialogsMessages.New;
+                                   Tela_Tarefas
+                                     .AddObject(
+                                                Dialogs
+                                                 .DialogMessages
+                                                   .TipoMensagem(FMensagem)
+                                                   .AcaoBotao(
+                                                              Procedure ()
+                                                              begin
+                                                                Dialogs := nil;
+                                                                ValidaTarefa.Enabled := false;
+                                                                if (FMain = true) and (FModo = mInserir) then
+                                                                  AnimaStatus.Start;
+                                                                if (FMain = true) and (FModo = mEditar) then
+                                                                 begin
+                                                                  ExibeTarefa(false);
+                                                                 end;
+                                                                if (FMain = False) and (FModo = mInserir) then
+                                                                  begin
+                                                                    TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+                                                                    ListarTarefas(Label_Data.Text);
+                                                                  end;
+                                                                if (FMain = False) and (FModo = mEditar) then
+                                                                  begin
+                                                                   ExibeTarefa(False);
+                                                                  end;
+                                                              end
+                                                             )
+                                                   .AcaoFundo(
+                                                              Procedure ()
+                                                              begin
+                                                                Dialogs := nil;
+                                                                ValidaTarefa.Enabled := false;
+                                                                if (FMain = true) and (FModo = mInserir) then
+                                                                  AnimaStatus.Start;
+                                                                if (FMain = true) and (FModo = mEditar) then
+                                                                 begin
+                                                                  ExibeTarefa(false);
+                                                                 end;
+                                                                if (FMain = False) and (FModo = mInserir) then
+                                                                  begin
+                                                                    TabTarefas.GotoVisibleTab(TabListaTarefa.Index);
+                                                                    ListarTarefas(Label_Data.Text);
+                                                                  end;
+                                                                if (FMain = False) and (FModo = mEditar) then
+                                                                  begin
+                                                                   ExibeTarefa(False);
+                                                                  end;
+                                                              end
+                                                             )
+                                                   .Exibe
+                                               );
+                                 end;
+
+                              end
+                             );
 end;
 
 procedure TTela_Tarefas.Btn_statusClick(Sender: TObject);
@@ -480,13 +649,27 @@ begin
   title_NovaTarefa.Visible    := False;
 
   Edit_tarefa.Text          := FTarefa;
-  Ed_descricao.Lines.Clear;
-  Ed_descricao.Lines.Add(FDescricao);
+  if FDescricao <> '' then
+   begin
+    Ed_descricao.Lines.Clear;
+    Ed_descricao.FontColor := $FF000000;
+    Ed_descricao.Lines.Add(FDescricao);
+   end
+  else
+   begin
+     Ed_descricao.FontColor := $FF686868;
+     Ed_descricao.Lines.Text := 'Digite aqui uma descrição para a tarefa';
+   end;
   Img_categoria_btn.Visible := true;
   Img_categoria_btn.Bitmap  := Img_Categoria_exibe.Bitmap;
   Label_categoria_btn.Text  := FCategoria;
   Label_data_btn.Text       := Label_data_exibe.Text;
 
+end;
+
+procedure TTela_Tarefas.Edit_tarefaExit(Sender: TObject);
+begin
+  FTarefa := Edit_tarefa.Text;
 end;
 
 procedure TTela_Tarefas.Ed_descricaoEnter(Sender: TObject);
@@ -504,7 +687,10 @@ begin
    begin
      Ed_descricao.FontColor := $FF686868;
      Ed_descricao.Lines.Text := 'Digite aqui uma descrição para a tarefa';
-   end;
+     FDescricao := '';
+   end
+  else
+   FDescricao := Ed_descricao.Lines.Text;
 end;
 
 procedure TTela_Tarefas.ExibeTarefa(Main : Boolean);

@@ -25,7 +25,7 @@ object Tela_Tarefas: TTela_Tarefas
       Size.Height = 590.000000000000000000
       Size.PlatformDefault = False
       TabHeight = 49.000000000000000000
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       TabPosition = None
       OnChange = TabTarefasChange
@@ -40,7 +40,7 @@ object Tela_Tarefas: TTela_Tarefas
         CustomIcon = <
           item
           end>
-        IsSelected = True
+        IsSelected = False
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -4939,7 +4939,7 @@ object Tela_Tarefas: TTela_Tarefas
         CustomIcon = <
           item
           end>
-        IsSelected = False
+        IsSelected = True
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -5078,6 +5078,7 @@ object Tela_Tarefas: TTela_Tarefas
           Size.Height = 63.000000000000000000
           Size.PlatformDefault = False
           WrapMode = Stretch
+          OnClick = Btn_apaga_taskClick
         end
         object Btn_edita_task: TImage
           MultiResBitmap.Height = 72
@@ -5692,6 +5693,7 @@ object Tela_Tarefas: TTela_Tarefas
           Size.Height = 63.000000000000000000
           Size.PlatformDefault = False
           WrapMode = Stretch
+          OnClick = Btn_OKClick
         end
         object Lay_tarefa: TLayout
           Align = Top
@@ -5796,6 +5798,7 @@ object Tela_Tarefas: TTela_Tarefas
                 Size.PlatformDefault = False
                 TextPrompt = 'Qual tarefa realizar?'
                 StyledSettings = []
+                OnExit = Edit_tarefaExit
               end
             end
           end
@@ -5876,6 +5879,7 @@ object Tela_Tarefas: TTela_Tarefas
                 MaxLength = 260
                 StyledSettings = [Family, Style]
                 TextSettings.Font.Size = 18.000000000000000000
+                TextSettings.FontColor = xFF686868
                 TextSettings.WordWrap = True
                 Align = Client
                 Margins.Left = 20.000000000000000000
@@ -5888,8 +5892,8 @@ object Tela_Tarefas: TTela_Tarefas
                 TabOrder = 1
                 OnEnter = Ed_descricaoEnter
                 OnExit = Ed_descricaoExit
-                Viewport.Width = 292.000000000000000000
-                Viewport.Height = 122.000000000000000000
+                Viewport.Width = 300.000000000000000000
+                Viewport.Height = 130.000000000000000000
               end
             end
           end
