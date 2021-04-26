@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164825974763:android:d63a54c130623c2822bbae",
+        "mobilesdk_app_id": "1:164825974763:android:83f87676e52c0e3822bbae",
         "android_client_info": {
-          "package_name": "com.jrdsistemas.eTasks"
+          "package_name": "br.devpegasus.etasks"
         }
       },
       "oauth_client": [

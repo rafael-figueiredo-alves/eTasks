@@ -130,6 +130,8 @@
         <AUP_CALL_PHONE>false</AUP_CALL_PHONE>
         <EL_SecureFileSharing>true</EL_SecureFileSharing>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
+        <Android_AppId>1:164825974763:android:83f87676e52c0e3822bbae</Android_AppId>
+        <Android_GcmDefaultSenderId>164825974763</Android_GcmDefaultSenderId>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android64)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;ZCore;tethering;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;ZParseSql;dsnap;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;ZDbc;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;bindcomp;ZPlain;IndyIPClient;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -191,8 +193,6 @@
     <PropertyGroup Condition="'$(Cfg_1_Android)'!=''">
         <VerInfo_Build>1</VerInfo_Build>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
-        <Android_AppId>1:164825974763:android:d63a54c130623c2822bbae</Android_AppId>
-        <Android_GcmDefaultSenderId>164825974763</Android_GcmDefaultSenderId>
         <VerInfo_Keys>package=br.devpegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.1;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
