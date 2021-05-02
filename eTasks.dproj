@@ -6,7 +6,7 @@
         <MainSource>eTasks.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -232,14 +232,15 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.tasks.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.help.pas">
-            <Form>Form_Android_Ajuda</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.Categories.pas"/>
         <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.main.pas"/>
+        <DCCReference Include="Source\Libraries\eTasks.libraries.Windows.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.help.pas">
+            <Form>Form_Windows_Ajuda</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Telas.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.tasks.pas"/>
+        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Categories.pas"/>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
             <Form>Sheet_fotos</Form>
         </DCCReference>
@@ -319,6 +320,12 @@
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="Win64\Debug\eTasks.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win64">
+                        <RemoteName>eTasks.rsm</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Configuration="Debug" Class="Android_NotificationIcon48">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
@@ -432,14 +439,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
                     <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

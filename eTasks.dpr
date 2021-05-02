@@ -45,6 +45,8 @@ uses
   eTasks.libraries.Windows in 'Source\Libraries\eTasks.libraries.Windows.pas',
   eTasks.View.Windows.help in 'Source\View\Windows\eTasks.View.Windows.help.pas' {Form_Windows_Ajuda},
   eTasks.View.Windows.Telas in 'Source\View\Windows\eTasks.View.Windows.Telas.pas',
+  eTasks.View.Windows.tasks in 'Source\View\Windows\eTasks.View.Windows.tasks.pas',
+  eTasks.View.Windows.Categories in 'Source\View\Windows\eTasks.View.Windows.Categories.pas',
   {$ENDIF }
   //eTasks - View dialog units
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},

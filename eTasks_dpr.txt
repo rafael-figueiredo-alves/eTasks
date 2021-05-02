@@ -44,6 +44,9 @@ uses
   eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
   eTasks.libraries.Windows in 'Source\Libraries\eTasks.libraries.Windows.pas',
   eTasks.View.Windows.help in 'Source\View\Windows\eTasks.View.Windows.help.pas' {Form_Windows_Ajuda},
+  eTasks.View.Windows.Telas in 'Source\View\Windows\eTasks.View.Windows.Telas.pas',
+  eTasks.View.Windows.tasks in 'Source\View\Android\eTasks.View.Windows.tasks.pas',
+  eTasks.View.Windows.Categories in 'Source\View\Android\eTasks.View.Windows.Categories.pas',
   {$ENDIF }
   //eTasks - View dialog units
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},
@@ -78,7 +81,7 @@ uses
   //eTasks - specific view library to work with "categorias"
   eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas',
   //eTasks - Custom calendar component made by Rafael de Figueiredo Alves
-  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas' {Calendario: TFrame};
+  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas'{Calendario: TFrame};
 
 {$R *.res}
 
