@@ -36,7 +36,7 @@ uses
   eTasks.View.Windows.telas;
 
 type
-  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar,
+  Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar, TelaTarefas_exibe,
            TelaCategorias, TelaObjetivos, TelaListas, TelaAjuda);
 
   TForm_Windows_Main = class(TForm)
@@ -194,7 +194,10 @@ type
 
     FTela       : Telas;
 
-    FTelaAjuda : iWindowsTelas;
+    FTelaAjuda   : iWindowsTelas;
+    FTelaTarefas : iWindowsTelas;
+    FTelaCategorias : iWindowsTelas;
+    FId_tarefa  : string;
 
     Procedure TirarFotoCamera;
     Procedure PegarFotoGaleria;
@@ -230,7 +233,7 @@ uses
   eTasks.View.Dialogs.EditarFoto,
   eTasks.View.Dialogs.Messages.Consts,
   //eTasks - Form units
-  eTasks.View.Windows.login;
+  eTasks.View.Windows.login, eTasks.View.Windows.tasks;
 
 {$R *.fmx}
 
@@ -290,9 +293,64 @@ begin
    begin
      AniAberturaFechaForm.Inverse := True;
      case FTela of
-      TelaTarefas      : Showmessage('b');
-      TelaTarefas_Novo : showmessage('c');
-      TelaCategorias   : showmessage('a');
+      TelaTarefas      : begin
+                           FTelaTarefas := tWindowsTelas.New;
+                           FTelaTarefas.Tela_Tasks.Acao(taLista);
+                           Lay_container.AddObject(FTelaTarefas
+                                                        .Tela_Tasks
+                                                                 .BtnVoltarClick(Procedure ()
+                                                                                 begin
+                                                                                   AniAberturaFechaForm.Start;
+                                                                                   FTelaTarefas := nil;
+                                                                                   ListarTarefas(Label_Data.Text);
+                                                                                 end)
+                                                                  .Exibir
+                                                   );
+                         end;
+      TelaTarefas_exibe : begin
+                           FTelaTarefas := tWindowsTelas.New;
+                           FTelaTarefas.Tela_Tasks.Acao(taExibe);
+                           FTelaTarefas.Tela_Tasks.ID(FId_tarefa);
+                           Lay_container.AddObject(FTelaTarefas
+                                                        .Tela_Tasks
+                                                                 .BtnVoltarClick(Procedure ()
+                                                                                 begin
+                                                                                   AniAberturaFechaForm.Start;
+                                                                                   FTelaTarefas := nil;
+                                                                                   ListarTarefas(Label_Data.Text);
+                                                                                 end)
+                                                                  .Exibir
+                                                   );
+                          end;
+      TelaTarefas_Novo : begin
+                           FTelaTarefas := tWindowsTelas.New;
+                           FTelaTarefas.Tela_Tasks.Acao(taNovo);
+                           Lay_container.AddObject(FTelaTarefas
+                                                        .Tela_Tasks
+                                                                 .BtnVoltarClick(Procedure ()
+                                                                                 begin
+                                                                                   AniAberturaFechaForm.Start;
+                                                                                   FTelaTarefas := nil;
+                                                                                   ListarTarefas(Label_Data.Text);
+                                                                                 end)
+                                                                  .Exibir
+                                                   );
+                         end;
+      TelaCategorias   : begin
+                          FTelaCategorias := twindowstelas.New;
+                          Lay_container.AddObject(
+                                                  FTelaCategorias
+                                                    .Tela_Categories
+                                                      .BtnVoltarClick(
+                                                                      Procedure ()
+                                                                      begin
+                                                                        AniAberturaFechaForm.Start;
+                                                                        FTelaCategorias := nil;
+                                                                      end
+                                                                     )
+                                                      .exibir
+                                                 );
+                         end;
       TelaObjetivos    : showmessage('a');
       TelaListas       : showmessage('a');
       TelaAjuda        : begin
@@ -629,8 +687,6 @@ procedure TForm_Windows_Main.ListaTarefasItemClickEx(const Sender: TObject;
   ItemIndex: Integer; const LocalClickPos: TPointF;
   const ItemObject: TListItemDrawable);
 var
- tarefa : iControllerTarefas;
- erro   : string;
  ErroStatus  : string;
 begin
   if TListView(sender).Selected <> nil then
@@ -663,17 +719,17 @@ begin
                ItemObject.TagString := 'fazer';
               end;
             end;
+         end
+        else
+         begin
+          FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
+          AbreTela(TelaTarefas_exibe);
          end;
-
       end
      else
       begin
-       tarefa := tControllerFactory.New.Tarefas.id(TListView(sender).Items[ItemIndex].TagString).ExibeTarefa(Erro);
-       ShowMessage('Você clicou no item nº '+TListView(sender).Items[ItemIndex].TagString + #13
-                   +'Tarefa: '+ tarefa.tarefa + #13
-                   +'Descrição: '+ tarefa.descricao + #13
-                   +'Categoria: '+ tarefa.categoria
-                  );
+       FId_tarefa := TListView(sender).Items[ItemIndex].TagString;
+       AbreTela(TelaTarefas_exibe);
       end;
    end;
 end;

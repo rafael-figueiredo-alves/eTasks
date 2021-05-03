@@ -977,8 +977,13 @@ begin
                ItemObject.TagString := 'fazer';
               end;
             end;
+         end
+        else
+         begin
+          Fid := TListView(sender).Items[ItemIndex].TagString;
+          FMain := False;
+          ExibeTarefa(false);
          end;
-
       end
      else
       begin
