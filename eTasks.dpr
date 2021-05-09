@@ -40,13 +40,13 @@ uses
   {$ENDIF }
   //eTasks - Specific View units for Windows
   {$IFDEF MSWINDOWS}
-  eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas',
-  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',
+  eTasks.View.Windows.login in 'Source\View\Windows\eTasks.View.Windows.login.pas', {Form_Windows_Login}
+  eTasks.View.Windows.main in 'Source\View\Windows\eTasks.View.Windows.main.pas',  {Form_Windows_Main}
   eTasks.libraries.Windows in 'Source\Libraries\eTasks.libraries.Windows.pas',
   eTasks.View.Windows.help in 'Source\View\Windows\eTasks.View.Windows.help.pas' {Form_Windows_Ajuda},
   eTasks.View.Windows.Telas in 'Source\View\Windows\eTasks.View.Windows.Telas.pas',
-  eTasks.View.Windows.tasks in 'Source\View\Windows\eTasks.View.Windows.tasks.pas',
-  eTasks.View.Windows.Categories in 'Source\View\Windows\eTasks.View.Windows.Categories.pas',
+  eTasks.View.Windows.tasks in 'Source\View\Windows\eTasks.View.Windows.tasks.pas', {Windows_tarefas}
+  eTasks.View.Windows.Categories in 'Source\View\Windows\eTasks.View.Windows.Categories.pas', {Windows_categorias}
   {$ENDIF }
   //eTasks - View dialog units
   eTasks.View.Dialogs.SheetFotos in 'Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas' {Sheet_fotos},

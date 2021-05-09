@@ -27,7 +27,8 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls,
   FMX.TabControl,
-  eTasks.View.Dialogs.Factory;
+  eTasks.View.Dialogs.Factory,
+  eTasks.View.Windows.Categories;
 
 type
   tipo_acao = (taNovo, taEditar, taExibe, taLista);
@@ -140,6 +141,11 @@ type
     procedure Ed_descricaoExit(Sender: TObject);
     procedure Lay_mainResize(Sender: TObject);
     procedure AnimaTelaCategoriasFinish(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure ValidaTarefaTimer(Sender: TObject);
+    procedure Edit_tarefaExit(Sender: TObject);
+    procedure Edit_tarefaChange(Sender: TObject);
+    procedure Edit_tarefaTyping(Sender: TObject);
   private
     { Private declarations }
     FBtnVoltarClick : TProc;
@@ -158,6 +164,7 @@ type
     Dialogs    : iViewDialogsFactory;
     Loading    : iViewDialogsFactory;
     FCalendar  : iViewDialogsFactory;
+    FTela_Categorias : TWindows_Categories;
     Procedure Add_tarefa (id, Status, tarefa, descricao: string; categoria: string);
     Procedure ListarTarefas(Data : string);
     Procedure AtualizaListaTarefas(Data : string);
@@ -179,10 +186,13 @@ var
 implementation
 
 uses
-  eTasks.libraries.Imagens64, eTasks.view.categorias,
-  eTasks.Controller.Interfaces, eTasks.libraries, eTasks.View.Windows.main,
-  eTasks.Controller.Factory, eTasks.View.Dialogs.Messages.Consts,
-  eTasks.View.Windows.telas;
+  eTasks.libraries.Imagens64,
+  eTasks.view.categorias,
+  eTasks.Controller.Interfaces,
+  eTasks.libraries,
+  eTasks.View.Windows.main,
+  eTasks.Controller.Factory,
+  eTasks.View.Dialogs.Messages.Consts;
 
 {$R *.fmx}
 
@@ -236,25 +246,36 @@ begin
 end;
 
 procedure TWindows_tasks.AnimaTelaCategoriasFinish(Sender: TObject);
-Var
- FTelaCategorias : iwindowstelas;
 begin
   if (AnimaTelaCategorias.Inverse = false) then
    begin
     AnimaTelaCategorias.Inverse := true;
-    {FTelaCategorias := Form_Windows_Main.TelaCategoriasSelecionar;
+    FTela_Categorias := TWindows_Categories.Create(nil);
+    FTela_Categorias.Acao(taSelecionar);
     Lay_container.AddObject(
-                             FTelaCategorias
-                              .Tela_Categories
-                                   .BtnVoltarClick(
-                                                   Procedure ()
-                                                   begin
-                                                     AnimaTelaCategorias.Start;
-                                                     FTelaCategorias := nil;
-                                                   end
-                                                  )
-                                   .Exibir
-                           );}
+                            FTela_Categorias
+                                 .BtnVoltarClick(
+                                                 Procedure ()
+                                                 var
+                                                  bitmap : TBitmap;
+                                                 Begin
+                                                   AnimaTelaCategorias.Start;
+                                                   Lay_container.RemoveObject(0);
+                                                   if FTela_Categorias.Modo = mrOk then
+                                                    begin
+                                                     bitmap := TImagens64.fromBase64(TCategorias.New.PegaImagem(FTela_Categorias.cat_icon));
+                                                     FCategoria := FTela_Categorias.Categoria;
+                                                     Fcat_id    := FTela_Categorias.Cat_id;
+                                                     Fcat_icon  := FTela_Categorias.cat_icon;
+                                                     Label_categoria_btn.Text := FCategoria;
+                                                     Img_categoria_btn.Bitmap := bitmap;
+                                                     Img_categoria_btn.Visible := true;
+                                                     bitmap.DisposeOf;
+                                                    end;
+                                                 end
+                                                 )
+                                 .exibir
+                              );
    end
   else
    AnimaTelaCategorias.Inverse := False;
@@ -685,6 +706,21 @@ begin
 
 end;
 
+procedure TWindows_tasks.Edit_tarefaChange(Sender: TObject);
+begin
+  FTarefa := Edit_tarefa.Text;
+end;
+
+procedure TWindows_tasks.Edit_tarefaExit(Sender: TObject);
+begin
+  FTarefa := Edit_tarefa.Text;
+end;
+
+procedure TWindows_tasks.Edit_tarefaTyping(Sender: TObject);
+begin
+  FTarefa := Edit_tarefa.Text;
+end;
+
 procedure TWindows_tasks.Ed_descricaoEnter(Sender: TObject);
 begin
   if Ed_descricao.Lines.Text = 'Digite aqui uma descrição para a tarefa' then
@@ -774,6 +810,12 @@ begin
              end;
   end;
   Result := Lay_main;
+end;
+
+procedure TWindows_tasks.FormDestroy(Sender: TObject);
+begin
+  if Assigned(FTela_Categorias) then
+   FTela_Categorias.DisposeOf;
 end;
 
 procedure TWindows_tasks.ID(value: string);
@@ -894,6 +936,11 @@ begin
   Fcat_id    := '';
   Fcat_icon  := '';
   Fstatus    := 'fazer';
+end;
+
+procedure TWindows_tasks.ValidaTarefaTimer(Sender: TObject);
+begin
+  Btn_OK.enabled := (not Edit_tarefa.Text.IsEmpty) and (Label_categoria_btn.Text <> 'Selecione uma categoria');
 end;
 
 end.

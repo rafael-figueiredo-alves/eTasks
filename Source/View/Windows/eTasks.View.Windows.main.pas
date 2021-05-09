@@ -196,7 +196,7 @@ type
 
     FTelaAjuda   : iWindowsTelas;
     FTelaTarefas : iWindowsTelas;
-    FTelaCategorias : iWindowsTelas;
+    FTela_Categorias : iWindowsTelas;
     FId_tarefa  : string;
 
     Procedure TirarFotoCamera;
@@ -233,7 +233,8 @@ uses
   eTasks.View.Dialogs.EditarFoto,
   eTasks.View.Dialogs.Messages.Consts,
   //eTasks - Form units
-  eTasks.View.Windows.login, eTasks.View.Windows.tasks;
+  eTasks.View.Windows.login, eTasks.View.Windows.tasks,
+  eTasks.View.Windows.categories;
 
 {$R *.fmx}
 
@@ -247,6 +248,8 @@ end;
 procedure TForm_Windows_Main.AbreTela(Tela: Telas);
 begin
   FTela := Tela;
+  if lay_container.ControlsCount > 0 then
+   Lay_container.RemoveObject(0);
   AniAberturaFechaForm.Start;
 end;
 
@@ -337,15 +340,17 @@ begin
                                                    );
                          end;
       TelaCategorias   : begin
-                          FTelaCategorias := twindowstelas.New;
+                          FTela_Categorias := twindowstelas.New;
+                          FTela_Categorias.Tela_Categories.Acao(taListar);
                           Lay_container.AddObject(
-                                                  FTelaCategorias
+                                                  FTela_Categorias
                                                     .Tela_Categories
                                                       .BtnVoltarClick(
                                                                       Procedure ()
                                                                       begin
                                                                         AniAberturaFechaForm.Start;
-                                                                        FTelaCategorias := nil;
+                                                                        Lay_container.RemoveObject(0);
+                                                                        //FTela_Categorias := nil;
                                                                       end
                                                                      )
                                                       .exibir
