@@ -7,12 +7,10 @@
 ![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-1.0.1-brightgreen)
 ![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
 
-![Delphi](https://img.shields.io/github/languages/top/rafael-figueiredo-alves/eTasks?label=Delphi&logo=Delphi&style=for-the-badge)
-
 ![estrelas do projeto](https://img.shields.io/github/stars/rafael-figueiredo-alves/eTasks?style=flat-square)
-![Linhas](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=red&category=lines)
-![Mais linhas](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=green&category=code)
-![arquivos](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=yellow&category=files)
+![Linhas](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=red&category=lines&style=flat-square)
+![Mais linhas](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=green&category=code&style=flat-square)
+![arquivos](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=yellow&category=files&style=flat-square)
  
  **DESCRIÇÃO:** Projeto de App mobile e desktop para gerenciamento de tarefas e metas com foco na produtividade e no bom humor. Será oferecido para as plataformas **Windows** (32 bits e 64 bits) e **Android** (32 bits). Há planos de se disponibilizar o aplicativo para download nas lojas de aplicativos. O **maior objetivo** é servir como apreendizado e treinamento das habilidades de programação em Delphi, sendo empregue uso de MVC, interfaces, Firebase e outros.
  
