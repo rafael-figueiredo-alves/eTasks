@@ -3,7 +3,7 @@
 </p> 
 
 ![Informações sobre projeto](https://img.shields.io/badge/Vers%C3%A3o%20do%20Delphi-10.3.3%20Community-brightgreen)
-![Status do projeto](https://img.shields.io/badge/Status%20do%20Projeto-Em%20constru%C3%A7%C3%A3o-brightgreen)
+![Status do projeto](https://img.shields.io/badge/Status%20do%20projeto-Lan%C3%A7ada%20vers%C3%A3o%20beta-brightgreen)
 ![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-1.0.1-brightgreen)
 ![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
 
