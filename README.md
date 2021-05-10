@@ -17,6 +17,8 @@
  Para ver o protótipo do aplicativo, acesse o Sketch [clicando aqui](https://sketch.cloud/s/f97cac13-7538-47a1-83b1-7e8e9286ff87) . Também disponível na pasta do projeto.
  
  Site do eTasks: [https://rafael-figueiredo-alves.github.io/eTasks/](https://rafael-figueiredo-alves.github.io/eTasks/)
+
+Em caso de dúvidas sobre o projeto, consulte a wiki [clicando aqui](https://github.com/rafael-figueiredo-alves/eTasks/wiki)
  
  _Contribuições são muito bem vindas._
 
