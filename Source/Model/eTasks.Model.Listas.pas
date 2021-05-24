@@ -1,4 +1,4 @@
-unit eTasks.Model.Categorias;
+unit eTasks.Model.Listas;
 
 interface
 
@@ -7,27 +7,30 @@ uses
   System.JSON;
 
 Type
-  TModelCategorias = Class(TInterfacedObject, iModelCategorias)
+  TModelListas = Class(TInterfacedObject, iModelListas)
     Private
      FuID   : string;
      FToken : string;
+     FData  : string;
     Public
-     Constructor Create(uID,Token:string);
+     Constructor Create(uID,Token: string);
      Destructor Destroy; Override;
-     Class function New(uID,Token:string): iModelCategorias;
-     Function NovaCategoria (Categoria : TJSONValue; out Erro : string) : iModelCategorias;
-     Function EditarCategoria (Categoria : TJSONValue; id : string; out erro : string) : iModelCategorias;
-     Function ExcluirCategoria (id : string; out erro : string) : iModelCategorias;
-     Function ExibeCategoria (id : string; out erro : string) : string;
-     Function ListarCategorias (out erro : string) : string;
+     Class function New(uID,Token: string): iModelListas;
+     Function Data(Value: string) : iModelListas;
+     Function CriarItem (Item: tJSONValue; out erro : string) : iModelListas;
+     Function EditarItem (Item: TJSONValue; id : string; out erro : string) : iModelListas;
+     Function ExcluirItem (id : string; out erro : string) : iModelListas;
+     Function MudarStatusItem (id, status : string; out erro : string) : iModelListas;
+     Function ExibeItem (id : string; out erro : string) : string;
+     Function ListarItens (out erro : string) : String;
   End;
 
   Const
-    BaseUrl = 'https://etasks-d6988.firebaseio.com/etasks/v1/categories/';
+    BaseUrl = 'https://etasks-d6988.firebaseio.com/etasks/v1/shoppinglists/';
 
 implementation
 
-{ TModelCategorias }
+{ TModelListas }
 
 Uses
    Firebase.interfaces,
@@ -38,31 +41,25 @@ Uses
    eTasks.Model.Consts,
    System.SysUtils;
 
-constructor TModelCategorias.Create(uID,Token:string);
+constructor TModelListas.Create(uID,Token: string);
 begin
   FuID   := uID;
   FToken := Token;
 end;
 
-destructor TModelCategorias.Destroy;
-begin
-
-  inherited;
-end;
-
-function TModelCategorias.EditarCategoria(Categoria: TJSONValue; id: string;
-  out erro: string): iModelCategorias;
+function TModelListas.CriarItem(Item: tJSONValue;
+  out erro: string): iModelListas;
 var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
-  pegaErro: TJSONValue;
+  PegaErro  : TJSONValue;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.Patch([FuID+'/' + id + '.json'], Categoria);
+  AResponse := ADataBase.post([FuID + '/' + FData +'.json'], Item);
   Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
@@ -80,8 +77,49 @@ begin
     Resposta.DisposeOf;
 end;
 
-function TModelCategorias.ExcluirCategoria(id: string;
-  out erro: string): iModelCategorias;
+function TModelListas.Data(Value: string): iModelListas;
+begin
+  Result := Self;
+  Fdata  := Value;
+end;
+
+destructor TModelListas.Destroy;
+begin
+
+  inherited;
+end;
+
+function TModelListas.EditarItem(Item: TJSONValue; id: string;
+  out erro: string): iModelListas;
+var
+  ADataBase : IFirebaseDatabase;
+  AResponse : iFirebaseResponse;
+  Resposta  : TJSONValue;
+  pegaErro: TJSONValue;
+begin
+  Result := self;
+  ADatabase := tfirebaseDatabase.Create;
+  ADataBase.SetBaseURI(BaseUrl);
+  ADataBase.SetToken(FToken);
+  AResponse := ADataBase.Patch([FuID+'/' + FData + '/' + id + '.json'], Item);
+  Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
+  if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
+   begin
+     if Assigned(Resposta) then
+      Resposta.DisposeOf;
+     exit
+   end;
+
+   if Resposta.TryGetValue('Error', pegaErro) then
+    erro := 'Erro'
+   else
+    erro := '';
+
+   if Assigned(resposta) then
+    Resposta.DisposeOf;
+end;
+
+function TModelListas.ExcluirItem(id: string; out erro: string): iModelListas;
 Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
@@ -92,7 +130,7 @@ begin
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.Delete([FuID+'/' + id + '.json']);
+  AResponse := ADataBase.Delete([FuID+'/' + FData + '/' + id + '.json']);
   Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
@@ -110,7 +148,7 @@ begin
     Resposta.DisposeOf;
 end;
 
-function TModelCategorias.ExibeCategoria(id: string; out erro: string): string;
+function TModelListas.ExibeItem(id: string; out erro: string): string;
 var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
@@ -119,7 +157,7 @@ begin
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.get([FuID+'/'+id+'.json']);
+  AResponse := ADataBase.get([FuID+'/' + FData + '/' + id +'.json']);
   Resposta := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(AResponse.ContentAsString),0);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
@@ -136,7 +174,7 @@ begin
      Resposta.DisposeOf;
 end;
 
-function TModelCategorias.ListarCategorias(out erro: string): string;
+function TModelListas.ListarItens(out erro: string): String;
 Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
@@ -145,7 +183,7 @@ begin
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.get([FuID+'.json']);
+  AResponse := ADataBase.get([FuID + '/' + FData + '.json']);
   Resposta := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(AResponse.ContentAsString),0);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
@@ -165,24 +203,22 @@ begin
      Resposta.DisposeOf;
 end;
 
-class function TModelCategorias.New(uID,Token:string): iModelCategorias;
-begin
-  Result := Self.Create(uID,Token);
-end;
-
-function TModelCategorias.NovaCategoria(Categoria: TJSONValue;
-  out Erro: string): iModelCategorias;
+function TModelListas.MudarStatusItem(id, status: string;
+  out erro: string): iModelListas;
 var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
-  PegaErro  : TJSONValue;
+  ItemStatus : TJsonValue;
+  JsonTarefaStatus : string;
 begin
   Result := self;
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.post([FuID+'.json'], Categoria);
+  JsonTarefaStatus := '{"status":"' + status + '"}';
+  ItemStatus := TJSONObject.ParseJSONValue(JsonTarefaStatus);
+  AResponse := ADataBase.Patch([FuID+'/' + FData + '/' + id +'.json'], ItemStatus);
   Resposta := TJSONObject.ParseJSONValue(AResponse.ContentAsString);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin
@@ -191,13 +227,18 @@ begin
      exit
    end;
 
-   if Resposta.TryGetValue('Error', pegaErro) then
+   if (Resposta.ToString <> JsonTarefaStatus) then
     erro := 'Erro'
    else
     erro := '';
 
    if Assigned(resposta) then
     Resposta.DisposeOf;
+end;
+
+class function TModelListas.New(uID,Token: string): iModelListas;
+begin
+  Result := Self.Create(uID, Token);
 end;
 
 end.

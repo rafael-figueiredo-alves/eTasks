@@ -79,12 +79,23 @@ Type
 
   iModelMetas = interface
     ['{14F9BA8E-5291-4481-8373-A24AD644C537}']
-    Function CriarMeta (Meta: tJSONObject; out erro : string) : iModelMetas;
-    Function EditarMeta (Meta: TJSONObject; id : string; out erro : string) : iModelMetas;
+    Function CriarMeta (Meta: tJSONValue; out erro : string) : iModelMetas;
+    Function EditarMeta (Meta: TJSONValue; id : string; out erro : string) : iModelMetas;
     Function ExcluirMeta (id : string; out erro : string) : iModelMetas;
     Function MudarStatusMeta (id, status : string; out erro : string) : iModelMetas;
-    Function ExibeMeta (id : string; out erro : string) : TJSONObject;
-    Function ListarMetas (out erro : string) : TJSONObject;
+    Function ExibeMeta (id : string; out erro : string) : string;
+    Function ListarMetas (out erro : string) : String;
+  end;
+
+  iModelListas = interface
+    ['{14F9BA8E-5291-4481-8373-A24AD644C537}']
+    Function Data(Value: string) : iModelListas;
+    Function CriarItem (Item: tJSONValue; out erro : string) : iModelListas;
+    Function EditarItem (Item: TJSONValue; id : string; out erro : string) : iModelListas;
+    Function ExcluirItem (id : string; out erro : string) : iModelListas;
+    Function MudarStatusItem (id, status : string; out erro : string) : iModelListas;
+    Function ExibeItem (id : string; out erro : string) : string;
+    Function ListarItens (out erro : string) : String;
   end;
 
   iModelFactory = Interface
@@ -93,8 +104,9 @@ Type
     Function Auth       : iModelAuth;
     Function Usuario    : iModelUsuario;
     Function Categorias(uID, Token: string)  : iModelCategorias;
-    Function Tarefas(uID, Token : string) : iModelTarefas;
-    //Function Metas      : iModelMetas;
+    Function Tarefas(uID, Token : string)    : iModelTarefas;
+    Function Metas(uID, Token: string)       : iModelMetas;
+    Function Listas(uID, Token: string)      : iModelListas;
   End;
 
 implementation

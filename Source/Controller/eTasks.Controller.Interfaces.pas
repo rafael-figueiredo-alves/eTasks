@@ -25,6 +25,22 @@ type
     cat_icon  : string;
   end;
 
+  TItemLista = record
+    id         : string;
+    item       : string;
+    quantidade : string;
+    unidade    : string;
+    status     : string;
+  end;
+
+  TMeta = record
+    id         : string;
+    meta       : string;
+    descricao  : string;
+    prioridade : string;
+    status     : string;
+  end;
+
   //eTasks - Controller Classes
   iControllerLogin = interface
     ['{FA71F17B-8A6F-403D-B16A-2A1209C1FA0F}']

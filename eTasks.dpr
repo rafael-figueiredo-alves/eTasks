@@ -68,6 +68,8 @@ uses
   eTasks.Model.Usuarios in 'Source\Model\eTasks.Model.Usuarios.pas',
   eTasks.Model.Tarefas in 'Source\Model\eTasks.Model.Tarefas.pas',
   eTasks.Model.Categorias in 'Source\Model\eTasks.Model.Categorias.pas',
+  eTasks.Model.Metas in 'Source\Model\eTasks.Model.Metas.pas',
+  eTasks.Model.Listas in 'Source\Model\eTasks.Model.Listas.pas',
   //eTasks - Controllers
   eTasks.Controller.Interfaces in 'Source\Controller\eTasks.Controller.Interfaces.pas',
   eTasks.Controller.Login in 'Source\Controller\eTasks.Controller.Login.pas',
