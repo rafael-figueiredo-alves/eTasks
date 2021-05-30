@@ -110,11 +110,56 @@ type
     Function ListagemCategorias                  : TDictionary<string,TCategoria>;
   end;
 
+  iControllerMetas = interface
+    ['{E0E697E5-6BF2-4A5D-94A8-681F8CFACFF2}']
+    Function ListarMetas (out erro: string) : iControllerMetas;
+    Function NovaMeta (out erro: string) : iControllerMetas;
+    Function EditaMeta (out erro: string) : iControllerMetas;
+    Function DeletaMeta (out erro: string) : iControllerMetas;
+    Function ExibeMeta (out erro: string) : iControllerMetas;
+    Function MudaStatus (out erro: string) : iControllerMetas;
+    Function id (value: string) : iControllerMetas; overload;
+    Function id : string; overload;
+    Function Meta (Value: string) : iControllerMetas; overload;
+    Function Meta : string; overload;
+    Function Descricao (Value: string) : iControllerMetas; overload;
+    Function Descricao : string; overload;
+    Function Prioridade (Value: string) : iControllerMetas; overload;
+    Function Prioridade : string; overload;
+    Function Status (Value: string) : iControllerMetas; overload;
+    Function Status : string; overload;
+    Function ListagemMetas : TDictionary<string,TMeta>;
+  end;
+
+  iControllerItemLista = interface
+    ['{8F31309B-98D5-4953-A864-CE499CF5DF5D}']
+    Function ListarItemsLista (out erro: string) : iControllerItemLista;
+    Function NovoItem (out erro: string) : iControllerItemLista;
+    Function EditaItem (out erro: string) : iControllerItemLista;
+    Function DeletaItem (out erro: string) : iControllerItemLista;
+    Function ExibeItem (out erro: string) : iControllerItemLista;
+    Function MudaStatus (out erro: string) : iControllerItemLista;
+    Function data (value: string) : iControllerItemLista;
+    Function id (value : string) : iControllerItemLista; overload;
+    Function id : string; overload;
+    Function item (value: string) : iControllerItemLista; overload;
+    Function Item : string; Overload;
+    Function Quantidade (value: string) : iControllerItemLista; overload;
+    Function quantidade : string; overload;
+    Function unidade (value: string) : iControllerItemLista; overload;
+    Function unidade : string; overload;
+    Function Status (value: string) : iControllerItemLista; overload;
+    Function Status : string; overload;
+    Function ListagemItems : TDictionary<string,TItemLista>;
+  end;
+
   iControllerFactory = interface
     Function Usuario    : iControllerUsuario;
     Function Login      : iControllerLogin;
     Function Tarefas    : iControllerTarefas;
     Function Categorias : iControllerCategorias;
+    Function Metas      : iControllerMetas;
+    Function ItemLista  : iControllerItemLista;
   end;
 
 implementation

@@ -17,6 +17,24 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="Source\categorias.json" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>categorias.json</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="eTasks.todo" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>eTasks.todo</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
             <RemoteName>Logo150x150.png</RemoteName>
@@ -230,19 +248,19 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>eTasks\library\lib\armeabi\</RemoteDir>
-            <RemoteName>libeTasks.so</RemoteName>
-            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
+        <DeployFile Include="Imagens\SplashScreens\eTasks_426x320.9.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image_def.9.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Imagens\SplashScreens\eTasks_426x320.9.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>eTasks\res\drawable-small\</RemoteDir>
-            <RemoteName>splash_image_def.9.png</RemoteName>
-            <DeployClass>Android_SplashImage426</DeployClass>
+        <DeployFile Include="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libeTasks.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -604,19 +622,19 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>eTasks\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon24</DeployClass>
+        <DeployFile Include="Android64\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <DeployClass>AndroidSplashStyles</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android64\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>eTasks\res\values\</RemoteDir>
-            <RemoteName>styles.xml</RemoteName>
-            <DeployClass>AndroidSplashStyles</DeployClass>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon24</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
