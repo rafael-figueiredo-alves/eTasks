@@ -77,6 +77,8 @@ uses
   eTasks.Controller.Tarefas in 'Source\Controller\eTasks.Controller.Tarefas.pas',
   eTasks.Controller.Factory in 'Source\Controller\eTasks.Controller.Factory.pas',
   eTasks.Controller.Categorias in 'Source\Controller\eTasks.Controller.Categorias.pas',
+  eTasks.Controller.Metas in 'Source\Controller\eTasks.Controller.Metas.pas',
+  eTasks.Controller.Listas in 'Source\Controller\eTasks.Controller.Listas.pas',
   //eTasks - Commom libraries
   eTasks.libraries.Imagens64 in 'Source\Libraries\eTasks.libraries.Imagens64.pas',
   eTasks.libraries in 'Source\Libraries\eTasks.libraries.pas',

@@ -16,6 +16,8 @@ Type
      Function Login   : iControllerLogin;
      Function Tarefas : iControllerTarefas;
      Function Categorias : iControllerCategorias;
+     Function Metas      : iControllerMetas;
+     Function ItemLista  : iControllerItemLista;
   End;
 
 implementation
@@ -23,7 +25,10 @@ implementation
 uses
   eTasks.Controller.Login,
   eTasks.Controller.Tarefas,
-  eTasks.Controller.Usuario, eTasks.Controller.Categorias;
+  eTasks.Controller.Usuario,
+  eTasks.Controller.Categorias,
+  eTasks.Controller.Listas,
+  eTasks.Controller.Metas;
 
 { TControllerFactory }
 
@@ -43,9 +48,19 @@ begin
   inherited;
 end;
 
+function TControllerFactory.ItemLista: iControllerItemLista;
+begin
+  Result := tcontrollerItemLista.new;
+end;
+
 function TControllerFactory.Login: iControllerLogin;
 begin
   Result := tControllerLogin.New;
+end;
+
+function TControllerFactory.Metas: iControllerMetas;
+begin
+  Result := tcontrollerMetas.new;
 end;
 
 class function TControllerFactory.New: iControllerFactory;

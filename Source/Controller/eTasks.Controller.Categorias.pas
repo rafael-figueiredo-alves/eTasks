@@ -12,7 +12,7 @@ Type
     Private
       FuID                        : string;
       FToken                      : string;
-      fcat_id                         : string;
+      fcat_id                     : string;
       Fcategoria                  : string;
       Fcat_icon                   : string;
       Flistagemcategorias         : tdictionary<string,Tcategoria>;
