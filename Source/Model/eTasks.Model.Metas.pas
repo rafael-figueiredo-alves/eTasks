@@ -20,7 +20,7 @@ Type
      Function ExcluirMeta (id : string; out erro : string) : iModelMetas;
      Function MudarStatusMeta (id, status : string; out erro : string) : iModelMetas;
      Function ExibeMeta (id : string; out erro : string) : string;
-     Function ListarMetas (out erro : string) : String;
+     Function ListarMetas (Prioridade: string; out erro : string) : String;
   End;
 
   Const
@@ -37,7 +37,7 @@ Uses
    Firebase.Database,
    System.json.writers,
    eTasks.Model.Consts,
-   System.SysUtils;
+   System.SysUtils, System.Generics.Collections;
 
 constructor TModelMetas.Create(uID,Token: string);
 begin
@@ -165,16 +165,27 @@ begin
      Resposta.DisposeOf;
 end;
 
-function TModelMetas.ListarMetas(out erro: string): String;
+function TModelMetas.ListarMetas(Prioridade: string; out erro: string): String;
 Var
   ADataBase : IFirebaseDatabase;
   AResponse : iFirebaseResponse;
   Resposta  : TJSONValue;
+  Query     : tdictionary<string, string>;
 begin
   ADatabase := tfirebaseDatabase.Create;
   ADataBase.SetBaseURI(BaseUrl);
   ADataBase.SetToken(FToken);
-  AResponse := ADataBase.get([FuID+'.json']);
+  if prioridade <> '' then
+   begin
+    Query := TDictionary<string, string>.create;
+    query.Add('orderBy', '"prioridade"');
+    query.Add('equalTo', '"'+prioridade+'"');
+    Query.TrimExcess;
+    AResponse := ADataBase.get([FuID+'.json'], query);
+    query.DisposeOf;
+   end
+  else
+   AResponse := ADataBase.get([FuID+'.json']);
   Resposta := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(AResponse.ContentAsString),0);
   if (not Assigned(Resposta)) or (not (Resposta is TJSONObject)) then
    begin

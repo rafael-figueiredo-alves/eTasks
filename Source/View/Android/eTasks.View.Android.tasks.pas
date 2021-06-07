@@ -23,7 +23,11 @@ uses
   FMX.ListView,
   FMX.Ani,
   //eTasks - View dialogs factory
-  eTasks.View.Dialogs.Factory, FMX.Effects, FMX.Edit, FMX.ScrollBox, FMX.Memo;
+  eTasks.View.Dialogs.Factory,
+  FMX.Effects,
+  FMX.Edit,
+  FMX.ScrollBox,
+  FMX.Memo;
 
 type
   tipo_acao = (taNovo, taEditar, taExibe, taLista);

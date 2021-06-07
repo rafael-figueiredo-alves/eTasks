@@ -3,11 +3,30 @@ unit eTasks.View.Android.login;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl,
-  FMX.Objects, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  FMX.Edit, eTasks.View.Dialogs.Factory, FMX.MediaLibrary.Actions,
-  System.Actions, FMX.ActnList, FMX.StdActns, system.permissions, FMX.Ani;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.TabControl,
+  FMX.Objects,
+  FMX.Effects,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Layouts,
+  FMX.Edit,
+  eTasks.View.Dialogs.Factory,
+  FMX.MediaLibrary.Actions,
+  System.Actions,
+  FMX.ActnList,
+  FMX.StdActns,
+  system.permissions,
+  FMX.Ani;
 
 type
   TForm_Android_Login = class(TForm)
@@ -164,9 +183,18 @@ implementation
 {$R *.fmx}
 
 Uses
-  eTasks.Libraries.Android, eTasks.View.Android.main, System.Math, FMX.VirtualKeyboard, FMX.platform,
-  eTasks.View.Dialogs.Messages.Consts, RegularExpressions, eTasks.Controller.Login, eTasks.View.Dialogs.EditarFoto,
-  eTasks.libraries.Imagens64, eTasks.libraries, eTasks.View.Dialogs.TirarFoto;
+  eTasks.Libraries.Android,
+  eTasks.View.Android.main,
+  System.Math,
+  FMX.VirtualKeyboard,
+  FMX.platform,
+  eTasks.View.Dialogs.Messages.Consts,
+  RegularExpressions,
+  eTasks.Controller.Login,
+  eTasks.View.Dialogs.EditarFoto,
+  eTasks.libraries.Imagens64,
+  eTasks.libraries,
+  eTasks.View.Dialogs.TirarFoto;
 
 Const
   ValidEmails : string = '[_a-zA-Z\d\-\.]+@([_a-zA-Z\d\-]+(\.[_a-zA-Z\d\-]+)+)';

@@ -84,7 +84,7 @@ Type
     Function ExcluirMeta (id : string; out erro : string) : iModelMetas;
     Function MudarStatusMeta (id, status : string; out erro : string) : iModelMetas;
     Function ExibeMeta (id : string; out erro : string) : string;
-    Function ListarMetas (out erro : string) : String;
+    Function ListarMetas (Prioridade: string; out erro : string) : String;
   end;
 
   iModelListas = interface

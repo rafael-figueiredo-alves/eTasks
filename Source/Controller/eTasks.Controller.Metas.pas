@@ -23,7 +23,7 @@ Type
      Constructor Create;
      Destructor Destroy; Override;
      Class function New: iControllerMetas;
-     Function ListarMetas (out erro: string) : iControllerMetas;
+     Function ListarMetas (Prioridade: MetasPrioridade; out erro: string) : iControllerMetas;
      Function NovaMeta (out erro: string) : iControllerMetas;
      Function EditaMeta (out erro: string) : iControllerMetas;
      Function DeletaMeta (out erro: string) : iControllerMetas;
@@ -130,7 +130,7 @@ begin
   Result := FListagemMetas;
 end;
 
-function TControllerMetas.ListarMetas(out erro: string): iControllerMetas;
+function TControllerMetas.ListarMetas(Prioridade: MetasPrioridade; out erro: string): iControllerMetas;
 var
   Json          : string;
   ListaJson     : tjsonobject;
@@ -141,7 +141,11 @@ var
 begin
   Result := self;
   FListagemMetas := TDictionary<string,TMeta>.create;
-  Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas(error);
+  case Prioridade of
+    Baixa: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('Baixa', error);
+    Alta: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('Alta', error);
+    Normal: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('', error);
+  end;
   ListaJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Json), 0) as tJsonObject;
   if Error = '' then
    begin

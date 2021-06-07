@@ -110,9 +110,11 @@ type
     Function ListagemCategorias                  : TDictionary<string,TCategoria>;
   end;
 
+  MetasPrioridade = (Baixa, Alta, Normal);
+
   iControllerMetas = interface
     ['{E0E697E5-6BF2-4A5D-94A8-681F8CFACFF2}']
-    Function ListarMetas (out erro: string) : iControllerMetas;
+    Function ListarMetas (Prioridade: MetasPrioridade; out erro: string) : iControllerMetas;
     Function NovaMeta (out erro: string) : iControllerMetas;
     Function EditaMeta (out erro: string) : iControllerMetas;
     Function DeletaMeta (out erro: string) : iControllerMetas;

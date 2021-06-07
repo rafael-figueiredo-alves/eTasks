@@ -247,7 +247,8 @@ Uses
   eTasks.View.Dialogs.EditarFoto,
   eTasks.View.Dialogs.TirarFoto,
   eTasks.View.Dialogs.Messages.Consts,
-  eTasks.view.categorias;
+  eTasks.view.categorias, eTasks.View.Android.Metas,
+  eTasks.View.Android.listas;
 
 procedure TForm_Android_main.AberturaFormPrincipal;
 begin
@@ -367,8 +368,22 @@ begin
                                                          AniAberturaFechaForm.Start;
                                                        End);
                          end;
-      TelaObjetivos    : showmessage('a');
-      TelaListas       : showmessage('a');
+      TelaObjetivos    : begin
+                          if not Assigned(Android_Metas) then
+                            Application.CreateForm(TAndroid_Metas, Android_Metas);
+                          Android_Metas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                  Begin
+                                                    AniAberturaFechaForm.Start;
+                                                  End);
+                         end;
+      TelaListas       : begin
+                          if not Assigned(Android_listas) then
+                            Application.CreateForm(TAndroid_listas, Android_Listas);
+                          Android_Listas.ShowModal(Procedure (ModalResult: TModalResult)
+                                                  Begin
+                                                    AniAberturaFechaForm.Start;
+                                                  End);
+                         end;
       TelaAjuda        : begin
                           if not Assigned(Form_Android_Ajuda) then
                             Application.CreateForm(TForm_Android_Ajuda, Form_Android_Ajuda);
@@ -902,8 +917,8 @@ end;
 
 procedure TForm_Android_main.Menu_comprasClick(Sender: TObject);
 begin
-   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Compras}
    MainMenu.HideMaster;
+   AbreTela(TelaListas);
 end;
 
 procedure TForm_Android_main.menu_logoutClick(Sender: TObject);
@@ -921,8 +936,8 @@ end;
 
 procedure TForm_Android_main.Menu_metasClick(Sender: TObject);
 begin
-   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Metas}
    MainMenu.HideMaster;
+   AbreTela(TelaObjetivos);
 end;
 
 procedure TForm_Android_main.Menu_sobreClick(Sender: TObject);
@@ -932,7 +947,6 @@ end;
 
 procedure TForm_Android_main.Menu_TarefasClick(Sender: TObject);
 begin
-   {todo 0 -oRafaelAlves -cImplementar: Abrir form de Tarefas}
    MainMenu.HideMaster;
    AbreTela(TelaTarefas);
 end;
