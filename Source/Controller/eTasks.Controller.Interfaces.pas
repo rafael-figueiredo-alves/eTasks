@@ -110,7 +110,7 @@ type
     Function ListagemCategorias                  : TDictionary<string,TCategoria>;
   end;
 
-  MetasPrioridade = (Baixa, Alta, Normal);
+  MetasPrioridade = (Nenhuma, Baixa, Alta, Normal);
 
   iControllerMetas = interface
     ['{E0E697E5-6BF2-4A5D-94A8-681F8CFACFF2}']

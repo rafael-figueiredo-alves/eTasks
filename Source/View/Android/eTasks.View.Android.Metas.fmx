@@ -602,6 +602,7 @@ object Android_metas: TAndroid_metas
                 TextPrompt = 'Pesquisar por ...'
                 StyledSettings = []
                 KillFocusByReturn = True
+                OnTyping = Ed_pesquisaTyping
               end
               object Btn_filtro_metas: TImage
                 MultiResBitmap = <
@@ -711,7 +712,9 @@ object Android_metas: TAndroid_metas
           StyleLookup = 'ListagemMetasStyle1'
           CanSwipeDelete = False
           OnItemClickEx = ListagemMetasItemClickEx
+          OnPullRefresh = ListagemMetasPullRefresh
           ShowSelection = False
+          SelectionCrossfade = True
           PullToRefresh = True
           object Lay_Lista_vazia: TLayout
             Align = Contents
@@ -3185,6 +3188,7 @@ object Android_metas: TAndroid_metas
           Size.Height = 63.000000000000000000
           Size.PlatformDefault = False
           WrapMode = Stretch
+          OnClick = Btn_apaga_metaClick
         end
         object Btn_edita_meta: TImage
           MultiResBitmap.Height = 72
@@ -3324,6 +3328,7 @@ object Android_metas: TAndroid_metas
           Size.Height = 63.000000000000000000
           Size.PlatformDefault = False
           WrapMode = Stretch
+          OnClick = Btn_edita_metaClick
         end
       end
       object TabMetas_EditaNovo: TTabItem
@@ -3475,6 +3480,7 @@ object Android_metas: TAndroid_metas
                 Size.PlatformDefault = False
                 TextPrompt = 'Qual '#233' a sua meta?'
                 StyledSettings = []
+                OnExit = Edit_metaExit
               end
             end
           end
@@ -4071,6 +4077,7 @@ object Android_metas: TAndroid_metas
           Size.Height = 63.000000000000000000
           Size.PlatformDefault = False
           WrapMode = Stretch
+          OnClick = Btn_OKClick
         end
       end
     end
@@ -4455,6 +4462,7 @@ object Android_metas: TAndroid_metas
     Size.Height = 182.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'multiviewstyle'
+    Visible = False
     TabOrder = 5
     object fundo_menu_filtro: TRectangle
       Align = Contents
@@ -4792,6 +4800,13 @@ object Android_metas: TAndroid_metas
         TabOrder = 2
       end
     end
+  end
+  object ValidaMeta: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = ValidaMetaTimer
+    Left = 256
+    Top = 361
   end
   object StyleBook1: TStyleBook
     Styles = <

@@ -3,16 +3,38 @@ unit eTasks.View.Android.Metas;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Ani, FMX.Objects, FMX.TabControl, FMX.Controls.Presentation, FMX.Edit,
-  FMX.Effects, FMX.ListView.Types, FMX.ListView.Appearances,
-  FMX.ListView.Adapters.Base, FMX.ListView, FMX.StdCtrls, FMX.ScrollBox,
-  FMX.Memo, FMX.MultiView, eTasks.View.Dialogs.Factory;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Layouts,
+  FMX.Ani,
+  FMX.Objects,
+  FMX.TabControl,
+  FMX.Controls.Presentation,
+  FMX.Edit,
+  FMX.Effects,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base,
+  FMX.ListView,
+  FMX.StdCtrls,
+  FMX.ScrollBox,
+  FMX.Memo,
+  FMX.MultiView,
+  eTasks.View.Dialogs.Factory;
 
 type
 
   Modos = (mEditar, mInserir);
+
+  Filtros = (SemFiltro, PrioridadeAlta, PrioridadeNormal, PrioridadeBaixa);
 
   TAndroid_metas = class(TForm)
     Lay_main: TLayout;
@@ -112,6 +134,7 @@ type
     Img_menu_prioridade_baixa: TImage;
     lbl_enu_prioridade_baixa: TLabel;
     StyleBook1: TStyleBook;
+    ValidaMeta: TTimer;
     procedure AnimaStatusFinish(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -132,6 +155,13 @@ type
     procedure Ed_descricaoEnter(Sender: TObject);
     procedure Ed_descricaoExit(Sender: TObject);
     procedure Btn_statusClick(Sender: TObject);
+    procedure ValidaMetaTimer(Sender: TObject);
+    procedure ListagemMetasPullRefresh(Sender: TObject);
+    procedure Btn_edita_metaClick(Sender: TObject);
+    procedure Btn_apaga_metaClick(Sender: TObject);
+    procedure Edit_metaExit(Sender: TObject);
+    procedure Ed_pesquisaTyping(Sender: TObject);
+    procedure Btn_OKClick(Sender: TObject);
   private
     { Private declarations }
     FId         : string;
@@ -140,10 +170,16 @@ type
     FStatus     : string;
     FPrioridade : string;
     FModo       : Modos;
+    FFiltro     : Filtros;
     Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
     Procedure Add_meta (id, meta, descricao, status, prioridade: string);
     Procedure ExibePrioridade (prioridade : string);
+    Procedure ListarMetas (Filtro : Filtros);
+    Procedure NovaMeta;
+    Procedure EditaMeta;
+    Procedure ExibeMeta;
+    Procedure DeletaMeta;
   public
     { Public declarations }
   end;
@@ -154,7 +190,14 @@ var
 implementation
 
 uses
-  FMX.VirtualKeyboard, FMX.Platform;
+  //eTasks - Controller units
+  eTasks.Controller.Interfaces,
+  eTasks.Controller.Factory,
+  //eTasks - constantes de mensagens
+  eTasks.View.Dialogs.Messages.Consts,
+  //Outras Units importantes
+  FMX.VirtualKeyboard,
+  FMX.Platform;
 
 {$R *.fmx}
 
@@ -218,22 +261,41 @@ end;
 
 procedure TAndroid_metas.Btn_Add_MetaClick(Sender: TObject);
 begin
-  TabMetas.GotoVisibleTab(TabMetas_EditaNovo.Index);
+  NovaMeta;
+end;
+
+procedure TAndroid_metas.Btn_apaga_metaClick(Sender: TObject);
+begin
+  DeletaMeta;
+end;
+
+procedure TAndroid_metas.Btn_edita_metaClick(Sender: TObject);
+begin
+  EditaMeta;
+end;
+
+procedure TAndroid_metas.Btn_OKClick(Sender: TObject);
+begin
+  ValidaMeta.Enabled := false;
+  TabMetas.GotoVisibleTab(TabMetas_lista);
 end;
 
 procedure TAndroid_metas.Btn_prioridade_altaClick(Sender: TObject);
 begin
   seletor_Prioridade.Parent := Lay_prioridade_alta;
+  FPrioridade := 'Alta';
 end;
 
 procedure TAndroid_metas.btn_prioridade_baixaClick(Sender: TObject);
 begin
   seletor_Prioridade.Parent := Lay_prioridade_baixa;
+  FPrioridade := 'Baixa';
 end;
 
 procedure TAndroid_metas.btn_prioridade_normalClick(Sender: TObject);
 begin
   seletor_Prioridade.Parent := Lay_prioridade_normal;
+  FPrioridade := 'Normal';
 end;
 
 procedure TAndroid_metas.Btn_statusClick(Sender: TObject);
@@ -248,6 +310,43 @@ begin
      Btn_status.Bitmap := Img_meta_concluir.Bitmap;
      Btn_status.TagString := 'Concluir';
    end;
+end;
+
+procedure TAndroid_metas.DeletaMeta;
+begin
+
+end;
+
+procedure TAndroid_metas.EditaMeta;
+begin
+  FId         := '';
+  Edit_meta.Text := FMeta;
+  if FDescricao = '' then
+   begin
+    Ed_descricao.Lines.Clear;
+    Ed_descricao.FontColor := $FF686868;
+    Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
+   end
+  else
+   begin
+    Ed_descricao.Lines.Clear;
+    Ed_descricao.FontColor := $FF000000;
+    Ed_descricao.Lines.Add(FDescricao);
+   end;
+  if FPrioridade = 'Baixa' then
+   seletor_Prioridade.Parent := Lay_prioridade_baixa;
+  if FPrioridade = 'Normal' then
+   seletor_Prioridade.Parent := Lay_prioridade_Normal;
+  if FPrioridade = 'Alta' then
+   seletor_Prioridade.Parent := Lay_prioridade_Alta;
+  FModo := mEditar;
+  TabMetas.GotoVisibleTab(TabMetas_EditaNovo);
+  ValidaMeta.Enabled := true;
+end;
+
+procedure TAndroid_metas.Edit_metaExit(Sender: TObject);
+begin
+  FMeta := Edit_meta.Text;
 end;
 
 procedure TAndroid_metas.Ed_descricaoEnter(Sender: TObject);
@@ -269,6 +368,16 @@ begin
    end
   else
    FDescricao := Ed_descricao.Lines.Text;
+end;
+
+procedure TAndroid_metas.Ed_pesquisaTyping(Sender: TObject);
+begin
+  ListagemMetas.Items.Filter(Ed_pesquisa.Text);
+end;
+
+procedure TAndroid_metas.ExibeMeta;
+begin
+
 end;
 
 procedure TAndroid_metas.ExibePrioridade(prioridade: string);
@@ -335,9 +444,8 @@ end;
 procedure TAndroid_metas.FormShow(Sender: TObject);
 begin
   AnimaStatus.Start;
-  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
-  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
-  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+  FFiltro := SemFiltro;
+  ListarMetas(FFiltro);
 end;
 
 procedure TAndroid_metas.ListagemMetasItemClickEx(const Sender: TObject;
@@ -389,38 +497,85 @@ begin
    end;
 end;
 
+procedure TAndroid_metas.ListagemMetasPullRefresh(Sender: TObject);
+begin
+  ListarMetas(FFiltro);
+end;
+
+procedure TAndroid_metas.ListarMetas(Filtro: Filtros);
+begin
+ ListagemMetas.Items.Clear;
+ case Filtro of
+   SemFiltro: begin
+                Add_meta('001', 'eTasks', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
+                Add_meta('002', 'Firebase', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
+                Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+              end;
+   PrioridadeAlta: begin
+                    Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
+                   end;
+   PrioridadeNormal: begin
+                       Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
+                     end;
+   PrioridadeBaixa: begin
+                      Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+                    end;
+ end;
+
+
+end;
+
 procedure TAndroid_metas.Menu_Prioridade_AltaClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_Prioridade_Alta;
   Menu_filtros.HideMaster;
-  ListagemMetas.Items.Clear;
-  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
+  FFiltro := PrioridadeAlta;
+  ListarMetas(FFiltro);
 end;
 
 procedure TAndroid_metas.Menu_prioridade_BaixaClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_prioridade_Baixa;
   Menu_filtros.HideMaster;
-  ListagemMetas.Items.Clear;
-  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+  FFiltro := PrioridadeBaixa;
+  ListarMetas(FFiltro);
 end;
 
 procedure TAndroid_metas.Menu_Prioridade_normalClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_Prioridade_normal;
   Menu_filtros.HideMaster;
-  ListagemMetas.Items.Clear;
-  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
+  FFiltro := PrioridadeNormal;
+  ListarMetas(FFiltro);
 end;
 
 procedure TAndroid_metas.Menu_sem_filtroClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_sem_filtro;
   Menu_filtros.HideMaster;
-  ListagemMetas.Items.Clear;
-  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
-  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
-  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+  FFiltro := SemFiltro;
+  ListarMetas(FFiltro);
+end;
+
+procedure TAndroid_metas.NovaMeta;
+begin
+  FId         := '';
+  FMeta       := '';
+  FDescricao  := '';
+  FStatus     := 'Concluir';
+  FPrioridade := 'Normal';
+  Edit_meta.Text := '';
+  Ed_descricao.Lines.Clear;
+  Ed_descricao.FontColor := $FF686868;
+  Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
+  seletor_Prioridade.Parent := Lay_prioridade_normal;
+  TabMetas.GotoVisibleTab(TabMetas_EditaNovo);
+  ValidaMeta.Enabled := true;
+end;
+
+procedure TAndroid_metas.ValidaMetaTimer(Sender: TObject);
+begin
+  Btn_OK.enabled := (not Edit_meta.Text.IsEmpty);
 end;
 
 end.

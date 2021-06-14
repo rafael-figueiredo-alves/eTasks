@@ -144,7 +144,8 @@ begin
   case Prioridade of
     Baixa: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('Baixa', error);
     Alta: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('Alta', error);
-    Normal: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('', error);
+    Normal: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('Normal', error);
+    Nenhuma: Json := tmodelFactory.New.Metas(FuID, FToken).ListarMetas('', error);
   end;
   ListaJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Json), 0) as tJsonObject;
   if Error = '' then
