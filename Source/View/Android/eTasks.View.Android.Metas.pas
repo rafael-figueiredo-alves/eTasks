@@ -8,9 +8,12 @@ uses
   FMX.Ani, FMX.Objects, FMX.TabControl, FMX.Controls.Presentation, FMX.Edit,
   FMX.Effects, FMX.ListView.Types, FMX.ListView.Appearances,
   FMX.ListView.Adapters.Base, FMX.ListView, FMX.StdCtrls, FMX.ScrollBox,
-  FMX.Memo, FMX.MultiView;
+  FMX.Memo, FMX.MultiView, eTasks.View.Dialogs.Factory;
 
 type
+
+  Modos = (mEditar, mInserir);
+
   TAndroid_metas = class(TForm)
     Lay_main: TLayout;
     ToolBar_container: TLayout;
@@ -79,23 +82,21 @@ type
     Ed_descricao: TMemo;
     Lay_prioridade_edit: TLayout;
     Linha_categoria_edit: TLine;
-    Label_categoria_edit: TLabel;
+    Label_prioridade_edit: TLabel;
     Lay_prioridade_container: TLayout;
     Btn_OK: TImage;
     Lay_prioridade_alta: TLayout;
     Btn_prioridade_alta: TRectangle;
     Img_btn_prioridade_alta: TImage;
     Lbl_prioridade_btn_alta: TLabel;
-    Img_select_Alta: TImage;
     Lay_prioridade_normal: TLayout;
     btn_prioridade_normal: TRectangle;
-    Label2: TLabel;
-    Img_select_Normal: TImage;
+    Lbl_prioridade_normal_btn: TLabel;
+    seletor_Prioridade: TImage;
     Lay_prioridade_baixa: TLayout;
     btn_prioridade_baixa: TRectangle;
     Img_baixa_prioridade: TImage;
     Lbl_prioridade_baixa: TLabel;
-    Img_select_Baixa: TImage;
     Menu_filtros: TMultiView;
     fundo_menu_filtro: TRectangle;
     ShadowEffect3: TShadowEffect;
@@ -110,6 +111,7 @@ type
     Seletor_filtro: TImage;
     Img_menu_prioridade_baixa: TImage;
     lbl_enu_prioridade_baixa: TLabel;
+    StyleBook1: TStyleBook;
     procedure AnimaStatusFinish(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -117,8 +119,31 @@ type
     procedure Menu_Prioridade_AltaClick(Sender: TObject);
     procedure Menu_Prioridade_normalClick(Sender: TObject);
     procedure Menu_prioridade_BaixaClick(Sender: TObject);
+    procedure ListagemMetasItemClickEx(const Sender: TObject;
+      ItemIndex: Integer; const LocalClickPos: TPointF;
+      const ItemObject: TListItemDrawable);
+    procedure Btn_Add_MetaClick(Sender: TObject);
+    procedure Btn_prioridade_altaClick(Sender: TObject);
+    procedure btn_prioridade_normalClick(Sender: TObject);
+    procedure btn_prioridade_baixaClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure Ed_descricaoEnter(Sender: TObject);
+    procedure Ed_descricaoExit(Sender: TObject);
+    procedure Btn_statusClick(Sender: TObject);
   private
     { Private declarations }
+    FId         : string;
+    FMeta       : string;
+    FDescricao  : string;
+    FStatus     : string;
+    FPrioridade : string;
+    FModo       : Modos;
+    Dialogs     : iViewDialogsFactory;
+    Loading     : iViewDialogsFactory;
+    Procedure Add_meta (id, meta, descricao, status, prioridade: string);
+    Procedure ExibePrioridade (prioridade : string);
   public
     { Public declarations }
   end;
@@ -128,7 +153,47 @@ var
 
 implementation
 
+uses
+  FMX.VirtualKeyboard, FMX.Platform;
+
 {$R *.fmx}
+
+procedure TAndroid_metas.Add_meta(id, meta, descricao, status,
+  prioridade: string);
+begin
+  with ListagemMetas.Items.Add do
+   begin
+     TListItemText(Objects.FindDrawable('txt_titulo')).Text := meta;
+
+     TListItemText(objects.FindDrawable('txt_description')).Text := descricao;
+
+     if status = 'Concluir' then
+      begin
+        TListItemImage(Objects.FindDrawable('img_status')).Bitmap := Img_meta_concluir.Bitmap;
+        TListItemImage(Objects.FindDrawable('img_status')).TagString := 'Concluir';
+      end
+     else
+      begin
+        TListItemImage(Objects.FindDrawable('img_status')).Bitmap := Img_meta_concluida.Bitmap;
+        TListItemImage(Objects.FindDrawable('img_status')).TagString := 'Concluida';
+      end;
+
+     if prioridade = 'Alta' then
+      begin
+       TListItemImage(Objects.FindDrawable('img_prioridade')).Bitmap := Img_menu_prioridade_alta.Bitmap;
+       TListItemImage(Objects.FindDrawable('img_prioridade')).Visible := true;
+      end;
+     if prioridade = 'Notmal' then
+      TListItemImage(Objects.FindDrawable('img_prioridade')).Visible := False;
+     if prioridade = 'Baixa' then
+      begin
+       TListItemImage(Objects.FindDrawable('img_prioridade')).Bitmap := Img_menu_prioridade_baixa.Bitmap;
+       TListItemImage(Objects.FindDrawable('img_prioridade')).Visible := true;
+      end;
+
+     TagString := id;
+   end;
+end;
 
 procedure TAndroid_metas.AnimaStatusFinish(Sender: TObject);
 begin
@@ -145,36 +210,217 @@ end;
 
 procedure TAndroid_metas.Botao_voltarClick(Sender: TObject);
 begin
-  AnimaStatus.Start;
+  if TabMetas.ActiveTab <> TabMetas_lista then
+   TabMetas.GotoVisibleTab(TabMetas_lista.Index)
+  else
+   AnimaStatus.Start;
+end;
+
+procedure TAndroid_metas.Btn_Add_MetaClick(Sender: TObject);
+begin
+  TabMetas.GotoVisibleTab(TabMetas_EditaNovo.Index);
+end;
+
+procedure TAndroid_metas.Btn_prioridade_altaClick(Sender: TObject);
+begin
+  seletor_Prioridade.Parent := Lay_prioridade_alta;
+end;
+
+procedure TAndroid_metas.btn_prioridade_baixaClick(Sender: TObject);
+begin
+  seletor_Prioridade.Parent := Lay_prioridade_baixa;
+end;
+
+procedure TAndroid_metas.btn_prioridade_normalClick(Sender: TObject);
+begin
+  seletor_Prioridade.Parent := Lay_prioridade_normal;
+end;
+
+procedure TAndroid_metas.Btn_statusClick(Sender: TObject);
+begin
+  if Btn_status.TagString = 'Concluir' then
+   begin
+     Btn_status.Bitmap := Img_meta_concluida.Bitmap;
+     Btn_status.TagString := 'Concluida';
+   end
+  else
+   begin
+     Btn_status.Bitmap := Img_meta_concluir.Bitmap;
+     Btn_status.TagString := 'Concluir';
+   end;
+end;
+
+procedure TAndroid_metas.Ed_descricaoEnter(Sender: TObject);
+begin
+  if Ed_descricao.Lines.Text = 'Digite aqui uma descrição para a sua meta' then
+   begin
+     Ed_descricao.FontColor := $FF000000;
+     Ed_descricao.Lines.Clear;
+   end;
+end;
+
+procedure TAndroid_metas.Ed_descricaoExit(Sender: TObject);
+begin
+  if Ed_descricao.Lines.Text = '' then
+   begin
+     Ed_descricao.FontColor := $FF686868;
+     Ed_descricao.Lines.Text := 'Digite aqui uma descrição para a sua meta';
+     FDescricao := '';
+   end
+  else
+   FDescricao := Ed_descricao.Lines.Text;
+end;
+
+procedure TAndroid_metas.ExibePrioridade(prioridade: string);
+begin
+  if prioridade = 'Alta' then
+   begin
+     Fundo_btn_prioridade.Fill.Color := $FFF44336;
+     img_prioridade_btn.Visible := true;
+     img_prioridade_btn.Bitmap := Img_menu_prioridade_alta.Bitmap;
+     Lbl_prioridade_btn.Text := 'Prioridade Alta';
+   end;
+  if prioridade = 'Normal' then
+   begin
+     Fundo_btn_prioridade.Fill.Color := $FF336699;
+     img_prioridade_btn.Visible := false;
+     Lbl_prioridade_btn.Text := 'Prioridade Normal';
+   end;
+  if prioridade = 'Baixa' then
+   begin
+     Fundo_btn_prioridade.Fill.Color := $FF8BC34A;
+     img_prioridade_btn.Visible := true;
+     img_prioridade_btn.Bitmap := Img_menu_prioridade_baixa.Bitmap;
+     Lbl_prioridade_btn.Text := 'Prioridade Baixa';
+   end;
+end;
+
+procedure TAndroid_metas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+  Android_metas := nil;
+end;
+
+procedure TAndroid_metas.FormKeyUp(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+Var
+  FService : iFMXVirtualKeyboardService;
+begin
+   if (Key = vkHardwareBack) then
+    begin
+      TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(FService));
+      if (FService <> Nil) and (TVirtualKeyboardState.Visible in FService.VirtualKeyboardState) then
+       begin
+         // Botão BACK pressionado e teclado vísivel, apenas fecha o teclado
+       end
+      else
+       begin
+         if (Assigned(Dialogs)) or (Assigned(Loading)) then
+          begin
+            Key := 0;
+            if Assigned(dialogs) then
+             begin
+              dialogs.DialogMessages.Fechar;
+             end;
+          end
+         else
+          begin
+           Key := 0;
+           Botao_voltarClick(sender);
+          end;
+       end;
+    end;
 end;
 
 procedure TAndroid_metas.FormShow(Sender: TObject);
 begin
   AnimaStatus.Start;
+  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
+  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
+  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
+end;
+
+procedure TAndroid_metas.ListagemMetasItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+begin
+  if TListView(sender).Selected <> nil then
+   begin
+     if ItemObject is TListItemImage then
+      begin
+        if ItemObject.Name = 'img_status' then
+         begin
+           if ItemObject.TagString = 'Concluir' then
+            begin
+              TListItemImage(ItemObject).Bitmap := Img_meta_concluida.Bitmap;
+              ItemObject.TagString := 'Concluida';
+            end
+           else
+            begin
+              TListItemImage(ItemObject).Bitmap := Img_meta_concluir.Bitmap;
+              ItemObject.TagString := 'Concluir';
+            end;
+         end
+        else
+         begin
+           TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
+           Btn_status.Bitmap := Img_meta_concluir.Bitmap;
+           Btn_status.TagString := 'Concluir';
+           if TListView(sender).Items[ItemIndex].TagString = '001' then
+            ExibePrioridade('Alta');
+           if TListView(sender).Items[ItemIndex].TagString = '002' then
+            ExibePrioridade('Normal');
+           if TListView(sender).Items[ItemIndex].TagString = '003' then
+            ExibePrioridade('Baixa');
+         end;
+      end
+     else
+      begin
+           TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
+           Btn_status.Bitmap := Img_meta_concluir.Bitmap;
+           Btn_status.TagString := 'Concluir';
+           if TListView(sender).Items[ItemIndex].TagString = '001' then
+            ExibePrioridade('Alta');
+           if TListView(sender).Items[ItemIndex].TagString = '002' then
+            ExibePrioridade('Normal');
+           if TListView(sender).Items[ItemIndex].TagString = '003' then
+            ExibePrioridade('Baixa');
+      end;
+   end;
 end;
 
 procedure TAndroid_metas.Menu_Prioridade_AltaClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_Prioridade_Alta;
   Menu_filtros.HideMaster;
+  ListagemMetas.Items.Clear;
+  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
 end;
 
 procedure TAndroid_metas.Menu_prioridade_BaixaClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_prioridade_Baixa;
   Menu_filtros.HideMaster;
+  ListagemMetas.Items.Clear;
+  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
 end;
 
 procedure TAndroid_metas.Menu_Prioridade_normalClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_Prioridade_normal;
   Menu_filtros.HideMaster;
+  ListagemMetas.Items.Clear;
+  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
 end;
 
 procedure TAndroid_metas.Menu_sem_filtroClick(Sender: TObject);
 begin
   Seletor_filtro.Parent := Menu_sem_filtro;
   Menu_filtros.HideMaster;
+  ListagemMetas.Items.Clear;
+  Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
+  Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
+  Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
 end;
 
 end.
