@@ -120,8 +120,6 @@ type
     Img_baixa_prioridade: TImage;
     Lbl_prioridade_baixa: TLabel;
     Menu_filtros: TMultiView;
-    fundo_menu_filtro: TRectangle;
-    ShadowEffect3: TShadowEffect;
     Menu_sem_filtro: TLayout;
     Menu_Prioridade_Alta: TLayout;
     Menu_Prioridade_normal: TLayout;
@@ -162,6 +160,7 @@ type
     procedure Edit_metaExit(Sender: TObject);
     procedure Ed_pesquisaTyping(Sender: TObject);
     procedure Btn_OKClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FId         : string;
@@ -197,7 +196,7 @@ uses
   eTasks.View.Dialogs.Messages.Consts,
   //Outras Units importantes
   FMX.VirtualKeyboard,
-  FMX.Platform;
+  FMX.Platform, eTasks.libraries;
 
 {$R *.fmx}
 
@@ -254,7 +253,17 @@ end;
 procedure TAndroid_metas.Botao_voltarClick(Sender: TObject);
 begin
   if TabMetas.ActiveTab <> TabMetas_lista then
-   TabMetas.GotoVisibleTab(TabMetas_lista.Index)
+   begin
+   if TabMetas.ActiveTab = TabMetas_exibe then
+    TabMetas.GotoVisibleTab(TabMetas_lista.Index)
+   else
+    begin
+      case FModo of
+        mEditar: TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
+        mInserir: TabMetas.GotoVisibleTab(TabMetas_lista.Index);
+      end;
+    end;
+   end
   else
    AnimaStatus.Start;
 end;
@@ -275,9 +284,109 @@ begin
 end;
 
 procedure TAndroid_metas.Btn_OKClick(Sender: TObject);
+Var
+ Erro      : string;
+ FMensagem : tTipoMensagem;
 begin
-  ValidaMeta.Enabled := false;
-  TabMetas.GotoVisibleTab(TabMetas_lista.Index);
+  teTasksLibrary.CustomThread(
+                              Procedure ()
+                              var
+                               msg : string;
+                              begin
+                                Loading := TViewDialogsMessages.New;
+                                case Fmodo of
+                                  mEditar:  msg := 'Aguarde... Salvando modificações!';
+                                  mInserir: msg := 'Aguarde... Salvando nova Meta!';
+                                end;
+                                Android_Metas.AddObject(
+                                                       Loading
+                                                        .Loading
+                                                         .Mensagem(msg)
+                                                         .AcaoLimpa(
+                                                                    Procedure()
+                                                                    begin
+                                                                     Loading := nil;
+                                                                    end
+                                                                   )
+                                                         .Exibe
+                                                      );
+                              end,
+                              Procedure ()
+                              begin
+                                case FModo of
+                                  mEditar:
+                                   begin
+                                     TControllerFactory
+                                       .New
+                                         .Metas
+                                           .id(Fid)
+                                           .Meta(FMeta)
+                                           .descricao(FDescricao)
+                                           .Prioridade(FPrioridade)
+                                           .Status(FStatus)
+                                           .EditaMeta(erro);
+                                     FMensagem := tpmTasks_Editada; //trocar mensagem
+                                   end;
+                                  mInserir:
+                                   begin
+                                     TControllerFactory
+                                       .New
+                                         .Metas
+                                           .id(Fid)
+                                           .Meta(FMeta)
+                                           .descricao(FDescricao)
+                                           .Prioridade(FPrioridade)
+                                           .Status(Fstatus)
+                                           .NovaMeta(erro);
+                                     FMensagem := tpmTasks_Inserida;  //trocar mensagem
+                                   end;
+                                end;
+                              end,
+                              Procedure ()
+                              begin
+                                Loading.Loading.Fechar;
+                                if Erro = '' then
+                                 begin
+                                   Dialogs := TViewDialogsMessages.New;
+                                   Android_Metas
+                                     .AddObject(
+                                                Dialogs
+                                                 .DialogMessages
+                                                   .TipoMensagem(FMensagem)
+                                                   .AcaoBotao(
+                                                              Procedure ()
+                                                              begin
+                                                                Dialogs := nil;
+                                                                ValidaMeta.Enabled := false;
+                                                                case fmodo of
+                                                                  mEditar: ExibeMeta;
+                                                                  mInserir: begin
+                                                                             TabMetas.GotoVisibleTab(TabMetas_lista.Index);
+                                                                             ListarMetas(FFiltro);
+                                                                            end;
+                                                                end;
+                                                              end
+                                                             )
+                                                   .AcaoFundo(
+                                                              Procedure ()
+                                                              begin
+                                                                Dialogs := nil;
+                                                                ValidaMeta.Enabled := false;
+                                                                case fmodo of
+                                                                  mEditar: ExibeMeta;
+                                                                  mInserir: begin
+                                                                             TabMetas.GotoVisibleTab(TabMetas_lista.Index);
+                                                                             ListarMetas(FFiltro);
+                                                                            end;
+                                                                end;
+                                                              end
+                                                             )
+                                                   .Exibe
+                                               );
+                                 end;
+
+                              end
+                             );
 end;
 
 procedure TAndroid_metas.Btn_prioridade_altaClick(Sender: TObject);
@@ -319,6 +428,7 @@ end;
 
 procedure TAndroid_metas.EditaMeta;
 begin
+  FModo := mEditar;
   FId         := '';
   Edit_meta.Text := FMeta;
   if FDescricao = '' then
@@ -421,6 +531,12 @@ begin
   Android_metas := nil;
 end;
 
+procedure TAndroid_metas.FormCreate(Sender: TObject);
+begin
+  FFiltro := SemFiltro;
+  ListarMetas(FFiltro);
+end;
+
 procedure TAndroid_metas.FormKeyUp(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 Var
@@ -455,8 +571,8 @@ end;
 procedure TAndroid_metas.FormShow(Sender: TObject);
 begin
   AnimaStatus.Start;
-  FFiltro := SemFiltro;
-  ListarMetas(FFiltro);
+  {FFiltro := SemFiltro;
+  ListarMetas(FFiltro);}
 end;
 
 procedure TAndroid_metas.ListagemMetasItemClickEx(const Sender: TObject;
@@ -482,7 +598,9 @@ begin
          end
         else
          begin
-           TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
+           FId := ListagemMetas.Items[ItemIndex].TagString;
+           ExibeMeta;
+           {TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
            Btn_status.Bitmap := Img_meta_concluir.Bitmap;
            Btn_status.TagString := 'Concluir';
            if TListView(sender).Items[ItemIndex].TagString = '001' then
@@ -490,12 +608,14 @@ begin
            if TListView(sender).Items[ItemIndex].TagString = '002' then
             ExibePrioridade('Normal');
            if TListView(sender).Items[ItemIndex].TagString = '003' then
-            ExibePrioridade('Baixa');
+            ExibePrioridade('Baixa');}
          end;
       end
      else
       begin
-           TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
+        FId := ListagemMetas.Items[ItemIndex].TagString;
+        ExibeMeta;
+           {TabMetas.GotoVisibleTab(TabMetas_exibe.Index);
            Btn_status.Bitmap := Img_meta_concluir.Bitmap;
            Btn_status.TagString := 'Concluir';
            if TListView(sender).Items[ItemIndex].TagString = '001' then
@@ -503,7 +623,7 @@ begin
            if TListView(sender).Items[ItemIndex].TagString = '002' then
             ExibePrioridade('Normal');
            if TListView(sender).Items[ItemIndex].TagString = '003' then
-            ExibePrioridade('Baixa');
+            ExibePrioridade('Baixa');}
       end;
    end;
 end;
@@ -514,27 +634,67 @@ begin
 end;
 
 procedure TAndroid_metas.ListarMetas(Filtro: Filtros);
+Var
+  erro : string;
+  Metas : iControllerMetas;
 begin
- ListagemMetas.Items.Clear;
- case Filtro of
-   SemFiltro: begin
-                Add_meta('001', 'eTasks', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
-                Add_meta('002', 'Firebase', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
-                Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
-              end;
-   PrioridadeAlta: begin
-                    Add_meta('001', 'Terminar projeto 1', 'Terminar o projeto do eTasks', 'Concluir', 'Alta');
-                   end;
-   PrioridadeNormal: begin
-                       Add_meta('002', 'Terminar projeto 2', 'Terminar o projeto do eVendas', 'Concluir', 'Normal');
-                     end;
-   PrioridadeBaixa: begin
-                      Add_meta('003', 'Terminar projeto 3', 'Terminar o projeto do eFirebase', 'Concluida', 'Baixa');
-                    end;
+  teTasksLibrary.CustomThread(Procedure()
+                              begin
+                                Loading := tviewdialogsmessages.New;
+                                Android_metas.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Buscando suas Metas. Aguarde, por favor... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                              end,
+                              Procedure ()
+                              begin
+                                case filtro of
+                                  SemFiltro: Metas := tcontrollerFactory.New.Metas.ListarMetas(Nenhuma, erro);
+                                  PrioridadeAlta: Metas := tcontrollerFactory.New.Metas.ListarMetas(Alta, erro);
+                                  PrioridadeNormal: Metas := tcontrollerFactory.New.Metas.ListarMetas(Normal, erro);
+                                  PrioridadeBaixa: Metas := tcontrollerFactory.New.Metas.ListarMetas(Baixa, erro);
+                                end;
+                              end,
+                              Procedure ()
+                              Var
+                               Meta : TMeta;
+                              begin
+                                loading.Loading.Fechar;
+                                if erro = '' then
+                                 begin
+                                  listagemMetas.Items.Clear;
+                                  Lay_Lista_vazia.Visible := False;
+                                  Seta_Sem_Metas.Visible  := False;
+                                  if Metas.ListagemMetas.Count <> 0 then
+                                   begin
+                                    listagemMetas.BeginUpdate;
+                                    for Meta in Metas.ListagemMetas.Values do
+                                     Add_Meta(meta.id, meta.meta, meta.descricao, meta.status, meta.prioridade);
+                                    listagemMetas.EndUpdate;
+                                   end
+                                  else
+                                   begin
+                                    Lay_Lista_vazia.Visible := True;
+                                    Seta_Sem_Metas.Visible  := True;
+                                   end
+                                  end
+                                else
+                                 begin
+                                   if erro = 'vazio' then
+                                    Begin
+                                      listagemMetas.Items.Clear;
+                                      Lay_Lista_vazia.Visible := True;
+                                      Seta_Sem_Metas.Visible  := True;
+                                    End;
+                                 end;
+                              end);
  end;
 
-
-end;
 
 procedure TAndroid_metas.Menu_Prioridade_AltaClick(Sender: TObject);
 begin
@@ -570,6 +730,7 @@ end;
 
 procedure TAndroid_metas.NovaMeta;
 begin
+  FModo := mInserir;
   FId         := '';
   FMeta       := '';
   FDescricao  := '';
@@ -578,7 +739,7 @@ begin
   Edit_meta.Text := '';
   Ed_descricao.Lines.Clear;
   Ed_descricao.FontColor := $FF686868;
-  Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
+  Ed_descricao.Lines.Add('Digite aqui uma descrição para a sua meta');
   seletor_Prioridade.Parent := Lay_prioridade_normal;
   TabMetas.GotoVisibleTab(TabMetas_EditaNovo.Index);
   ValidaMeta.Enabled := true;
