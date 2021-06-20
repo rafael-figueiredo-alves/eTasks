@@ -277,7 +277,7 @@ end;
 procedure TAndroid_metas.Btn_OKClick(Sender: TObject);
 begin
   ValidaMeta.Enabled := false;
-  TabMetas.GotoVisibleTab(TabMetas_lista);
+  TabMetas.GotoVisibleTab(TabMetas_lista.Index);
 end;
 
 procedure TAndroid_metas.Btn_prioridade_altaClick(Sender: TObject);
@@ -340,7 +340,7 @@ begin
   if FPrioridade = 'Alta' then
    seletor_Prioridade.Parent := Lay_prioridade_Alta;
   FModo := mEditar;
-  TabMetas.GotoVisibleTab(TabMetas_EditaNovo);
+  TabMetas.GotoVisibleTab(TabMetas_EditaNovo.Index);
   ValidaMeta.Enabled := true;
 end;
 
@@ -372,7 +372,18 @@ end;
 
 procedure TAndroid_metas.Ed_pesquisaTyping(Sender: TObject);
 begin
-  ListagemMetas.Items.Filter(Ed_pesquisa.Text);
+  if Ed_pesquisa.Text <> '' then
+   ListagemMetas.Items.Filter := Function (Pesquisa: string) : Boolean
+                                 Var Contador : integer;
+                                 begin
+                                   Contador := Pos(Ed_pesquisa.Text.ToUpper, pesquisa.ToUpper);
+                                   Result := contador <> 0;
+                                 end
+  else
+   ListagemMetas.Items.Filter := Function (Pesquisa: string) : Boolean
+                                 Begin
+                                   Result := True;
+                                 End;
 end;
 
 procedure TAndroid_metas.ExibeMeta;
@@ -569,7 +580,7 @@ begin
   Ed_descricao.FontColor := $FF686868;
   Ed_descricao.Lines.Add('Digite aqui uma descrição para a tarefa');
   seletor_Prioridade.Parent := Lay_prioridade_normal;
-  TabMetas.GotoVisibleTab(TabMetas_EditaNovo);
+  TabMetas.GotoVisibleTab(TabMetas_EditaNovo.Index);
   ValidaMeta.Enabled := true;
 end;
 
