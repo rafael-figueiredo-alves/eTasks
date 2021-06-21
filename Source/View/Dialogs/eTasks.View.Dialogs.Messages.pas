@@ -340,6 +340,26 @@ begin
                           Text_message.Text     := Tasks_apagada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
+
+    //Mensagens referentes a Goals
+    tpmGoals_Inserida:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Goals_Inserida;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmGoals_editada:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Goals_editada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmGoals_apagada:
+                        begin
+                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Text_message.Text     := Goals_apagada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
   end;
 end;
 

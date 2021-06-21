@@ -771,41 +771,62 @@ Var
   Tarefas : iControllerTarefas;
   bitmap  : TBitmap;
 begin
-  if main then
-   TabTarefas.ActiveTab := TabExibeTarefa
-  else
-   TabTarefas.GotoVisibleTab(TabExibeTarefa.Index);
 
-  title_MinhasTarefas.Visible := True;
-  title_EditaTarefa.Visible   := False;
-  title_NovaTarefa.Visible    := False;
+  teTasksLibrary.CustomThread(Procedure ()
+                              begin
+                                Loading := tviewdialogsmessages.New;
+                                Tela_tarefas.AddObject(
+                                                             Loading.Loading
+                                                                      .Mensagem('Preparando para exibir mais detalhes da Tarefa selecionada. Aguarde, por favor... ')
+                                                                      .AcaoLimpa(Procedure()
+                                                                                 begin
+                                                                                  Loading := nil;
+                                                                                 end)
+                                                                      .Exibe
+                                                            );
+                              end,
+                              Procedure ()
+                              begin
+                                Tarefas := tcontrollerfactory.New.Tarefas;
+                                Tarefas.id(Fid);
+                                Tarefas.ExibeTarefa(Erro);
 
-  Tarefas := tcontrollerfactory.New.Tarefas;
-  Tarefas.id(Fid);
-  Tarefas.ExibeTarefa(Erro);
+                                FTarefa    := Tarefas.tarefa;
+                                FDescricao := Tarefas.descricao;
+                                Fdata      := Tarefas.data;
+                                FCategoria := Tarefas.categoria;
+                                Fcat_id    := Tarefas.cat_id;
+                                Fcat_icon  := Tarefas.Cat_icon;
+                                Fstatus    := Tarefas.Status;
+                              end,
+                              Procedure ()
+                              begin
+                                Loading.Loading.Fechar;
+                                if main then
+                                 TabTarefas.ActiveTab := TabExibeTarefa
+                                else
+                                 TabTarefas.GotoVisibleTab(TabExibeTarefa.Index);
 
-  FTarefa    := Tarefas.tarefa;
-  FDescricao := Tarefas.descricao;
-  Fdata      := Tarefas.data;
-  FCategoria := Tarefas.categoria;
-  Fcat_id    := Tarefas.cat_id;
-  Fcat_icon  := Tarefas.Cat_icon;
-  Fstatus    := Tarefas.Status;
+                                title_MinhasTarefas.Visible := True;
+                                title_EditaTarefa.Visible   := False;
+                                title_NovaTarefa.Visible    := False;
 
-  Label_tarefa.Text     := FTarefa;
-  Label_descricao.Text  := Fdescricao;
-  Label_categoria.Text  := FCategoria;
-  Label_data_exibe.Text := FormatDateTime('dd "de" mmmm "de" yyyy', StrToDate(Fdata));
+                                Label_tarefa.Text     := FTarefa;
+                                Label_descricao.Text  := Fdescricao;
+                                Label_categoria.Text  := FCategoria;
+                                Label_data_exibe.Text := FormatDateTime('dd "de" mmmm "de" yyyy', StrToDate(Fdata));
 
-  if Fstatus = 'fazer' then
-   Btn_status.Bitmap := Img_Afazer.Bitmap
-  else
-   Btn_status.Bitmap := Img_Concluido.Bitmap;
-  Btn_status.TagString := Fstatus;
+                                if Fstatus = 'fazer' then
+                                 Btn_status.Bitmap := Img_Afazer.Bitmap
+                                else
+                                 Btn_status.Bitmap := Img_Concluido.Bitmap;
+                                Btn_status.TagString := Fstatus;
 
-  bitmap := TImagens64.fromBase64(TCategorias.New.PegaImagem(Fcat_icon));
-  Img_Categoria_exibe.Bitmap := bitmap;
-  bitmap.DisposeOf;
+                                bitmap := TImagens64.fromBase64(TCategorias.New.PegaImagem(Fcat_icon));
+                                Img_Categoria_exibe.Bitmap := bitmap;
+                                bitmap.DisposeOf;
+                              end
+                             );
 end;
 
 procedure TTela_Tarefas.FormClose(Sender: TObject; var Action: TCloseAction);
