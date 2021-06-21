@@ -4,7 +4,7 @@ interface
 
 uses
   eTasks.View.Windows.help, eTasks.View.Windows.tasks,
-  eTasks.View.Windows.categories;
+  eTasks.View.Windows.categories, eTasks.View.Windows.Metas;
 
 Type
  iWindowsTelas = interface
@@ -12,6 +12,7 @@ Type
    Function Tela_Ajuda : TForm_Windows_Ajuda;
    Function Tela_Tasks : TWindows_tasks;
    Function Tela_Categories : TWindows_Categories;
+   Function Tela_Objetivos : tWindows_Metas;
  end;
 
 
@@ -20,6 +21,7 @@ Type
      FTelaAjuda   : TForm_Windows_Ajuda;
      FTelaTarefas : tWindows_Tasks;
      FTelaCategories : tWindows_Categories;
+     FTelaGoals      : TWindows_Metas;
     Public
      Constructor Create;
      Destructor Destroy; Override;
@@ -27,6 +29,7 @@ Type
      Function Tela_Ajuda : TForm_Windows_Ajuda;
      Function Tela_Tasks : TWindows_tasks;
      Function Tela_Categories : TWindows_Categories;
+     Function Tela_Objetivos : tWindows_Metas;
   End;
 
 implementation
@@ -46,6 +49,8 @@ begin
    FTelaTarefas.DisposeOf;
   if Assigned(FTelaCategories) then
    FTelaCategories.DisposeOf;
+  if Assigned(FTelaGoals) then
+   FTelaGoals.DisposeOf;
   inherited;
 end;
 
@@ -66,6 +71,13 @@ begin
   if not Assigned(FTelaCategories) then
    FTelaCategories := TWindows_Categories.Create(nil);
   Result := FTelaCategories;
+end;
+
+function TWindowsTelas.Tela_Objetivos: tWindows_Metas;
+begin
+  if not Assigned(FTelaGoals) then
+   FTelaGoals := TWindows_Metas.Create(nil);
+  Result := FTelaGoals;
 end;
 
 function TWindowsTelas.Tela_Tasks: TWindows_tasks;

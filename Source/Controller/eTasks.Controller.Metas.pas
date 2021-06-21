@@ -78,7 +78,8 @@ end;
 
 destructor TControllerMetas.Destroy;
 begin
-
+  if Assigned(FListagemMetas) then
+    FListagemMetas.DisposeOf;
   inherited;
 end;
 

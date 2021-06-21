@@ -486,7 +486,7 @@ object Android_metas: TAndroid_metas
       Size.Height = 590.000000000000000000
       Size.PlatformDefault = False
       TabHeight = 49.000000000000000000
-      TabIndex = 0
+      TabIndex = 2
       TabOrder = 2
       TabPosition = None
       OnChange = TabMetasChange
@@ -501,7 +501,7 @@ object Android_metas: TAndroid_metas
         CustomIcon = <
           item
           end>
-        IsSelected = True
+        IsSelected = False
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -3335,7 +3335,7 @@ object Android_metas: TAndroid_metas
         CustomIcon = <
           item
           end>
-        IsSelected = False
+        IsSelected = True
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -3574,8 +3574,8 @@ object Android_metas: TAndroid_metas
                 TabOrder = 1
                 OnEnter = Ed_descricaoEnter
                 OnExit = Ed_descricaoExit
-                Viewport.Width = 292.000000000000000000
-                Viewport.Height = 122.000000000000000000
+                Viewport.Width = 300.000000000000000000
+                Viewport.Height = 130.000000000000000000
               end
             end
           end

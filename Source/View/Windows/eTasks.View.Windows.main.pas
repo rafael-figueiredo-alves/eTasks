@@ -197,6 +197,7 @@ type
     FTelaAjuda   : iWindowsTelas;
     FTelaTarefas : iWindowsTelas;
     FTela_Categorias : iWindowsTelas;
+    FTela_Objetivos : iWindowsTelas;
     FId_tarefa  : string;
 
     Procedure TirarFotoCamera;
@@ -356,7 +357,22 @@ begin
                                                       .exibir
                                                  );
                          end;
-      TelaObjetivos    : showmessage('a');
+      TelaObjetivos    : begin
+                          FTela_Objetivos := twindowstelas.New;
+                          Lay_container.AddObject(
+                                                  FTela_Objetivos
+                                                    .Tela_Objetivos
+                                                      .BtnVoltarClick(
+                                                                      Procedure ()
+                                                                      begin
+                                                                        AniAberturaFechaForm.Start;
+                                                                        Lay_container.RemoveObject(0);
+                                                                        //FTela_Categorias := nil;
+                                                                      end
+                                                                     )
+                                                      .exibir
+                                                 );
+                         end;
       TelaListas       : showmessage('a');
       TelaAjuda        : begin
                            FTelaAjuda := tWindowsTelas.New;
