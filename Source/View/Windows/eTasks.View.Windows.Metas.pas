@@ -282,6 +282,8 @@ Var
  Erro      : string;
  FMensagem : tTipoMensagem;
 begin
+  if Ed_descricao.Lines.Text <> 'Digite aqui uma descrição para a sua meta' then
+   FDescricao := Ed_descricao.Lines.Text;
   teTasksLibrary.CustomThread(
                               Procedure ()
                               var
