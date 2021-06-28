@@ -61,7 +61,7 @@ end;
 function TControllerItemLista.data(value: string): iControllerItemLista;
 begin
   Result := self;
-  FData := value;
+  FData := value.Replace('/', '_');
 end;
 
 function TControllerItemLista.DeletaItem(

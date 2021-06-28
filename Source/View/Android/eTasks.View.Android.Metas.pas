@@ -713,13 +713,15 @@ begin
        end
       else
        begin
-         if (Assigned(Dialogs)) or (Assigned(Loading)) then
+         if (Assigned(Dialogs)) or (Assigned(Loading)) or (Menu_filtros.IsShowed) then
           begin
             Key := 0;
             if Assigned(dialogs) then
              begin
               dialogs.DialogMessages.Fechar;
              end;
+            if (Menu_filtros.IsShowed) then
+             Menu_filtros.HideMaster;
           end
          else
           begin
