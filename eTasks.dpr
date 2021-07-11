@@ -7,7 +7,7 @@ program eTasks;
         Versão: 1.0.1
  Desenvolvedor: Rafael de Figueiredo Alves
 
- Cópia Autorizada© 2021 - Rafael de Figueiredo Alves / DevPegasus
+ Cópia Autorizada© 2021 - Rafael de Figueiredo Alves / DevPegasus-br
 
  Descrição:
  Projeto de App mobile (Android) e desktop (Windows) para gerenciamento de tarefas,

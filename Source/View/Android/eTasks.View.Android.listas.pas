@@ -86,8 +86,6 @@ type
     ShadowEffect1: TShadowEffect;
     Img_tarefa: TImage;
     Edit_Produto: TEdit;
-    ListaDeProdutos: TListBox;
-    SearchBox1: TSearchBox;
     Unidade_popup: TMultiView;
     Lay_popup_quilos: TLayout;
     Image_quilos: TImage;
@@ -116,15 +114,13 @@ type
     Lay_popup_unidade: TLayout;
     Image_unidade: TImage;
     Label_unidade: TLabel;
+    ListaDeProdutos: TListView;
     procedure AnimaStatusFinish(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure TabListasChange(Sender: TObject);
     procedure Btn_Add_MetaClick(Sender: TObject);
-    procedure ListaDeProdutosItemClick(const Sender: TCustomListBox;
-      const Item: TListBoxItem);
-    procedure Edit_ProdutoTyping(Sender: TObject);
     procedure Aumentar_quantidadeClick(Sender: TObject);
     procedure Diminuir_quantidadeClick(Sender: TObject);
     procedure Lay_popup_quilosClick(Sender: TObject);
@@ -145,6 +141,10 @@ type
       const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
     procedure Btn_apaga_ItemClick(Sender: TObject);
     procedure Btn_OKClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ListaDeProdutosItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure Edit_ProdutoTyping(Sender: TObject);
   private
     { Private declarations }
     FId: string;
@@ -376,28 +376,44 @@ begin
                                 Edit_Produto.Text := FItem;
                                 FData := Label_Data.Text;
                                 Btn_apaga_Item.Visible := true;
-                                TabListas.GotoVisibleTab(TabListasEditaNovo.Index);
+                                //MontaListaProdutos;
                              end,
                              Procedure ()
                              Begin
-                              MontaListaProdutos;
+
                              End,
                             Procedure ()
                             Begin
-
+                              TabListas.GotoVisibleTab(TabListasEditaNovo.Index);
                             End
                             );
 end;
 
 procedure Tandroid_listas.Edit_ProdutoTyping(Sender: TObject);
 begin
-  SearchBox1.Text := Edit_Produto.Text;
+  if Edit_Produto.Text <> '' then
+   ListaDeProdutos.Items.Filter := Function (Pesquisa: string) : Boolean
+                                 Var Contador : integer;
+                                 begin
+                                   Contador := Pos(Edit_Produto.Text.ToUpper, pesquisa.ToUpper);
+                                   Result := contador <> 0;
+                                 end
+  else
+   ListaDeProdutos.Items.Filter := Function (Pesquisa: string) : Boolean
+                                 Begin
+                                   Result := True;
+                                 End;
 end;
 
 procedure Tandroid_listas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := TCloseAction.caFree;
   android_listas := nil;
+end;
+
+procedure Tandroid_listas.FormCreate(Sender: TObject);
+begin
+  MontaListaProdutos;
 end;
 
 procedure Tandroid_listas.FormKeyUp(Sender: TObject; var Key: Word;
@@ -587,128 +603,128 @@ end;
 procedure Tandroid_listas.MontaListaProdutos;
 begin
   ListaDeProdutos.BeginUpdate;
-  ListaDeProdutos.Items.Add('Abacaxi');
-  ListaDeProdutos.Items.Add('Absorventes');
-  ListaDeProdutos.Items.Add('Acelga');
-  ListaDeProdutos.Items.Add('Alcatara');
-  ListaDeProdutos.Items.Add('Alface');
-  ListaDeProdutos.Items.Add('Algodão');
-  ListaDeProdutos.Items.Add('Amaciante');
-  ListaDeProdutos.Items.Add('Amendoim');
-  ListaDeProdutos.Items.Add('Arroz');
-  ListaDeProdutos.Items.Add('Atemoia');
-  ListaDeProdutos.Items.Add('Azeite');
-  ListaDeProdutos.Items.Add('Azeitona');
-  ListaDeProdutos.Items.Add('Açúcar');
-  ListaDeProdutos.Items.Add('Baguete');
-  ListaDeProdutos.Items.Add('Banana');
-  ListaDeProdutos.Items.Add('Barbeador descartável');
-  ListaDeProdutos.Items.Add('Batata Asterix');
-  ListaDeProdutos.Items.Add('Batata Monalisa');
-  ListaDeProdutos.Items.Add('Biscoitos');
-  ListaDeProdutos.Items.Add('Bisteca');
-  ListaDeProdutos.Items.Add('Bolacha doce');
-  ListaDeProdutos.Items.Add('Bolacha salgada');
-  ListaDeProdutos.Items.Add('Café');
-  ListaDeProdutos.Items.Add('Carnes');
-  ListaDeProdutos.Items.Add('Cereal');
-  ListaDeProdutos.Items.Add('Condicionador');
-  ListaDeProdutos.Items.Add('Contra-filé');
-  ListaDeProdutos.Items.Add('Coxa e sobrecoxa');
-  ListaDeProdutos.Items.Add('Coxinha da Asa');
-  ListaDeProdutos.Items.Add('Coxinhas');
-  ListaDeProdutos.Items.Add('Creme dental');
-  ListaDeProdutos.Items.Add('Curativos');
-  ListaDeProdutos.Items.Add('Cuzcuz');
-  ListaDeProdutos.Items.Add('Desinfetante');
-  ListaDeProdutos.Items.Add('Desodorante');
-  ListaDeProdutos.Items.Add('Detergente');
-  ListaDeProdutos.Items.Add('Escova de dente');
-  ListaDeProdutos.Items.Add('Esparadrapo');
-  ListaDeProdutos.Items.Add('Esponja de aço');
-  ListaDeProdutos.Items.Add('Esponja de pia');
-  ListaDeProdutos.Items.Add('Farinha');
-  ListaDeProdutos.Items.Add('Farinha de rosca');
-  ListaDeProdutos.Items.Add('Feijão');
-  ListaDeProdutos.Items.Add('Fermento');
-  ListaDeProdutos.Items.Add('Fermento biológico');
-  ListaDeProdutos.Items.Add('Fermento em pó');
-  ListaDeProdutos.Items.Add('Filé de merluza');
-  ListaDeProdutos.Items.Add('Fio dental');
-  ListaDeProdutos.Items.Add('Flanelas');
-  ListaDeProdutos.Items.Add('Frango assado');
-  ListaDeProdutos.Items.Add('Fígado');
-  ListaDeProdutos.Items.Add('Fósforo');
-  ListaDeProdutos.Items.Add('Gaze');
-  ListaDeProdutos.Items.Add('Gelatina');
-  ListaDeProdutos.Items.Add('Guardanapo de papel');
-  ListaDeProdutos.Items.Add('Hastes flexíveis');
-  ListaDeProdutos.Items.Add('Hortaliças');
-  ListaDeProdutos.Items.Add('Inseticida');
-  ListaDeProdutos.Items.Add('Iogurte');
-  ListaDeProdutos.Items.Add('Ketchup');
-  ListaDeProdutos.Items.Add('Laranja');
-  ListaDeProdutos.Items.Add('Leite');
-  ListaDeProdutos.Items.Add('Linguiça Calabresa');
-  ListaDeProdutos.Items.Add('Linguiça Toscana');
-  ListaDeProdutos.Items.Add('Lustra-móveis');
-  ListaDeProdutos.Items.Add('Luvas plásticas');
-  ListaDeProdutos.Items.Add('Lâmpadas');
-  ListaDeProdutos.Items.Add('Macarrão');
-  ListaDeProdutos.Items.Add('Maionese');
-  ListaDeProdutos.Items.Add('Maminha');
-  ListaDeProdutos.Items.Add('Manteiga');
-  ListaDeProdutos.Items.Add('Margarina');
-  ListaDeProdutos.Items.Add('Massa de cuzcuz');
-  ListaDeProdutos.Items.Add('Massa de tapioca');
-  ListaDeProdutos.Items.Add('Massa para pizza');
-  ListaDeProdutos.Items.Add('Maçã');
-  ListaDeProdutos.Items.Add('Melância');
-  ListaDeProdutos.Items.Add('Melão');
-  ListaDeProdutos.Items.Add('Mexerica');
-  ListaDeProdutos.Items.Add('Miojo');
-  ListaDeProdutos.Items.Add('Moela');
-  ListaDeProdutos.Items.Add('Molho de tomate');
-  ListaDeProdutos.Items.Add('Mortadela');
-  ListaDeProdutos.Items.Add('Mostarda');
-  ListaDeProdutos.Items.Add('Nescau');
-  ListaDeProdutos.Items.Add('Ovos');
-  ListaDeProdutos.Items.Add('Papel Alumínio');
-  ListaDeProdutos.Items.Add('Papel Filme');
-  ListaDeProdutos.Items.Add('Papel higiênico');
-  ListaDeProdutos.Items.Add('Papel toalha');
-  ListaDeProdutos.Items.Add('Peito de frango');
-  ListaDeProdutos.Items.Add('Pera');
-  ListaDeProdutos.Items.Add('Picanha');
-  ListaDeProdutos.Items.Add('Pizza');
-  ListaDeProdutos.Items.Add('Presunto');
-  ListaDeProdutos.Items.Add('Pães');
-  ListaDeProdutos.Items.Add('Pão de queijo');
-  ListaDeProdutos.Items.Add('Pé de frango');
-  ListaDeProdutos.Items.Add('Queijo');
-  ListaDeProdutos.Items.Add('Queijo chedar');
-  ListaDeProdutos.Items.Add('Queijo Fresco');
-  ListaDeProdutos.Items.Add('Queijo ralado');
-  ListaDeProdutos.Items.Add('Repolho');
-  ListaDeProdutos.Items.Add('Sabonete');
-  ListaDeProdutos.Items.Add('Sabão em barra');
-  ListaDeProdutos.Items.Add('Sabão em pó');
-  ListaDeProdutos.Items.Add('Sacos de lixo');
-  ListaDeProdutos.Items.Add('Sal');
-  ListaDeProdutos.Items.Add('Salgadinhos');
-  ListaDeProdutos.Items.Add('Salsicha');
-  ListaDeProdutos.Items.Add('Sardinha');
-  ListaDeProdutos.Items.Add('Shampoo');
-  ListaDeProdutos.Items.Add('Tapioca');
-  ListaDeProdutos.Items.Add('Temperos');
-  ListaDeProdutos.Items.Add('Tilápia');
-  ListaDeProdutos.Items.Add('Toddy');
-  ListaDeProdutos.Items.Add('Tomate');
-  ListaDeProdutos.Items.Add('Uva');
-  ListaDeProdutos.Items.Add('Água oxigenada');
-  ListaDeProdutos.Items.Add('Água Sanitária');
-  ListaDeProdutos.Items.Add('Álcool em gel');
-  ListaDeProdutos.Items.Add('Óleo');
+  ListaDeProdutos.Items.Add.text:= 'Abacaxi';
+  ListaDeProdutos.Items.Add.text:= 'Absorventes';
+  ListaDeProdutos.Items.Add.text:= 'Acelga';
+  ListaDeProdutos.Items.Add.text:= 'Alcatara';
+  ListaDeProdutos.Items.Add.text:= 'Alface';
+  ListaDeProdutos.Items.Add.text:= 'Algodão';
+  ListaDeProdutos.Items.Add.text:= 'Amaciante';
+  ListaDeProdutos.Items.Add.text:= 'Amendoim';
+  ListaDeProdutos.Items.Add.text:= 'Arroz';
+  ListaDeProdutos.Items.Add.text:= 'Atemoia';
+  ListaDeProdutos.Items.Add.text:= 'Azeite';
+  ListaDeProdutos.Items.Add.text:= 'Azeitona';
+  ListaDeProdutos.Items.Add.text:= 'Açúcar';
+  ListaDeProdutos.Items.Add.text:= 'Baguete';
+  ListaDeProdutos.Items.Add.text:= 'Banana';
+  ListaDeProdutos.Items.Add.text:= 'Barbeador descartável';
+  ListaDeProdutos.Items.Add.text:= 'Batata Asterix';
+  ListaDeProdutos.Items.Add.text:= 'Batata Monalisa';
+  ListaDeProdutos.Items.Add.Text:= 'Biscoitos';
+  ListaDeProdutos.Items.Add.Text:= 'Bisteca';
+  ListaDeProdutos.Items.Add.Text:= 'Bolacha doce';
+  ListaDeProdutos.Items.Add.Text:= 'Bolacha salgada';
+  ListaDeProdutos.Items.Add.Text:= 'Café';
+  ListaDeProdutos.Items.Add.Text:= 'Carnes';
+  ListaDeProdutos.Items.Add.Text:= 'Cereal';
+  ListaDeProdutos.Items.Add.Text:= 'Condicionador';
+  ListaDeProdutos.Items.Add.Text:= 'Contra-filé';
+  ListaDeProdutos.Items.Add.Text:= 'Coxa e sobrecoxa';
+  ListaDeProdutos.Items.Add.Text:= 'Coxinha da Asa';
+  ListaDeProdutos.Items.Add.Text:= 'Coxinhas';
+  ListaDeProdutos.Items.Add.Text:= 'Creme dental';
+  ListaDeProdutos.Items.Add.Text:= 'Curativos';
+  ListaDeProdutos.Items.Add.Text:= 'Cuzcuz';
+  ListaDeProdutos.Items.Add.Text:= 'Desinfetante';
+  ListaDeProdutos.Items.Add.Text:= 'Desodorante';
+  ListaDeProdutos.Items.Add.Text:= 'Detergente';
+  ListaDeProdutos.Items.Add.Text:= 'Escova de dente';
+  ListaDeProdutos.Items.Add.Text:= 'Esparadrapo';
+  ListaDeProdutos.Items.Add.Text:= 'Esponja de aço';
+  ListaDeProdutos.Items.Add.Text:= 'Esponja de pia';
+  ListaDeProdutos.Items.Add.Text:= 'Farinha';
+  ListaDeProdutos.Items.Add.Text:= 'Farinha de rosca';
+  ListaDeProdutos.Items.Add.Text:= 'Feijão';
+  ListaDeProdutos.Items.Add.Text:= 'Fermento';
+  ListaDeProdutos.Items.Add.Text:= 'Fermento biológico';
+  ListaDeProdutos.Items.Add.Text:= 'Fermento em pó';
+  ListaDeProdutos.Items.Add.Text:= 'Filé de merluza';
+  ListaDeProdutos.Items.Add.Text:= 'Fio dental';
+  ListaDeProdutos.Items.Add.Text:= 'Flanelas';
+  ListaDeProdutos.Items.Add.Text:= 'Frango assado';
+  ListaDeProdutos.Items.Add.Text:= 'Fígado';
+  ListaDeProdutos.Items.Add.Text:= 'Fósforo';
+  ListaDeProdutos.Items.Add.Text:= 'Gaze';
+  ListaDeProdutos.Items.Add.Text:= 'Gelatina';
+  ListaDeProdutos.Items.Add.Text:= 'Guardanapo de papel';
+  ListaDeProdutos.Items.Add.Text:= 'Hastes flexíveis';
+  ListaDeProdutos.Items.Add.Text:= 'Hortaliças';
+  ListaDeProdutos.Items.Add.Text:= 'Inseticida';
+  ListaDeProdutos.Items.Add.Text:= 'Iogurte';
+  ListaDeProdutos.Items.Add.Text:= 'Ketchup';
+  ListaDeProdutos.Items.Add.Text:= 'Laranja';
+  ListaDeProdutos.Items.Add.Text:= 'Leite';
+  ListaDeProdutos.Items.Add.Text:= 'Linguiça Calabresa';
+  ListaDeProdutos.Items.Add.Text:= 'Linguiça Toscana';
+  ListaDeProdutos.Items.Add.Text:= 'Lustra-móveis';
+  ListaDeProdutos.Items.Add.Text:= 'Luvas plásticas';
+  ListaDeProdutos.Items.Add.Text:= 'Lâmpadas';
+  ListaDeProdutos.Items.Add.Text:= 'Macarrão';
+  ListaDeProdutos.Items.Add.Text:= 'Maionese';
+  ListaDeProdutos.Items.Add.Text:= 'Maminha';
+  ListaDeProdutos.Items.Add.Text:= 'Manteiga';
+  ListaDeProdutos.Items.Add.Text:= 'Margarina';
+  ListaDeProdutos.Items.Add.Text:= 'Massa de cuzcuz';
+  ListaDeProdutos.Items.Add.Text:= 'Massa de tapioca';
+  ListaDeProdutos.Items.Add.Text:= 'Massa para pizza';
+  ListaDeProdutos.Items.Add.Text:= 'Maçã';
+  ListaDeProdutos.Items.Add.Text:= 'Melância';
+  ListaDeProdutos.Items.Add.Text:= 'Melão';
+  ListaDeProdutos.Items.Add.Text:= 'Mexerica';
+  ListaDeProdutos.Items.Add.Text:= 'Miojo';
+  ListaDeProdutos.Items.Add.Text:= 'Moela';
+  ListaDeProdutos.Items.Add.Text:= 'Molho de tomate';
+  ListaDeProdutos.Items.Add.Text:= 'Mortadela';
+  ListaDeProdutos.Items.Add.Text:= 'Mostarda';
+  ListaDeProdutos.Items.Add.Text:= 'Nescau';
+  ListaDeProdutos.Items.Add.Text:= 'Ovos';
+  ListaDeProdutos.Items.Add.Text:= 'Papel Alumínio';
+  ListaDeProdutos.Items.Add.Text:= 'Papel Filme';
+  ListaDeProdutos.Items.Add.Text:= 'Papel higiênico';
+  ListaDeProdutos.Items.Add.Text:= 'Papel toalha';
+  ListaDeProdutos.Items.Add.Text:= 'Peito de frango';
+  ListaDeProdutos.Items.Add.Text:= 'Pera';
+  ListaDeProdutos.Items.Add.Text:= 'Picanha';
+  ListaDeProdutos.Items.Add.Text:= 'Pizza';
+  ListaDeProdutos.Items.Add.Text:= 'Presunto';
+  ListaDeProdutos.Items.Add.Text:= 'Pães';
+  ListaDeProdutos.Items.Add.Text:= 'Pão de queijo';
+  ListaDeProdutos.Items.Add.Text:= 'Pé de frango';
+  ListaDeProdutos.Items.Add.Text:= 'Queijo';
+  ListaDeProdutos.Items.Add.Text:= 'Queijo chedar';
+  ListaDeProdutos.Items.Add.Text:= 'Queijo Fresco';
+  ListaDeProdutos.Items.Add.Text:= 'Queijo ralado';
+  ListaDeProdutos.Items.Add.Text:= 'Repolho';
+  ListaDeProdutos.Items.Add.Text:= 'Sabonete';
+  ListaDeProdutos.Items.Add.Text:= 'Sabão em barra';
+  ListaDeProdutos.Items.Add.Text:= 'Sabão em pó';
+  ListaDeProdutos.Items.Add.Text:= 'Sacos de lixo';
+  ListaDeProdutos.Items.Add.Text:= 'Sal';
+  ListaDeProdutos.Items.Add.Text:= 'Salgadinhos';
+  ListaDeProdutos.Items.Add.Text:= 'Salsicha';
+  ListaDeProdutos.Items.Add.Text:= 'Sardinha';
+  ListaDeProdutos.Items.Add.Text:= 'Shampoo';
+  ListaDeProdutos.Items.Add.Text:= 'Tapioca';
+  ListaDeProdutos.Items.Add.Text:= 'Temperos';
+  ListaDeProdutos.Items.Add.Text:= 'Tilápia';
+  ListaDeProdutos.Items.Add.Text:= 'Toddy';
+  ListaDeProdutos.Items.Add.Text:= 'Tomate';
+  ListaDeProdutos.Items.Add.Text:= 'Uva';
+  ListaDeProdutos.Items.Add.Text:= 'Água oxigenada';
+  ListaDeProdutos.Items.Add.Text:= 'Água Sanitária';
+  ListaDeProdutos.Items.Add.Text:= 'Álcool em gel';
+  ListaDeProdutos.Items.Add.Text:= 'Óleo';
   ListaDeProdutos.EndUpdate;
 end;
 
@@ -720,22 +736,21 @@ begin
                                Ed_quantidade.Value := 0;
                                Edit_Unidade.Text := 'Quilos';
                                Edit_Produto.Text := '';
-                               SearchBox1.Text := '';
                                FData := Label_Data.Text;
                                FItem := '';
                                FQuantidade := '';
                                FUnidade := '';
                                FStatus := 'Comprar';
                                Btn_apaga_Item.Visible := false;
-                               TabListas.GotoVisibleTab(TabListasEditaNovo.Index);
+                               //MontaListaProdutos;
                              end,
                              Procedure ()
                              begin
-                              MontaListaProdutos;
+
                              end,
                              Procedure()
                              begin
-
+                               TabListas.GotoVisibleTab(TabListasEditaNovo.Index);
                              end
                             );
 end;
@@ -838,10 +853,10 @@ begin
                              );
 end;
 
-procedure Tandroid_listas.ListaDeProdutosItemClick(const Sender: TCustomListBox;
-const Item: TListBoxItem);
+procedure Tandroid_listas.ListaDeProdutosItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
 begin
-  Edit_Produto.Text := Item.Text;
+  Edit_Produto.Text := AItem.Text;
 end;
 
 procedure Tandroid_listas.ListaMercadoItemClickEx(const Sender: TObject;
