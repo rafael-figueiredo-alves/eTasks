@@ -10,7 +10,8 @@ Type
                   tpmErro_criar_conta, tpmBranco_criar_nome, tpmBranco_criar_email, tpmBranco_criar_senha, tpmInvalido_criar_email, tpmInvalido_criar_senha, tpmSucesso_criar_conta,
                   tpmCategoria_Editada, tpmCategoria_Inserida, tpmCategoria_Apagada,
                   tpmTasks_Editada, tpmTasks_Inserida, tpmTasks_Apagada,
-                  tpmGoals_Editada, tpmGoals_Inserida, tpmGoals_Apagada);
+                  tpmGoals_Editada, tpmGoals_Inserida, tpmGoals_Apagada,
+                  tpmLists_Editada, tpmLists_Inserida, tpmLists_Apagada);
 
  ResourceString
 
@@ -54,10 +55,15 @@ Type
   Tasks_Inserida = 'Tarefa criada com sucesso!';
   Tasks_Apagada  = 'Tarefa foi apagada com sucesso!';
 
-  //Mensagens referentes a Categorias
+  //Mensagens referentes a Metas
   Goals_Editada  = 'Meta foi editada com sucesso!';
   Goals_Inserida = 'Meta foi criada com sucesso!';
   Goals_Apagada  = 'Meta foi apagada com sucesso!';
+
+  //Mensagens referentes a Listas
+  Lists_Editada  = 'Item da lista foi editado com sucesso!';
+  Lists_Inserida = 'Item foi adicionado a lista de compras com sucesso!';
+  Lists_Apagada  = 'Item foi reovido da lista de compras com sucesso!';
 
 implementation
 

@@ -34,6 +34,14 @@ type
     Img_Permissao_negada: TImage;
     Img_Email_invalido: TImage;
     Img_senha_invalida: TImage;
+    Img_Tasks_OK: TImage;
+    Img_Task_Delete: TImage;
+    Img_Goals_Delete: TImage;
+    Img_Goals_OK: TImage;
+    Img_Lists_delete: TImage;
+    Img_lists_OK: TImage;
+    Img_Categorias_Delete: TImage;
+    Img_Categorias_OK: TImage;
     procedure Button_messageClick(Sender: TObject);
     procedure RecEscurecerClick(Sender: TObject);
     procedure AnimaFundoFinish(Sender: TObject);
@@ -304,19 +312,19 @@ begin
     //Mensagens referentes a categorias
     tpmCategoria_Inserida:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Categorias_OK.Bitmap;
                           Text_message.Text     := categoria_Inserida;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmCategoria_editada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Categorias_OK.Bitmap;
                           Text_message.Text     := categoria_editada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmCategoria_apagada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Categorias_Delete.Bitmap;
                           Text_message.Text     := categoria_apagada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
@@ -324,19 +332,19 @@ begin
     //Mensagens referentes a Tasks
     tpmTasks_Inserida:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Tasks_OK.Bitmap;
                           Text_message.Text     := Tasks_Inserida;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmTasks_editada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Tasks_OK.Bitmap;
                           Text_message.Text     := Tasks_editada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmTasks_apagada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Task_Delete.Bitmap;
                           Text_message.Text     := Tasks_apagada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
@@ -344,20 +352,40 @@ begin
     //Mensagens referentes a Goals
     tpmGoals_Inserida:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Goals_OK.Bitmap;
                           Text_message.Text     := Goals_Inserida;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmGoals_editada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Goals_OK.Bitmap;
                           Text_message.Text     := Goals_editada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmGoals_apagada:
                         begin
-                          Img_message.Bitmap    := Img_sucesso.Bitmap;
+                          Img_message.Bitmap    := Img_Goals_Delete.Bitmap;
                           Text_message.Text     := Goals_apagada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+
+    //Mensagens referentes a Lists
+    tpmLists_Inserida:
+                        begin
+                          Img_message.Bitmap    := Img_lists_OK.Bitmap;
+                          Text_message.Text     := Lists_Inserida;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmLists_editada:
+                        begin
+                          Img_message.Bitmap    := Img_lists_OK.Bitmap;
+                          Text_message.Text     := Lists_editada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+    tpmLists_apagada:
+                        begin
+                          Img_message.Bitmap    := Img_Lists_delete.Bitmap;
+                          Text_message.Text     := Lists_apagada;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
   end;

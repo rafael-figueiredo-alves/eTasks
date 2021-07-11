@@ -145,6 +145,7 @@ type
     procedure ListaDeProdutosItemClick(const Sender: TObject;
       const AItem: TListViewItem);
     procedure Edit_ProdutoTyping(Sender: TObject);
+    procedure ListaMercadoPullRefresh(Sender: TObject);
   private
     { Private declarations }
     FId: string;
@@ -268,7 +269,7 @@ begin
                                              .data(FData)
                                              .id(Fid)
                                               .DeletaItem(erro);
-                                          FMensagem := tpmGoals_Apagada;
+                                          FMensagem := tpmLists_Apagada;
                                          End,
                                          procedure ()
                                          Begin
@@ -376,6 +377,9 @@ begin
                                 Edit_Produto.Text := FItem;
                                 FData := Label_Data.Text;
                                 Btn_apaga_Item.Visible := true;
+                                //ListaDeProdutos.Selected.Index := -1;
+                                ListaDeProdutos.ItemIndex := -1;
+                                ListaDeProdutos.ScrollTo(0);
                                 //MontaListaProdutos;
                              end,
                              Procedure ()
@@ -742,6 +746,9 @@ begin
                                FUnidade := '';
                                FStatus := 'Comprar';
                                Btn_apaga_Item.Visible := false;
+                               //ListaDeProdutos.Selected.Index := -1;
+                               ListaDeProdutos.ItemIndex := -1;
+                               ListaDeProdutos.ScrollTo(0);
                                //MontaListaProdutos;
                              end,
                              Procedure ()
@@ -798,7 +805,7 @@ begin
                                            .unidade(FUnidade)
                                            .Status(FStatus)
                                            .EditaItem(erro);
-                                     FMensagem := tpmGoals_Editada; //trocar mensagem
+                                     FMensagem := tpmLists_Editada;
                                    end;
                                   mNovo:
                                    begin
@@ -811,7 +818,7 @@ begin
                                            .unidade(FUnidade)
                                            .Status(FStatus)
                                            .NovoItem(erro);
-                                     FMensagem := tpmGoals_Inserida;  //trocar mensagem
+                                     FMensagem := tpmLists_Inserida;
                                    end;
                                 end;
                               end,
@@ -862,8 +869,8 @@ end;
 procedure Tandroid_listas.ListaMercadoItemClickEx(const Sender: TObject;
 ItemIndex: Integer; const LocalClickPos: TPointF;
 const ItemObject: TListItemDrawable);
-{ Var
-  ErroStatus : string; }
+Var
+  ErroStatus : string;
 begin
   if TListView(Sender).Selected <> nil then
   begin
@@ -873,27 +880,29 @@ begin
       begin
         if ItemObject.TagString = 'Comprar' then
         begin
-          { TControllerFactory.New.Tarefas
+          TControllerFactory.New.ItemLista
+            .data(FData)
             .id(TListView(sender).Items[ItemIndex].TagString)
-            .Status('concluido')
+            .Status('Comprado')
             .MudaStatus(ErroStatus);
             if ErroStatus = '' then
-            begin }
-          TListItemImage(ItemObject).Bitmap := Img_item_comprado.Bitmap;
-          ItemObject.TagString := 'Comprado';
-          // end;
+            begin
+             TListItemImage(ItemObject).Bitmap := Img_item_comprado.Bitmap;
+             ItemObject.TagString := 'Comprado';
+            end;
         end
         else
         begin
-          { TControllerFactory.New.Tarefas
+          TControllerFactory.New.ItemLista
+            .data(FData)
             .id(TListView(sender).Items[ItemIndex].TagString)
-            .Status('fazer')
+            .Status('Comprar')
             .MudaStatus(ErroStatus);
             if ErroStatus = '' then
-            begin }
-          TListItemImage(ItemObject).Bitmap := Img_item_comprar.Bitmap;
-          ItemObject.TagString := 'Comprar';
-          // end;
+             begin
+              TListItemImage(ItemObject).Bitmap := Img_item_comprar.Bitmap;
+              ItemObject.TagString := 'Comprar';
+             end;
         end;
       end
       else
@@ -925,6 +934,11 @@ begin
     end;
 
   end;
+end;
+
+procedure Tandroid_listas.ListaMercadoPullRefresh(Sender: TObject);
+begin
+  ListarItens(FData);
 end;
 
 procedure Tandroid_listas.TabListasChange(Sender: TObject);

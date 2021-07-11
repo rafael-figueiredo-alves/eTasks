@@ -76,7 +76,8 @@ end;
 
 destructor TControllerItemLista.Destroy;
 begin
-
+  if Assigned(FListagemListas) then
+    FListagemListas.DisposeOf;
   inherited;
 end;
 
