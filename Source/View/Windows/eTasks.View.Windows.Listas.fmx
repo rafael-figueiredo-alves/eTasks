@@ -582,7 +582,7 @@ object Windows_listas: TWindows_listas
       Size.PlatformDefault = False
       StyleLookup = 'TabListasStyle1'
       TabHeight = 49.000000000000000000
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 2
       TabPosition = None
       Sizes = (
@@ -594,7 +594,7 @@ object Windows_listas: TWindows_listas
         CustomIcon = <
           item
           end>
-        IsSelected = True
+        IsSelected = False
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -1986,7 +1986,7 @@ object Windows_listas: TWindows_listas
         CustomIcon = <
           item
           end>
-        IsSelected = False
+        IsSelected = True
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False

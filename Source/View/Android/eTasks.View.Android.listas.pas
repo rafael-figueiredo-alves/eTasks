@@ -380,6 +380,10 @@ begin
                                 //ListaDeProdutos.Selected.Index := -1;
                                 ListaDeProdutos.ItemIndex := -1;
                                 ListaDeProdutos.ScrollTo(0);
+                                ListaDeProdutos.Items.Filter := Function (Pesquisa: string) : Boolean
+                                                                Begin
+                                                                 Result := True;
+                                                                End;
                                 //MontaListaProdutos;
                              end,
                              Procedure ()
@@ -749,6 +753,10 @@ begin
                                //ListaDeProdutos.Selected.Index := -1;
                                ListaDeProdutos.ItemIndex := -1;
                                ListaDeProdutos.ScrollTo(0);
+                               ListaDeProdutos.Items.Filter := Function (Pesquisa: string) : Boolean
+                                                               Begin
+                                                                Result := True;
+                                                               End;
                                //MontaListaProdutos;
                              end,
                              Procedure ()
