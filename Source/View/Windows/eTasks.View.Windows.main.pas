@@ -61,7 +61,6 @@ type
     Lay_Lista_vazia: TLayout;
     ListaVaziaFundo: TRectangle;
     Image_sem_tarefas: TImage;
-    Label_sem_tarefas: TLabel;
     Btn_Add_tarefa: TImage;
     ListaAcoes: TActionList;
     ActFotoGaleria: TTakePhotoFromLibraryAction;
@@ -154,6 +153,7 @@ type
     Btn_atualizar_label: TLabel;
     btn_atualizar_img: TImage;
     Ani_btn_atualizar: TFloatAnimation;
+    Seta_Sem_Tasks: TImage;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -461,6 +461,7 @@ begin
                                 loading.Loading.Fechar;
                                 listaTarefas.Items.Clear;
                                 Lay_Lista_vazia.Visible := False;
+                                Seta_Sem_Tasks.Visible  := False;
                                 if Tarefas.ListagemdeTarefas.Count <> 0 then
                                  begin
                                    ListaTarefas.BeginUpdate;
@@ -469,7 +470,10 @@ begin
                                    ListaTarefas.EndUpdate;
                                  end
                                 else
-                                 Lay_Lista_vazia.Visible := True;
+                                 begin
+                                  Lay_Lista_vazia.Visible := True;
+                                  Seta_Sem_Tasks.Visible  := true;
+                                 end;
                               end);
 end;
 

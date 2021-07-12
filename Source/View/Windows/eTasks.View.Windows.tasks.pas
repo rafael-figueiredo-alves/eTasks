@@ -50,7 +50,6 @@ type
     Lay_Lista_vazia: TLayout;
     ListaVaziaFundo: TRectangle;
     Image_sem_tarefas: TImage;
-    Label_sem_tarefas: TLabel;
     Btn_Add_tarefa: TImage;
     TabExibeTarefa: TTabItem;
     Btn_apaga_task: TImage;
@@ -124,6 +123,7 @@ type
     Estilo_tasks: TStyleBook;
     ValidaTarefa: TTimer;
     Lay_container: TLayout;
+    Seta_Sem_tasks: TImage;
     procedure Label_DataClick(Sender: TObject);
     procedure Btn_Volta_dataClick(Sender: TObject);
     procedure Btn_Avanca_dataClick(Sender: TObject);
@@ -311,6 +311,7 @@ begin
                                 loading.Loading.Fechar;
                                 listaTarefas.Items.Clear;
                                 Lay_Lista_vazia.Visible := False;
+                                Seta_Sem_tasks.Visible  := false;
                                 if Tarefas.ListagemdeTarefas.Count <> 0 then
                                  begin
                                    ListaTarefas.BeginUpdate;
@@ -319,7 +320,10 @@ begin
                                    ListaTarefas.EndUpdate;
                                  end
                                 else
-                                 Lay_Lista_vazia.Visible := True;
+                                 begin
+                                  Lay_Lista_vazia.Visible := True;
+                                  Seta_Sem_tasks.Visible  := True;
+                                 end;
                               end);
 end;
 

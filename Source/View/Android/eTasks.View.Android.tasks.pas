@@ -59,7 +59,6 @@ type
     Lay_Lista_vazia: TLayout;
     ListaVaziaFundo: TRectangle;
     Image_sem_tarefas: TImage;
-    Label_sem_tarefas: TLabel;
     Img_Afazer: TImage;
     Img_Concluido: TImage;
     RecStatus: TRectangle;
@@ -126,6 +125,7 @@ type
     ShadowEffect2: TShadowEffect;
     AnimaTelaCategorias: TFloatAnimation;
     ValidaTarefa: TTimer;
+    Seta_Sem_tasks: TImage;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
     procedure AnimaStatusFinish(Sender: TObject);
@@ -339,6 +339,7 @@ begin
                                  begin
                                   listaTarefas.Items.Clear;
                                   Lay_Lista_vazia.Visible := False;
+                                  Seta_Sem_Tasks.Visible  := False;
                                   if Tarefas.ListagemdeTarefas.Count <> 0 then
                                    begin
                                     ListaTarefas.BeginUpdate;
@@ -347,7 +348,10 @@ begin
                                     ListaTarefas.EndUpdate;
                                    end
                                   else
-                                   Lay_Lista_vazia.Visible := True;
+                                   begin
+                                    Lay_Lista_vazia.Visible := True;
+                                    Seta_Sem_tasks.Visible  := true;
+                                   end;
                                  end
                                 else
                                  begin

@@ -63,7 +63,7 @@ Type
   //Mensagens referentes a Listas
   Lists_Editada  = 'Item da lista foi editado com sucesso!';
   Lists_Inserida = 'Item foi adicionado a lista de compras com sucesso!';
-  Lists_Apagada  = 'Item foi reovido da lista de compras com sucesso!';
+  Lists_Apagada  = 'Item foi removido da lista de compras com sucesso!';
 
 implementation
 

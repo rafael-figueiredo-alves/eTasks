@@ -127,7 +127,6 @@ type
     Lay_Lista_vazia: TLayout;
     ListaVaziaFundo: TRectangle;
     Image_sem_tarefas: TImage;
-    Label_sem_tarefas: TLabel;
     RecAniForms: TRectangle;
     ShadowEffect7: TShadowEffect;
     AniAberturaFechaForm: TFloatAnimation;
@@ -151,6 +150,7 @@ type
     Btn_atualizar_label: TLabel;
     btn_atualizar_img: TImage;
     Ani_btn_atualizar: TFloatAnimation;
+    Seta_Sem_Tasks: TImage;
     procedure FormCreate(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure Btn_fecha_main_menuClick(Sender: TObject);
@@ -460,6 +460,7 @@ begin
                                  begin
                                   listaTarefas.Items.Clear;
                                   Lay_Lista_vazia.Visible := False;
+                                  Seta_Sem_tasks.Visible  := False;
                                   if Tarefas.ListagemdeTarefas.Count <> 0 then
                                    begin
                                     ListaTarefas.BeginUpdate;
@@ -468,7 +469,10 @@ begin
                                     ListaTarefas.EndUpdate;
                                    end
                                   else
-                                   Lay_Lista_vazia.Visible := True;
+                                   begin
+                                    Lay_Lista_vazia.Visible := True;
+                                    Seta_Sem_Tasks.Visible  := True;
+                                   end;
                                  end
                                 else
                                  begin

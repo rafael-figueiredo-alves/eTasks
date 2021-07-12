@@ -42,6 +42,7 @@ type
     TabAtualizacao: TTabItem;
     procedure AnimaStatusFinish(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,6 +70,11 @@ begin
 end;
 
 procedure TForm_Android_Ajuda.Botao_voltarClick(Sender: TObject);
+begin
+  AnimaStatus.Start;
+end;
+
+procedure TForm_Android_Ajuda.FormShow(Sender: TObject);
 begin
   AnimaStatus.Start;
 end;
