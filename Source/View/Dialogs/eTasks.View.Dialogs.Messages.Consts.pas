@@ -11,7 +11,8 @@ Type
                   tpmCategoria_Editada, tpmCategoria_Inserida, tpmCategoria_Apagada,
                   tpmTasks_Editada, tpmTasks_Inserida, tpmTasks_Apagada,
                   tpmGoals_Editada, tpmGoals_Inserida, tpmGoals_Apagada,
-                  tpmLists_Editada, tpmLists_Inserida, tpmLists_Apagada);
+                  tpmLists_Editada, tpmLists_Inserida, tpmLists_Apagada,
+                  tpmNo_Updates);
 
  ResourceString
 
@@ -64,6 +65,9 @@ Type
   Lists_Editada  = 'Item da lista foi editado com sucesso!';
   Lists_Inserida = 'Item foi adicionado a lista de compras com sucesso!';
   Lists_Apagada  = 'Item foi removido da lista de compras com sucesso!';
+
+  //Mensagem de nenhuma atualização disponível
+  No_updates = 'Você já está utilizando a versão mais atualizada do eTasks. Parabéns!!!';
 
 implementation
 

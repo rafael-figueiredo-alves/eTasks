@@ -37,7 +37,7 @@ uses
 
 type
   Telas = (TelaTarefas, TelaTarefas_Novo, TelaTarefas_Editar, TelaTarefas_exibe,
-           TelaCategorias, TelaObjetivos, TelaListas, TelaAjuda);
+           TelaCategorias, TelaObjetivos, TelaListas);
 
   TForm_Windows_Main = class(TForm)
     Img_Afazer: TImage;
@@ -89,9 +89,6 @@ type
     Menu_compras: TLayout;
     img_compras: TImage;
     txtCompras: TLabel;
-    menu_ajuda: TLayout;
-    Img_ajuda: TImage;
-    TxtAjuda: TLabel;
     Menu_sobre: TLayout;
     img_Sobre: TImage;
     txtSobre: TLabel;
@@ -154,6 +151,15 @@ type
     btn_atualizar_img: TImage;
     Ani_btn_atualizar: TFloatAnimation;
     Seta_Sem_Tasks: TImage;
+    FlyOut_Update: TLayout;
+    FlyOut_fundo: TRectangle;
+    img_atualizar: TImage;
+    Lay_flyout_conteudo: TLayout;
+    text_flyout: TLabel;
+    Btn_atualizar_agora: TRectangle;
+    Txt_btn_atualizar_agora: TLabel;
+    Sombra_fly_out: TShadowEffect;
+    Anima_FlyOut_update: TFloatAnimation;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -183,23 +189,24 @@ type
     procedure Menu_categoriasClick(Sender: TObject);
     procedure Menu_metasClick(Sender: TObject);
     procedure Menu_comprasClick(Sender: TObject);
-    procedure menu_ajudaClick(Sender: TObject);
     procedure btn_atualizarClick(Sender: TObject);
+    procedure Anima_FlyOut_updateFinish(Sender: TObject);
+    procedure Btn_atualizar_agoraClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
-    //Dialogs     : iViewDialogsFactory;
+    Dialogs     : iViewDialogsFactory;
     Loading     : iViewDialogsFactory;
     FCalendar   : iViewDialogsFactory;
 
     FTela       : Telas;
 
-    FTelaAjuda   : iWindowsTelas;
     FTelaTarefas : iWindowsTelas;
     FTela_Categorias : iWindowsTelas;
     FTela_Objetivos : iWindowsTelas;
     FTela_Listas    : iWindowsTelas;
     FId_tarefa  : string;
+    TemConexao : boolean;
 
     Procedure TirarFotoCamera;
     Procedure PegarFotoGaleria;
@@ -214,6 +221,9 @@ type
     { Public declarations }
     Procedure AberturaFormPrincipal;
     Procedure ListarTarefas(Data: string);
+
+    Procedure Ask_to_start_Update(versao : string);
+    Procedure No_Updates_available;
   end;
 
 var
@@ -235,16 +245,25 @@ uses
   eTasks.View.Dialogs.EditarFoto,
   eTasks.View.Dialogs.Messages.Consts,
   //eTasks - Form units
-  eTasks.View.Windows.login, eTasks.View.Windows.tasks,
+  eTasks.View.Windows.login,
+  eTasks.View.Windows.tasks,
   eTasks.View.Windows.categories;
 
 {$R *.fmx}
 
 
 procedure TForm_Windows_Main.AberturaFormPrincipal;
+Var
+ update_available : boolean;
+ versao : string;
 begin
   AtualizaInfoUsuarioLogado;
   ListarTarefas(DateToStr(Now));
+  Update_available := teTasksLibrary.CheckUpdate(versao);
+  if Update_available = true then
+   begin
+    Anima_FlyOut_update.Start;
+   end;
 end;
 
 procedure TForm_Windows_Main.AbreTela(Tela: Telas);
@@ -390,21 +409,53 @@ begin
                                                       .exibir
                                                  );
                          end;
-      TelaAjuda        : begin
-                           FTelaAjuda := tWindowsTelas.New;
-                           Lay_container.AddObject(FTelaAjuda.Tela_Ajuda
-                                                                 .BtnVoltarClick(Procedure ()
-                                                                                 begin
-                                                                                   AniAberturaFechaForm.Start;
-                                                                                   FTelaAjuda := nil;
-                                                                                 end)
-                                                                  .Exibir
-                                                   );
-                         end;
      end;
    end
   else
    AniAberturaFechaForm.Inverse := False;
+end;
+
+procedure TForm_Windows_Main.Anima_FlyOut_updateFinish(Sender: TObject);
+begin
+  if Anima_FlyOut_update.Inverse = true then
+   Anima_FlyOut_update.Delay := 0.1
+  else
+   begin
+    Anima_FlyOut_update.Delay := 8;
+    Anima_FlyOut_update.Start;
+   end;
+  Anima_FlyOut_update.Inverse := not (Anima_FlyOut_update.Inverse);
+end;
+
+procedure TForm_Windows_Main.Ask_to_start_Update(versao : string);
+begin
+  dialogs := TViewDialogsMessages.New;
+  Form_Windows_Main.AddObject(
+                              Dialogs
+                               .Pai(Form_Windows_Main)
+                               .DialogYesNo
+                                 .DownloadUpdate
+                                 .Messagem('Há uma atualização disponível para a versão '+versao+'! Deseja atualizar agora?')
+                                 .BtnYes(
+                                         procedure ()
+                                         begin
+                                         dialogs := nil;
+                                         end
+                                        )
+                                 .BtnNo(
+                                         procedure ()
+                                         begin
+                                         dialogs := nil;
+                                         end
+                                        )
+                                 .Fundo (
+                                         procedure ()
+                                         begin
+                                         dialogs := nil;
+                                         end
+                                        )
+                                 .Exibe
+                             );
 end;
 
 procedure TForm_Windows_Main.AtualizaInfoUsuarioLogado;
@@ -500,11 +551,16 @@ begin
                              Begin
                                ani_btn_atualizar.Stop;
                                if Update_available = true then
-                                ShowMessage('Há uma nova versão do eTasks disponível!'+#13+versao)
+                                Ask_to_start_Update(Versao)
                                else
-                                ShowMessage('Você já está usando a versão mais atual do eTasks!'+#13+versao);
+                                No_Updates_available;
                              End
                             );
+end;
+
+procedure TForm_Windows_Main.Btn_atualizar_agoraClick(Sender: TObject);
+begin
+  ShowMessage('Teste atualização');
 end;
 
 procedure TForm_Windows_Main.Btn_Avanca_dataClick(Sender: TObject);
@@ -649,8 +705,6 @@ begin
 end;
 
 procedure TForm_Windows_Main.FormShow(Sender: TObject);
-Var
- TemConexao : Boolean;
 begin
  teTasksLibrary.CustomThread(Procedure ()
                              begin
@@ -786,15 +840,6 @@ begin
   txt.Width := ListaTarefas.Width - txt.PlaceOffset.X - 68;
 end;
 
-procedure TForm_Windows_Main.menu_ajudaClick(Sender: TObject);
-begin
-  if MainMenu.Mode = TMultiViewMode.Drawer then
-   MainMenu.HideMaster;
-  if RecAniForms.Position.Y = -50 then
-   AniAberturaFechaForm.Inverse := False;
-  AbreTela(TelaAjuda);
-end;
-
 procedure TForm_Windows_Main.Menu_categoriasClick(Sender: TObject);
 begin
   if MainMenu.Mode = TMultiViewMode.Drawer then
@@ -847,6 +892,30 @@ begin
   if RecAniForms.Position.Y = -50 then
    AniAberturaFechaForm.Inverse := False;
   AbreTela(TelaTarefas);
+end;
+
+procedure TForm_Windows_Main.No_Updates_available;
+begin
+  Dialogs := TViewDialogsMessages.New;
+  Form_Windows_Main.AddObject(
+                              Dialogs
+                                .Pai(Form_Windows_Main)
+                                .DialogMessages
+                                   .TipoMensagem(tpmNo_Updates)
+                                   .AcaoBotao(
+                                              Procedure ()
+                                              begin
+                                                Dialogs := nil;
+                                              end
+                                             )
+                                   .AcaoFundo(
+                                              Procedure ()
+                                              begin
+                                                Dialogs := nil;
+                                              end
+                                             )
+                                   .Exibe
+                             );
 end;
 
 procedure TForm_Windows_Main.PegarFotoGaleria;

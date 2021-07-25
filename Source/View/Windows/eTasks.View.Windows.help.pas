@@ -177,6 +177,11 @@ begin
       Btn_Home.Visible := false;
       Btn_Avancar_Pagina.Visible := False;
      end;
+  1: begin
+      Btn_Voltar_pagina.Visible := false;
+      Btn_Home.Visible := false;
+      Btn_Avancar_Pagina.Visible := False;
+     end;
  else
   begin
    Btn_Avancar_Pagina.Visible := True;

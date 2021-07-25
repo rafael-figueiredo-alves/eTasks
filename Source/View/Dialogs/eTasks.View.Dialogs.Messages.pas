@@ -42,6 +42,7 @@ type
     Img_lists_OK: TImage;
     Img_Categorias_Delete: TImage;
     Img_Categorias_OK: TImage;
+    Img_No_updates: TImage;
     procedure Button_messageClick(Sender: TObject);
     procedure RecEscurecerClick(Sender: TObject);
     procedure AnimaFundoFinish(Sender: TObject);
@@ -386,6 +387,13 @@ begin
                         begin
                           Img_message.Bitmap    := Img_Lists_delete.Bitmap;
                           Text_message.Text     := Lists_apagada;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
+                        end;
+
+    tpmNo_Updates:
+                        begin
+                          Img_message.Bitmap    := Img_No_updates.Bitmap;
+                          Text_message.Text     := No_updates;
                           Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
   end;

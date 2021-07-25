@@ -24,6 +24,7 @@ type
     Text_message: TLabel;
     AnimaDialogo: TFloatAnimation;
     button_message_yes: TImage;
+    Img_download_update: TImage;
     procedure RecEscurecerClick(Sender: TObject);
     procedure Button_message_noClick(Sender: TObject);
     procedure button_message_yesClick(Sender: TObject);
@@ -42,6 +43,7 @@ type
     Function BtnYes   (Value : TProc ) : TDialogYesNo;
     Function BtnNo    (Value : TProc ) : TDialogYesNo;
     Function Fundo    (Value : TProc ) : TDialogYesNo;
+    Function DownloadUpdate : tdialogYesNo;
     Procedure Fechar;
   end;
 
@@ -104,6 +106,12 @@ begin
   AnimaFundo.Inverse := True;
   AnimaDialogo.Start;
   AnimaFundo.Start;
+end;
+
+function TDialogYesNo.DownloadUpdate: tdialogYesNo;
+begin
+  Img_message.Bitmap := Img_download_update.Bitmap;
+  Result := Self;
 end;
 
 function TDialogYesNo.Exibe: TLayout;

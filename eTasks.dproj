@@ -237,9 +237,6 @@
         <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas"/>
         <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas"/>
         <DCCReference Include="Source\View\Android\eTasks.View.Android.tasks.pas"/>
-        <DCCReference Include="Source\View\Android\eTasks.View.Android.help.pas">
-            <Form>Form_Android_Ajuda</Form>
-        </DCCReference>
         <DCCReference Include="Source\View\Android\eTasks.View.Android.Categories.pas"/>
         <DCCReference Include="Source\View\Android\eTasks.View.Android.Metas.pas">
             <Form>Android_metas</Form>
@@ -446,14 +443,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
                     <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
