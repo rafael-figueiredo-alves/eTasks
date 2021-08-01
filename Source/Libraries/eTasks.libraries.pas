@@ -259,6 +259,11 @@ begin
     TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));
   Result := true;
   {$endif}
+  {$ifdef ANDROID}
+  if FileExists(TPath.Combine(TPath.GetTempPath, 'eTasks.apk')) then
+    TFile.Delete(TPath.Combine(TPath.GetTempPath, 'eTasks.apk'));
+  Result := true;
+  {$endif}
 end;
 
 end.

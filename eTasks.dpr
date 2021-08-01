@@ -95,6 +95,7 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   {$IFDEF ANDROID}
+  teTasksLibrary.LimparUpdate;
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   if not TModelLoggedUser.Verificar then
    Application.CreateForm(TForm_Android_Login, Form_Android_Login)
