@@ -18,17 +18,22 @@ Type
                                 );
     Class Function CheckInternet                         : Boolean;
     Class Function CheckUpdate (out nome_versao: string) : Boolean;
+    Class Function DownloadUpdate (out erro: string) : boolean;
   end;
 
 implementation
 
 uses
   System.Classes,
+  System.IOUtils,
   System.Net.URLClient,
   System.Net.HttpClient,
   System.Net.HttpClientComponent,
   IdHTTP,
   rest.json,
+  {$ifdef MSWINDOWS}
+  Winapi.Windows,
+  {$endif}
   System.JSON;
 
 { teTasksLibrary }
@@ -180,6 +185,41 @@ begin
 
   LThread.FreeOnTerminate := True;
   LThread.Start;
+end;
+
+class function teTasksLibrary.DownloadUpdate(out erro: string): boolean;
+var
+   Net                  : THTTPClient;
+   eTasksFile           : TFileStream;
+   Arquivo_temp_install : string;
+begin
+  Result := false;
+
+  {$ifdef Android}
+  Arquivo_temp_install := TPath.Combine(TPath.GetTempPath, 'eTasks.apk');
+  {$endif}
+
+  {$ifdef MSWINDOWS}
+  Arquivo_temp_install := TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe');
+  RenameFile(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe'), TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));
+  try
+   eTasksFile := TFileStream.Create(arquivo_temp_install, fmCreate);
+   try
+     net := THTTPClient.Create;
+     try
+       Result := Net.Get('https://github.com/rafael-figueiredo-alves/eTasks/releases/download/v1.0.1-beta/eTasks.exe', eTasksFile).StatusCode < 400;
+     except
+      erro := 'Ocorreu um erro!'
+     end;
+   finally
+     net.DisposeOf;
+   end;
+  finally
+    eTasksFile.DisposeOf;
+  end;
+  {$endif}
+
+
 end;
 
 end.

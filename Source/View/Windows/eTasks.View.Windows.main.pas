@@ -559,8 +559,22 @@ begin
 end;
 
 procedure TForm_Windows_Main.Btn_atualizar_agoraClick(Sender: TObject);
+var Erro: string;
 begin
-  ShowMessage('Teste atualização');
+  teTasksLibrary.CustomThread(
+                              Procedure()
+                              begin
+                                showmessage('Iniciando atualização...');
+                              end,
+                              Procedure()
+                              begin
+                                teTasksLibrary.DownloadUpdate(erro);
+                              end,
+                              Procedure()
+                              begin
+                                  ShowMessage(erro);
+                              end
+                             );
 end;
 
 procedure TForm_Windows_Main.Btn_Avanca_dataClick(Sender: TObject);
