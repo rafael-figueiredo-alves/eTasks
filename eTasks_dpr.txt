@@ -102,6 +102,7 @@ begin
    Application.CreateForm(TForm_Android_main, Form_Android_Main);
   {$ENDIF}
   {$IFDEF MSWINDOWS}
+  teTasksLibrary.LimparUpdate;
   if not TModelLoggedUser.Verificar then
    Application.CreateForm(TForm_Windows_Login, Form_Windows_Login)
   else
