@@ -19,6 +19,7 @@ Type
     Class Function CheckInternet                         : Boolean;
     Class Function CheckUpdate (out nome_versao: string) : Boolean;
     Class Function DownloadUpdate (out erro: string) : boolean;
+    Class Function LimparUpdate : boolean;
   end;
 
 implementation
@@ -37,6 +38,36 @@ uses
   System.JSON;
 
 { teTasksLibrary }
+
+Function LinktoDownload (Plataforma : string) : string;
+var
+ Rest   : TNetHTTPClient;
+ Resp   : IHTTPResponse;
+ Obj    : tjsonObject;
+begin
+  Rest := TNetHTTPClient.Create(nil);
+  try
+    try
+     Resp := rest.Get('https://etasks-d6988.firebaseio.com/etasks/v1/version.json');
+     Obj := TJSONObject.ParseJSONValue(Resp.ContentAsString()) as TJSONObject;
+     if plataforma = 'Windows' then
+      Result := Obj.GetValue('pathexe').Value
+     else
+      Result := Obj.GetValue('pathapk').Value;
+     Obj.DisposeOf;
+    except
+     on E: Exception do begin
+      if not (E is EIdHTTPProtocolException) then begin
+        Result := '';
+        Rest.DisposeOf;
+        Exit;
+     end;
+     end;
+    end;
+  finally
+    Rest.DisposeOf;
+  end;
+end;
 
 class function teTasksLibrary.CheckInternet: Boolean;
 var
@@ -82,7 +113,7 @@ Var
  Obj    : tjsonObject;
  Versao : integer;
 Const
- Versao_eTasks = 1; 
+ Versao_eTasks = 1;
 begin
   Result := False;
   Rest := TNetHTTPClient.Create(nil);
@@ -91,7 +122,7 @@ begin
      Resp := rest.Get('https://etasks-d6988.firebaseio.com/etasks/v1/version.json');
      Obj := TJSONObject.ParseJSONValue(Resp.ContentAsString()) as TJSONObject;
      Versao := Obj.GetValue('version').Value.ToInteger;
-     nome_versao := Obj.GetValue('versionname').Value; 
+     nome_versao := Obj.GetValue('versionname').Value;
      if Versao > Versao_eTasks then
       Result := True
      else
@@ -189,9 +220,9 @@ end;
 
 class function teTasksLibrary.DownloadUpdate(out erro: string): boolean;
 var
-   Net                  : THTTPClient;
-   eTasksFile           : TFileStream;
-   Arquivo_temp_install : string;
+ Net                  : THTTPClient;
+ eTasksFile           : TFileStream;
+ Arquivo_temp_install : string;
 begin
   Result := false;
 
@@ -207,7 +238,7 @@ begin
    try
      net := THTTPClient.Create;
      try
-       Result := Net.Get('https://github.com/rafael-figueiredo-alves/eTasks/releases/download/v1.0.1-beta/eTasks.exe', eTasksFile).StatusCode < 400;
+       Result := Net.Get(LinktoDownload('Windows'), eTasksFile).StatusCode < 400;
      except
       erro := 'Ocorreu um erro!'
      end;
@@ -218,8 +249,16 @@ begin
     eTasksFile.DisposeOf;
   end;
   {$endif}
+end;
 
-
+class function teTasksLibrary.LimparUpdate: boolean;
+begin
+  Result := false;
+  {$ifdef MSWINDOWS}
+  if FileExists(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe')) then
+    TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));
+  Result := true;
+  {$endif}
 end;
 
 end.
