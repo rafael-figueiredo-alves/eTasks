@@ -6,7 +6,7 @@
         <MainSource>eTasks.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -100,6 +100,7 @@
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <SanitizedProjectName>eTasks</SanitizedProjectName>
         <DCC_UnitSearchPath>modules\.dcp;modules\.dcu;modules;modules\firebaseclasses;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <OrientationPortrait>true</OrientationPortrait>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;ZCore;tethering;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;ZParseSql;dsnap;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;ZDbc;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;bindcomp;ZPlain;IndyIPClient;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -194,7 +195,7 @@
     <PropertyGroup Condition="'$(Cfg_1_Android)'!=''">
         <VerInfo_Build>1</VerInfo_Build>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
-        <VerInfo_Keys>package=br.devpegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.1;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <AUP_REQUEST_INSTALL_PACKAGES>true</AUP_REQUEST_INSTALL_PACKAGES>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -234,25 +235,18 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Source\Libraries\eTasks.libraries.Android.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.login.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.main.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.tasks.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.Categories.pas"/>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.Metas.pas">
+            <Form>Android_metas</Form>
+        </DCCReference>
+        <DCCReference Include="Source\View\Android\eTasks.View.Android.listas.pas">
+            <Form>android_listas</Form>
+        </DCCReference>
         <DCCReference Include="Source\View\Windows\eTasks.View.Windows.login.pas">
             <Form>Form_Windows_Login</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.main.pas">
-            <Form>Form_Windows_Main</Form>
-        </DCCReference>
-        <DCCReference Include="Source\Libraries\eTasks.libraries.Windows.pas"/>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Telas.pas"/>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.tasks.pas">
-            <Form>Windows_tarefas</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Categories.pas">
-            <Form>Windows_categorias</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Metas.pas">
-            <Form>Windows_Metas</Form>
-        </DCCReference>
-        <DCCReference Include="Source\View\Windows\eTasks.View.Windows.Listas.pas">
-            <Form>Windows_listas</Form>
         </DCCReference>
         <DCCReference Include="Source\View\Dialogs\eTasks.View.Dialogs.SheetFotos.pas">
             <Form>Sheet_fotos</Form>

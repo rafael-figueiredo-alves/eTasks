@@ -190,6 +190,7 @@ type
     procedure btn_atualizarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Anima_FlyOut_updateFinish(Sender: TObject);
+    procedure Btn_atualizar_agoraClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -564,6 +565,30 @@ begin
                                 No_update_available;
                              End
                             );
+end;
+
+procedure TForm_Android_main.Btn_atualizar_agoraClick(Sender: TObject);
+var Erro: string;
+begin
+  teTasksLibrary.CustomThread(
+                              Procedure()
+                              begin
+                                showmessage('Iniciando atualização...');
+                              end,
+                              Procedure()
+                              begin
+                                teTasksLibrary.DownloadUpdate(erro);
+                              end,
+                              Procedure()
+                              begin
+                                //ShowMessage('Instalar');
+                                if tLibraryAndroid.AtualizarApp then
+                                 showmessage('Instalado')
+                                else
+                                 showmessage('Sem sucesso');
+                                showmessage('O que houve?');
+                              end
+                             );
 end;
 
 procedure TForm_Android_main.Btn_Avanca_dataClick(Sender: TObject);

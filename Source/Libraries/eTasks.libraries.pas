@@ -20,6 +20,7 @@ Type
     Class Function CheckUpdate (out nome_versao: string) : Boolean;
     Class Function DownloadUpdate (out erro: string) : boolean;
     Class Function LimparUpdate : boolean;
+    Class Function Teste : string;
   end;
 
 implementation
@@ -32,6 +33,18 @@ uses
   System.Net.HttpClientComponent,
   IdHTTP,
   rest.json,
+  {$ifdef ANDROID}
+  AndroidApi.helpers,
+  AndroidApi.JNI.OS,
+  AndroidApi.JNI.Widget,
+  AndroidApi.JNI.JavaTypes,
+  AndroidApi.JNIBridge,
+  AndroidApi.JNI.App,
+  AndroidApi.JNI.GraphicsContentViewText,
+  FMX.Helpers.Android,
+  idURI,
+  Androidapi.Jni.Net,
+  {$endif}
   {$ifdef MSWINDOWS}
   Winapi.Windows,
   {$endif}
@@ -228,6 +241,21 @@ begin
 
   {$ifdef Android}
   Arquivo_temp_install := TPath.Combine(TPath.GetTempPath, 'eTasks.apk');
+  try
+   eTasksFile := TFileStream.Create(arquivo_temp_install, fmCreate);
+   try
+     net := THTTPClient.Create;
+     try
+       Result := Net.Get(LinktoDownload('Android'), eTasksFile).StatusCode < 400;
+     except
+      erro := 'Ocorreu um erro!'
+     end;
+   finally
+     net.DisposeOf;
+   end;
+  finally
+    eTasksFile.DisposeOf;
+  end;
   {$endif}
 
   {$ifdef MSWINDOWS}
@@ -264,6 +292,11 @@ begin
     TFile.Delete(TPath.Combine(TPath.GetTempPath, 'eTasks.apk'));
   Result := true;
   {$endif}
+end;
+
+class function teTasksLibrary.Teste: string;
+begin
+  Result := TPath.GetTempPath;
 end;
 
 end.

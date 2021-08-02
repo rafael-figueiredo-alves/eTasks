@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="br.devpegasus.eTasks"
+        package="br.DevPegasus.eTasks"
         android:versionCode="1"
         android:versionName="1.0.1"
         android:installLocation="auto">
@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -26,7 +27,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="br.devpegasus.eTasks.fileprovider"
+            android:authorities="br.DevPegasus.eTasks.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

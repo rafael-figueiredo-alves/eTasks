@@ -13,6 +13,7 @@ Type
    Class Function PermissaoGaleria : TArray<string>;
    Class Procedure EnviarEmail(destinatario, assunto, texto : string);
    Class Procedure AbrirLink(Link : string);
+   Class Function AtualizarApp: boolean;
  End;
 
 implementation
@@ -29,7 +30,8 @@ Uses
   AndroidApi.JNI.GraphicsContentViewText,
   FMX.Helpers.Android,
   idURI,
-  Androidapi.Jni.Net;
+  Androidapi.Jni.Net,
+  System.ioutils;
 
 class procedure tLibraryAndroid.AbrirLink(Link: string);
 var
@@ -37,6 +39,32 @@ var
 begin
    Intent := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW, TJnet_Uri.JavaClass.parse(StringToJString(TIdURI.URLEncode(link))));
    TAndroidHelper.Activity.startActivity(Intent);
+end;
+
+class Function tLibraryAndroid.AtualizarApp : boolean;
+var
+ Arquivo_temp_install : string;
+ UpdateApp : JIntent;
+begin
+  Result := false;
+  Arquivo_temp_install := TPath.Combine(TPath.GetTempPath, 'eTasks.apk');
+  if FileExists(Arquivo_temp_install) = true then
+   begin
+    try
+     UpdateApp := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_INSTALL_PACKAGE);
+     UpdateApp.setFlags(TJIntent.JavaClass.FLAG_GRANT_READ_URI_PERMISSION);
+     //UpdateApp.setDataAndType(TJnet_Uri.JavaClass.fromFile(TJFile.JavaClass.init(StringToJString(Arquivo_temp_install))), StringToJString('application/vnd.android.package-archive'));
+     UpdateApp.setData(TJnet_Uri.JavaClass.fromFile(TJFile.JavaClass.init(StringToJString(Arquivo_temp_install))));
+     try
+      TAndroidHelper.Activity.startActivity(UpdateApp);
+      Result := true;
+     except
+      Result := false;
+     end;
+    except
+      Result := False;
+    end;
+   end;
 end;
 
 class procedure tLibraryAndroid.EnviarEmail(destinatario, assunto,
