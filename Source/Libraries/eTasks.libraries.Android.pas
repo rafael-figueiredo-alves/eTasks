@@ -30,8 +30,44 @@ Uses
   AndroidApi.JNI.GraphicsContentViewText,
   FMX.Helpers.Android,
   idURI,
+  System.Net.URLClient,
+  System.Net.HttpClient,
+  System.Net.HttpClientComponent,
+  IdHTTP,
+  rest.json,
+  System.json,
   Androidapi.Jni.Net,
   System.ioutils;
+
+Function LinktoDownload (Plataforma : string) : string;
+var
+ Rest   : TNetHTTPClient;
+ Resp   : IHTTPResponse;
+ Obj    : tjsonObject;
+begin
+  Rest := TNetHTTPClient.Create(nil);
+  try
+    try
+     Resp := rest.Get('https://etasks-d6988.firebaseio.com/etasks/v1/version.json');
+     Obj := TJSONObject.ParseJSONValue(Resp.ContentAsString()) as TJSONObject;
+     if plataforma = 'Windows' then
+      Result := Obj.GetValue('pathexe').Value
+     else
+      Result := Obj.GetValue('pathapk').Value;
+     Obj.DisposeOf;
+    except
+     on E: Exception do begin
+      if not (E is EIdHTTPProtocolException) then begin
+        Result := '';
+        Rest.DisposeOf;
+        Exit;
+     end;
+     end;
+    end;
+  finally
+    Rest.DisposeOf;
+  end;
+end;
 
 class procedure tLibraryAndroid.AbrirLink(Link: string);
 var
@@ -41,22 +77,26 @@ begin
    TAndroidHelper.Activity.startActivity(Intent);
 end;
 
-class Function tLibraryAndroid.AtualizarApp : boolean;
-var
+class Function tLibraryAndroid.AtualizarApp: boolean;
+{var
  Arquivo_temp_install : string;
  UpdateApp : JIntent;
+ Arq : JFile;}
 begin
-  Result := false;
-  Arquivo_temp_install := TPath.Combine(TPath.GetTempPath, 'eTasks.apk');
+
+  AbrirLink(LinktoDownload('Android'));
+  Result := true;
+  {Arquivo_temp_install := TPath.Combine(TPath.GetTempPath, 'eTasks.apk');
   if FileExists(Arquivo_temp_install) = true then
    begin
     try
-     UpdateApp := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_INSTALL_PACKAGE);
-     UpdateApp.setFlags(TJIntent.JavaClass.FLAG_GRANT_READ_URI_PERMISSION);
-     //UpdateApp.setDataAndType(TJnet_Uri.JavaClass.fromFile(TJFile.JavaClass.init(StringToJString(Arquivo_temp_install))), StringToJString('application/vnd.android.package-archive'));
-     UpdateApp.setData(TJnet_Uri.JavaClass.fromFile(TJFile.JavaClass.init(StringToJString(Arquivo_temp_install))));
+     Arq := TJFile.JavaClass.init(StringToJString(TPath.GetTempPath), StringToJString('eTasks.apk'));
+     UpdateApp := TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW);
+     UpdateApp.setFlags(TJIntent.JavaClass.FLAG_ACTIVITY_NEW_TASK);
+     UpdateApp.setDataAndType(TJnet_Uri.JavaClass.fromFile(arq), StringToJString('application/vnd.android.package-archive'));
+     //UpdateApp.setData(TJnet_Uri.JavaClass.fromFile(TJFile.JavaClass.init(StringToJString(Arquivo_temp_install))));
      try
-      TAndroidHelper.Activity.startActivity(UpdateApp);
+      TAndroidHelper.Context.startActivity(UpdateApp);
       Result := true;
      except
       Result := false;
@@ -64,7 +104,7 @@ begin
     except
       Result := False;
     end;
-   end;
+   end;}
 end;
 
 class procedure tLibraryAndroid.EnviarEmail(destinatario, assunto,

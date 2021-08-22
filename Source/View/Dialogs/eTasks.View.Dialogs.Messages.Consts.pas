@@ -12,7 +12,8 @@ Type
                   tpmTasks_Editada, tpmTasks_Inserida, tpmTasks_Apagada,
                   tpmGoals_Editada, tpmGoals_Inserida, tpmGoals_Apagada,
                   tpmLists_Editada, tpmLists_Inserida, tpmLists_Apagada,
-                  tpmNo_Updates);
+                  tpmNo_Updates,
+                  tpmInfo_Atualizar, tpmInfo_Atualizado);
 
  ResourceString
 
@@ -68,6 +69,10 @@ Type
 
   //Mensagem de nenhuma atualização disponível
   No_updates = 'Você já está utilizando a versão mais atualizada do eTasks. Parabéns!!!';
+
+  //Mensagens sobre atualização
+  Atualizar_info = 'Estamos baixando a atualização. Aguarde um pouco que o processo estará finalizado!';
+  Atualizado_info = 'O eTasks foi atualizado com sucesso. Clique em Entendi para reiniciar o app e começar a usar a versão atualizada!';
 
 implementation
 

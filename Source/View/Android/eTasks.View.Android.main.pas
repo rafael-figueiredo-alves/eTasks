@@ -432,6 +432,9 @@ begin
                                          procedure ()
                                          begin
                                          dialogs := nil;
+                                         MainMenu.HideMaster;
+                                         Tab_menu.ActiveTab := Tab_menu_principal;
+                                         tLibraryAndroid.AtualizarApp;
                                          end
                                         )
                                  .BtnNo(
@@ -568,27 +571,27 @@ begin
 end;
 
 procedure TForm_Android_main.Btn_atualizar_agoraClick(Sender: TObject);
-var Erro: string;
+//var Erro: string;
 begin
-  teTasksLibrary.CustomThread(
+  tlibraryAndroid.AtualizarApp;
+  {teTasksLibrary.CustomThread(
                               Procedure()
                               begin
                                 showmessage('Iniciando atualização...');
                               end,
                               Procedure()
                               begin
-                                teTasksLibrary.DownloadUpdate(erro);
+                                //teTasksLibrary.DownloadUpdate(erro);
                               end,
                               Procedure()
                               begin
                                 //ShowMessage('Instalar');
                                 if tLibraryAndroid.AtualizarApp then
-                                 showmessage('Instalado')
+                                 Application.Terminate
                                 else
                                  showmessage('Sem sucesso');
-                                showmessage('O que houve?');
                               end
-                             );
+                             );}
 end;
 
 procedure TForm_Android_main.Btn_Avanca_dataClick(Sender: TObject);

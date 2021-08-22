@@ -217,6 +217,8 @@ type
     Procedure AbreTela(Tela : Telas);
 
     Procedure Add_tarefa (id, Status, tarefa, descricao: string; categoria: string);
+    procedure InicioDaAtualizacao;
+    procedure AtualizacaoFinalizada;
   public
     { Public declarations }
     Procedure AberturaFormPrincipal;
@@ -427,6 +429,54 @@ begin
   Anima_FlyOut_update.Inverse := not (Anima_FlyOut_update.Inverse);
 end;
 
+Procedure TForm_Windows_main.AtualizacaoFinalizada;
+begin
+  dialogs := TViewDialogsMessages.New;
+  Form_Windows_Main.AddObject(
+                              Dialogs
+                               .Pai(Form_Windows_Main)
+                               .DialogMessages
+                                .TipoMensagem(tpmInfo_Atualizado)
+                                .AcaoBotao(Procedure ()
+                                           begin
+                                             Dialogs := nil;
+                                             Application.Terminate;
+                                             tLibraryWindows.AbrirLink(System.SysUtils.GetCurrentDir + '\eTasks.exe');
+                                           end
+                                          )
+                                .AcaoFundo(Procedure ()
+                                           begin
+                                             Dialogs := nil;
+                                             Application.Terminate;
+                                             tLibraryWindows.AbrirLink(System.SysUtils.GetCurrentDir + '\eTasks.exe');
+                                           end
+                                          )
+                                .Exibe
+                             );
+end;
+
+Procedure TForm_Windows_main.InicioDaAtualizacao;
+begin
+  dialogs := TViewDialogsMessages.New;
+  Form_Windows_Main.AddObject(
+                              Dialogs
+                               .Pai(Form_Windows_Main)
+                               .DialogMessages
+                                .TipoMensagem(tpmInfo_Atualizar)
+                                .AcaoBotao(Procedure ()
+                                           begin
+                                             Dialogs := nil;
+                                           end
+                                          )
+                                .AcaoFundo(Procedure ()
+                                           begin
+                                             Dialogs := nil;
+                                           end
+                                          )
+                                .Exibe
+                             );
+end;
+
 procedure TForm_Windows_Main.Ask_to_start_Update(versao : string);
 begin
   dialogs := TViewDialogsMessages.New;
@@ -564,7 +614,7 @@ begin
   teTasksLibrary.CustomThread(
                               Procedure()
                               begin
-                                showmessage('Iniciando atualização...');
+                               InicioDaAtualizacao;
                               end,
                               Procedure()
                               begin
@@ -572,7 +622,10 @@ begin
                               end,
                               Procedure()
                               begin
-                                  ShowMessage(erro);
+                                if erro = '' then
+                                 AtualizacaoFinalizada
+                                else
+                                 ShowMessage(erro);
                               end
                              );
 end;
