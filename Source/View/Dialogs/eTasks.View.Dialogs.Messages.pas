@@ -402,13 +402,13 @@ begin
                         begin
                           Img_message.Bitmap    := Img_No_updates.Bitmap;
                           Text_message.Text     := Atualizar_info;
-                          Button_message.Bitmap := Btn_comecar.Bitmap;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
     tpmInfo_Atualizado:
                         begin
                           Img_message.Bitmap    := Img_sucesso.Bitmap;
                           Text_message.Text     := Atualizado_info;
-                          Button_message.Bitmap := Btn_comecar.Bitmap;
+                          Button_message.Bitmap := btn_entendi.Bitmap;
                         end;
   end;
 end;

@@ -478,6 +478,7 @@ begin
 end;
 
 procedure TForm_Windows_Main.Ask_to_start_Update(versao : string);
+var erro : string;
 begin
   dialogs := TViewDialogsMessages.New;
   Form_Windows_Main.AddObject(
@@ -490,6 +491,25 @@ begin
                                          procedure ()
                                          begin
                                          dialogs := nil;
+                                         MainMenu.HideMaster;
+                                         Tab_menu.ActiveTab := Tab_menu_principal;
+                                         teTasksLibrary.CustomThread(
+                                                                     Procedure()
+                                                                     begin
+                                                                      InicioDaAtualizacao;
+                                                                     end,
+                                                                     Procedure()
+                                                                     begin
+                                                                      teTasksLibrary.DownloadUpdate(erro);
+                                                                     end,
+                                                                     Procedure()
+                                                                     begin
+                                                                      if erro = '' then
+                                                                       AtualizacaoFinalizada
+                                                                      else
+                                                                       ShowMessage(erro);
+                                                                     end
+                                                                     );
                                          end
                                         )
                                  .BtnNo(
