@@ -160,6 +160,28 @@ type
     Txt_btn_atualizar_agora: TLabel;
     Sombra_fly_out: TShadowEffect;
     Anima_FlyOut_update: TFloatAnimation;
+    Lay_Novidades: TLayout;
+    FundoNovidades: TRectangle;
+    LateralButtonNext_novidades: TLayout;
+    LayBtnNext_novidades: TLayout;
+    Btn_Next_Novidades: TCircle;
+    LateralButtonBack_novidades: TLayout;
+    LayBtnBack_novidades: TLayout;
+    Btn_Volta_novidades: TCircle;
+    Btn_Fecha_novidades: TPath;
+    Seta_Next_Novidades: TPath;
+    TabControl1: TTabControl;
+    TabItem1: TTabItem;
+    TabItem2: TTabItem;
+    TabItem3: TTabItem;
+    TabItem4: TTabItem;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Seta_Volta_Novidades: TPath;
+    Layout1: TLayout;
+    Image1: TImage;
     procedure FormResize(Sender: TObject);
     procedure Btn_MenuClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -192,6 +214,15 @@ type
     procedure btn_atualizarClick(Sender: TObject);
     procedure Anima_FlyOut_updateFinish(Sender: TObject);
     procedure Btn_atualizar_agoraClick(Sender: TObject);
+    procedure Btn_Next_NovidadesMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Btn_Next_NovidadesMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Btn_Next_NovidadesMouseLeave(Sender: TObject);
+    procedure Btn_Next_NovidadesMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Single);
+    procedure Btn_Volta_novidadesClick(Sender: TObject);
+    procedure Btn_Next_NovidadesClick(Sender: TObject);
   private
     { Private declarations }
     Sheet_fotos : iViewDialogsFactory;
@@ -764,6 +795,39 @@ begin
   ListarTarefas(DateToStr(StrToDate(Label_Data.Text) - 1));
 end;
 
+procedure TForm_Windows_Main.Btn_Next_NovidadesClick(Sender: TObject);
+begin
+  TabControl1.Next();
+end;
+
+procedure TForm_Windows_Main.Btn_Next_NovidadesMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  TCircle(sender).Opacity := 0.9;
+end;
+
+procedure TForm_Windows_Main.Btn_Next_NovidadesMouseLeave(Sender: TObject);
+begin
+  TCircle(sender).Opacity := 0.6;
+end;
+
+procedure TForm_Windows_Main.Btn_Next_NovidadesMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Single);
+begin
+  TCircle(sender).Opacity := 0.75;
+end;
+
+procedure TForm_Windows_Main.Btn_Next_NovidadesMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  TCircle(sender).Opacity := 0.6;
+end;
+
+procedure TForm_Windows_Main.Btn_Volta_novidadesClick(Sender: TObject);
+begin
+  TabControl1.Previous();
+end;
+
 procedure TForm_Windows_Main.FormResize(Sender: TObject);
 begin
   if Self.Width <= 380 then
@@ -789,6 +853,8 @@ begin
    AniAberturaFechaForm.StartValue := Self.Height +50;
    if RecAniForms.Position.Y <> -50 then
     RecAniForms.Position.Y := Self.Height +50;
+
+   Lay_Novidades.BringToFront;
 end;
 
 procedure TForm_Windows_Main.FormShow(Sender: TObject);
