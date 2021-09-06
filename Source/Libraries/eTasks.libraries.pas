@@ -281,7 +281,6 @@ end;
 
 class function teTasksLibrary.LimparUpdate: boolean;
 begin
-  Result := false;
   {$ifdef MSWINDOWS}
   if FileExists(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe')) then
     TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));

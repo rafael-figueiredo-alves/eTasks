@@ -28,7 +28,7 @@ uses
   FMX.StdCtrls,
   FMX.TabControl,
   eTasks.View.Dialogs.Factory,
-  eTasks.View.Windows.Categories;
+  eTasks.View.Windows.Categories, FMX.Memo.Types;
 
 type
   tipo_acao = (taNovo, taEditar, taExibe, taLista);

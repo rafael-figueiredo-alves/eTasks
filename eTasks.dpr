@@ -4,7 +4,7 @@ program eTasks;
  ########################################################################
 
        Projeto: eTasks
-        Versão: 1.0.1
+        Versão: 1.0
  Desenvolvedor: Rafael de Figueiredo Alves
 
  Cópia Autorizada© 2021 - Rafael de Figueiredo Alves / DevPegasus-br

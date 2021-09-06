@@ -232,7 +232,7 @@ type
 
     FTela       : Telas;
 
-    FTelaTarefas : iWindowsTelas;
+    FTelaTarefas2 : iWindowsTelas;
     FTela_Categorias : iWindowsTelas;
     FTela_Objetivos : iWindowsTelas;
     FTela_Listas    : iWindowsTelas;
@@ -351,43 +351,43 @@ begin
      AniAberturaFechaForm.Inverse := True;
      case FTela of
       TelaTarefas      : begin
-                           FTelaTarefas := tWindowsTelas.New;
-                           FTelaTarefas.Tela_Tasks.Acao(taLista);
-                           Lay_container.AddObject(FTelaTarefas
+                           FTelaTarefas2 := tWindowsTelas.New;
+                           FTelaTarefas2.Tela_Tasks.Acao(taLista);
+                           Lay_container.AddObject(FTelaTarefas2
                                                         .Tela_Tasks
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas := nil;
+                                                                                   FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
                                                    );
                          end;
       TelaTarefas_exibe : begin
-                           FTelaTarefas := tWindowsTelas.New;
-                           FTelaTarefas.Tela_Tasks.Acao(taExibe);
-                           FTelaTarefas.Tela_Tasks.ID(FId_tarefa);
-                           Lay_container.AddObject(FTelaTarefas
+                           FTelaTarefas2 := tWindowsTelas.New;
+                           FTelaTarefas2.Tela_Tasks.Acao(taExibe);
+                           FTelaTarefas2.Tela_Tasks.ID(FId_tarefa);
+                           Lay_container.AddObject(FTelaTarefas2
                                                         .Tela_Tasks
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas := nil;
+                                                                                   FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
                                                    );
                           end;
       TelaTarefas_Novo : begin
-                           FTelaTarefas := tWindowsTelas.New;
-                           FTelaTarefas.Tela_Tasks.Acao(taNovo);
-                           Lay_container.AddObject(FTelaTarefas
+                           FTelaTarefas2 := tWindowsTelas.New;
+                           FTelaTarefas2.Tela_Tasks.Acao(taNovo);
+                           Lay_container.AddObject(FTelaTarefas2
                                                         .Tela_Tasks
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas := nil;
+                                                                                   FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
