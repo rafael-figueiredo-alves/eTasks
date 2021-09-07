@@ -87,7 +87,9 @@ uses
   //eTasks - specific view library to work with "categorias"
   eTasks.view.categorias in 'Source\View\eTasks.view.categorias.pas',
   //eTasks - Custom calendar component made by Rafael de Figueiredo Alves
-  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas'{Calendario: TFrame};
+  eTasks.View.Components.Calendario in 'Source\View\Components\eTasks.View.Components.Calendario.pas'{Calendario: TFrame},
+  //Constantes do eTasks
+  eTasks.Consts in 'Source\eTasks.Consts.pas';
 
 {$R *.res}
 

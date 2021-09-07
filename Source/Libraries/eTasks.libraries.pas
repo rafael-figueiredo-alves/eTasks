@@ -48,7 +48,7 @@ uses
   {$ifdef MSWINDOWS}
   Winapi.Windows,
   {$endif}
-  System.JSON;
+  System.JSON, eTasks.Consts;
 
 { teTasksLibrary }
 
@@ -125,8 +125,6 @@ Var
  Resp   : IHTTPResponse;
  Obj    : tjsonObject;
  Versao : integer;
-Const
- Versao_eTasks = 1;
 begin
   Result := False;
   Rest := TNetHTTPClient.Create(nil);
