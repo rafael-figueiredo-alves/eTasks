@@ -28,7 +28,7 @@ uses
   FMX.ScrollBox,
   FMX.Memo,
   FMX.MultiView,
-  eTasks.View.Dialogs.Factory;
+  eTasks.View.Dialogs.Factory, FMX.Memo.Types;
 
 type
 

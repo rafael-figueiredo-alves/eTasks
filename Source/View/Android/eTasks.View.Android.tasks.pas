@@ -27,7 +27,7 @@ uses
   FMX.Effects,
   FMX.Edit,
   FMX.ScrollBox,
-  FMX.Memo;
+  FMX.Memo, FMX.Memo.Types;
 
 type
   tipo_acao = (taNovo, taEditar, taExibe, taLista);
@@ -253,7 +253,7 @@ begin
      TListItemImage(Objects.FindDrawable('img_category')).Bitmap := picture.Bitmap;
      img.disposeof;
     finally
-     picture.DisposeOf;
+     //picture.DisposeOf;
     end;
 
     TagString := id;

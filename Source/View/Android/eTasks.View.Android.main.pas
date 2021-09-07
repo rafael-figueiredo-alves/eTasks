@@ -333,7 +333,7 @@ begin
      TListItemImage(Objects.FindDrawable('img_category')).Bitmap := picture.Bitmap;
      img.disposeof;
     finally
-     picture.DisposeOf;
+     //picture.DisposeOf;
     end;
 
     TagString := id;

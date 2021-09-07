@@ -351,21 +351,21 @@ begin
      AniAberturaFechaForm.Inverse := True;
      case FTela of
       TelaTarefas      : begin
-                           FTelaTarefas2 := tWindowsTelas.New;
+                           //FTelaTarefas2 := tWindowsTelas.New;
                            FTelaTarefas2.Tela_Tasks.Acao(taLista);
                            Lay_container.AddObject(FTelaTarefas2
                                                         .Tela_Tasks
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas2 := nil;
+                                                                                   //FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
                                                    );
                          end;
       TelaTarefas_exibe : begin
-                           FTelaTarefas2 := tWindowsTelas.New;
+                           //FTelaTarefas2 := tWindowsTelas.New;
                            FTelaTarefas2.Tela_Tasks.Acao(taExibe);
                            FTelaTarefas2.Tela_Tasks.ID(FId_tarefa);
                            Lay_container.AddObject(FTelaTarefas2
@@ -373,21 +373,21 @@ begin
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas2 := nil;
+                                                                                   //FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
                                                    );
                           end;
       TelaTarefas_Novo : begin
-                           FTelaTarefas2 := tWindowsTelas.New;
+                           //FTelaTarefas2 := tWindowsTelas.New;
                            FTelaTarefas2.Tela_Tasks.Acao(taNovo);
                            Lay_container.AddObject(FTelaTarefas2
                                                         .Tela_Tasks
                                                                  .BtnVoltarClick(Procedure ()
                                                                                  begin
                                                                                    AniAberturaFechaForm.Start;
-                                                                                   FTelaTarefas2 := nil;
+                                                                                   //FTelaTarefas2 := nil;
                                                                                    ListarTarefas(Label_Data.Text);
                                                                                  end)
                                                                   .Exibir
@@ -1126,6 +1126,7 @@ end;
 procedure TForm_Windows_Main.Sai_splash_screenFinish(Sender: TObject);
 begin
   Lay_splash_screen.Visible := False;
+  FTelaTarefas2 := TWindowsTelas.New;
 end;
 
 procedure TForm_Windows_Main.Tab_menuChange(Sender: TObject);
