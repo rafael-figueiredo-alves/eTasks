@@ -1,4 +1,4 @@
-p align="center">
+<p align="center">
  <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/eTasks_logo_new.png">
 </p> 
 
