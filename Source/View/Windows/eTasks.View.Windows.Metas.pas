@@ -26,7 +26,7 @@ uses
   FMX.Effects,
   FMX.Objects,
   FMX.TabControl,
-  FMX.Layouts, eTasks.View.Dialogs.Factory;
+  FMX.Layouts, eTasks.View.Dialogs.Factory, FMX.Memo.Types;
 
 type
 
@@ -44,7 +44,6 @@ type
     ToolBar: TLayout;
     Linha_titulo: TLine;
     Botao_voltar: TImage;
-    botao_ajuda: TImage;
     title_MinhasMetas: TImage;
     title_EditaMeta: TImage;
     title_NovaMeta: TImage;

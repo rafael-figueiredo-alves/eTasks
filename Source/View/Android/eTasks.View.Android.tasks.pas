@@ -46,7 +46,6 @@ type
     ToolBar: TLayout;
     Linha_titulo: TLine;
     Botao_voltar: TImage;
-    botao_ajuda: TImage;
     title_MinhasTarefas: TImage;
     title_EditaTarefa: TImage;
     title_NovaTarefa: TImage;

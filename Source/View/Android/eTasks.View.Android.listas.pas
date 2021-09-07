@@ -42,7 +42,6 @@ type
     ToolBar: TLayout;
     Linha_titulo: TLine;
     Botao_voltar: TImage;
-    botao_ajuda: TImage;
     title_MinhasListas: TImage;
     title_EditaItemLista: TImage;
     title_NovoItemLista: TImage;

@@ -52,7 +52,6 @@ type
     title_Categorias: TImage;
     title_EditaCategoria: TImage;
     title_NovaCategoria: TImage;
-    botao_ajuda: TImage;
     Seletor: TImage;
     StyleBook1: TStyleBook;
     ValidaCategoria: TTimer;

@@ -77,7 +77,6 @@ type
     Image_sem_categorias: TImage;
     Label_sem_categorias: TLabel;
     SearchBox1: TSearchBox;
-    botao_ajuda: TImage;
     ValidaCategoria: TTimer;
     procedure FormShow(Sender: TObject);
     procedure Botao_voltarClick(Sender: TObject);
