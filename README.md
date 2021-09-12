@@ -2,9 +2,9 @@
  <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/eTasks_logo_new.png">
 </p> 
 
-![Informações sobre projeto](https://img.shields.io/badge/Vers%C3%A3o%20do%20Delphi-10.3.3%20Community-brightgreen)
-![Status do projeto](https://img.shields.io/badge/Status%20do%20projeto-Lan%C3%A7ada%20vers%C3%A3o%20beta-brightgreen)
-![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-1.0.1-brightgreen)
+![Informações sobre projeto](https://img.shields.io/badge/Vers%C3%A3o%20do%20Delphi-10.4.2%20Community-brightgreen)
+![Status do projeto](https://img.shields.io/badge/Status%20do%20projeto-Vers%C3%A3o%201.0%20finalizada-brightgreen)
+![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-1.0-brightgreen)
 ![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
 
 ![estrelas do projeto](https://img.shields.io/github/stars/rafael-figueiredo-alves/eTasks?style=flat-square)
@@ -12,6 +12,10 @@
 ![Mais linhas](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=green&category=code&style=flat-square)
 ![arquivos](https://tokei.rs/b1/github/rafael-figueiredo-alves/eTasks?color=yellow&category=files&style=flat-square)
  
+Baixe o App para você testar:
+[<img src="https://img.shields.io/badge/-Para%20Windows-blue?style=for-the-badge">](https://github.com/rafael-figueiredo-alves/eTasks/releases/download/1.0/eTasks.apk)
+[<img src="https://img.shields.io/badge/-Para%20Android-green?style=for-the-badge">](https://github.com/rafael-figueiredo-alves/eTasks/releases/download/1.0/eTasks.exe)
+
  **DESCRIÇÃO:** Projeto de App mobile e desktop para gerenciamento de tarefas e metas com foco na produtividade e no bom humor. Será oferecido para as plataformas **Windows** (32 bits e 64 bits) e **Android** (32 bits). Há planos de se disponibilizar o aplicativo para download nas lojas de aplicativos. O **maior objetivo** é servir como apreendizado e treinamento das habilidades de programação em Delphi, sendo empregue uso de MVC, interfaces, Firebase e outros.
  
  Para ver o protótipo do aplicativo, acesse o Sketch [clicando aqui](https://sketch.cloud/s/f97cac13-7538-47a1-83b1-7e8e9286ff87) . Também disponível na pasta do projeto.
