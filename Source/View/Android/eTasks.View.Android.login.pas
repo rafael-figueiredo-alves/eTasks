@@ -767,6 +767,10 @@ begin
   Termos := TViewDialogsMessages.New;
   Form_Android_Login.AddObject(
                                Termos.DialogTermos
+                                               .AcaoBotao(Procedure()
+                                                          begin
+                                                           Termos := nil;
+                                                          end)
                                                .AcaoFundo(Procedure ()
                                                           Begin
                                                            Termos := nil;

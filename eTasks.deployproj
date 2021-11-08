@@ -5,7 +5,7 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">42003880e44364f9</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'"/>
+        <DeviceId Condition="'$(Platform)'=='Android64'">42003880e44364f9</DeviceId>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
@@ -20,6 +20,33 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Win64\Release\AppxManifest.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>AppxManifest.xml</RemoteName>
+            <DeployClass>ProjectUWPManifest</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Source\categorias.json" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>categorias.json</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\Assets\</RemoteDir>
+            <RemoteName>Logo44x44.png</RemoteName>
+            <DeployClass>UWP_DelphiLogo44</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
@@ -47,6 +74,34 @@
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\Assets\</RemoteDir>
+            <RemoteName>Logo150x150.png</RemoteName>
+            <DeployClass>UWP_DelphiLogo150</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="eTasks.todo" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>eTasks.todo</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Win64\Release\eTasks.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\</RemoteDir>
+            <RemoteName>eTasks.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
         </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
@@ -117,6 +172,15 @@
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSX64'"/>
     <ItemGroup Condition="'$(Platform)'=='Android'">
+        <DeployFile Include="$(BDS)\lib\android\release\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\library\lib\mips\</RemoteDir>
+            <RemoteName>libeTasks.so</RemoteName>
+            <DeployClass>AndroidLibnativeMipsFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Imagens\SplashScreens\eTasks_470x320.9.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\res\drawable-normal\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
@@ -162,15 +226,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(NDKBasePath)\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Release'">
-            <RemoteDir>eTasks\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>gdbserver</RemoteName>
-            <DeployClass>AndroidGDBServer</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
@@ -184,6 +239,15 @@
             <RemoteDir>eTasks\res\drawable-normal\</RemoteDir>
             <RemoteName>splash_image_def.9.png</RemoteName>
             <DeployClass>Android_SplashImage470</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\release\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libeTasks.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
