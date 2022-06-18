@@ -5,7 +5,7 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">42003880e44364f9</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'">42003880e44364f9</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
@@ -39,15 +39,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>eTasks\Assets\</RemoteDir>
-            <RemoteName>Logo44x44.png</RemoteName>
-            <DeployClass>UWP_DelphiLogo44</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
             <RemoteName>Logo44x44.png</RemoteName>
@@ -75,20 +66,20 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>eTasks\Assets\</RemoteDir>
-            <RemoteName>Logo150x150.png</RemoteName>
-            <DeployClass>UWP_DelphiLogo150</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="eTasks.todo" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\</RemoteDir>
             <RemoteName>eTasks.todo</RemoteName>
             <DeployClass>ProjectFile</DeployClass>
             <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\Assets\</RemoteDir>
+            <RemoteName>Logo150x150.png</RemoteName>
+            <DeployClass>UWP_DelphiLogo150</DeployClass>
+            <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -102,6 +93,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Imagens\Icones\Logo_Windows_UWP_44.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\Assets\</RemoteDir>
+            <RemoteName>Logo44x44.png</RemoteName>
+            <DeployClass>UWP_DelphiLogo44</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>eTasks\Assets\</RemoteDir>
@@ -208,7 +208,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon144</DeployClass>
@@ -398,7 +398,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon36</DeployClass>
@@ -425,7 +425,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-xhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon96</DeployClass>
@@ -488,7 +488,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon48</DeployClass>
@@ -497,7 +497,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon72</DeployClass>
@@ -506,7 +506,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon36</DeployClass>
@@ -624,7 +624,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon72</DeployClass>
@@ -651,7 +651,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-xxxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon96</DeployClass>
@@ -678,7 +678,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon24</DeployClass>
@@ -687,7 +687,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>eTasks\res\drawable-xhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon48</DeployClass>

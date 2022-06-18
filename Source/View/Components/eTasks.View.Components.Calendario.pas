@@ -108,6 +108,7 @@ type
     Procedure LimpaCalendario;
     Function Mes(value : Integer): string;
     Function DataSelecionada : TDate;
+    Procedure ValidarDia;
   public
     { Public declarations }
     Function Iniciar(FDate : TDate; FParent : TFmxObject) : TCalendario;
@@ -275,8 +276,15 @@ begin
      N_Dia := N_Dia + 1;
    end;
   Seletor.EndAngle := 0;
+  ValidarDia;
   Seletor.Parent := TLabel(FindComponent('Dia_' + inttostr((primeirodia + Fdia) - 1)));
   AnimaSeletor.Start;
+end;
+
+procedure TCalendario.ValidarDia;
+begin
+  if FDia > MonthDays[IsLeapYear(FAno)][FMes] then
+   FDia := MonthDays[IsLeapYear(FAno)][FMes];
 end;
 
 end.

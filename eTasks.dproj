@@ -131,25 +131,25 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;ZCore;tethering;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;ZParseSql;dsnap;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;ZDbc;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;bindcomp;ZPlain;IndyIPClient;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
-        <VerInfo_Keys>package=br.DevPegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=br.DevPegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=2;versionName=1.1;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <Android_LauncherIcon36>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png</Android_LauncherIcon36>
-        <Android_LauncherIcon48>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png</Android_LauncherIcon48>
-        <Android_LauncherIcon72>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png</Android_LauncherIcon72>
-        <Android_LauncherIcon96>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png</Android_LauncherIcon96>
-        <Android_LauncherIcon144>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png</Android_LauncherIcon144>
+        <Android_LauncherIcon36>D:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png</Android_LauncherIcon36>
+        <Android_LauncherIcon48>D:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png</Android_LauncherIcon48>
+        <Android_LauncherIcon72>D:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png</Android_LauncherIcon72>
+        <Android_LauncherIcon96>D:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png</Android_LauncherIcon96>
+        <Android_LauncherIcon144>D:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png</Android_LauncherIcon144>
         <Android_SplashImage426>Imagens\SplashScreens\eTasks_426x320.9.png</Android_SplashImage426>
         <Android_SplashImage470>Imagens\SplashScreens\eTasks_470x320.9.png</Android_SplashImage470>
         <Android_SplashImage640>Imagens\SplashScreens\eTasks_640x480.9.png</Android_SplashImage640>
         <Android_SplashImage960>Imagens\SplashScreens\e_tasks_960x720.9.png</Android_SplashImage960>
-        <Android_NotificationIcon24>C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png</Android_NotificationIcon24>
-        <Android_NotificationIcon36>C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png</Android_NotificationIcon36>
-        <Android_NotificationIcon48>C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png</Android_NotificationIcon48>
-        <Android_NotificationIcon72>C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png</Android_NotificationIcon72>
-        <Android_NotificationIcon96>C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png</Android_NotificationIcon96>
+        <Android_NotificationIcon24>D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png</Android_NotificationIcon24>
+        <Android_NotificationIcon36>D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png</Android_NotificationIcon36>
+        <Android_NotificationIcon48>D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png</Android_NotificationIcon48>
+        <Android_NotificationIcon72>D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png</Android_NotificationIcon72>
+        <Android_NotificationIcon96>D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png</Android_NotificationIcon96>
         <EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
         <AUP_VIBRATE>true</AUP_VIBRATE>
         <AUP_ACCESS_COARSE_LOCATION>false</AUP_ACCESS_COARSE_LOCATION>
@@ -160,10 +160,12 @@
         <Android_AppId>1:164825974763:android:83f87676e52c0e3822bbae</Android_AppId>
         <Android_GcmDefaultSenderId>164825974763</Android_GcmDefaultSenderId>
         <Android_LauncherIcon192>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
+        <PF_KeyStore>Android\debug.keystore</PF_KeyStore>
+        <PF_KeyStorePass>857E479B5FC407DECF24E563D171E33F81850535A05F97C997AA0FF88E783C8ADB56A385E3111C2FC1E2577DFAC4C363BA95367E043722D3163A459DE5E4229DC938F341D558FA9BBFF8AF11</PF_KeyStorePass>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android64)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;ZComponent;DBXInterBaseDriver;ZCore;tethering;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;ZParseSql;dsnap;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;ZDbc;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;bindcomp;ZPlain;IndyIPClient;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
-        <VerInfo_Keys>package=br.DevPegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=br.DevPegasus.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=2;versionName=1.1;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Android_LauncherIcon36>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png</Android_LauncherIcon36>
@@ -182,7 +184,7 @@
         <Android_NotificationIcon96>$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png</Android_NotificationIcon96>
         <EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
         <EL_SecureFileSharing>true</EL_SecureFileSharing>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
         <Android_LauncherIcon192>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
@@ -265,8 +267,8 @@
         <VerInfo_Keys>CompanyName=DevPegasus-br;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=eTasks.exe;LegalCopyright=Cópia autorizada (C) 2021 - DevPegasus-br;LegalTrademarks=;OriginalFilename=;ProgramID=br.DevPegasus.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0;Comments=&quot;Eu, Rafael de Figueiredo Alves, dedico este software aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eles são minha inspiração e determinação. Eu os amo muito.&quot;</VerInfo_Keys>
         <VerInfo_Locale>1046</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <UWP_DelphiLogo44>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png</UWP_DelphiLogo44>
-        <UWP_DelphiLogo150>C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png</UWP_DelphiLogo150>
+        <UWP_DelphiLogo44>Imagens\Icones\Logo_Windows_UWP_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>Imagens\Icones\Logo_Windows_UWP_150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>Imagens\Icones\Sem título.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -298,6 +300,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>Imagens\Icones\Sem título.ico</Icon_MainIcon>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=DevPegasus-br;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=eTasks.exe;LegalCopyright=Cópia autorizada (C) 2021 - DevPegasus-br;LegalTrademarks=;OriginalFilename=;ProgramID=br.DevPegasus.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0;Comments=&quot;Eu, Rafael de Figueiredo Alves, dedico este software aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eles são minha inspiração e determinação. Eu os amo muito.&quot;</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -305,6 +309,10 @@
         <Icon_MainIcon>Imagens\Icones\Sem título.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=DevPegasus-br;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=eTasks.exe;LegalCopyright=Cópia autorizada (C) 2022 - DevPegasus-br;LegalTrademarks=;OriginalFilename=;ProgramID=br.DevPegasus.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1;Comments=&quot;Eu, Rafael de Figueiredo Alves, dedico este software aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eles são minha inspiração e determinação. Eu os amo muito.&quot;</VerInfo_Keys>
+        <UWP_DelphiLogo44>Imagens\Icones\Logo_Windows_UWP_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>Imagens\Icones\Logo_Windows_UWP_150.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -313,7 +321,7 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Android)'!=''">
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <BT_BuildType>AppStore</BT_BuildType>
         <PF_KeyStore>Android\debug.keystore</PF_KeyStore>
         <PF_KeyStorePass>857E479B5FC407DECF24E563D171E33F81850535A05F97C997AA0FF88E783C8ADB56A385E3111C2FC1E2577DFAC4C363BA95367E043722D3163A459DE5E4229DC938F341D558FA9BBFF8AF11</PF_KeyStorePass>
@@ -331,6 +339,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1046</VerInfo_Locale>
         <Icon_MainIcon>Imagens\Icones\Sem título.ico</Icon_MainIcon>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=DevPegasus-br;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=eTasks.exe;LegalCopyright=Cópia autorizada (C) 2022 - DevPegasus-br;LegalTrademarks=;OriginalFilename=;ProgramID=br.DevPegasus.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1;Comments=&quot;Eu, Rafael de Figueiredo Alves, dedico este software aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eles são minha inspiração e determinação. Eu os amo muito.&quot;</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -339,6 +349,10 @@
         <BT_BuildType>AppStore</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1046</VerInfo_Locale>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=DevPegasus-br;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=eTasks.exe;LegalCopyright=Cópia autorizada (C) 2022 - DevPegasus-br;LegalTrademarks=;OriginalFilename=;ProgramID=br.DevPegasus.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1;Comments=&quot;Eu, Rafael de Figueiredo Alves, dedico este software aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eles são minha inspiração e determinação. Eu os amo muito.&quot;</VerInfo_Keys>
+        <UWP_DelphiLogo44>Imagens\Icones\Logo_Windows_UWP_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>Imagens\Icones\Logo_Windows_UWP_150.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -477,7 +491,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png" Configuration="Release" Class="Android_LauncherIcon144">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_144.png" Configuration="Release" Class="Android_LauncherIcon144">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -595,12 +609,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_44.png" Configuration="Release" Class="UWP_DelphiLogo44">
-                    <Platform Name="Win64">
-                        <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Imagens\Icones\Logo_Windows_UWP_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
@@ -697,7 +705,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png" Configuration="Release" Class="Android_LauncherIcon36">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_36.png" Configuration="Release" Class="Android_LauncherIcon36">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -725,7 +733,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png" Configuration="Release" Class="Android_LauncherIcon96">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_96.png" Configuration="Release" Class="Android_LauncherIcon96">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -805,19 +813,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Configuration="Release" Class="Android_LauncherIcon48">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_48.png" Configuration="Release" Class="Android_LauncherIcon48">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_Windows_UWP_150.png" Configuration="Release" Class="UWP_DelphiLogo150">
-                    <Platform Name="Win64">
-                        <RemoteName>Logo150x150.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png" Configuration="Release" Class="Android_NotificationIcon72">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_72.png" Configuration="Release" Class="Android_NotificationIcon72">
                     <Platform Name="Android">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -829,7 +831,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png" Configuration="Release" Class="Android_NotificationIcon36">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_36.png" Configuration="Release" Class="Android_NotificationIcon36">
                     <Platform Name="Android">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -861,6 +863,13 @@
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Configuration="Debug" Class="Android_NotificationIcon36">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Imagens\Icones\Logo_Windows_UWP_150.png" Configuration="Release" Class="UWP_DelphiLogo150">
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo150x150.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -902,6 +911,13 @@
                 <DeployFile LocalName="Imagens\SplashScreens\eTasks_426x320.9.png" Configuration="Debug" Class="Android_SplashImage426">
                     <Platform Name="Android">
                         <RemoteName>splash_image_def.9.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Imagens\Icones\Logo_Windows_UWP_44.png" Configuration="Release" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -983,7 +999,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png" Configuration="Release" Class="Android_LauncherIcon72">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Icones\Logo_72.png" Configuration="Release" Class="Android_LauncherIcon72">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -1016,7 +1032,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png" Configuration="Release" Class="Android_NotificationIcon96">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_96.png" Configuration="Release" Class="Android_NotificationIcon96">
                     <Platform Name="Android">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -1034,7 +1050,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png" Configuration="Release" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_24.png" Configuration="Release" Class="Android_NotificationIcon24">
                     <Platform Name="Android">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -1046,7 +1062,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png" Configuration="Release" Class="Android_NotificationIcon48">
+                <DeployFile LocalName="D:\Meus Projetos\eTasks\Imagens\Notificacoes\Not_48.png" Configuration="Release" Class="Android_NotificationIcon48">
                     <Platform Name="Android">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
