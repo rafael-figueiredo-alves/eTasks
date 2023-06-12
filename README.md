@@ -1,5 +1,5 @@
 <p align="center">
- <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/master/Imagens/eTasks_logo_new.png">
+ <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v1.1/Imagens/eTasks_logo_new.png">
 </p> 
 
 ![Informações sobre projeto](https://img.shields.io/badge/Vers%C3%A3o%20do%20Delphi-10.4.2%20Community-brightgreen)
