@@ -6,8 +6,6 @@
 ![Status do projeto](https://img.shields.io/badge/Status%20do%20projeto-Vers%C3%A3o%201.1%20finalizada-brightgreen)
 ![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-1.1-brightgreen)
 ![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
-
-![estrelas do projeto](https://img.shields.io/github/stars/rafael-figueiredo-alves/eTasks?style=flat-square)
  
 Baixe o App para você testar:
 [<img src="https://img.shields.io/badge/-Para%20Windows-blue?style=for-the-badge">](https://github.com/rafael-figueiredo-alves/eTasks/releases/download/v1.1/eTasks.exe)
