@@ -9,6 +9,6 @@
 
 Novo Logo (projeto em construção):
 
-[Novo logo](https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/Imagens/eTasks2_Logo.png)
+![Novo logo](https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/Imagens/eTasks2_Logo.png)
 
 
