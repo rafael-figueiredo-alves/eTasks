@@ -7,8 +7,5 @@
 ![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-2.0-brightgreen)
 ![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
 
-Novo Logo (projeto em construção):
-
-[Novo logo](https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/Imagens/eTasks2_Logo.png)
 
 
