@@ -2,9 +2,10 @@
  <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/Imagens/eTasks_logo_new.png">
 </p> 
 
-![Informações sobre projeto](https://img.shields.io/badge/Vers%C3%A3o%20do%20Delphi-11.3%20Community-brightgreen)
-![Status do projeto](https://img.shields.io/badge/Status%20do%20projeto-Vers%C3%A3o%202.0%20em%20Produção-brightgreen)
-![Versão](https://img.shields.io/badge/Vers%C3%A3o%20do%20Projeto-2.0-brightgreen)
-![Tecnologia Backend](https://img.shields.io/badge/Tecnologia%20de%20Backend-Firebase-brightgreen)
+<p>
+  <a href="#compatibility"><img src="https://img.shields.io/static/v1?label=Delphi&message=Vers%C3%A3o%2011.3%20Community&color=silver&style=for-the-badge&logo=delphi&logoColor=white" alt="Delphi 11.3 Community" /></a>
+  <a href="#compatibility"><img src="https://img.shields.io/static/v1?label=platforms&message=Android%2C%20Windows%2C%20Web&color=silver&style=for-the-badge&logo=delphi&logoColor=white" alt="Android, Windows e Web" /></a>
+  <a href="#compatibility"><img src="https://img.shields.io/static/v1?label=Backend&message=Firebase&color=silver&style=for-the-badge&logo=delphi&logoColor=white" alt="Backend Firebase com eFirebase" /></a>
+</p>
 
 
