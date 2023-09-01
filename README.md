@@ -1,5 +1,5 @@
 <p align="center">
- <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/Imagens/eTasks_logo_new.png">
+ <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/eTasks_logo_new.png">
 </p> 
 
 <p>
