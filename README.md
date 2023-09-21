@@ -8,4 +8,8 @@
   <a href="#compatibility"><img src="https://img.shields.io/static/v1?label=Backend&message=Firebase&color=silver&style=for-the-badge&logo=delphi&logoColor=white" alt="Backend Firebase com eFirebase" /></a>
 </p>
 
+# Arte conceitual do eTasks - Tela principal - Mobile Light e Dark
+
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Light.png" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Dark.png" width="33%" height="33%">
+
 
