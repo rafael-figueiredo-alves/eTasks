@@ -1,0 +1,12 @@
+{
+	"name": "eTasks",
+	"description": "Aplicativo multiplataforma para gestão de tarefas, listas de compras, lista de leituras, gerenciamento de finanças e anotações",
+	"version": "2.0.0",
+	"homepage": "https://github.com/rafael-figueiredo-alves/eTasks",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/rafael-figueiredo-alves/efirebase": "^v1.1.1",
+		"https://github.com/rafael-figueiredo-alves/etranslate4pascal": "^v1.0.0"
+	}
+}

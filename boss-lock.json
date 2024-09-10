@@ -1,0 +1,22 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2024-09-09T21:46:02.5658227-03:00",
+	"installedModules": {
+		"https://github.com/rafael-figueiredo-alves/efirebase": {
+			"name": "efirebase",
+			"version": "v1.1.1",
+			"hash": "4e31ab0e9df128f5b3c295f94a03efab",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/rafael-figueiredo-alves/etranslate4pascal": {
+			"name": "etranslate4pascal",
+			"version": "v1.0.0",
+			"hash": "b62295213c75257ad234b24ab4055db2",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
