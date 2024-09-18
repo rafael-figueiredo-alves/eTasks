@@ -37,6 +37,12 @@ implementation
 
 procedure TfMain.FormResize(Sender: TObject);
 begin
+  if(fMain.Width < 360)then
+   fMain.Width := 360;
+
+  if(fmain.Height < 640)then
+   fMain.Height := 640;
+
   if(fMain.Width <= 768)then
    begin
      Rectangle2.Visible := false;
