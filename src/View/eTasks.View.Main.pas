@@ -5,25 +5,19 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Effects,
-  FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts;
+  FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
+  eTasks.Components.AppBar, eTasks.Components.TitleBar;
 
 type
   TfMain = class(TForm)
-    Rectangle1: TRectangle;
-    ShadowEffect1: TShadowEffect;
-    Label1: TLabel;
-    Image1: TImage;
-    Circle1: TCircle;
-    Image2: TImage;
-    Image3: TImage;
-    Rectangle2: TRectangle;
-    Label2: TLabel;
-    Layout1: TLayout;
-    Rectangle3: TRectangle;
-    Label3: TLabel;
+    Button1: TButton;
     procedure FormResize(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
+    AppBar   : iAppBar;
+    TitleBar : iTitleBar;
   public
     { Public declarations }
   end;
@@ -35,6 +29,19 @@ implementation
 
 {$R *.fmx}
 
+procedure TfMain.Button1Click(Sender: TObject);
+begin
+  TitleBar.ChangeTitle('Meu Teste');
+  AppBar.ChangeTitle('Outro teste');
+end;
+
+procedure TfMain.FormCreate(Sender: TObject);
+begin
+  AppBar   := tAppBar.New(fMain);
+  TitleBar := TTitleBar.New(fMain);
+  AppBar.ThemeChangerClick(Button1Click);
+end;
+
 procedure TfMain.FormResize(Sender: TObject);
 begin
   if(fMain.Width < 360)then
@@ -45,13 +52,13 @@ begin
 
   if(fMain.Width <= 768)then
    begin
-     Rectangle2.Visible := false;
-     Layout1.Visible := true;
+     AppBar.ShowTitleBar(false).Visible := False;
+     TitleBar.Layout.Visible := true;
    end
   else
    begin
-     Rectangle2.Visible := true;
-     Layout1.Visible := false;
+     AppBar.ShowTitleBar(True).Visible := true;
+     TitleBar.Layout.Visible := false;
    end;
 end;
 

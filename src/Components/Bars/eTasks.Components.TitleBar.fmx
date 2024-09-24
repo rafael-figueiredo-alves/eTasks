@@ -1,0 +1,48 @@
+object TitleBar: TTitleBar
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Top
+    Size.Width = 640.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Rectangle3: TRectangle
+      Align = Left
+      Fill.Color = xFF336699
+      Margins.Left = -15.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Position.X = -15.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 235.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      XRadius = 15.000000000000000000
+      YRadius = 15.000000000000000000
+      object Label3: TLabel
+        Align = Right
+        AutoSize = True
+        StyledSettings = [Style]
+        Position.X = -0.199996948242187500
+        Size.Width = 235.199996948242200000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Comic Sans MS'
+        TextSettings.Font.Size = 18.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        Text = 'Minhas Tarefas'
+        TabOrder = 0
+      end
+    end
+  end
+end

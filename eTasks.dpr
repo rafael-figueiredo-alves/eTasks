@@ -28,13 +28,18 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   FMX.Skia,
-  eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain};
+  eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain},
+  eTasks.Components.AppBar in 'src\Components\Bars\eTasks.Components.AppBar.pas' {AppBar},
+  eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar};
 
 {$R *.res}
 
 begin
+  ReportMemoryLeaksOnShutdown := True;
   GlobalUseSkia := True;
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TAppBar, AppBar);
+  Application.CreateForm(TTitleBar, TitleBar);
   Application.Run;
 end.
