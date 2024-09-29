@@ -17,6 +17,7 @@ type
   private
     { Private declarations }
     AppBar   : iAppBar;
+    AppBar2  : iAppBar;
     TitleBar : iTitleBar;
   public
     { Public declarations }
@@ -33,11 +34,13 @@ procedure TfMain.Button1Click(Sender: TObject);
 begin
   TitleBar.ChangeTitle('Meu Teste');
   AppBar.ChangeTitle('Outro teste');
+  Self.Fill.Color := $ff212529;
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   AppBar   := tAppBar.New(fMain);
+  AppBar2  := tAppBar.New(fMain);
   TitleBar := TTitleBar.New(fMain);
   AppBar.ThemeChangerClick(Button1Click);
 end;
@@ -52,12 +55,12 @@ begin
 
   if(fMain.Width <= 768)then
    begin
-     AppBar.ShowTitleBar(false).Visible := False;
+     AppBar.ShowTitleBar(false);
      TitleBar.Layout.Visible := true;
    end
   else
    begin
-     AppBar.ShowTitleBar(True).Visible := true;
+     AppBar.ShowTitleBar(True);
      TitleBar.Layout.Visible := false;
    end;
 end;

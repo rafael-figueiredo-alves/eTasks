@@ -55,7 +55,7 @@ implementation
 procedure TAppBar.BtnThemeChangerClick(Sender: TObject);
 begin
   BtnThemeChanger.Bitmap := ImageList1.Bitmap(TSizeF.Create(40, 40), 0);
-  Self.Rectangle1.Fill.Color := TAlphaColors.Black;
+  Self.Rectangle1.Fill.Color := $FF212529;
   fThemeChangerClick(sender);
 end;
 

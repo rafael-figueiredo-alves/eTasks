@@ -490,7 +490,7 @@ object AppBar: TAppBar
             SourceRect.Bottom = 40.000000000000000000
           end>
       end>
-    Left = 232
-    Top = 168
+    Left = 296
+    Top = 112
   end
 end
