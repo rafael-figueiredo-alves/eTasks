@@ -256,6 +256,8 @@
             <Form>TitleBar</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\Components\eTasks.Components.ColorPallete.pas"/>
+        <DCCReference Include="src\Components\eTasks.Components.Interfaces.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

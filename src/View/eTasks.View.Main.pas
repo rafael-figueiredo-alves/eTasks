@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Effects,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  eTasks.Components.AppBar, eTasks.Components.TitleBar;
+  eTasks.Components.AppBar, eTasks.Components.TitleBar,
+  eTasks.Components.Interfaces;
 
 type
   TfMain = class(TForm)
@@ -17,8 +18,8 @@ type
   private
     { Private declarations }
     AppBar   : iAppBar;
-    AppBar2  : iAppBar;
     TitleBar : iTitleBar;
+    fDarkMode : Boolean;
   public
     { Public declarations }
   end;
@@ -28,19 +29,24 @@ var
 
 implementation
 
+uses
+  eTasks.Components.ColorPallete;
+
 {$R *.fmx}
 
 procedure TfMain.Button1Click(Sender: TObject);
 begin
+  fDarkMode := not fDarkMode;
   TitleBar.ChangeTitle('Meu Teste');
   AppBar.ChangeTitle('Outro teste');
-  Self.Fill.Color := $ff212529;
+  AppBar.isDarkMode(fDarkMode);
+  Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
-  AppBar   := tAppBar.New(fMain);
-  AppBar2  := tAppBar.New(fMain);
+  fDarkMode := False;
+  AppBar   := tAppBar.New(fMain).isDarkMode(fDarkMode);
   TitleBar := TTitleBar.New(fMain);
   AppBar.ThemeChangerClick(Button1Click);
 end;

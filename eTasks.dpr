@@ -30,7 +30,9 @@ uses
   FMX.Skia,
   eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain},
   eTasks.Components.AppBar in 'src\Components\Bars\eTasks.Components.AppBar.pas' {AppBar},
-  eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar};
+  eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar},
+  eTasks.Components.ColorPallete in 'src\Components\eTasks.Components.ColorPallete.pas',
+  eTasks.Components.Interfaces in 'src\Components\eTasks.Components.Interfaces.pas';
 
 {$R *.res}
 
