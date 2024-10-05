@@ -6,10 +6,12 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Effects,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  eTasks.Components.AppBar, eTasks.Components.TitleBar,
+  eTasks.Components.TitleBar,
   eTasks.Components.Interfaces;
 
 type
+  TTeste = procedure of Object;
+
   TfMain = class(TForm)
     Button1: TButton;
     procedure FormResize(Sender: TObject);
@@ -30,7 +32,8 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete;
+  eTasks.Components.ColorPallete,
+  eTasks.Components.Builder;
 
 {$R *.fmx}
 
@@ -46,7 +49,7 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   fDarkMode := False;
-  AppBar   := tAppBar.New(fMain).isDarkMode(fDarkMode);
+  AppBar := TComponentBars.AppBar(fMain).isDarkMode(fDarkMode);
   TitleBar := TTitleBar.New(fMain);
   AppBar.ThemeChangerClick(Button1Click);
 end;

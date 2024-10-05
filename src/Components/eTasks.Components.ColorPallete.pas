@@ -25,29 +25,24 @@ type
 
 implementation
 
-{ tColorPallete }
+uses
+  eTasks.Shared.Utils;
 
-function Iif(const Condicao: boolean; ResultTrue: TAlphaColor; ResultFalse: TAlphaColor) : TAlphaColor;
-begin
-  if(Condicao)then
-   Result := ResultTrue
-  else
-   Result := ResultFalse;
-end;
+{ tColorPallete }
 
 class function tColorPallete.GetColor(const _cor: Cor; isDarkMode: boolean): TAlphaColor;
 begin
   case _cor of
-    Primary      : Result := Iif(isDarkMode, $ffFFFFFF, $ff336699);
-    Secondary    : Result := Iif(isDarkMode, $ff807E7E, $ffB8CADB);
-    Background   : Result := Iif(isDarkMode, $ff212529, $ffFFFFFF);
-    FabButton    : Result := Iif(isDarkMode, $ff336699, $ff66BB6A);
-    OkButton     : Result := Iif(isDarkMode, $ff66BB6A, $ff66BB6A);
-    CancelButton : Result := Iif(isDarkMode, $ffEE5351, $ffEE5351);
-    Shadow       : Result := Iif(isDarkMode, $ff646464, $ff000000);
-    Text         : Result := Iif(isDarkMode, $ffFFFFFF, $ff000000);
+    Primary      : Result := TUtils.Iif(isDarkMode, $ffFFFFFF, $ff336699);
+    Secondary    : Result := TUtils.Iif(isDarkMode, $ff807E7E, $ffB8CADB);
+    Background   : Result := TUtils.Iif(isDarkMode, $ff212529, $ffFFFFFF);
+    FabButton    : Result := TUtils.Iif(isDarkMode, $ff336699, $ff66BB6A);
+    OkButton     : Result := TUtils.Iif(isDarkMode, $ff66BB6A, $ff66BB6A);
+    CancelButton : Result := TUtils.Iif(isDarkMode, $ffEE5351, $ffEE5351);
+    Shadow       : Result := TUtils.Iif(isDarkMode, $ff646464, $ff000000);
+    Text         : Result := TUtils.Iif(isDarkMode, $ffFFFFFF, $ff000000);
   else
-    Result := Iif(isDarkMode, $ffFFFFFF, $f336699);
+    Result := TUtils.Iif<TAlphaColor>(isDarkMode, $ffFFFFFF, $f336699);
   end;
 end;
 

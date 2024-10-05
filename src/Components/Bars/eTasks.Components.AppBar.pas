@@ -44,7 +44,7 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete, FMX.MultiResBitmap;
+  eTasks.Components.ColorPallete, FMX.MultiResBitmap, eTasks.Shared.Utils;
 
 {$R *.fmx}
 
@@ -52,7 +52,8 @@ uses
 
 procedure TAppBar.BtnThemeChangerClick(Sender: TObject);
 begin
-  fThemeChangerClick(sender);
+  if(Assigned(fThemeChangerClick))then
+   fThemeChangerClick(sender);
 end;
 
 function TAppBar.ChangeTitle(const Title: string): iAppBar;
@@ -63,18 +64,7 @@ end;
 
 function TAppBar.ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
 begin
-  if(isDarkMode)then
-   Result := ImgDark.Bitmap(size, index)
-  else
-   Result := ImgLight.Bitmap(size, index);
-end;
-
-function IifStr(const Condition: Boolean; ResultTrue: string; ResultFalse: string):string;
-begin
-  if(Condition)then
-   Result := ResultTrue
-  else
-   Result := ResultFalse;
+  Result := TUtils.Iif(isDarkMode, ImgDark.Bitmap(size, index), ImgLight.Bitmap(size, index));
 end;
 
 function TAppBar.isDarkMode(const value: boolean): iAppBar;
@@ -89,7 +79,7 @@ begin
    Self.TitleBar.Fill.Color  := tColorPallete.GetColor(Primary, value);
    Self.Title.FontColor      := tColorPallete.GetColor(Text, not value);
    Self.BrandTitle.FontColor := tColorPallete.GetColor(Primary, value);
-   if ImgAvatar.BitmapItemByName(IifStr(value, 'Dark', 'Light'), AvatarImg, size) then
+   if ImgAvatar.BitmapItemByName(TUtils.Iif(value, 'Dark', 'Light'), AvatarImg, size) then
     Avatar.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
 end;
 

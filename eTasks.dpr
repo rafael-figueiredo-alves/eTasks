@@ -32,7 +32,9 @@ uses
   eTasks.Components.AppBar in 'src\Components\Bars\eTasks.Components.AppBar.pas' {AppBar},
   eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar},
   eTasks.Components.ColorPallete in 'src\Components\eTasks.Components.ColorPallete.pas',
-  eTasks.Components.Interfaces in 'src\Components\eTasks.Components.Interfaces.pas';
+  eTasks.Components.Interfaces in 'src\Components\eTasks.Components.Interfaces.pas',
+  eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
+  eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas';
 
 {$R *.res}
 
