@@ -5,32 +5,33 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
+  eTasks.Components.Interfaces;
 
 type
-  iTitleBar = interface
-    ['{CCA6D914-787E-495F-ADE7-F9472A0FBC45}']
-    function Layout : TLayout;
-    function ChangeTitle(const Title: string): iTitleBar;
-  end;
+
 
   TTitleBar = class(TForm, iTitleBar)
-    Layout1: TLayout;
-    Rectangle3: TRectangle;
-    Label3: TLabel;
+    LayoutTitleBar: TLayout;
+    TitleBar: TRectangle;
+    TitleBarText: TLabel;
   private
     { Private declarations }
   public
     { Public declarations }
-    function Layout : TLayout;
+    function Render : TLayout;
     function ChangeTitle(const Title: string): iTitleBar;
-    class function New(const Form: TForm): iTitleBar;
+    function isDarkMode(const value: boolean): iTitleBar;
+    class function New(const Form: TForm; const Layout: TLayout): iTitleBar;
   end;
 
 var
   TitleBar : TTitleBar ;
 
 implementation
+
+uses
+  eTasks.Components.ColorPallete;
 
 {$R *.fmx}
 
@@ -39,18 +40,25 @@ implementation
 function TTitleBar.ChangeTitle(const Title: string): iTitleBar;
 begin
   Result := self;
-  self.Label3.text := Title;
+  self.TitleBarText.text := Title;
 end;
 
-function TTitleBar.Layout: TLayout;
+function TTitleBar.Render: TLayout;
 begin
-  Result := self.Layout1;
+  Result := self.LayoutTitleBar;
 end;
 
-class function TTitleBar.New(const Form: TForm): iTitleBar;
+function TTitleBar.isDarkMode(const value: boolean): iTitleBar;
+begin
+  Result := self;
+  Self.TitleBar.Fill.Color    := tColorPallete.GetColor(Primary, value);
+  Self.TitleBarText.FontColor := tColorPallete.GetColor(Text, not value);
+end;
+
+class function TTitleBar.New(const Form: TForm; const Layout: TLayout): iTitleBar;
 begin
   Result := self.create(Form);
-  Form.AddObject(Result.Layout);
+  Layout.AddObject(Result.Render);
 end;
 
 end.

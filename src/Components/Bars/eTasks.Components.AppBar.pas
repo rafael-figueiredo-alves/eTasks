@@ -23,8 +23,10 @@ type
     ImgDark: TImageList;
     ImgAvatar: TImageList;
     procedure BtnThemeChangerClick(Sender: TObject);
+    procedure BtnMainMenuClick(Sender: TObject);
   private
     fThemeChangerClick: TEventoClick;
+    fMenuButtonClick: TEventoClick;
 
     { Private declarations }
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
@@ -33,9 +35,9 @@ type
     function ChangeTitle(const Title: string): iAppBar;
     function ShowTitleBar(const value: Boolean): TRectangle;
     function Render: TRectangle;
-    function ThemeChangerClick(const Evento: TEventoClick): iAppBar;
     function isDarkMode(const value: boolean): iAppBar;
-    class function New(const Form: TForm): iAppBar;
+    function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+    class function New(const Form: TForm; const Layout: TLayout): iAppBar;
   end;
 
 var
@@ -49,6 +51,12 @@ uses
 {$R *.fmx}
 
 { TAppBar }
+
+procedure TAppBar.BtnMainMenuClick(Sender: TObject);
+begin
+  if(Assigned(fMenuButtonClick))then
+   fMenuButtonClick(sender);
+end;
 
 procedure TAppBar.BtnThemeChangerClick(Sender: TObject);
 begin
@@ -83,10 +91,10 @@ begin
     Avatar.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
 end;
 
-class function TAppBar.New(const Form: TForm): iAppBar;
+class function TAppBar.New(const Form: TForm; const Layout: TLayout): iAppBar;
 begin
   Result := self.Create(Form);
-  Form.AddObject(Result.Render);
+  Layout.AddObject(Result.Render);
 end;
 
 function TAppBar.Render: TRectangle;
@@ -94,16 +102,20 @@ begin
   Result := Self.TopBar;
 end;
 
+function TAppBar.SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+begin
+  Result := Self;
+
+  case ButtonAppBar of
+    ThemeBtn: fThemeChangerClick := Action;
+    MenuBtn:  fMenuButtonClick   := Action;
+  end;
+end;
+
 function TAppBar.ShowTitleBar(const value: Boolean): TRectangle;
 begin
   self.TitleBar.Visible := value;
   Result := self.TitleBar;
-end;
-
-function TAppBar.ThemeChangerClick(const Evento: TEventoClick): iAppBar;
-begin
-  fThemeChangerClick := Evento;
-  Result := Self;
 end;
 
 end.

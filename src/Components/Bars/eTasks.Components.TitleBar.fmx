@@ -8,13 +8,13 @@ object TitleBar: TTitleBar
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 0
-  object Layout1: TLayout
+  object LayoutTitleBar: TLayout
     Align = Top
     Size.Width = 640.000000000000000000
     Size.Height = 40.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
-    object Rectangle3: TRectangle
+    object TitleBar: TRectangle
       Align = Left
       Fill.Color = xFF336699
       Margins.Left = -15.000000000000000000
@@ -28,7 +28,7 @@ object TitleBar: TTitleBar
       Stroke.Kind = None
       XRadius = 15.000000000000000000
       YRadius = 15.000000000000000000
-      object Label3: TLabel
+      object TitleBarText: TLabel
         Align = Right
         AutoSize = True
         StyledSettings = [Style]

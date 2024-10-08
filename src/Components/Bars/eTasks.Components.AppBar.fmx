@@ -316,6 +316,7 @@ object AppBar: TAppBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      OnClick = BtnMainMenuClick
     end
     object BtnThemeChanger: TImage
       MultiResBitmap = <
