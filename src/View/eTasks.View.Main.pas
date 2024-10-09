@@ -14,8 +14,7 @@ type
   TfMain = class(TForm)
     MultiView1: TMultiView;
     MainLayout: TLayout;
-    Layout1: TLayout;
-    Rectangle1: TRectangle;
+    StyleBook1: TStyleBook;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
