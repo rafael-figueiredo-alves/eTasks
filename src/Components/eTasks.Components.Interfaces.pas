@@ -4,10 +4,12 @@ interface
 
 uses
   FMX.Objects,
-  FMX.Layouts;
+  FMX.Layouts,
+  FMX.MultiView;
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn);
+  TOffcanvasDirection = (ocdLeft, ocdRight);
 
   TEventoClick = procedure(sender: TObject) of object;
 
@@ -25,6 +27,12 @@ type
     function Render: TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+  end;
+
+  iOffcanvas = interface
+    function Render(const Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): TMultiView;
+    function isDarkMode(const value: boolean): iOffcanvas;
+    function OpenMenu: iOffcanvas;
   end;
 
 implementation

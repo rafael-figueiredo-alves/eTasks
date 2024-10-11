@@ -34,7 +34,8 @@ uses
   eTasks.Components.ColorPallete in 'src\Components\eTasks.Components.ColorPallete.pas',
   eTasks.Components.Interfaces in 'src\Components\eTasks.Components.Interfaces.pas',
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
-  eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas';
+  eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
+  eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas};
 
 {$R *.res}
 
@@ -45,5 +46,6 @@ begin
   Application.CreateForm(TfMain, fMain);
   Application.CreateForm(TAppBar, AppBar);
   Application.CreateForm(TTitleBar, TitleBar);
+  Application.CreateForm(TOffcanvas, Offcanvas);
   Application.Run;
 end.

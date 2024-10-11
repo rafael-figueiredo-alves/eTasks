@@ -260,6 +260,10 @@
         <DCCReference Include="src\Components\eTasks.Components.Interfaces.pas"/>
         <DCCReference Include="src\Shared\eTasks.Shared.Utils.pas"/>
         <DCCReference Include="src\Components\eTasks.Components.Builder.pas"/>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.Offcanvas.pas">
+            <Form>Offcanvas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
