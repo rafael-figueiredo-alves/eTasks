@@ -34,7 +34,8 @@ implementation
 
 uses
   eTasks.Components.ColorPallete,
-  eTasks.Components.Builder;
+  eTasks.Components.Builder,
+  eTasks.Shared.Consts;
 
 {$R *.fmx}
 
@@ -43,29 +44,21 @@ begin
   fDarkMode := False;
   AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(fDarkMode);
   TitleBar := TComponentBars.TitleBar(fMain, MainLayout);
-  MainMenu := TComponentOffcanvas.MainMenu(fMain, ocdLeft, true);
+  MainMenu := TComponentOffcanvas.MainMenu(fMain);
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
 end;
 
 procedure TfMain.FormResize(Sender: TObject);
 begin
-  if(fMain.Width < 360)then
-   fMain.Width := 360;
+  if(fMain.Width < MinimumWidth)then
+   fMain.Width := MinimumWidth;
 
-  if(fmain.Height < 640)then
-   fMain.Height := 640;
+  if(fmain.Height < MinimumHeight)then
+   fMain.Height := MinimumHeight;
 
-  if(fMain.Width <= 768)then
-   begin
-     AppBar.ShowTitleBar(false);
-     TitleBar.Render.Visible := true;
-   end
-  else
-   begin
-     AppBar.ShowTitleBar(True);
-     TitleBar.Render.Visible := false;
-   end;
+  AppBar.ShowTitleBar(fMain.Width > MobileSizeWidth);
+  TitleBar.Resize(fMain.Width);
 end;
 
 procedure TfMain.OpenMenu(sender: TObject);

@@ -15,8 +15,8 @@ type
 
   iTitleBar = interface
     ['{CCA6D914-787E-495F-ADE7-F9472A0FBC45}']
-    function Render : TLayout;
-    function ChangeTitle(const Title: string): iTitleBar;
+    function SetTitle(const Title: string): iTitleBar;
+    function Resize(const FormWidth: Integer): iTitleBar;
     function isDarkMode(const value: boolean): iTitleBar;
   end;
 

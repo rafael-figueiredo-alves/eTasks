@@ -1,7 +1,7 @@
 object TitleBar: TTitleBar
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Z'
   ClientHeight = 480
   ClientWidth = 640
   FormFactor.Width = 320
@@ -11,30 +11,29 @@ object TitleBar: TTitleBar
   object LayoutTitleBar: TLayout
     Align = Top
     Size.Width = 640.000000000000000000
-    Size.Height = 40.000000000000000000
+    Size.Height = 45.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object TitleBar: TRectangle
       Align = Left
       Fill.Color = xFF336699
       Margins.Left = -15.000000000000000000
-      Margins.Top = 5.000000000000000000
+      Margins.Top = 10.000000000000000000
       Margins.Bottom = 5.000000000000000000
       Position.X = -15.000000000000000000
-      Position.Y = 5.000000000000000000
-      Size.Width = 235.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 264.000000000000000000
       Size.Height = 30.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
       XRadius = 15.000000000000000000
       YRadius = 15.000000000000000000
       object TitleBarText: TLabel
-        Align = Right
+        Align = Center
         AutoSize = True
         StyledSettings = [Style]
-        Position.X = -0.199996948242187500
-        Size.Width = 235.199996948242200000
-        Size.Height = 30.000000000000000000
+        Size.Width = 282.399993896484400000
+        Size.Height = 25.600000381469730000
         Size.PlatformDefault = False
         TextSettings.Font.Family = 'Comic Sans MS'
         TextSettings.Font.Size = 18.000000000000000000

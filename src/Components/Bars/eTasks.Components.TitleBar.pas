@@ -19,9 +19,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function Render : TLayout;
-    function ChangeTitle(const Title: string): iTitleBar;
+    function SetTitle(const Title: string): iTitleBar;
     function isDarkMode(const value: boolean): iTitleBar;
+    function Resize(const FormWidth: Integer): iTitleBar;
+
     class function New(const Form: TForm; const Layout: TLayout): iTitleBar;
   end;
 
@@ -31,21 +32,24 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete;
+  eTasks.Components.ColorPallete,
+  eTasks.Shared.Consts;
 
 {$R *.fmx}
 
 { TTitleBar }
 
-function TTitleBar.ChangeTitle(const Title: string): iTitleBar;
+function TTitleBar.SetTitle(const Title: string): iTitleBar;
 begin
   Result := self;
   self.TitleBarText.text := Title;
 end;
 
-function TTitleBar.Render: TLayout;
+function TTitleBar.Resize(const FormWidth: Integer): iTitleBar;
 begin
-  Result := self.LayoutTitleBar;
+  Result := Self;
+  self.TitleBar.Visible := FormWidth <= MobileSizeWidth;
+  self.TitleBar.Width := Round((FormWidth * 70) / 100);
 end;
 
 function TTitleBar.isDarkMode(const value: boolean): iTitleBar;
@@ -58,7 +62,7 @@ end;
 class function TTitleBar.New(const Form: TForm; const Layout: TLayout): iTitleBar;
 begin
   Result := self.create(Form);
-  Layout.AddObject(Result.Render);
+  Layout.AddObject(TTitleBar(Result).LayoutTitleBar);
 end;
 
 end.

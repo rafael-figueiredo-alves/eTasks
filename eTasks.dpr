@@ -35,7 +35,8 @@ uses
   eTasks.Components.Interfaces in 'src\Components\eTasks.Components.Interfaces.pas',
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
-  eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas};
+  eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas';
 
 {$R *.res}
 

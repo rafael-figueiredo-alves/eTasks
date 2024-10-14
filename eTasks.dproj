@@ -264,6 +264,7 @@
             <Form>Offcanvas</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\Shared\eTasks.Shared.Consts.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
