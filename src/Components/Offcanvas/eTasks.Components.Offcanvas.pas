@@ -5,22 +5,35 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.MultiView, eTasks.Components.Interfaces;
+  FMX.Controls.Presentation, FMX.MultiView, eTasks.Components.Interfaces,
+  FMX.Objects, FMX.Layouts, FMX.StdCtrls, FMX.Effects, System.ImageList,
+  FMX.ImgList;
 
 type
   TOffcanvas = class(TForm, iOffcanvas)
     Multiview: TMultiView;
     Styles: TStyleBook;
+    LytTitle: TLayout;
+    BtnClose: TImage;
+    LytBtnFilters: TLayout;
+    LblTitle: TLabel;
+    BtnClear: TImage;
+    BtnAccept: TImage;
+    LineTop: TLine;
+    LineShadow: TShadowEffect;
+    ImgLight: TImageList;
+    ImgDark: TImageList;
+    procedure BtnCloseClick(Sender: TObject);
   private
     { Private declarations }
     fDirection : TOffcanvasDirection;
     procedure SetDirection(const direction: TOffcanvasDirection);
+    function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
   public
     { Public declarations }
-    function Render(const Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): TMultiView;
     function isDarkMode(const value: boolean): iOffcanvas;
     function OpenMenu: iOffcanvas;
-    class function New(const Form: TForm; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
+    class function New(const Form: TForm; isFilterMenu: Boolean = false; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
   end;
 
 var
@@ -30,25 +43,43 @@ implementation
 
 {$R *.fmx}
 
-uses eTasks.Shared.Utils, FMX.MultiView.Types;
+uses eTasks.Shared.Utils, FMX.MultiView.Types, eTasks.Components.ColorPallete;
 
 { TOffcanvas }
+
+procedure TOffcanvas.BtnCloseClick(Sender: TObject);
+begin
+  Multiview.HideMaster;
+end;
+
+function TOffcanvas.ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
+begin
+  Result := TUtils.Iif(isDarkMode, ImgDark.Bitmap(size, index), ImgLight.Bitmap(size, index));
+end;
 
 function TOffcanvas.isDarkMode(const value: boolean): iOffcanvas;
 begin
   Result := Self;
+
   case fDirection of
     ocdLeft: Multiview.StyleLookup := TUtils.Iif(value, 'DarkModeLeft', 'LightModeLeft');
     ocdRight: Multiview.StyleLookup := TUtils.Iif(value, 'DarkModeRight', 'LightModeRight');
    else
     Multiview.StyleLookup := TUtils.Iif(value, 'DarkModeRight', 'LightModeRight');
   end;
+
+   BtnClose.Bitmap      := ImgSource(TSizeF.Create(20, 20), 0, value);
+   LblTitle.FontColor   := tColorPallete.GetColor(Primary, value);
+   LineTop.Stroke.Color := tColorPallete.GetColor(Primary, value);
 end;
 
-class function TOffcanvas.New(const Form: TForm; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
+class function TOffcanvas.New(const Form: TForm; isFilterMenu: Boolean; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
 begin
   Result := Self.Create(Form);
-  Form.AddObject(Result.Render(Direction, isDarkMode));
+  TOffcanvas(Result).SetDirection(Direction);
+  TOffcanvas(Result).LytBtnFilters.Visible := isFilterMenu;
+  Result.isDarkMode(isDarkMode);
+  Form.AddObject(TOffcanvas(Result).Multiview);
 end;
 
 function TOffcanvas.OpenMenu: iOffcanvas;
@@ -56,19 +87,25 @@ begin
   Multiview.ShowMaster;
 end;
 
-function TOffcanvas.Render(const Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): TMultiView;
-begin
-  SetDirection(Direction);
-  Self.isDarkMode(isDarkMode);
-  Result := Multiview;
-end;
-
 procedure TOffcanvas.SetDirection(const direction: TOffcanvasDirection);
 begin
   fDirection := direction;
+
   case direction of
-    ocdLeft: Multiview.DrawerOptions.Placement := TPanelPlacement.Left;
-    ocdRight: Multiview.DrawerOptions.Placement := TPanelPlacement.Right;
+    ocdLeft:
+     begin
+       Multiview.DrawerOptions.Placement := TPanelPlacement.Left;
+       BtnClose.Align                    := TAlignLayout.Right;
+       LytBtnFilters.Align               := TAlignLayout.Left;
+       BtnClear.Align                    := TAlignLayout.Right;
+     end;
+    ocdRight:
+     begin
+       Multiview.DrawerOptions.Placement := TPanelPlacement.Right;
+       BtnClose.Align                    := TAlignLayout.Left;
+       LytBtnFilters.Align               := TAlignLayout.Right;
+       BtnClear.Align                    := TAlignLayout.Left;
+     end;
   end;
 end;
 

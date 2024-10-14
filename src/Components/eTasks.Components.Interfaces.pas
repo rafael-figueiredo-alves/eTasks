@@ -22,15 +22,13 @@ type
 
   iAppBar = interface
     ['{D3781F3B-96FF-4017-9F8E-5472178C9ABB}']
-    function ChangeTitle(const Title: string): iAppBar;
+    function SetTitle(const Title: string): iAppBar;
     function ShowTitleBar(const value: Boolean): TRectangle;
-    function Render: TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
   end;
 
   iOffcanvas = interface
-    function Render(const Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): TMultiView;
     function isDarkMode(const value: boolean): iOffcanvas;
     function OpenMenu: iOffcanvas;
   end;

@@ -32,9 +32,8 @@ type
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
   public
     { Public declarations }
-    function ChangeTitle(const Title: string): iAppBar;
+    function SetTitle(const Title: string): iAppBar;
     function ShowTitleBar(const value: Boolean): TRectangle;
-    function Render: TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
     class function New(const Form: TForm; const Layout: TLayout): iAppBar;
@@ -64,7 +63,7 @@ begin
    fThemeChangerClick(sender);
 end;
 
-function TAppBar.ChangeTitle(const Title: string): iAppBar;
+function TAppBar.SetTitle(const Title: string): iAppBar;
 begin
   self.Title.Text := Title;
   Result := self;
@@ -94,12 +93,7 @@ end;
 class function TAppBar.New(const Form: TForm; const Layout: TLayout): iAppBar;
 begin
   Result := self.Create(Form);
-  Layout.AddObject(Result.Render);
-end;
-
-function TAppBar.Render: TRectangle;
-begin
-  Result := Self.TopBar;
+  Layout.AddObject(TAppBar(Result).TopBar);
 end;
 
 function TAppBar.SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;

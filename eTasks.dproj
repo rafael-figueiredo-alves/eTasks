@@ -246,15 +246,12 @@
         </DelphiCompile>
         <DCCReference Include="src\View\eTasks.View.Main.pas">
             <Form>fMain</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Bars\eTasks.Components.AppBar.pas">
             <Form>AppBar</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Bars\eTasks.Components.TitleBar.pas">
             <Form>TitleBar</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\eTasks.Components.ColorPallete.pas"/>
         <DCCReference Include="src\Components\eTasks.Components.Interfaces.pas"/>
@@ -262,9 +259,10 @@
         <DCCReference Include="src\Components\eTasks.Components.Builder.pas"/>
         <DCCReference Include="src\Components\Offcanvas\eTasks.Components.Offcanvas.pas">
             <Form>Offcanvas</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="src\Shared\eTasks.Shared.Consts.pas"/>
+        <DCCReference Include="src\Shared\eTasks.Shared.Consts.pas">
+            <Form>$R *.res</Form>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

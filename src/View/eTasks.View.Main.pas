@@ -22,6 +22,8 @@ type
     MainMenu : iOffcanvas;
     fDarkMode : Boolean;
     procedure SetTheme(sender : TObject);
+    procedure TranslateUI;
+    procedure SetLanguage(sender : TObject);
     procedure OpenMenu(sender : TObject);
   public
     { Public declarations }
@@ -35,7 +37,8 @@ implementation
 uses
   eTasks.Components.ColorPallete,
   eTasks.Components.Builder,
-  eTasks.Shared.Consts;
+  eTasks.Shared.Consts,
+  eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -47,6 +50,7 @@ begin
   MainMenu := TComponentOffcanvas.MainMenu(fMain);
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
+  TranslateUI;
 end;
 
 procedure TfMain.FormResize(Sender: TObject);
@@ -66,6 +70,16 @@ begin
   MainMenu.OpenMenu;
 end;
 
+procedure TfMain.SetLanguage(sender : TObject);
+begin
+  if(eTranslate.GetLanguage = 'pt-BR')then
+   eTranslate.SetLanguage('en-US')
+  else
+   eTranslate.SetLanguage('pt-BR');
+
+  TranslateUI;
+end;
+
 procedure TfMain.SetTheme(sender: TObject);
 begin
   fDarkMode := not fDarkMode;
@@ -73,6 +87,12 @@ begin
   TitleBar.isDarkMode(fDarkMode);
   MainMenu.isDarkMode(fDarkMode);
   Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
+end;
+
+procedure TfMain.TranslateUI;
+begin
+  TitleBar.SetTitle(eTranslate.Translate('Main.Title'));
+  AppBar.SetTitle(eTranslate.Translate('Main.Title'));
 end;
 
 end.
