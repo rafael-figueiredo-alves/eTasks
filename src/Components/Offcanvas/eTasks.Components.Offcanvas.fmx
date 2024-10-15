@@ -265,6 +265,17 @@ object Offcanvas: TOffcanvas
         ShadowColor = claBlack
       end
     end
+    object Container: TVertScrollBox
+      Align = Client
+      Margins.Top = 5.000000000000000000
+      Margins.Bottom = 20.000000000000000000
+      Size.Width = 328.000000000000000000
+      Size.Height = 408.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Viewport.Width = 328.000000000000000000
+      Viewport.Height = 408.000000000000000000
+    end
   end
   object ImgLight: TImageList
     Source = <

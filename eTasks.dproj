@@ -263,6 +263,10 @@
         <DCCReference Include="src\Shared\eTasks.Shared.Consts.pas">
             <Form>$R *.res</Form>
         </DCCReference>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas">
+            <Form>AvatarMenu</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

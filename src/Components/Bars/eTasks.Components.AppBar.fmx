@@ -240,6 +240,7 @@ object AppBar: TAppBar
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      OnClick = AvatarClick
     end
     object BtnMainMenu: TImage
       MultiResBitmap = <

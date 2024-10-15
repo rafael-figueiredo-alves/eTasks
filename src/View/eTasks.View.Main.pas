@@ -17,14 +17,16 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    AppBar   : iAppBar;
-    TitleBar : iTitleBar;
-    MainMenu : iOffcanvas;
+    AppBar     : iAppBar;
+    TitleBar   : iTitleBar;
+    MainMenu   : iOffcanvas;
+    AvatarMenu : iAvatarMenu;
     fDarkMode : Boolean;
     procedure SetTheme(sender : TObject);
-    procedure TranslateUI;
     procedure SetLanguage(sender : TObject);
+    procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
+    procedure OpenAvatarMenu(sender : TObject);
   public
     { Public declarations }
   end;
@@ -48,8 +50,10 @@ begin
   AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(fDarkMode);
   TitleBar := TComponentBars.TitleBar(fMain, MainLayout);
   MainMenu := TComponentOffcanvas.MainMenu(fMain);
+  AvatarMenu := tComponentOffCanvas.AvatarMenu(fMain);
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
+  AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
   TranslateUI;
 end;
 
@@ -65,9 +69,14 @@ begin
   TitleBar.Resize(fMain.Width);
 end;
 
+procedure TfMain.OpenAvatarMenu(sender: TObject);
+begin
+  AvatarMenu.OpenMenu;
+end;
+
 procedure TfMain.OpenMenu(sender: TObject);
 begin
-  MainMenu.OpenMenu;
+  fMain.MainMenu.OpenMenu;
 end;
 
 procedure TfMain.SetLanguage(sender : TObject);
@@ -86,6 +95,7 @@ begin
   AppBar.isDarkMode(fDarkMode);
   TitleBar.isDarkMode(fDarkMode);
   MainMenu.isDarkMode(fDarkMode);
+  AvatarMenu.isDarkMode(fDarkMode);
   Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
 end;
 

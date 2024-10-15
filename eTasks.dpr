@@ -38,7 +38,8 @@ uses
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
-  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas';
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas',
+  eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu};
 
 {$R *.res}
 

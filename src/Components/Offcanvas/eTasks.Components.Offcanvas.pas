@@ -23,6 +23,7 @@ type
     LineShadow: TShadowEffect;
     ImgLight: TImageList;
     ImgDark: TImageList;
+    Container: TVertScrollBox;
     procedure BtnCloseClick(Sender: TObject);
   private
     { Private declarations }

@@ -24,9 +24,11 @@ type
     ImgAvatar: TImageList;
     procedure BtnThemeChangerClick(Sender: TObject);
     procedure BtnMainMenuClick(Sender: TObject);
+    procedure AvatarClick(Sender: TObject);
   private
-    fThemeChangerClick: TEventoClick;
-    fMenuButtonClick: TEventoClick;
+    fThemeChangerClick : TEventoClick;
+    fMenuButtonClick   : TEventoClick;
+    fAvatarButtonClick : TEventoClick;
 
     { Private declarations }
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
@@ -50,6 +52,12 @@ uses
 {$R *.fmx}
 
 { TAppBar }
+
+procedure TAppBar.AvatarClick(Sender: TObject);
+begin
+  if(Assigned(fAvatarButtonClick))then
+   fAvatarButtonClick(sender);
+end;
 
 procedure TAppBar.BtnMainMenuClick(Sender: TObject);
 begin
@@ -101,8 +109,9 @@ begin
   Result := Self;
 
   case ButtonAppBar of
-    ThemeBtn: fThemeChangerClick := Action;
-    MenuBtn:  fMenuButtonClick   := Action;
+     ThemeBtn: fThemeChangerClick := Action;
+      MenuBtn: fMenuButtonClick   := Action;
+    AvatarBtn: fAvatarButtonClick := Action;
   end;
 end;
 

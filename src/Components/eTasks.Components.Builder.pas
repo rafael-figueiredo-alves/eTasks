@@ -14,16 +14,17 @@ type
   end;
 
   TComponentOffcanvas = class
-    class function MainMenu(const Form: TForm; isFiltersMenu: boolean = false; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
-    class function FilterMenu(const Form: TForm; isFiltersMenu: boolean = true; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
-    class function LanguageMenu(const Form: TForm; isFiltersMenu: boolean = false; Direction: TOffcanvasDirection = ocdLeft; isDarkMode: Boolean = false): iOffcanvas;
+    class function MainMenu(const Form: TForm; isDarkMode: Boolean = false; isFiltersMenu: boolean = false; Direction: TOffcanvasDirection = ocdRight): iOffcanvas;
+    class function FilterMenu(const Form: TForm; isDarkMode: Boolean = false; isFiltersMenu: boolean = true; Direction: TOffcanvasDirection = ocdRight): iOffcanvas;
+    class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false; isFiltersMenu: boolean = false; Direction: TOffcanvasDirection = ocdLeft) : iOffcanvas;
+    class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight) : iAvatarMenu;
   end;
 
 implementation
 
 uses
   eTasks.Components.AppBar, eTasks.Components.TitleBar,
-  eTasks.Components.Offcanvas;
+  eTasks.Components.Offcanvas, eTasks.Components.AvatarMenu;
 
 { TComponentBars }
 
@@ -39,17 +40,22 @@ end;
 
 { TComponentOffcanvas }
 
-class function TComponentOffcanvas.FilterMenu(const Form: TForm; isFiltersMenu: boolean; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
+class function TComponentOffcanvas.AvatarMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iAvatarMenu;
+begin
+  Result := tAvatarMenu.New(Form, Direction, isDarkMode);
+end;
+
+class function TComponentOffcanvas.FilterMenu(const Form: TForm; isDarkMode: Boolean; isFiltersMenu: boolean; Direction: TOffcanvasDirection): iOffcanvas;
 begin
   Result := TOffcanvas.New(Form, isFiltersMenu, Direction, isDarkMode);
 end;
 
-class function TComponentOffcanvas.LanguageMenu(const Form: TForm; isFiltersMenu: boolean; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
+class function TComponentOffcanvas.LanguageMenu(const Form: TForm; isDarkMode: Boolean; isFiltersMenu: boolean; Direction: TOffcanvasDirection): iOffcanvas;
 begin
   Result := TOffcanvas.New(Form, isFiltersMenu, Direction, isDarkMode);
 end;
 
-class function TComponentOffcanvas.MainMenu(const Form: TForm; isFiltersMenu: boolean; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
+class function TComponentOffcanvas.MainMenu(const Form: TForm; isDarkMode: Boolean; isFiltersMenu: boolean; Direction: TOffcanvasDirection): iOffcanvas;
 begin
   Result := TOffcanvas.New(Form, isFiltersMenu, Direction, isDarkMode);
 end;
