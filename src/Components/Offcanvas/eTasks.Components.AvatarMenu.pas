@@ -18,12 +18,15 @@ type
     AvatarPicContainer: TLayout;
     AvatarPicture: TCircle;
     Layout3: TLayout;
-    Layout4: TLayout;
+    CloseLayout: TLayout;
     BtnClose: TImage;
-    Layout5: TLayout;
+    UserButtons: TLayout;
     LineTop: TLine;
     LineShadow: TShadowEffect;
     Container: TVertScrollBox;
+    ImgAvatar: TImageList;
+    UserName: TLabel;
+    procedure BtnCloseClick(Sender: TObject);
   private
     { Private declarations }
     fDirection : TOffcanvasDirection;
@@ -43,11 +46,16 @@ var
 implementation
 
 uses
-  eTasks.Shared.Utils, FMX.MultiView.Types;
+  eTasks.Shared.Utils, FMX.MultiView.Types, FMX.MultiResBitmap;
 
 {$R *.fmx}
 
 { TAvatarMenu }
+
+procedure TAvatarMenu.BtnCloseClick(Sender: TObject);
+begin
+  Multiview.HideMaster;
+end;
 
 function TAvatarMenu.ImgSource(const size: TSizeF; index: integer;isDarkMode: boolean): TBitmap;
 begin
@@ -55,6 +63,9 @@ begin
 end;
 
 function TAvatarMenu.isDarkMode(const value: boolean): iAvatarMenu;
+var
+ AvatarImg: tCustomBitmapItem;
+ Size: TSize;
 begin
   Result := Self;
 
@@ -64,6 +75,9 @@ begin
    else
     Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeRight', 'AvatarLightModeRight');
   end;
+
+   if ImgAvatar.BitmapItemByName(TUtils.Iif(value, 'Dark', 'Light'), AvatarImg, size) then
+    AvatarPicture.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
 end;
 
 class function TAvatarMenu.New(const Form: TForm; Direction: TOffcanvasDirection; isDarkMode: Boolean): iAvatarMenu;
