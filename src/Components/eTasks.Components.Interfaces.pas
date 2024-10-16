@@ -9,6 +9,7 @@ uses
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
+  TOffcanvasKind = (ockMenu, ockFilter, ockLanguage);
   TOffcanvasDirection = (ocdLeft, ocdRight);
 
   TEventoClick = procedure(sender: TObject) of object;

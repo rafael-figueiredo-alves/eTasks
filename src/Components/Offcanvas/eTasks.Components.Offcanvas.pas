@@ -34,7 +34,7 @@ type
     { Public declarations }
     function isDarkMode(const value: boolean): iOffcanvas;
     function OpenMenu: iOffcanvas;
-    class function New(const Form: TForm; isFilterMenu: Boolean = false; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
+    class function New(const Form: TForm; Kind: TOffcanvasKind; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
   end;
 
 var
@@ -74,11 +74,11 @@ begin
    LineTop.Stroke.Color := tColorPallete.GetColor(Primary, value);
 end;
 
-class function TOffcanvas.New(const Form: TForm; isFilterMenu: Boolean; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
+class function TOffcanvas.New(const Form: TForm; Kind: TOffcanvasKind; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
 begin
   Result := Self.Create(Form);
   TOffcanvas(Result).SetDirection(Direction);
-  TOffcanvas(Result).LytBtnFilters.Visible := isFilterMenu;
+  TOffcanvas(Result).LytBtnFilters.Visible := Kind = ockFilter;
   Result.isDarkMode(isDarkMode);
   Form.AddObject(TOffcanvas(Result).Multiview);
 end;

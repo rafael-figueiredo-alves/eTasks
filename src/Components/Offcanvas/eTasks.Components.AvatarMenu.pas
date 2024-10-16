@@ -26,6 +26,9 @@ type
     Container: TVertScrollBox;
     ImgAvatar: TImageList;
     UserName: TLabel;
+    BtnEditProfile: TImage;
+    BtnChangePassword: TImage;
+    BtnLogout: TImage;
     procedure BtnCloseClick(Sender: TObject);
   private
     { Private declarations }
@@ -46,7 +49,8 @@ var
 implementation
 
 uses
-  eTasks.Shared.Utils, FMX.MultiView.Types, FMX.MultiResBitmap;
+  eTasks.Shared.Utils, FMX.MultiView.Types, FMX.MultiResBitmap,
+  eTasks.Components.ColorPallete;
 
 {$R *.fmx}
 
@@ -78,6 +82,13 @@ begin
 
    if ImgAvatar.BitmapItemByName(TUtils.Iif(value, 'Dark', 'Light'), AvatarImg, size) then
     AvatarPicture.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
+
+  BtnClose.Bitmap          := ImgSource(TSizeF.Create(20, 20), 0, value);
+  BtnEditProfile .Bitmap   := ImgSource(TSizeF.Create(30, 30), 1, value);
+  BtnChangePassword.Bitmap := ImgSource(TSizeF.Create(30, 30), 2, value);
+  BtnLogout.Bitmap         := ImgSource(TSizeF.Create(30, 30), 3, value);
+  UserName.FontColor       := tColorPallete.GetColor(Primary, value);
+  LineTop.Stroke.Color     := tColorPallete.GetColor(Primary, value);
 end;
 
 class function TAvatarMenu.New(const Form: TForm; Direction: TOffcanvasDirection; isDarkMode: Boolean): iAvatarMenu;
