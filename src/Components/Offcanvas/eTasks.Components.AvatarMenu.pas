@@ -94,6 +94,7 @@ end;
 class function TAvatarMenu.New(const Form: TForm; Direction: TOffcanvasDirection; isDarkMode: Boolean): iAvatarMenu;
 begin
   Result := Self.Create(Form);
+  TAvatarMenu(Result).Multiview.Size.Width := 0;
   TAvatarMenu(Result).SetDirection(Direction);
   Result.isDarkMode(isDarkMode);
   Form.AddObject(TAvatarMenu(Result).Multiview);
@@ -101,6 +102,7 @@ end;
 
 function TAvatarMenu.OpenMenu: iAvatarMenu;
 begin
+  Multiview.Size.Width := 328;
   Multiview.ShowMaster;
 end;
 

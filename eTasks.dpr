@@ -38,8 +38,9 @@ uses
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
-  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas',
-  eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu};
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {$R *.res},
+  eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
+  eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu};
 
 {$R *.res}
 
@@ -49,5 +50,6 @@ begin
   Application.Initialize;
   eTranslate(ExtractFilePath(ParamStr(0)) + 'translate.json', 'pt-BR');
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TOffcanvasMenu, OffcanvasMenu);
   Application.Run;
 end.

@@ -267,6 +267,10 @@
             <Form>AvatarMenu</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.Menu.pas">
+            <Form>OffcanvasMenu</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

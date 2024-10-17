@@ -77,6 +77,7 @@ end;
 class function TOffcanvas.New(const Form: TForm; Kind: TOffcanvasKind; Direction: TOffcanvasDirection; isDarkMode: Boolean): iOffcanvas;
 begin
   Result := Self.Create(Form);
+  TOffcanvas(Result).Multiview.Size.Width := 0;
   TOffcanvas(Result).SetDirection(Direction);
   TOffcanvas(Result).LytBtnFilters.Visible := Kind = ockFilter;
   Result.isDarkMode(isDarkMode);
@@ -85,6 +86,7 @@ end;
 
 function TOffcanvas.OpenMenu: iOffcanvas;
 begin
+  Multiview.Size.Width := 328;
   Multiview.ShowMaster;
 end;
 

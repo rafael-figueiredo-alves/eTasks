@@ -85,6 +85,7 @@ object AvatarMenu: TAvatarMenu
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'AvatarLightModeRight'
+    Visible = False
     TabOrder = 0
     object TopAvatarMenu: TLayout
       Align = Top
