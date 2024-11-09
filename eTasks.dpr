@@ -30,6 +30,7 @@ uses
   FMX.Skia,
   eTranslate4Pascal,
   System.SysUtils,
+  System.IOUtils,
   eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain},
   eTasks.Components.AppBar in 'src\Components\Bars\eTasks.Components.AppBar.pas' {AppBar},
   eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar},
@@ -40,7 +41,8 @@ uses
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
   eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {$R *.res},
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
-  eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu};
+  eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu},
+  eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton};
 
 {$R *.res}
 
@@ -48,8 +50,15 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   GlobalUseSkia := True;
   Application.Initialize;
+  {$IFDEF ANDROID}
+  eTranslate(TPath.Combine(TPath.GetDocumentsPath, 'translate.json'), 'pt-BR');
+  {$ENDIF}
+
+  {$IFDEF MSWINDOWS}
   eTranslate(ExtractFilePath(ParamStr(0)) + 'translate.json', 'pt-BR');
+  {$ENDIF}
+
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TOffcanvasMenu, OffcanvasMenu);
+  Application.CreateForm(TActionButton, ActionButton);
   Application.Run;
 end.

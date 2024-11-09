@@ -3,7 +3,7 @@ object OffcanvasMenu: TOffcanvasMenu
   Top = 0
   Caption = 'Form1'
   ClientHeight = 480
-  ClientWidth = 284
+  ClientWidth = 256
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]

@@ -3,7 +3,7 @@ object AvatarMenu: TAvatarMenu
   Top = 0
   Caption = 'Form1'
   ClientHeight = 480
-  ClientWidth = 640
+  ClientWidth = 680
   StyleBook = Styles
   FormFactor.Width = 320
   FormFactor.Height = 480

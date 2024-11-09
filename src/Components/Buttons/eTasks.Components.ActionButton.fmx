@@ -1,0 +1,58 @@
+object ActionButton: TActionButton
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 104
+  ClientWidth = 152
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object LayoutActionButton: TLayout
+    Anchors = [akRight, akBottom]
+    Position.X = 81.000000000000000000
+    Position.Y = 28.000000000000000000
+    Size.Width = 60.000000000000000000
+    Size.Height = 60.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Button: TCircle
+      Align = Client
+      Fill.Color = xFF66BB6A
+      Size.Width = 60.000000000000000000
+      Size.Height = 60.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object ImgAdd: TImage
+        MultiResBitmap.Height = 39
+        MultiResBitmap.Width = 39
+        MultiResBitmap = <
+          item
+            Width = 39
+            Height = 39
+            PNG = {
+              89504E470D0A1A0A0000000D49484452000000270000002708060000008CA351
+              350000000473424954080808087C08648800000092494441545885EDD6C10983
+              401484E179C1BBA5241D182BB425D3414A89158C97204B0828C30B79C87C3759
+              197ED8CB027642913142F20660DA4623C68CDD1424EF6C64ED5EB2867EC1712A
+              C7A91CA7729CCA71AAD2715DFBF17E5DF4C2CEF56367107B9688787E3D2139F3
+              BFE6B6A7F4B5968E4B413F368B719CCA712AC7A91CA7729CAA745CB7FFCB212F
+              008FA42D3BB7151E67AFBC746D2C0E0000000049454E44AE426082}
+            FileName = 'C:\MeusProjetos\eTasks\assets\UI\common\Add.png'
+          end>
+        Align = Center
+        HitTest = False
+        Size.Width = 30.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object Sombra: TShadowEffect
+        Distance = 4.000000000000000000
+        Direction = 90.000000000000000000
+        Softness = 0.300000011920929000
+        Opacity = 0.600000023841857900
+        ShadowColor = claBlack
+      end
+    end
+  end
+end

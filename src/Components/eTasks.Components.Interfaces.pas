@@ -53,6 +53,13 @@ type
     ['{CD663DA8-C7F0-43E9-9382-3D1926C10042}']
   end;
 
+  iActionButton = interface
+    ['{58E61ADA-76CE-4E16-9356-9C8EF7E367B1}']
+    function isDarkMode(const value: boolean): iActionButton;
+    function SetHint(const value: string): iActionButton;
+    function OnClick(const Event: TEventoClick): iActionButton;
+  end;
+
 implementation
 
 

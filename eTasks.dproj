@@ -216,6 +216,11 @@
     <PropertyGroup Condition="'$(Cfg_1_Android)'!=''">
         <VerInfo_Build>1</VerInfo_Build>
         <IncludeAndroid_NotificationAccentColor>false</IncludeAndroid_NotificationAccentColor>
+        <IncludeAndroid_AdaptiveIcon>true</IncludeAndroid_AdaptiveIcon>
+        <IncludeAndroid_VectorizedSplash>true</IncludeAndroid_VectorizedSplash>
+        <Android_BackgroundColor>#FFFFFF</Android_BackgroundColor>
+        <Android_DarkBackgroundColor>#FFFFFF</Android_DarkBackgroundColor>
+        <IncludeAndroid_VectorizedNotificationIcon>true</IncludeAndroid_VectorizedNotificationIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -265,10 +270,12 @@
         </DCCReference>
         <DCCReference Include="src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas">
             <Form>AvatarMenu</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Offcanvas\eTasks.Components.Menu.pas">
             <Form>OffcanvasMenu</Form>
+        </DCCReference>
+        <DCCReference Include="src\Components\Buttons\eTasks.Components.ActionButton.pas">
+            <Form>ActionButton</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">
@@ -919,6 +926,19 @@
                 <DeployFile LocalName="Win32\Debug\eTasks.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>eTasks.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\translate.json" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal\</RemoteDir>
+                        <RemoteName>translate.json</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\translate.json" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteName>translate.json</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

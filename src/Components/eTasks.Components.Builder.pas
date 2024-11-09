@@ -20,11 +20,16 @@ type
     class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight) : iAvatarMenu;
   end;
 
+  TComponentButtons = class
+    class function ActionButton(const Form: TForm) : iActionButton;
+  end;
+
 implementation
 
 uses
   eTasks.Components.AppBar, eTasks.Components.TitleBar,
-  eTasks.Components.Offcanvas, eTasks.Components.AvatarMenu;
+  eTasks.Components.Offcanvas, eTasks.Components.AvatarMenu,
+  eTasks.Components.ActionButton;
 
 { TComponentBars }
 
@@ -58,6 +63,13 @@ end;
 class function TComponentOffcanvas.MainMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iOffcanvas;
 begin
   Result := TOffcanvas.New(Form, ockMenu, Direction, isDarkMode);
+end;
+
+{ TComponentButtons }
+
+class function TComponentButtons.ActionButton(const Form: TForm): iActionButton;
+begin
+  Result := TActionButton.New(Form);
 end;
 
 end.

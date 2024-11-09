@@ -17,10 +17,11 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    AppBar     : iAppBar;
-    TitleBar   : iTitleBar;
-    MainMenu   : iOffcanvas;
-    AvatarMenu : iAvatarMenu;
+    AppBar       : iAppBar;
+    TitleBar     : iTitleBar;
+    MainMenu     : iOffcanvas;
+    AvatarMenu   : iAvatarMenu;
+    ActionButton : iActionButton;
     fDarkMode : Boolean;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
@@ -54,6 +55,7 @@ begin
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
   AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
+  ActionButton := TComponentButtons.ActionButton(fMain);
   TranslateUI;
 end;
 
