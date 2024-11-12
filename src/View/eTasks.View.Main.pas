@@ -28,6 +28,8 @@ type
     procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
+    procedure Teste(sender : TObject);
+    procedure Teste2(sender : TObject);
   public
     { Public declarations }
   end;
@@ -55,7 +57,7 @@ begin
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
   AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
-  ActionButton := TComponentButtons.ActionButton(fMain);
+  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(Teste).SetHint('Clique para um teste');
   TranslateUI;
 end;
 
@@ -98,7 +100,20 @@ begin
   TitleBar.isDarkMode(fDarkMode);
   MainMenu.isDarkMode(fDarkMode);
   AvatarMenu.isDarkMode(fDarkMode);
+  ActionButton.isDarkMode(fDarkMode);
   Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
+end;
+
+procedure TfMain.Teste(sender : TObject);
+begin
+  ShowMessage('Teste');
+  ActionButton.OnClick(Teste2);
+end;
+
+procedure TfMain.Teste2(sender: TObject);
+begin
+  ShowMessage('Outro teste');
+  ActionButton.OnClick(Teste);
 end;
 
 procedure TfMain.TranslateUI;

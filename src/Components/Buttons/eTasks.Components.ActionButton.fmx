@@ -10,19 +10,23 @@ object ActionButton: TActionButton
   DesignerMasterStyle = 0
   object LayoutActionButton: TLayout
     Anchors = [akRight, akBottom]
-    Position.X = 81.000000000000000000
-    Position.Y = 28.000000000000000000
+    Position.X = 77.000000000000000000
+    Position.Y = 29.000000000000000000
     Size.Width = 60.000000000000000000
     Size.Height = 60.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object Button: TCircle
-      Align = Client
+      Align = Center
+      Cursor = crHandPoint
       Fill.Color = xFF66BB6A
       Size.Width = 60.000000000000000000
       Size.Height = 60.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = ButtonClick
       object ImgAdd: TImage
         MultiResBitmap.Height = 39
         MultiResBitmap.Width = 39
@@ -52,6 +56,26 @@ object ActionButton: TActionButton
         Softness = 0.300000011920929000
         Opacity = 0.600000023841857900
         ShadowColor = claBlack
+      end
+      object MudaCor: TColorAnimation
+        Duration = 0.200000002980232200
+        PropertyName = 'Fill.Color'
+        StartValue = claWhite
+        StopValue = claWhite
+      end
+      object ClickAnimationX: TFloatAnimation
+        Duration = 0.200000002980232200
+        OnFinish = ClickAnimationXFinish
+        PropertyName = 'Scale.X'
+        StartValue = 1.000000000000000000
+        StopValue = 0.949999988079071000
+      end
+      object ClickAnimationY: TFloatAnimation
+        Duration = 0.200000002980232200
+        OnFinish = ClickAnimationYFinish
+        PropertyName = 'Scale.Y'
+        StartValue = 1.000000000000000000
+        StopValue = 0.949999988079071000
       end
     end
   end

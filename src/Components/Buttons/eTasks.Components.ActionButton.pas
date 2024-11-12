@@ -16,7 +16,7 @@ uses
   FMX.Objects,
   FMX.Layouts,
   FMX.Effects,
-  eTasks.Components.Interfaces;
+  eTasks.Components.Interfaces, FMX.Ani;
 
 type
   TActionButton = class(TForm, iActionButton)
@@ -24,6 +24,12 @@ type
     Button: TCircle;
     ImgAdd: TImage;
     Sombra: TShadowEffect;
+    ClickAnimationX: TFloatAnimation;
+    ClickAnimationY: TFloatAnimation;
+    MudaCor: TColorAnimation;
+    procedure ClickAnimationYFinish(Sender: TObject);
+    procedure ClickAnimationXFinish(Sender: TObject);
+    procedure ButtonClick(Sender: TObject);
   private
     { Private declarations }
     fOnClickClick : TEventoClick;
@@ -41,13 +47,44 @@ var
 
 implementation
 
+uses
+  eTasks.Components.ColorPallete;
+
 {$R *.fmx}
 
 { TActionButton }
 
+procedure TActionButton.ButtonClick(Sender: TObject);
+begin
+  ClickAnimationX.Start;
+  ClickAnimationY.Start;
+
+  if(Assigned(fOnClickClick))then
+   fOnClickClick(Sender);
+end;
+
+procedure TActionButton.ClickAnimationXFinish(Sender: TObject);
+begin
+  ClickAnimationX.Inverse := not ClickAnimationX.Inverse;
+
+  if(ClickAnimationX.Inverse)then
+   ClickAnimationX.Start;
+end;
+
+procedure TActionButton.ClickAnimationYFinish(Sender: TObject);
+begin
+  ClickAnimationY.Inverse := not ClickAnimationY.Inverse;
+
+  if(ClickAnimationY.Inverse)then
+   ClickAnimationY.Start;
+end;
+
 function TActionButton.isDarkMode(const value: boolean): iActionButton;
 begin
-
+  Result := Self;
+  MudaCor.StartValue := tColorPallete.GetColor(FabButton, not value);
+  MudaCor.StopValue  := tColorPallete.GetColor(FabButton, value);
+  MudaCor.Start;
 end;
 
 class function TActionButton.New(const Form: TForm): iActionButton;
@@ -58,12 +95,14 @@ end;
 
 function TActionButton.OnClick(const Event: TEventoClick): iActionButton;
 begin
-
+  Result := Self;
+  fOnClickClick := Event;
 end;
 
 function TActionButton.SetHint(const value: string): iActionButton;
 begin
-
+  Result := Self;
+  Button.Hint := value;
 end;
 
 end.
