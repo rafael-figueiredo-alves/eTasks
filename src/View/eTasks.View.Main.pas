@@ -3,10 +3,22 @@ unit eTasks.View.Main;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Effects,
-  FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
-  eTasks.Components.Interfaces, FMX.MultiView;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Effects,
+  FMX.Objects,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls, FMX.Layouts,
+  eTasks.Components.Interfaces,
+  FMX.MultiView;
 
 type
   TTeste = procedure of Object;
@@ -28,8 +40,6 @@ type
     procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
-    procedure Teste(sender : TObject);
-    procedure Teste2(sender : TObject);
   public
     { Public declarations }
   end;
@@ -57,7 +67,7 @@ begin
   AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
   AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
-  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(Teste).SetHint('Clique para um teste');
+  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste');
   TranslateUI;
 end;
 
@@ -104,22 +114,11 @@ begin
   Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
 end;
 
-procedure TfMain.Teste(sender : TObject);
-begin
-  ShowMessage('Teste');
-  ActionButton.OnClick(Teste2);
-end;
-
-procedure TfMain.Teste2(sender: TObject);
-begin
-  ShowMessage('Outro teste');
-  ActionButton.OnClick(Teste);
-end;
-
 procedure TfMain.TranslateUI;
 begin
   TitleBar.SetTitle(eTranslate.Translate('Main.Title'));
   AppBar.SetTitle(eTranslate.Translate('Main.Title'));
+  ActionButton.SetHint(eTranslate.Translate('Main.Title'));
 end;
 
 end.

@@ -58,6 +58,7 @@ type
     function isDarkMode(const value: boolean): iActionButton;
     function SetHint(const value: string): iActionButton;
     function OnClick(const Event: TEventoClick): iActionButton;
+    function IsVisible(const Value: Boolean = true): iActionButton;
   end;
 
 implementation

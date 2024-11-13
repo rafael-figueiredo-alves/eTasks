@@ -38,6 +38,7 @@ type
     function isDarkMode(const value: boolean): iActionButton;
     function SetHint(const value: string): iActionButton;
     function OnClick(const Event: TEventoClick): iActionButton;
+    function IsVisible(const Value: Boolean = true): iActionButton;
 
     class function New(const Form: TForm): iActionButton;
   end;
@@ -85,6 +86,12 @@ begin
   MudaCor.StartValue := tColorPallete.GetColor(FabButton, not value);
   MudaCor.StopValue  := tColorPallete.GetColor(FabButton, value);
   MudaCor.Start;
+end;
+
+function TActionButton.IsVisible(const Value: Boolean): iActionButton;
+begin
+  Result := Self;
+  LayoutActionButton.Visible := Value;
 end;
 
 class function TActionButton.New(const Form: TForm): iActionButton;

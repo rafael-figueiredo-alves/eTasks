@@ -50,6 +50,7 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   GlobalUseSkia := True;
   Application.Initialize;
+
   {$IFDEF ANDROID}
   eTranslate(TPath.Combine(TPath.GetDocumentsPath, 'translate.json'), 'pt-BR');
   {$ENDIF}
@@ -59,6 +60,5 @@ begin
   {$ENDIF}
 
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TActionButton, ActionButton);
   Application.Run;
 end.
