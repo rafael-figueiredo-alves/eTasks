@@ -278,6 +278,10 @@
             <Form>ActionButton</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\Components\Bars\eTasks.Components.NavBar.pas">
+            <Form>NavBar</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

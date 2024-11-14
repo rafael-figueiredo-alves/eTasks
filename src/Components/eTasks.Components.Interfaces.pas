@@ -11,6 +11,7 @@ type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
   TOffcanvasKind = (ockMenu, ockFilter, ockLanguage);
   TOffcanvasDirection = (ocdLeft, ocdRight);
+  TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton);
 
   TEventoClick = procedure(sender: TObject) of object;
 
@@ -27,6 +28,14 @@ type
     function ShowTitleBar(const value: Boolean): TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+  end;
+
+  iNavBar = interface
+    ['{025C4B42-971C-4DF5-AF6A-0C51B61C3EA5}']
+    function SetTitle(const Title: string): iNavBar;
+    function Resize(const FormWidth: Integer): iNavBar;
+    function isDarkMode(const value: boolean): iNavBar;
+    function ShowButtons(const value: TNavBarButtons): iNavBar;
   end;
 
   iOffcanvas = interface
