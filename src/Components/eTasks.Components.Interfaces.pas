@@ -36,6 +36,11 @@ type
     function Resize(const FormWidth: Integer): iNavBar;
     function isDarkMode(const value: boolean): iNavBar;
     function ShowButtons(const value: TNavBarButtons): iNavBar;
+    function OnBtnUpdateClick(const Event: TEventoClick): iNavBar;
+    function OnBtnHelpClick(const Event: TEventoClick): iNavBar;
+    function OnBtnDeleteClick(const Event: TEventoClick): iNavBar;
+    function OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
+    function OnBtnBackClick(const Event: TEventoClick): iNavBar;
   end;
 
   iOffcanvas = interface

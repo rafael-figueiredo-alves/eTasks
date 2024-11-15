@@ -201,9 +201,9 @@ object NavBar: TNavBar
       Cursor = crHandPoint
       Margins.Left = 10.000000000000000000
       Margins.Top = 10.000000000000000000
-      Margins.Right = 5.000000000000000000
+      Margins.Right = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
-      Position.X = 480.000000000000000000
+      Position.X = 475.000000000000000000
       Position.Y = 10.000000000000000000
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
@@ -259,9 +259,9 @@ object NavBar: TNavBar
       Cursor = crHandPoint
       Margins.Left = 10.000000000000000000
       Margins.Top = 10.000000000000000000
-      Margins.Right = 5.000000000000000000
+      Margins.Right = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
-      Position.X = 425.000000000000000000
+      Position.X = 415.000000000000000000
       Position.Y = 10.000000000000000000
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
