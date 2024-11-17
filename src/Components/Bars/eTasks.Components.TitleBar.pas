@@ -49,6 +49,7 @@ function TTitleBar.Resize(const FormWidth: Integer): iTitleBar;
 begin
   Result := Self;
   self.TitleBar.Visible := FormWidth <= MobileSizeWidth;
+  self.LayoutTitleBar.Visible := FormWidth <= MobileSizeWidth;
   self.TitleBar.Width := Round((FormWidth * 70) / 100);
 end;
 

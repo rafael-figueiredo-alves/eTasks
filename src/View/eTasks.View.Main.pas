@@ -25,8 +25,15 @@ type
 
   TfMain = class(TForm)
     MainLayout: TLayout;
+    ContentLayout: TLayout;
+    ListsLayout: TLayout;
+    ScreensLayout: TLayout;
+    Button1: TButton;
+    Circle1: TCircle;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     AppBar       : iAppBar;
@@ -35,11 +42,15 @@ type
     AvatarMenu   : iAvatarMenu;
     ActionButton : iActionButton;
     fDarkMode : Boolean;
+    rectangle1: TRectangle;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
+
+    procedure RestrictScreenSize;
+    procedure ScreensLayoutChange;
   public
     { Public declarations }
   end;
@@ -57,6 +68,23 @@ uses
 
 {$R *.fmx}
 
+procedure TfMain.Button1Click(Sender: TObject);
+begin
+  Rectangle1 := TRectangle.Create(nil);
+  ScreensLayout.AddObject(Rectangle1);
+end;
+
+procedure TfMain.Button2Click(Sender: TObject);
+begin
+  if Assigned(Rectangle1) then
+  begin
+    Rectangle1.Parent := nil; // Remova do layout antes de liberar
+    FreeAndNil(Rectangle1);
+  end;
+
+  ScreensLayoutChange;
+end;
+
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   fDarkMode := False;
@@ -73,11 +101,9 @@ end;
 
 procedure TfMain.FormResize(Sender: TObject);
 begin
-  if(fMain.Width < MinimumWidth)then
-   fMain.Width := MinimumWidth;
+  RestrictScreenSize;
 
-  if(fmain.Height < MinimumHeight)then
-   fMain.Height := MinimumHeight;
+  ScreensLayoutChange;
 
   AppBar.ShowTitleBar(fMain.Width > MobileSizeWidth);
   TitleBar.Resize(fMain.Width);
@@ -91,6 +117,42 @@ end;
 procedure TfMain.OpenMenu(sender: TObject);
 begin
   fMain.MainMenu.OpenMenu;
+end;
+
+procedure TfMain.RestrictScreenSize;
+begin
+  if(fMain.Width < MinimumWidth)then
+   fMain.Width := MinimumWidth;
+
+  if(fmain.Height < MinimumHeight)then
+   fMain.Height := MinimumHeight;
+end;
+
+procedure TfMain.ScreensLayoutChange;
+begin
+  ScreensLayout.Width := fMain.Width / 2;
+
+  if(fMain.Width > MobileSizeWidth)then
+   begin
+     ScreensLayout.Parent := ContentLayout;
+     ScreensLayout.Align := TAlignLayout.Right;
+     ScreensLayout.Visible := True;
+   end
+  else
+   begin
+     if(Assigned(Rectangle1))then
+     if(ScreensLayout.ContainsObject(Rectangle1))then
+      begin
+       ScreensLayout.Parent := fMain;
+       ScreensLayout.Align := TAlignLayout.Contents;
+       ScreensLayout.Visible := True;
+      end
+     else
+      begin
+        ScreensLayout.Parent := nil;
+        ScreensLayout.Visible := False;
+      end;
+   end;
 end;
 
 procedure TfMain.SetLanguage(sender : TObject);

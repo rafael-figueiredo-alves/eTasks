@@ -3,7 +3,7 @@ object fMain: TfMain
   Top = 0
   Caption = 'eTasks'
   ClientHeight = 480
-  ClientWidth = 360
+  ClientWidth = 860
   Fill.Kind = Solid
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -14,9 +14,45 @@ object fMain: TfMain
   DesignerMasterStyle = 0
   object MainLayout: TLayout
     Align = Client
-    Size.Width = 360.000000000000000000
+    Size.Width = 860.000000000000000000
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
+    object ContentLayout: TLayout
+      Align = Client
+      Size.Width = 860.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object ListsLayout: TLayout
+        Align = Client
+        Size.Width = 464.000000000000000000
+        Size.Height = 480.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object Button1: TButton
+          Position.X = 104.000000000000000000
+          Position.Y = 80.000000000000000000
+          TabOrder = 0
+          Text = 'Button1'
+          TextSettings.Trimming = None
+          OnClick = Button1Click
+        end
+      end
+      object ScreensLayout: TLayout
+        Align = Right
+        Position.X = 464.000000000000000000
+        Size.Width = 396.000000000000000000
+        Size.Height = 480.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object Circle1: TCircle
+          Align = Center
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+    end
   end
 end
