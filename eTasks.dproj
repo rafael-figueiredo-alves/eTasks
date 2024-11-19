@@ -282,6 +282,10 @@
             <Form>NavBar</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\View\eTasks.View.PageLayout.pas">
+            <Form>PageLayout</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

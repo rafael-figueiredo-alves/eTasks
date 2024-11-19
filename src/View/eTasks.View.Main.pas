@@ -18,7 +18,7 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.Layouts,
   eTasks.Components.Interfaces,
-  FMX.MultiView;
+  FMX.MultiView, eTasks.View.PageLayout;
 
 type
   TTeste = procedure of Object;
@@ -32,7 +32,6 @@ type
     Circle1: TCircle;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -42,7 +41,7 @@ type
     AvatarMenu   : iAvatarMenu;
     ActionButton : iActionButton;
     fDarkMode : Boolean;
-    rectangle1: TRectangle;
+    Teste : TLayout;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
@@ -70,18 +69,13 @@ uses
 
 procedure TfMain.Button1Click(Sender: TObject);
 begin
-  Rectangle1 := TRectangle.Create(nil);
-  ScreensLayout.AddObject(Rectangle1);
-end;
+  if(Assigned(Teste))then
+   begin
+     //Teste.Release;
+     Teste := nil;
+   end;
 
-procedure TfMain.Button2Click(Sender: TObject);
-begin
-  if Assigned(Rectangle1) then
-  begin
-    Rectangle1.Parent := nil; // Remova do layout antes de liberar
-    FreeAndNil(Rectangle1);
-  end;
-
+  Teste := TPageLayout.New(ScreensLayout);
   ScreensLayoutChange;
 end;
 
@@ -140,8 +134,9 @@ begin
    end
   else
    begin
-     if(Assigned(Rectangle1))then
-     if(ScreensLayout.ContainsObject(Rectangle1))then
+     if(Assigned(Teste))then
+     if(Assigned(Teste))then
+     if(ScreensLayout.ContainsObject(Teste))then
       begin
        ScreensLayout.Parent := fMain;
        ScreensLayout.Align := TAlignLayout.Contents;
