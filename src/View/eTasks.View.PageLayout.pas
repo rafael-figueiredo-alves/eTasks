@@ -13,6 +13,8 @@ type
     function _Layout: TLayout;
   end;
 
+  TMetodoScreen = Procedure of object;
+
   TPageLayout = class(TForm, iPageLayout)
     Button1: TButton;
     Layout1: TLayout;
@@ -21,10 +23,11 @@ type
   private
     { Private declarations }
     Layout: TLayout;
+    Metodo : TMetodoScreen;
   public
     { Public declarations }
     function _Layout: TLayout;
-    class function New(const pLayout: TLayout) : TLayout;
+    class function New(const pLayout: TLayout; met: TMetodoScreen) : iPageLayout;
     destructor Destroy; override;
   end;
 
@@ -39,8 +42,6 @@ implementation
 
 procedure TPageLayout.Button1Click(Sender: TObject);
 begin
-  if Assigned(Self) then
-  begin
     // Remove Layout1 do Layout principal
     if Assigned(Layout) and Layout.ContainsObject(Layout1) then
       Layout.RemoveObject(Layout1);
@@ -48,9 +49,7 @@ begin
     // Força a atualização do foco para o formulário principal
     Application.ProcessMessages;
 
-    // Use Release em vez de Free para evitar problemas de memória e foco
-    PageLayout.Release;
-  end;
+    Metodo;
 end;
 
 destructor TPageLayout.Destroy;
@@ -63,15 +62,13 @@ begin
   inherited;
 end;
 
-class function TPageLayout.New(const pLayout: TLayout): TLayout;
+class function TPageLayout.New(const pLayout: TLayout; met: TMetodoScreen): iPageLayout;
 begin
-  if(Assigned(PageLayout))then
-   PageLayout.Release;
-
-  PageLayout := Self.Create(nil);
+  PageLayout := Self.Create(pLayout);
   PageLayout.Layout := pLayout;
   pLayout.AddObject(PageLayout.Layout1);
-  Result := PageLayout.Layout1;
+  PageLayout.Metodo := met;
+  Result := PageLayout;
 end;
 
 function TPageLayout._Layout: TLayout;

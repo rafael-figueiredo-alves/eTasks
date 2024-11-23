@@ -30,9 +30,11 @@ type
     ScreensLayout: TLayout;
     Button1: TButton;
     Circle1: TCircle;
+    Button2: TButton;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
     AppBar       : iAppBar;
@@ -41,7 +43,7 @@ type
     AvatarMenu   : iAvatarMenu;
     ActionButton : iActionButton;
     fDarkMode : Boolean;
-    Teste : TLayout;
+    Teste : iPageLayout;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
@@ -63,7 +65,7 @@ uses
   eTasks.Components.ColorPallete,
   eTasks.Components.Builder,
   eTasks.Shared.Consts,
-  eTranslate4Pascal;
+  eTranslate4Pascal, eTasks.View.Teste;
 
 {$R *.fmx}
 
@@ -71,11 +73,23 @@ procedure TfMain.Button1Click(Sender: TObject);
 begin
   if(Assigned(Teste))then
    begin
-     //Teste.Release;
-     Teste := nil;
+     if(ScreensLayout.ContainsObject(Teste._Layout))then
+      ScreensLayout.RemoveObject(Teste._Layout);
    end;
 
-  Teste := TPageLayout.New(ScreensLayout);
+  Teste := TPageLayout.New(ScreensLayout, ScreensLayoutChange);
+  ScreensLayoutChange;
+end;
+
+procedure TfMain.Button2Click(Sender: TObject);
+begin
+  if(Assigned(Teste))then
+   begin
+     if(ScreensLayout.ContainsObject(Teste._Layout))then
+      ScreensLayout.RemoveObject(Teste._Layout);
+   end;
+
+  Teste := TPageLayout1.New(ScreensLayout, ScreensLayoutChange);
   ScreensLayoutChange;
 end;
 
@@ -124,23 +138,27 @@ end;
 
 procedure TfMain.ScreensLayoutChange;
 begin
-  ScreensLayout.Width := fMain.Width / 2;
 
   if(fMain.Width > MobileSizeWidth)then
    begin
      ScreensLayout.Parent := ContentLayout;
      ScreensLayout.Align := TAlignLayout.Right;
+     ScreensLayout.Width := fMain.Width / 2;
      ScreensLayout.Visible := True;
    end
   else
    begin
      if(Assigned(Teste))then
-     if(Assigned(Teste))then
-     if(ScreensLayout.ContainsObject(Teste))then
+     if(ScreensLayout.ContainsObject(Teste._Layout))then
       begin
        ScreensLayout.Parent := fMain;
        ScreensLayout.Align := TAlignLayout.Contents;
        ScreensLayout.Visible := True;
+      end
+     else
+      begin
+        ScreensLayout.Parent := nil;
+        ScreensLayout.Visible := False;
       end
      else
       begin

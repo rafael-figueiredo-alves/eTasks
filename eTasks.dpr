@@ -44,7 +44,8 @@ uses
   eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu},
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
-  eTasks.View.PageLayout in 'src\View\eTasks.View.PageLayout.pas' {PageLayout};
+  eTasks.View.PageLayout in 'src\View\eTasks.View.PageLayout.pas' {PageLayout},
+  eTasks.View.Teste in 'src\View\eTasks.View.Teste.pas' {PageLayout1};
 
 {$R *.res}
 
@@ -62,5 +63,6 @@ begin
   {$ENDIF}
 
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TPageLayout1, PageLayout1);
   Application.Run;
 end.

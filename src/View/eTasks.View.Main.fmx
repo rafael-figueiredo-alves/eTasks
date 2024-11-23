@@ -31,12 +31,20 @@ object fMain: TfMain
         Size.PlatformDefault = False
         TabOrder = 0
         object Button1: TButton
-          Position.X = 104.000000000000000000
+          Position.X = 96.000000000000000000
           Position.Y = 80.000000000000000000
-          TabOrder = 0
+          TabOrder = 1
           Text = 'Button1'
           TextSettings.Trimming = None
           OnClick = Button1Click
+        end
+        object Button2: TButton
+          Position.X = 96.000000000000000000
+          Position.Y = 200.000000000000000000
+          TabOrder = 0
+          Text = 'Button2'
+          TextSettings.Trimming = None
+          OnClick = Button2Click
         end
       end
       object ScreensLayout: TLayout
