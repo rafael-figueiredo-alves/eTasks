@@ -290,6 +290,8 @@
             <Form>PageLayout1</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\View\eTasks.View.Interfaces.pas"/>
+        <DCCReference Include="src\View\eTasks.View.NavigationManager.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -5,29 +5,29 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, eTasks.View.Interfaces;
 
 type
-  iPageLayout = interface
-    ['{E22EAB87-8030-43F8-B0DC-AB57B067C0CD}']
-    function _Layout: TLayout;
-  end;
 
-  TMetodoScreen = Procedure of object;
 
   TPageLayout = class(TForm, iPageLayout)
     Button1: TButton;
-    Layout1: TLayout;
-    Rectangle1: TRectangle;
+    PageViewLayout: TLayout;
+    Background: TRectangle;
+    Label1: TLabel;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
-    Layout: TLayout;
-    Metodo : TMetodoScreen;
+    MainLayout: TLayout;
+    UpdateScreenMethod : TUpdateScreenMethod;
+    procedure GoBack;
+    procedure RemovePageViewLayout;
   public
     { Public declarations }
-    function _Layout: TLayout;
-    class function New(const pLayout: TLayout; met: TMetodoScreen) : iPageLayout;
+    function Layout: TLayout;
+    function IsMobile(const Value: boolean): iPageLayout;
+
+    class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod) : iPageLayout;
     destructor Destroy; override;
   end;
 
@@ -42,38 +42,52 @@ implementation
 
 procedure TPageLayout.Button1Click(Sender: TObject);
 begin
-    // Remove Layout1 do Layout principal
-    if Assigned(Layout) and Layout.ContainsObject(Layout1) then
-      Layout.RemoveObject(Layout1);
-
-    // Força a atualização do foco para o formulário principal
-    Application.ProcessMessages;
-
-    Metodo;
+  GoBack;
 end;
 
 destructor TPageLayout.Destroy;
 begin
-
-  // Certifique-se de que Layout1 seja removido do layout pai antes de destruir
-  if Assigned(Layout) and Layout.ContainsObject(Layout1) then
-    Layout.RemoveObject(Layout1);
+  RemovePageViewLayout;
 
   inherited;
 end;
 
-class function TPageLayout.New(const pLayout: TLayout; met: TMetodoScreen): iPageLayout;
+procedure TPageLayout.GoBack;
+begin
+    RemovePageViewLayout;
+
+    Application.ProcessMessages;
+
+    UpdateScreenMethod;
+end;
+
+function TPageLayout.IsMobile(const Value: boolean): iPageLayout;
+begin
+  Result := Self;
+  if(Value)then
+   Label1.Text := 'Mobile'
+  else
+   Label1.Text := 'Desktop';
+end;
+
+class function TPageLayout.New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod): iPageLayout;
 begin
   PageLayout := Self.Create(pLayout);
-  PageLayout.Layout := pLayout;
-  pLayout.AddObject(PageLayout.Layout1);
-  PageLayout.Metodo := met;
+  PageLayout.MainLayout := pLayout;
+  pLayout.AddObject(PageLayout.PageViewLayout);
+  PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
   Result := PageLayout;
 end;
 
-function TPageLayout._Layout: TLayout;
+procedure TPageLayout.RemovePageViewLayout;
 begin
-  Result := Self.Layout1;
+  if Assigned(MainLayout) and MainLayout.ContainsObject(PageViewLayout) then
+    MainLayout.RemoveObject(PageViewLayout);
+end;
+
+function TPageLayout.Layout: TLayout;
+begin
+  Result := Self.PageViewLayout;
 end;
 
 end.

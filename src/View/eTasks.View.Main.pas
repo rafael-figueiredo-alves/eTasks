@@ -18,7 +18,7 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.Layouts,
   eTasks.Components.Interfaces,
-  FMX.MultiView, eTasks.View.PageLayout;
+  FMX.MultiView, eTasks.View.PageLayout, eTasks.View.Interfaces;
 
 type
   TTeste = procedure of Object;
@@ -73,8 +73,8 @@ procedure TfMain.Button1Click(Sender: TObject);
 begin
   if(Assigned(Teste))then
    begin
-     if(ScreensLayout.ContainsObject(Teste._Layout))then
-      ScreensLayout.RemoveObject(Teste._Layout);
+     if(ScreensLayout.ContainsObject(Teste.Layout))then
+      ScreensLayout.RemoveObject(Teste.Layout);
    end;
 
   Teste := TPageLayout.New(ScreensLayout, ScreensLayoutChange);
@@ -85,8 +85,8 @@ procedure TfMain.Button2Click(Sender: TObject);
 begin
   if(Assigned(Teste))then
    begin
-     if(ScreensLayout.ContainsObject(Teste._Layout))then
-      ScreensLayout.RemoveObject(Teste._Layout);
+     if(ScreensLayout.ContainsObject(Teste.Layout))then
+      ScreensLayout.RemoveObject(Teste.Layout);
    end;
 
   Teste := TPageLayout1.New(ScreensLayout, ScreensLayoutChange);
@@ -115,6 +115,9 @@ begin
 
   AppBar.ShowTitleBar(fMain.Width > MobileSizeWidth);
   TitleBar.Resize(fMain.Width);
+
+  if(Assigned(Teste))then
+   Teste.IsMobile(fMain.Width <= MobileSizeWidth);
 end;
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);
@@ -149,7 +152,7 @@ begin
   else
    begin
      if(Assigned(Teste))then
-     if(ScreensLayout.ContainsObject(Teste._Layout))then
+     if(ScreensLayout.ContainsObject(Teste.Layout))then
       begin
        ScreensLayout.Parent := fMain;
        ScreensLayout.Align := TAlignLayout.Contents;

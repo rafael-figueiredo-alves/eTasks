@@ -1,8 +1,8 @@
 inherited PageLayout1: TPageLayout1
   Caption = 'PageLayout1'
   DesignerMasterStyle = 0
-  inherited Layout1: TLayout
-    inherited Rectangle1: TRectangle
+  inherited PageViewLayout: TLayout
+    inherited Background: TRectangle
       object Rectangle2: TRectangle
         Fill.Color = xFFB90606
         Position.X = 88.000000000000000000
