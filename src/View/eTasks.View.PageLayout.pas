@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, eTasks.View.Interfaces;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, eTasks.View.Interfaces,
+  eTasks.Components.Interfaces;
 
 type
 
@@ -20,6 +21,7 @@ type
     { Private declarations }
     MainLayout: TLayout;
     UpdateScreenMethod : TUpdateScreenMethod;
+    NavBar : iNavBar;
     procedure GoBack;
     procedure RemovePageViewLayout;
   public
@@ -35,6 +37,9 @@ var
   PageLayout: TPageLayout;
 
 implementation
+
+uses
+  eTasks.Components.Builder;
 
 {$R *.fmx}
 
@@ -74,6 +79,7 @@ class function TPageLayout.New(const pLayout: TLayout; pUpdateScreenMethod: TUpd
 begin
   PageLayout := Self.Create(pLayout);
   PageLayout.MainLayout := pLayout;
+  PageLayout.NavBar := tcomponentbars
   pLayout.AddObject(PageLayout.PageViewLayout);
   PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
   Result := PageLayout;

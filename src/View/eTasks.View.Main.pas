@@ -44,6 +44,7 @@ type
     ActionButton : iActionButton;
     fDarkMode : Boolean;
     Teste : iPageLayout;
+    Nav : iNavigationManagerService;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
@@ -65,36 +66,24 @@ uses
   eTasks.Components.ColorPallete,
   eTasks.Components.Builder,
   eTasks.Shared.Consts,
-  eTranslate4Pascal, eTasks.View.Teste;
+  eTranslate4Pascal, eTasks.View.Teste, eTasks.View.NavigationManager;
 
 {$R *.fmx}
 
 procedure TfMain.Button1Click(Sender: TObject);
 begin
-  if(Assigned(Teste))then
-   begin
-     if(ScreensLayout.ContainsObject(Teste.Layout))then
-      ScreensLayout.RemoveObject(Teste.Layout);
-   end;
-
-  Teste := TPageLayout.New(ScreensLayout, ScreensLayoutChange);
-  ScreensLayoutChange;
+    Nav.GoToAbout(Teste);
 end;
 
 procedure TfMain.Button2Click(Sender: TObject);
 begin
-  if(Assigned(Teste))then
-   begin
-     if(ScreensLayout.ContainsObject(Teste.Layout))then
-      ScreensLayout.RemoveObject(Teste.Layout);
-   end;
-
-  Teste := TPageLayout1.New(ScreensLayout, ScreensLayoutChange);
-  ScreensLayoutChange;
+  Nav.GoToTasks(Teste);
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
+  Nav := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
+
   fDarkMode := False;
   AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(fDarkMode);
   TitleBar := TComponentBars.TitleBar(fMain, MainLayout);

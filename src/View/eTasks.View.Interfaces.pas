@@ -17,6 +17,13 @@ type
     function IsMobile(const Value: boolean): iPageLayout;
   end;
 
+  iNavigationManagerService = interface
+    ['{9D744B61-67D1-4ABE-AAEF-6F53D070166B}']
+    procedure NavigateTo(const Page: TPages; var pPage: iPageLayout);
+    procedure GoToTasks(var pPage: iPageLayout);
+    procedure GoToAbout(var pPage: iPageLayout);
+  end;
+
 implementation
 
 end.
