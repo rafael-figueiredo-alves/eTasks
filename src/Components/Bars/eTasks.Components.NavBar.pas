@@ -20,8 +20,10 @@ type
     LabelTitle: TLabel;
     ImgLight: TImageList;
     ImgDark: TImageList;
+    procedure BtnVoltarClick(Sender: TObject);
   private
     { Private declarations }
+    fOnBtnBackClick: TEventoClick;
   public
     { Public declarations }
     function SetTitle(const Title: string): iNavBar;
@@ -34,7 +36,7 @@ type
     function OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
     function OnBtnBackClick(const Event: TEventoClick): iNavBar;
 
-    class function New(const Form: TForm; const Layout: TLayout): iNavBar;
+    class function New(const Layout: TLayout): iNavBar;
   end;
 
 var
@@ -44,16 +46,24 @@ implementation
 
 {$R *.fmx}
 
+uses eTasks.Shared.Consts;
+
 { TNavBar }
+
+procedure TNavBar.BtnVoltarClick(Sender: TObject);
+begin
+  fOnBtnBackClick(sender);
+end;
 
 function TNavBar.isDarkMode(const value: boolean): iNavBar;
 begin
   Result := Self;
 end;
 
-class function TNavBar.New(const Form: TForm; const Layout: TLayout): iNavBar;
+class function TNavBar.New(const Layout: TLayout): iNavBar;
 begin
-
+  Result := Self.Create(layout);
+  Layout.AddObject(TNavBar(Result).TopBar);
 end;
 
 function TNavBar.OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
@@ -64,6 +74,7 @@ end;
 function TNavBar.OnBtnBackClick(const Event: TEventoClick): iNavBar;
 begin
   Result := Self;
+  fOnBtnBackClick := Event;
 end;
 
 function TNavBar.OnBtnDeleteClick(const Event: TEventoClick): iNavBar;
@@ -84,6 +95,9 @@ end;
 function TNavBar.Resize(const FormWidth: Integer): iNavBar;
 begin
   Result := Self;
+
+  SombraBar.Enabled := FormWidth <= MobileSizeWidth;
+  BtnVoltar.Visible := FormWidth <= MobileSizeWidth;
 end;
 
 function TNavBar.SetTitle(const Title: string): iNavBar;

@@ -72,12 +72,12 @@ uses
 
 procedure TfMain.Button1Click(Sender: TObject);
 begin
-    Nav.GoToAbout(Teste);
+    Nav.GoToAbout(Teste).Resize(fMain.Width);
 end;
 
 procedure TfMain.Button2Click(Sender: TObject);
 begin
-  Nav.GoToTasks(Teste);
+  Nav.GoToTasks(Teste).Resize(fMain.Width);
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
@@ -106,7 +106,7 @@ begin
   TitleBar.Resize(fMain.Width);
 
   if(Assigned(Teste))then
-   Teste.IsMobile(fMain.Width <= MobileSizeWidth);
+   Teste.Resize(fMain.Width);
 end;
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);

@@ -12,24 +12,22 @@ type
 
 
   TPageLayout = class(TForm, iPageLayout)
-    Button1: TButton;
     PageViewLayout: TLayout;
     Background: TRectangle;
-    Label1: TLabel;
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     MainLayout: TLayout;
     UpdateScreenMethod : TUpdateScreenMethod;
     NavBar : iNavBar;
-    procedure GoBack;
+    procedure GoBack(Sender: TObject);
     procedure RemovePageViewLayout;
   public
     { Public declarations }
     function Layout: TLayout;
     function IsMobile(const Value: boolean): iPageLayout;
+    function Resize(const Formwidth: integer): iPageLayout;
 
-    class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod) : iPageLayout;
+    class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm; EntityID: string = string.Empty) : iPageLayout;
     destructor Destroy; override;
   end;
 
@@ -45,11 +43,6 @@ uses
 
 { TPageLayout }
 
-procedure TPageLayout.Button1Click(Sender: TObject);
-begin
-  GoBack;
-end;
-
 destructor TPageLayout.Destroy;
 begin
   RemovePageViewLayout;
@@ -57,7 +50,7 @@ begin
   inherited;
 end;
 
-procedure TPageLayout.GoBack;
+procedure TPageLayout.GoBack(Sender: TObject);
 begin
     RemovePageViewLayout;
 
@@ -69,20 +62,6 @@ end;
 function TPageLayout.IsMobile(const Value: boolean): iPageLayout;
 begin
   Result := Self;
-  if(Value)then
-   Label1.Text := 'Mobile'
-  else
-   Label1.Text := 'Desktop';
-end;
-
-class function TPageLayout.New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod): iPageLayout;
-begin
-  PageLayout := Self.Create(pLayout);
-  PageLayout.MainLayout := pLayout;
-  PageLayout.NavBar := tcomponentbars
-  pLayout.AddObject(PageLayout.PageViewLayout);
-  PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
-  Result := PageLayout;
 end;
 
 procedure TPageLayout.RemovePageViewLayout;
@@ -91,9 +70,38 @@ begin
     MainLayout.RemoveObject(PageViewLayout);
 end;
 
+function TPageLayout.Resize(const Formwidth: integer): iPageLayout;
+begin
+  Result := Self;
+  NavBar.Resize(Formwidth);
+end;
+
 function TPageLayout.Layout: TLayout;
 begin
   Result := Self.PageViewLayout;
+end;
+
+class function TPageLayout.New(const pLayout: TLayout;
+  pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm;
+  EntityID: string): iPageLayout;
+begin
+  PageLayout := Self.Create(pLayout);
+  PageLayout.MainLayout := pLayout;
+
+  PageLayout.NavBar := tcomponentbars.NavBar(PageLayout.PageViewLayout);
+  PageLayout.NavBar.OnBtnBackClick(PageLayout.GoBack);
+
+  case LayoutForm of
+    lfEditButtons: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarEditButtons);
+    lfWithUpdateButton: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarUpdateButton);
+    lfWithHelpButton: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarHelpButton);
+  end;
+
+  pLayout.AddObject(PageLayout.PageViewLayout);
+
+  PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
+
+  Result := PageLayout;
 end;
 
 end.

@@ -11,7 +11,7 @@ type
   TComponentBars = class
     class function AppBar(const Form: TForm; const Layout: TLayout) : iAppBar;
     class function TitleBar(const Form: TForm; const Layout: TLayout) : iTitleBar;
-    class function NavBar(const Form: TForm; const Layout: TLayout) : iNavBar;
+    class function NavBar(const Layout: TLayout) : iNavBar;
   end;
 
   TComponentOffcanvas = class
@@ -39,10 +39,9 @@ begin
   Result := tAppBar.New(Form, Layout);
 end;
 
-class function TComponentBars.NavBar(const Form: TForm;
-  const Layout: TLayout): iNavBar;
+class function TComponentBars.NavBar(const Layout: TLayout): iNavBar;
 begin
-  Result := tNavBar.New(Form, Layout);
+  Result := tNavBar.New(Layout);
 end;
 
 class function TComponentBars.TitleBar(const Form: TForm; const Layout: TLayout): iTitleBar;
