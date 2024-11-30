@@ -18,12 +18,13 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.Layouts,
   eTasks.Components.Interfaces,
-  FMX.MultiView, eTasks.View.PageLayout, eTasks.View.Interfaces;
+  FMX.MultiView, eTasks.View.PageLayout, eTasks.View.Interfaces,
+  eTasks.View.Menu1;
 
 type
   TTeste = procedure of Object;
 
-  TfMain = class(TForm)
+  TfMain = class(TForm, iMainLayout)
     MainLayout: TLayout;
     ContentLayout: TLayout;
     ListsLayout: TLayout;
@@ -45,6 +46,7 @@ type
     fDarkMode : Boolean;
     Teste : iPageLayout;
     Nav : iNavigationManagerService;
+    Menu1 : TMenu1;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
@@ -53,6 +55,11 @@ type
 
     procedure RestrictScreenSize;
     procedure ScreensLayoutChange;
+
+    function GetPage: iPageLayout;
+    procedure SetPage(value: iPageLayout);
+    property Page: iPageLayout read GetPage write SetPage;
+    function FormWidth: Integer;
   public
     { Public declarations }
   end;
@@ -93,6 +100,9 @@ begin
   AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
   AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
   ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste');
+
+  Menu1 := tMenu1.New(Nav, self, ListsLayout);
+
   TranslateUI;
 end;
 
@@ -107,6 +117,16 @@ begin
 
   if(Assigned(Teste))then
    Teste.Resize(fMain.Width);
+end;
+
+function TfMain.FormWidth: Integer;
+begin
+  Result := Self.Width;
+end;
+
+function TfMain.GetPage: iPageLayout;
+begin
+  Result := Teste;
 end;
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);
@@ -168,6 +188,11 @@ begin
    eTranslate.SetLanguage('pt-BR');
 
   TranslateUI;
+end;
+
+procedure TfMain.SetPage(value: iPageLayout);
+begin
+  Teste := value;
 end;
 
 procedure TfMain.SetTheme(sender: TObject);

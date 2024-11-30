@@ -21,12 +21,12 @@ type
 implementation
 
 uses
-  eTasks.View.Teste, eTasks.View.PageLayout;
+  eTasks.View.Teste,
+  eTasks.View.PageLayout;
 
 { TNavigationManager }
 
-constructor TNavigationManager.Create(ScreensLayout: TLayout;
-  UpdateScreenMethod: TUpdateScreenMethod);
+constructor TNavigationManager.Create(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod);
 begin
   fScreensLayout := ScreensLayout;
   fUpdateScreenMethod := UpdateScreenMethod;
@@ -66,8 +66,7 @@ begin
   fUpdateScreenMethod;
 end;
 
-class function TNavigationManager.New(ScreensLayout: TLayout;
-  UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
+class function TNavigationManager.New(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
 begin
   Result := Self.Create(ScreensLayout, UpdateScreenMethod);
 end;

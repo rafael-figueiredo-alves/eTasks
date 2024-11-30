@@ -47,7 +47,8 @@ uses
   eTasks.View.PageLayout in 'src\View\eTasks.View.PageLayout.pas' {PageLayout},
   eTasks.View.Teste in 'src\View\eTasks.View.Teste.pas' {PageLayout1},
   eTasks.View.Interfaces in 'src\View\eTasks.View.Interfaces.pas',
-  eTasks.View.NavigationManager in 'src\View\eTasks.View.NavigationManager.pas';
+  eTasks.View.NavigationManager in 'src\View\eTasks.View.NavigationManager.pas',
+  eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1};
 
 {$R *.res}
 
@@ -65,5 +66,6 @@ begin
   {$ENDIF}
 
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TMenu1, Menu1);
   Application.Run;
 end.

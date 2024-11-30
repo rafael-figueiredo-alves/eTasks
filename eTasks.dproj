@@ -292,6 +292,10 @@
         </DCCReference>
         <DCCReference Include="src\View\eTasks.View.Interfaces.pas"/>
         <DCCReference Include="src\View\eTasks.View.NavigationManager.pas"/>
+        <DCCReference Include="src\View\eTasks.View.Menu1.pas">
+            <Form>Menu1</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
