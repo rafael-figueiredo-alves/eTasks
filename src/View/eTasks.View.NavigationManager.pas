@@ -6,14 +6,16 @@ uses
   eTasks.View.Interfaces, FMX.Layouts;
 
 type
+
  TNavigationManager = class(TInterfacedObject, iNavigationManagerService)
    private
      fScreensLayout      : TLayout;
      fUpdateScreenMethod : TUpdateScreenMethod;
+     procedure NavigateTo(const Page: TPages; var pPage: iPageLayout; id: string = '');
    public
-    function GoToTasks(var pPage: iPageLayout) : iPageLayout;
-    function GoToAbout(var pPage: iPageLayout) : iPageLayout;
-    procedure NavigateTo(const Page: TPages; var pPage: iPageLayout);
+    function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
+
     class function New(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
     constructor Create(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod);
  end;
@@ -26,25 +28,30 @@ uses
 
 { TNavigationManager }
 
+class function TNavigationManager.New(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
+begin
+  Result := Self.Create(ScreensLayout, UpdateScreenMethod);
+end;
+
 constructor TNavigationManager.Create(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod);
 begin
   fScreensLayout := ScreensLayout;
   fUpdateScreenMethod := UpdateScreenMethod;
 end;
 
-function TNavigationManager.GoToAbout(var pPage: iPageLayout) : iPageLayout;
+function TNavigationManager.GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
 begin
-  NavigateTo(pageShopping, pPage);
+  NavigateTo(pageShopping, pPage, id);
   Result := pPage;
 end;
 
-function TNavigationManager.GoToTasks(var pPage: iPageLayout) : iPageLayout;
+function TNavigationManager.GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
 begin
-  NavigateTo(pageTasks, pPage);
+  NavigateTo(pageTasks, pPage, id);
   Result := pPage;
 end;
 
-procedure TNavigationManager.NavigateTo(const Page: TPages; var pPage: iPageLayout);
+procedure TNavigationManager.NavigateTo(const Page: TPages; var pPage: iPageLayout; id: string = '');
 begin
   if(Assigned(pPage))then
    begin
@@ -53,8 +60,8 @@ begin
    end;
 
   case Page of
-    pageTasks: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons);
-    pageShopping: pPage := TPageLayout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton);
+    pageTasks: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+    pageShopping: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
     pageNotes: ;
     pageFinances: ;
     pageReadings: ;
@@ -64,11 +71,6 @@ begin
   end;
 
   fUpdateScreenMethod;
-end;
-
-class function TNavigationManager.New(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
-begin
-  Result := Self.Create(ScreensLayout, UpdateScreenMethod);
 end;
 
 end.

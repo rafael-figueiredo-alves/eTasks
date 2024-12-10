@@ -16,6 +16,7 @@ type
     Background: TRectangle;
   private
     { Private declarations }
+    fEntityID : string;
     MainLayout: TLayout;
     UpdateScreenMethod : TUpdateScreenMethod;
     NavBar : iNavBar;
@@ -24,7 +25,7 @@ type
   public
     { Public declarations }
     function Layout: TLayout;
-    function IsMobile(const Value: boolean): iPageLayout;
+    function EntityID : string;
     function Resize(const Formwidth: integer): iPageLayout;
 
     class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm; EntityID: string = string.Empty) : iPageLayout;
@@ -42,44 +43,6 @@ uses
 {$R *.fmx}
 
 { TPageLayout }
-
-destructor TPageLayout.Destroy;
-begin
-  RemovePageViewLayout;
-
-  inherited;
-end;
-
-procedure TPageLayout.GoBack(Sender: TObject);
-begin
-    RemovePageViewLayout;
-
-    Application.ProcessMessages;
-
-    UpdateScreenMethod;
-end;
-
-function TPageLayout.IsMobile(const Value: boolean): iPageLayout;
-begin
-  Result := Self;
-end;
-
-procedure TPageLayout.RemovePageViewLayout;
-begin
-  if Assigned(MainLayout) and MainLayout.ContainsObject(PageViewLayout) then
-    MainLayout.RemoveObject(PageViewLayout);
-end;
-
-function TPageLayout.Resize(const Formwidth: integer): iPageLayout;
-begin
-  Result := Self;
-  NavBar.Resize(Formwidth);
-end;
-
-function TPageLayout.Layout: TLayout;
-begin
-  Result := Self.PageViewLayout;
-end;
 
 class function TPageLayout.New(const pLayout: TLayout;
   pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm;
@@ -101,7 +64,48 @@ begin
 
   PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
 
+  PageLayout.fEntityID := EntityID;
+
   Result := PageLayout;
+end;
+
+destructor TPageLayout.Destroy;
+begin
+  RemovePageViewLayout;
+
+  inherited;
+end;
+
+function TPageLayout.EntityID: string;
+begin
+  Result := fEntityID;
+end;
+
+procedure TPageLayout.GoBack(Sender: TObject);
+begin
+    RemovePageViewLayout;
+
+    Application.ProcessMessages;
+
+    UpdateScreenMethod;
+end;
+
+procedure TPageLayout.RemovePageViewLayout;
+begin
+  if Assigned(MainLayout) and MainLayout.ContainsObject(PageViewLayout) then
+    MainLayout.RemoveObject(PageViewLayout);
+end;
+
+function TPageLayout.Resize(const Formwidth: integer): iPageLayout;
+begin
+  Result := Self;
+  NavBar.Resize(Formwidth);
+  UpdateScreenMethod;
+end;
+
+function TPageLayout.Layout: TLayout;
+begin
+  Result := Self.PageViewLayout;
 end;
 
 end.

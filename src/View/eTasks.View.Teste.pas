@@ -10,6 +10,8 @@ uses
 type
   TPageLayout1 = class(TPageLayout)
     Rectangle2: TRectangle;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,5 +24,11 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TPageLayout1.Button1Click(Sender: TObject);
+begin
+  inherited;
+  ShowMessage(EntityID);
+end;
 
 end.

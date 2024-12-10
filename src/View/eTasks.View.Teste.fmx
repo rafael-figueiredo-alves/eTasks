@@ -11,6 +11,14 @@ inherited PageLayout1: TPageLayout1
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
       end
+      object Button1: TButton
+        Position.X = 208.000000000000000000
+        Position.Y = 200.000000000000000000
+        TabOrder = 0
+        Text = 'Button1'
+        TextSettings.Trimming = None
+        OnClick = Button1Click
+      end
     end
   end
 end

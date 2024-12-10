@@ -48,7 +48,8 @@ uses
   eTasks.View.Teste in 'src\View\eTasks.View.Teste.pas' {PageLayout1},
   eTasks.View.Interfaces in 'src\View\eTasks.View.Interfaces.pas',
   eTasks.View.NavigationManager in 'src\View\eTasks.View.NavigationManager.pas',
-  eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1};
+  eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1},
+  eTasks.Shared.Android.Utils in 'src\Shared\eTasks.Shared.Android.Utils.pas';
 
 {$R *.res}
 

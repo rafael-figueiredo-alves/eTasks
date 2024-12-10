@@ -15,15 +15,14 @@ type
   iPageLayout = interface
     ['{E22EAB87-8030-43F8-B0DC-AB57B067C0CD}']
     function Layout: TLayout;
-    function IsMobile(const Value: boolean): iPageLayout;
+    function EntityID : string;
     function Resize(const Formwidth: integer): iPageLayout;
   end;
 
   iNavigationManagerService = interface
     ['{9D744B61-67D1-4ABE-AAEF-6F53D070166B}']
-    //procedure NavigateTo(const Page: TPages; var pPage: iPageLayout);
-    function GoToTasks(var pPage: iPageLayout) : iPageLayout;
-    function GoToAbout(var pPage: iPageLayout) : iPageLayout;
+    function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
   end;
 
   iMainLayout = interface
@@ -32,6 +31,7 @@ type
     procedure SetPage(value: iPageLayout);
     property Page: iPageLayout read GetPage write SetPage;
     function FormWidth: Integer;
+    procedure ScreensLayoutChange;
   end;
 
 implementation

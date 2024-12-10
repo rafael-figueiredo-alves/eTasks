@@ -73,7 +73,12 @@ uses
   eTasks.Components.ColorPallete,
   eTasks.Components.Builder,
   eTasks.Shared.Consts,
-  eTranslate4Pascal, eTasks.View.Teste, eTasks.View.NavigationManager;
+  {$IFDEF ANDROID}
+  eTasks.Shared.Android.Utils,
+  {$endif}
+  eTranslate4Pascal,
+  eTasks.View.Teste,
+  eTasks.View.NavigationManager;
 
 {$R *.fmx}
 
@@ -89,6 +94,10 @@ end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
+  {$IFDEF ANDROID}
+  tAndroidUtils.TransparentNavBar;
+  {$ENDIF}
+
   Nav := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
 
   fDarkMode := False;
