@@ -13,6 +13,6 @@
 
 <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Light.png" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Dark.png" width="33%" height="33%">
 
-# Status do Projeto: em prototipação
+# Status do Projeto: em desenvolvimento
 
 
