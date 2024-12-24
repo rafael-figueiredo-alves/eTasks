@@ -1,5 +1,5 @@
 <p align="center">
- <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/eTasks_logo_new.png">
+ <img alt="eTasks" src="https://github.com/rafael-figueiredo-alves/eTasks/blob/main/assets/eTasks_logo_new.png">
 </p> 
 
 <p>
@@ -11,7 +11,7 @@
 
 # Arte conceitual do eTasks - Tela principal - Mobile Light e Dark
 
-<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Light.png" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/v2.0/assets/Screens/Conceitual_Mobile_Home_Dark.png" width="33%" height="33%">
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/main/assets/Screens/Conceitual_Mobile_Home_Light.png" width="33%" height="33%"> <img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/main/assets/Screens/Conceitual_Mobile_Home_Dark.png" width="33%" height="33%">
 
 # Status do Projeto: em desenvolvimento
 
