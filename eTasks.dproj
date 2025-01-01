@@ -5,10 +5,11 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>eTasks.dpr</MainSource>
+        <ProjectName Condition="'$(ProjectName)'==''">eTasks</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -225,9 +226,10 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Locale>1046</VerInfo_Locale>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <Icon_MainIcon>assets\Icones\eTasks2.ico</Icon_MainIcon>
+        <VerInfo_Keys>CompanyName=DevPegasus;FileDescription=eTasks;FileVersion=2.0.0.0;InternalName=eTasks;LegalCopyright=(C)2025 - Rafael de Figueiredo Alves;LegalTrademarks=;OriginalFilename=eTasks;ProgramID=br.devpegasus.etasks;ProductName=eTasks;ProductVersion=2.0.0;Comments=;Dedicatória=&quot;Eu, Rafael de Figueiredo Alves, dedico este aplicativo e todo meu trabalho aos grandes amores da minha vida: minha esposa Jailza, minha filha Rafaela e meu filho Davi. Eu os amo muito.&quot;</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -281,16 +283,14 @@
             <Form>NavBar</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="src\View\eTasks.View.PageLayout.pas">
+        <DCCReference Include="src\View\Layouts\eTasks.View.PageLayout.pas">
             <Form>PageLayout</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="src\View\eTasks.View.Teste.pas">
+        <DCCReference Include="src\View\Pages\eTasks.View.Teste.pas">
             <Form>PageLayout1</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\eTasks.View.Interfaces.pas"/>
-        <DCCReference Include="src\View\eTasks.View.NavigationManager.pas"/>
+        <DCCReference Include="src\View\Services\eTasks.View.NavigationManager.pas"/>
         <DCCReference Include="src\View\eTasks.View.Menu1.pas">
             <Form>Menu1</Form>
             <FormType>fmx</FormType>
