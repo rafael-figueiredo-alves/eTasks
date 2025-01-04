@@ -267,7 +267,8 @@
             <Form>Offcanvas</Form>
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.Consts.pas">
-            <Form>$R *.res</Form>
+            <Form>,
+  eTasks.Components.AvatarMenu in &apos;src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas&apos; {AvatarMenu</Form>
         </DCCReference>
         <DCCReference Include="src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas">
             <Form>AvatarMenu</Form>
@@ -289,13 +290,16 @@
         <DCCReference Include="src\View\Pages\eTasks.View.Teste.pas">
             <Form>PageLayout1</Form>
         </DCCReference>
-        <DCCReference Include="src\View\eTasks.View.Interfaces.pas"/>
         <DCCReference Include="src\View\Services\eTasks.View.NavigationManager.pas"/>
         <DCCReference Include="src\View\eTasks.View.Menu1.pas">
             <Form>Menu1</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.Android.Utils.pas"/>
+        <DCCReference Include="src\View\Utils\eTasks.View.Enums.pas"/>
+        <DCCReference Include="src\View\Utils\eTasks.View.Types.pas"/>
+        <DCCReference Include="src\View\Layouts\eTasks.View.Layouts.Interfaces.pas"/>
+        <DCCReference Include="src\View\Services\eTasks.View.Services.Interfaces.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

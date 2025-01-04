@@ -39,17 +39,20 @@ uses
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
-  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {$R *.res},
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas',
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
   eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu},
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
   eTasks.View.PageLayout in 'src\View\Layouts\eTasks.View.PageLayout.pas' {PageLayout},
   eTasks.View.Teste in 'src\View\Pages\eTasks.View.Teste.pas' {PageLayout1},
-  eTasks.View.Interfaces in 'src\View\eTasks.View.Interfaces.pas',
   eTasks.View.NavigationManager in 'src\View\Services\eTasks.View.NavigationManager.pas',
   eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1},
-  eTasks.Shared.Android.Utils in 'src\Shared\eTasks.Shared.Android.Utils.pas';
+  eTasks.Shared.Android.Utils in 'src\Shared\eTasks.Shared.Android.Utils.pas',
+  eTasks.View.Enums in 'src\View\Utils\eTasks.View.Enums.pas',
+  eTasks.View.Types in 'src\View\Utils\eTasks.View.Types.pas',
+  eTasks.View.Layouts.Interfaces in 'src\View\Layouts\eTasks.View.Layouts.Interfaces.pas',
+  eTasks.View.Services.Interfaces in 'src\View\Services\eTasks.View.Services.Interfaces.pas';
 
 {$R *.res}
 

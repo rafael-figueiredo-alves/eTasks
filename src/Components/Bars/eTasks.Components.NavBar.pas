@@ -21,13 +21,22 @@ type
     ImgLight: TImageList;
     ImgDark: TImageList;
     procedure BtnVoltarClick(Sender: TObject);
+    procedure BtnConfirmaClick(Sender: TObject);
+    procedure BtnAtualizarClick(Sender: TObject);
+    procedure BtnExplicaClick(Sender: TObject);
+    procedure BtnApagarClick(Sender: TObject);
   private
     { Private declarations }
     fOnBtnBackClick: TEventoClick;
+    fOnBtnConfirmClick: TEventoClick;
+    fOnBtnDeleteClick: TEventoClick;
+    fOnBtnUpdateClick: TEventoClick;
+    fOnBtnInfoClick: TEventoClick;
+    function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
   public
     { Public declarations }
     function SetTitle(const Title: string): iNavBar;
-    function Resize(const FormWidth: Integer): iNavBar;
+    function Resize(const FormWidth: Integer): iNavBar; reintroduce;
     function isDarkMode(const value: boolean): iNavBar;
     function ShowButtons(const value: TNavBarButtons): iNavBar;
     function OnBtnUpdateClick(const Event: TEventoClick): iNavBar;
@@ -46,17 +55,54 @@ implementation
 
 {$R *.fmx}
 
-uses eTasks.Shared.Consts;
+uses eTasks.Shared.Consts, eTasks.Shared.Utils, eTasks.Components.ColorPallete;
 
 { TNavBar }
 
+procedure TNavBar.BtnApagarClick(Sender: TObject);
+begin
+  if(Assigned(fOnBtnDeleteClick))then
+   fOnBtnDeleteClick(sender);
+end;
+
+procedure TNavBar.BtnAtualizarClick(Sender: TObject);
+begin
+  if(Assigned(fOnBtnUpdateClick))then
+   fOnBtnUpdateClick(sender);
+end;
+
+procedure TNavBar.BtnConfirmaClick(Sender: TObject);
+begin
+  if(Assigned(fOnBtnConfirmClick))then
+   fOnBtnConfirmClick(sender);
+end;
+
+procedure TNavBar.BtnExplicaClick(Sender: TObject);
+begin
+  if(Assigned(fOnBtnInfoClick))then
+   fOnBtnInfoClick(sender);
+end;
+
 procedure TNavBar.BtnVoltarClick(Sender: TObject);
 begin
-  fOnBtnBackClick(sender);
+  if(Assigned(fOnBtnBackClick))then
+   fOnBtnBackClick(sender);
+end;
+
+function TNavBar.ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
+begin
+  Result := TUtils.Iif(isDarkMode, ImgDark.Bitmap(size, index), ImgLight.Bitmap(size, index));
 end;
 
 function TNavBar.isDarkMode(const value: boolean): iNavBar;
 begin
+  BtnApagar.Bitmap       := ImgSource(TSizeF.Create(40, 40), 0, value);
+  BtnConfirma.Bitmap     := ImgSource(TSizeF.Create(40, 40), 1, value);
+  BtnVoltar.Bitmap       := ImgSource(TSizeF.Create(40, 40), 2, value);
+  BtnAtualizar.Bitmap    := ImgSource(TSizeF.Create(40, 40), 3, value);
+  BtnExplica.Bitmap      := ImgSource(TSizeF.Create(40, 40), 4, value);
+  LabelTitle.FontColor   := tColorPallete.GetColor(Primary, value);
+  Self.TopBar.Fill.Color := tColorPallete.GetColor(Background, value);
   Result := Self;
 end;
 
@@ -69,6 +115,7 @@ end;
 function TNavBar.OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
 begin
   Result := Self;
+  fOnBtnConfirmClick := Event;
 end;
 
 function TNavBar.OnBtnBackClick(const Event: TEventoClick): iNavBar;
@@ -80,16 +127,19 @@ end;
 function TNavBar.OnBtnDeleteClick(const Event: TEventoClick): iNavBar;
 begin
   Result := Self;
+  fOnBtnDeleteClick := Event
 end;
 
 function TNavBar.OnBtnHelpClick(const Event: TEventoClick): iNavBar;
 begin
   Result := Self;
+  fOnBtnInfoClick := Event
 end;
 
 function TNavBar.OnBtnUpdateClick(const Event: TEventoClick): iNavBar;
 begin
   Result := Self;
+  fOnBtnUpdateClick := Event;
 end;
 
 function TNavBar.Resize(const FormWidth: Integer): iNavBar;

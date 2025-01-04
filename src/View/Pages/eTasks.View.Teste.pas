@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  eTasks.View.PageLayout, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts;
+  eTasks.View.PageLayout, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts,
+  eTasks.View.Layouts.Interfaces;
 
 type
   TPageLayout1 = class(TPageLayout)
@@ -16,6 +17,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    function isDarkMode(const value: Boolean): iPageLayout; override;
   end;
 
 var
@@ -26,9 +28,19 @@ implementation
 {$R *.fmx}
 
 procedure TPageLayout1.Button1Click(Sender: TObject);
+var
+  Teste : ipagelayout;
 begin
   inherited;
   ShowMessage(EntityID);
+  Teste := Self;
+  isDarkMode(true);
+end;
+
+function TPageLayout1.isDarkMode(const value: Boolean): iPageLayout;
+begin
+  inherited;
+  ShowMessage('Teste');
 end;
 
 end.

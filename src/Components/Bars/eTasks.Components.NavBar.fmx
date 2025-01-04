@@ -108,6 +108,7 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      OnClick = BtnConfirmaClick
     end
     object BtnApagar: TImage
       MultiResBitmap = <
@@ -150,6 +151,7 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      OnClick = BtnApagarClick
     end
     object BtnExplica: TImage
       MultiResBitmap = <
@@ -209,6 +211,7 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      OnClick = BtnExplicaClick
     end
     object BtnAtualizar: TImage
       MultiResBitmap = <
@@ -267,6 +270,7 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      OnClick = BtnAtualizarClick
     end
     object LabelTitle: TLabel
       Align = Center

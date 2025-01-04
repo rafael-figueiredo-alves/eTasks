@@ -18,8 +18,11 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.Layouts,
   eTasks.Components.Interfaces,
-  FMX.MultiView, eTasks.View.PageLayout, eTasks.View.Interfaces,
-  eTasks.View.Menu1;
+  FMX.MultiView,
+  eTasks.View.PageLayout,
+  eTasks.View.Layouts.Interfaces,
+  eTasks.View.Menu1,
+  eTasks.View.Services.Interfaces;
 
 type
   TTeste = procedure of Object;
@@ -94,10 +97,6 @@ end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
-  {$IFDEF ANDROID}
-  tAndroidUtils.TransparentNavBar;
-  {$ENDIF}
-
   Nav := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
 
   fDarkMode := False;
