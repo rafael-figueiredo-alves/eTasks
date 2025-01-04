@@ -300,6 +300,7 @@
         <DCCReference Include="src\View\Utils\eTasks.View.Types.pas"/>
         <DCCReference Include="src\View\Layouts\eTasks.View.Layouts.Interfaces.pas"/>
         <DCCReference Include="src\View\Services\eTasks.View.Services.Interfaces.pas"/>
+        <DCCReference Include="src\View\Services\eTasks.View.ThemeService.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -33,14 +33,11 @@ var
 begin
   inherited;
   ShowMessage(EntityID);
-  Teste := Self;
-  isDarkMode(true);
 end;
 
 function TPageLayout1.isDarkMode(const value: Boolean): iPageLayout;
 begin
   inherited;
-  ShowMessage('Teste');
 end;
 
 end.

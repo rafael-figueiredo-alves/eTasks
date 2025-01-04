@@ -53,7 +53,7 @@ var
 implementation
 
 uses
-  eTasks.Components.Builder;
+  eTasks.Components.Builder, eTasks.View.ThemeService;
 
 {$R *.fmx}
 
@@ -80,6 +80,11 @@ begin
   PageLayout.UpdateScreenMethod := pUpdateScreenMethod;
 
   PageLayout.fEntityID := EntityID;
+
+  ThemeService.SubscribeInterface([PageLayout]);
+
+  if(ThemeService.isDarkTheme)then
+   PageLayout.isDarkMode(ThemeService.isDarkTheme);
 
   Result := PageLayout;
 end;

@@ -21,7 +21,11 @@ type
 
   iThemeService = interface
     ['{741F4923-A65F-4F5B-9339-88D62795F52A}']
+    function SubscribeInterface(const interfaces: array of IInterface): iThemeService;
+    function ApplyTheme: iThemeService;
     function ChangeTheme: iThemeService;
+    function isDarkTheme: Boolean;
+    function SetDarkTheme(const value: Boolean): iThemeService;
   end;
 
 

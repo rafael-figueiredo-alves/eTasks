@@ -39,7 +39,8 @@ uses
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
-  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas',
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {,
+  eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
   eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu},
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
@@ -52,7 +53,8 @@ uses
   eTasks.View.Enums in 'src\View\Utils\eTasks.View.Enums.pas',
   eTasks.View.Types in 'src\View\Utils\eTasks.View.Types.pas',
   eTasks.View.Layouts.Interfaces in 'src\View\Layouts\eTasks.View.Layouts.Interfaces.pas',
-  eTasks.View.Services.Interfaces in 'src\View\Services\eTasks.View.Services.Interfaces.pas';
+  eTasks.View.Services.Interfaces in 'src\View\Services\eTasks.View.Services.Interfaces.pas',
+  eTasks.View.ThemeService in 'src\View\Services\eTasks.View.ThemeService.pas';
 
 {$R *.res}
 

@@ -46,7 +46,6 @@ type
     MainMenu     : iOffcanvas;
     AvatarMenu   : iAvatarMenu;
     ActionButton : iActionButton;
-    fDarkMode : Boolean;
     Teste : iPageLayout;
     Nav : iNavigationManagerService;
     Menu1 : TMenu1;
@@ -81,7 +80,8 @@ uses
   {$endif}
   eTranslate4Pascal,
   eTasks.View.Teste,
-  eTasks.View.NavigationManager;
+  eTasks.View.NavigationManager,
+  eTasks.View.ThemeService;
 
 {$R *.fmx}
 
@@ -99,15 +99,16 @@ procedure TfMain.FormCreate(Sender: TObject);
 begin
   Nav := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
 
-  fDarkMode := False;
-  AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(fDarkMode);
-  TitleBar := TComponentBars.TitleBar(fMain, MainLayout);
-  MainMenu := TComponentOffcanvas.MainMenu(fMain);
-  AvatarMenu := tComponentOffCanvas.AvatarMenu(fMain);
-  AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme);
-  AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu);
-  AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu);
-  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste');
+  AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+  TitleBar := TComponentBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+  MainMenu := TComponentOffcanvas.MainMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
+  AvatarMenu := tComponentOffCanvas.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
+  AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
+  AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu).isDarkMode(ThemeService.isDarkTheme);
+  AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
+  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
+
+  ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton]);
 
   Menu1 := tMenu1.New(Nav, self, ListsLayout);
 
@@ -205,13 +206,13 @@ end;
 
 procedure TfMain.SetTheme(sender: TObject);
 begin
-  fDarkMode := not fDarkMode;
-  AppBar.isDarkMode(fDarkMode);
-  TitleBar.isDarkMode(fDarkMode);
-  MainMenu.isDarkMode(fDarkMode);
-  AvatarMenu.isDarkMode(fDarkMode);
-  ActionButton.isDarkMode(fDarkMode);
-  Self.Fill.Color := TColorPallete.GetColor(Background, fDarkMode);
+  ThemeService.ChangeTheme;
+//  AppBar.isDarkMode(fDarkMode);
+//  TitleBar.isDarkMode(fDarkMode);
+//  MainMenu.isDarkMode(fDarkMode);
+//  AvatarMenu.isDarkMode(fDarkMode);
+//  ActionButton.isDarkMode(fDarkMode);
+  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 end;
 
 procedure TfMain.TranslateUI;
