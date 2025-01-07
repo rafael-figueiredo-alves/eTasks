@@ -32,9 +32,7 @@ type
     ContentLayout: TLayout;
     ListsLayout: TLayout;
     ScreensLayout: TLayout;
-    Button1: TButton;
     Circle1: TCircle;
-    Button2: TButton;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
