@@ -3,23 +3,13 @@ unit eTasks.View.Main;
 interface
 
 uses
-  System.SysUtils,
-  System.Types,
-  System.UITypes,
   System.Classes,
-  System.Variants,
-  FMX.Types,
   FMX.Controls,
+  FMX.Types,
   FMX.Forms,
-  FMX.Graphics,
-  FMX.Dialogs,
-  FMX.Effects,
   FMX.Objects,
-  FMX.Controls.Presentation,
-  FMX.StdCtrls, FMX.Layouts,
+  FMX.Layouts,
   eTasks.Components.Interfaces,
-  FMX.MultiView,
-  eTasks.View.PageLayout,
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
   eTasks.View.Services.Interfaces;
@@ -28,25 +18,23 @@ type
   TTeste = procedure of Object;
 
   TfMain = class(TForm, iMainLayout)
-    MainLayout: TLayout;
-    ContentLayout: TLayout;
-    ListsLayout: TLayout;
-    ScreensLayout: TLayout;
-    Circle1: TCircle;
+    MainLayout               : TLayout;
+    ContentLayout            : TLayout;
+    ListsLayout              : TLayout;
+    ScreensLayout            : TLayout;
+    Circle1                  : TCircle;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
-    AppBar       : iAppBar;
-    TitleBar     : iTitleBar;
-    MainMenu     : iOffcanvas;
-    AvatarMenu   : iAvatarMenu;
-    ActionButton : iActionButton;
-    Teste : iPageLayout;
-    Nav : iNavigationManagerService;
-    Menu1 : TMenu1;
+    AppBar                   : iAppBar;
+    TitleBar                 : iTitleBar;
+    MainMenu                 : iOffcanvas;
+    AvatarMenu               : iAvatarMenu;
+    ActionButton             : iActionButton;
+    NavigationManagerService : iNavigationManagerService;
+    Menu1                    : TMenu1;
+    CurrentPage              : iPageLayout;
     procedure SetTheme(sender : TObject);
     procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
@@ -54,8 +42,8 @@ type
     procedure OpenAvatarMenu(sender : TObject);
 
     procedure RestrictScreenSize;
-    procedure ScreensLayoutChange;
 
+    procedure ScreensLayoutChange;
     function GetPage: iPageLayout;
     procedure SetPage(value: iPageLayout);
     property Page: iPageLayout read GetPage write SetPage;
@@ -77,55 +65,34 @@ uses
   eTasks.Shared.Android.Utils,
   {$endif}
   eTranslate4Pascal,
-  eTasks.View.Teste,
   eTasks.View.NavigationManager,
   eTasks.View.ThemeService;
 
 {$R *.fmx}
 
-procedure TfMain.Button1Click(Sender: TObject);
-begin
-    Nav.GoToAbout(Teste).Resize(fMain.Width);
-end;
-
-procedure TfMain.Button2Click(Sender: TObject);
-begin
-  Nav.GoToTasks(Teste).Resize(fMain.Width);
-end;
-
 procedure TfMain.FormCreate(Sender: TObject);
 begin
-  Nav := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
+  NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
 
   AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
+
   TitleBar := TComponentBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
   MainMenu := TComponentOffcanvas.MainMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
   AvatarMenu := tComponentOffCanvas.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
-  AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
-  AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu).isDarkMode(ThemeService.isDarkTheme);
-  AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
+
   ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
 
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton]);
 
-  Menu1 := tMenu1.New(Nav, self, ListsLayout);
+  Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
 
   TranslateUI;
 end;
 
-procedure TfMain.FormResize(Sender: TObject);
-begin
-  RestrictScreenSize;
-
-  ScreensLayoutChange;
-
-  AppBar.ShowTitleBar(fMain.Width > MobileSizeWidth);
-  TitleBar.Resize(fMain.Width);
-
-  if(Assigned(Teste))then
-   Teste.Resize(fMain.Width);
-end;
-
+{$Region 'IMainLayout Methods}
 function TfMain.FormWidth: Integer;
 begin
   Result := Self.Width;
@@ -133,8 +100,14 @@ end;
 
 function TfMain.GetPage: iPageLayout;
 begin
-  Result := Teste;
+  Result := CurrentPage;
 end;
+
+procedure TfMain.SetPage(value: iPageLayout);
+begin
+  CurrentPage := value;
+end;
+{$EndRegion}
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);
 begin
@@ -146,6 +119,7 @@ begin
   fMain.MainMenu.OpenMenu;
 end;
 
+{$Region 'Layout/Size Functions'}
 procedure TfMain.RestrictScreenSize;
 begin
   if(fMain.Width < MinimumWidth)then
@@ -167,8 +141,8 @@ begin
    end
   else
    begin
-     if(Assigned(Teste))then
-     if(ScreensLayout.ContainsObject(Teste.Layout))then
+     if(Assigned(CurrentPage))then
+     if(ScreensLayout.ContainsObject(CurrentPage.Layout))then
       begin
        ScreensLayout.Parent := fMain;
        ScreensLayout.Align := TAlignLayout.Contents;
@@ -187,6 +161,27 @@ begin
    end;
 end;
 
+procedure TfMain.FormResize(Sender: TObject);
+begin
+  RestrictScreenSize;
+
+  ScreensLayoutChange;
+
+  AppBar.ShowTitleBar(fMain.Width > MobileSizeWidth);
+  TitleBar.Resize(fMain.Width);
+
+  if(Assigned(CurrentPage))then
+   CurrentPage.Resize(fMain.Width);
+end;
+{$EndRegion}
+
+procedure TfMain.SetTheme(sender: TObject);
+begin
+  ThemeService.ChangeTheme;
+  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
+end;
+
+{$Region 'Language Functions'}
 procedure TfMain.SetLanguage(sender : TObject);
 begin
   if(eTranslate.GetLanguage = 'pt-BR')then
@@ -197,27 +192,12 @@ begin
   TranslateUI;
 end;
 
-procedure TfMain.SetPage(value: iPageLayout);
-begin
-  Teste := value;
-end;
-
-procedure TfMain.SetTheme(sender: TObject);
-begin
-  ThemeService.ChangeTheme;
-//  AppBar.isDarkMode(fDarkMode);
-//  TitleBar.isDarkMode(fDarkMode);
-//  MainMenu.isDarkMode(fDarkMode);
-//  AvatarMenu.isDarkMode(fDarkMode);
-//  ActionButton.isDarkMode(fDarkMode);
-  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
-end;
-
 procedure TfMain.TranslateUI;
 begin
   TitleBar.SetTitle(eTranslate.Translate('Main.Title'));
   AppBar.SetTitle(eTranslate.Translate('Main.Title'));
   ActionButton.SetHint(eTranslate.Translate('Main.Title'));
 end;
+{$EndRegion}
 
 end.
