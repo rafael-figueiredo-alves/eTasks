@@ -66,7 +66,7 @@ begin
   PageLayout := Self.Create(pLayout);
   PageLayout.MainLayout := pLayout;
 
-  PageLayout.NavBar := tcomponentbars.NavBar(PageLayout.PageViewLayout);
+  PageLayout.NavBar := TBars.NavBar(PageLayout.PageViewLayout);
   PageLayout.NavBar.OnBtnBackClick(PageLayout.GoBack);
 
   case LayoutForm of

@@ -29,7 +29,7 @@ type
     { Private declarations }
     AppBar                   : iAppBar;
     TitleBar                 : iTitleBar;
-    MainMenu                 : iOffcanvas;
+    MainMenu                 : iMainMenu;
     AvatarMenu               : iAvatarMenu;
     ActionButton             : iActionButton;
     NavigationManagerService : iNavigationManagerService;
@@ -74,16 +74,16 @@ procedure TfMain.FormCreate(Sender: TObject);
 begin
   NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
 
-  AppBar := TComponentBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+  AppBar := TBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
 
-  TitleBar := TComponentBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
-  MainMenu := TComponentOffcanvas.MainMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
-  AvatarMenu := tComponentOffCanvas.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
+  TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+  MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme);
+  AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
 
-  ActionButton := TComponentButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
+  ActionButton := TButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
 
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton]);
 

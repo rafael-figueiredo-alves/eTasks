@@ -27,11 +27,11 @@ type
     procedure BtnCloseClick(Sender: TObject);
   private
     { Private declarations }
+  public
+    { Public declarations }
     fDirection : TOffcanvasDirection;
     procedure SetDirection(const direction: TOffcanvasDirection);
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
-  public
-    { Public declarations }
     function isDarkMode(const value: boolean): iOffcanvas;
     function OpenMenu: iOffcanvas;
     class function New(const Form: TForm; Kind: TOffcanvasKind; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;

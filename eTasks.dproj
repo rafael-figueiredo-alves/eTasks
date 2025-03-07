@@ -273,9 +273,6 @@
         <DCCReference Include="src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas">
             <Form>AvatarMenu</Form>
         </DCCReference>
-        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.Menu.pas">
-            <Form>OffcanvasMenu</Form>
-        </DCCReference>
         <DCCReference Include="src\Components\Buttons\eTasks.Components.ActionButton.pas">
             <Form>ActionButton</Form>
             <FormType>fmx</FormType>
@@ -301,6 +298,19 @@
         <DCCReference Include="src\View\Layouts\eTasks.View.Layouts.Interfaces.pas"/>
         <DCCReference Include="src\View\Services\eTasks.View.Services.Interfaces.pas"/>
         <DCCReference Include="src\View\Services\eTasks.View.ThemeService.pas"/>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.MainMenu.pas">
+            <Form>MainMenu</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.LanguageMenu.pas">
+            <Form>LanguageMenu</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\Components\Offcanvas\eTasks.Components.FilterMenu.pas">
+            <Form>FilterMenu</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\Components\Enums\eTasks.Components.TranslationEnums.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

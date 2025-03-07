@@ -4,76 +4,84 @@ interface
 
 uses
   eTasks.Components.Interfaces,
-  FMX.Forms, FMX.Layouts;
+  FMX.Forms,
+  FMX.Layouts,
+  System.Generics.Collections,
+  eTasks.Components.TranslationEnums;
 
 type
 
-  TComponentBars = class
+  TBars = class
     class function AppBar(const Form: TForm; const Layout: TLayout) : iAppBar;
     class function TitleBar(const Form: TForm; const Layout: TLayout) : iTitleBar;
     class function NavBar(const Layout: TLayout) : iNavBar;
   end;
 
-  TComponentOffcanvas = class
-    class function MainMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight): iOffcanvas;
-    class function FilterMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight): iOffcanvas;
-    class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdLeft) : iOffcanvas;
+  TMenus = class
+    class function MainMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
+    class function FilterMenu(const Form: TForm; isDarkMode: Boolean = false): iOffcanvas;
+    class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false) : iOffcanvas;
     class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight) : iAvatarMenu;
   end;
 
-  TComponentButtons = class
+  TButtons = class
     class function ActionButton(const Form: TForm) : iActionButton;
   end;
 
 implementation
 
 uses
-  eTasks.Components.AppBar, eTasks.Components.TitleBar,
-  eTasks.Components.Offcanvas, eTasks.Components.AvatarMenu,
-  eTasks.Components.ActionButton, eTasks.Components.NavBar;
+  eTasks.Components.AppBar,
+  eTasks.Components.TitleBar,
+  eTasks.Components.AvatarMenu,
+  eTasks.Components.ActionButton,
+  eTasks.Components.NavBar,
+  eTasks.Components.MainMenu,
+  eTasks.Components.LanguageMenu,
+  eTasks.Components.FilterMenu;
 
 { TComponentBars }
 
-class function TComponentBars.AppBar(const Form: TForm; const Layout: TLayout): iAppBar;
+class function TBars.AppBar(const Form: TForm; const Layout: TLayout): iAppBar;
 begin
   Result := tAppBar.New(Form, Layout);
 end;
 
-class function TComponentBars.NavBar(const Layout: TLayout): iNavBar;
+class function TBars.NavBar(const Layout: TLayout): iNavBar;
 begin
   Result := tNavBar.New(Layout);
 end;
 
-class function TComponentBars.TitleBar(const Form: TForm; const Layout: TLayout): iTitleBar;
+class function TBars.TitleBar(const Form: TForm; const Layout: TLayout): iTitleBar;
 begin
   Result := tTitleBar.New(Form, Layout);
 end;
 
 { TComponentOffcanvas }
 
-class function TComponentOffcanvas.AvatarMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iAvatarMenu;
+class function TMenus.AvatarMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iAvatarMenu;
 begin
   Result := tAvatarMenu.New(Form, Direction, isDarkMode);
 end;
 
-class function TComponentOffcanvas.FilterMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iOffcanvas;
+class function TMenus.FilterMenu(const Form: TForm; isDarkMode: Boolean): iOffcanvas;
 begin
-  Result := TOffcanvas.New(Form, ockFilter, Direction, isDarkMode);
+  Result := TFilterMenu.New(Form, isDarkMode);
 end;
 
-class function TComponentOffcanvas.LanguageMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iOffcanvas;
+class function TMenus.LanguageMenu(const Form: TForm; isDarkMode: Boolean): iOffcanvas;
 begin
-  Result := TOffcanvas.New(Form, ockLanguage, Direction, isDarkMode);
+  Result := TLanguageMenu.new(Form, isDarkMode);
 end;
 
-class function TComponentOffcanvas.MainMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iOffcanvas;
+class function TMenus.MainMenu(const Form: TForm; isDarkMode: Boolean; Translations: TDictionary<TMainMenuTexts, string>): iMainMenu;
 begin
-  Result := TOffcanvas.New(Form, ockMenu, Direction, isDarkMode);
+  Result := TMainMenu .New(Form, isDarkMode);
 end;
 
 { TComponentButtons }
 
-class function TComponentButtons.ActionButton(const Form: TForm): iActionButton;
+class function TButtons.ActionButton(const Form: TForm): iActionButton;
 begin
   Result := TActionButton.New(Form);
 end;

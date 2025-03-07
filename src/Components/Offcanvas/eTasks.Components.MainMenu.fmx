@@ -1,0 +1,16 @@
+inherited MainMenu: TMainMenu
+  Caption = 'Offcanvas1'
+  DesignerMasterStyle = 0
+  inherited Multiview: TMultiView
+    inherited LytTitle: TLayout
+      inherited BtnClose: TImage
+        MultiResBitmap.Height = 20
+        MultiResBitmap.Width = 20
+      end
+    end
+    inherited Container: TVertScrollBox
+      Viewport.Width = 328.000000000000000000
+      Viewport.Height = 408.000000000000000000
+    end
+  end
+end

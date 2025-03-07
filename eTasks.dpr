@@ -42,7 +42,6 @@ uses
   eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {,
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
-  eTasks.Components.Menu in 'src\Components\Offcanvas\eTasks.Components.Menu.pas' {OffcanvasMenu},
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
   eTasks.View.PageLayout in 'src\View\Layouts\eTasks.View.PageLayout.pas' {PageLayout},
@@ -54,7 +53,11 @@ uses
   eTasks.View.Types in 'src\View\Utils\eTasks.View.Types.pas',
   eTasks.View.Layouts.Interfaces in 'src\View\Layouts\eTasks.View.Layouts.Interfaces.pas',
   eTasks.View.Services.Interfaces in 'src\View\Services\eTasks.View.Services.Interfaces.pas',
-  eTasks.View.ThemeService in 'src\View\Services\eTasks.View.ThemeService.pas';
+  eTasks.View.ThemeService in 'src\View\Services\eTasks.View.ThemeService.pas',
+  eTasks.Components.MainMenu in 'src\Components\Offcanvas\eTasks.Components.MainMenu.pas' {MainMenu},
+  eTasks.Components.LanguageMenu in 'src\Components\Offcanvas\eTasks.Components.LanguageMenu.pas' {LanguageMenu},
+  eTasks.Components.FilterMenu in 'src\Components\Offcanvas\eTasks.Components.FilterMenu.pas' {FilterMenu},
+  eTasks.Components.TranslationEnums in 'src\Components\Enums\eTasks.Components.TranslationEnums.pas';
 
 {$R *.res}
 
@@ -73,5 +76,8 @@ begin
 
   Application.CreateForm(TfMain, fMain);
   Application.CreateForm(TMenu1, Menu1);
+  Application.CreateForm(TMainMenu, MainMenu);
+  Application.CreateForm(TLanguageMenu, LanguageMenu);
+  Application.CreateForm(TFilterMenu, FilterMenu);
   Application.Run;
 end.

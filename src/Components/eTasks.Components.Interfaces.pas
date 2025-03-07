@@ -5,7 +5,8 @@ interface
 uses
   FMX.Objects,
   FMX.Layouts,
-  FMX.MultiView;
+  FMX.MultiView,
+  eTasks.Components.TranslationEnums, System.Generics.Collections;
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
@@ -59,8 +60,9 @@ type
     ['{1108CC14-4E1B-4828-A1C0-B1AAC08CB499}']
   end;
 
-  iMainMenu = interface
+  iMainMenu = interface(iOffCanvas)
     ['{17026E4B-4B32-48B0-A55F-674D315BF540}']
+    function ChangeLanguage(Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
   end;
 
   iLanguageMenu = interface
