@@ -98,6 +98,7 @@ object Offcanvas: TOffcanvas
     Size.Width = 328.000000000000000000
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 0
     object LytTitle: TLayout
       Align = Top

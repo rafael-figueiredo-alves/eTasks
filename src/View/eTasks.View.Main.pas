@@ -66,7 +66,9 @@ uses
   {$endif}
   eTranslate4Pascal,
   eTasks.View.NavigationManager,
-  eTasks.View.ThemeService;
+  eTasks.View.ThemeService,
+  eTasks.Components.TranslationEnums,
+  System.Generics.Collections;
 
 {$R *.fmx}
 

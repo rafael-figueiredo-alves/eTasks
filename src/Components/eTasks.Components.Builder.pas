@@ -76,7 +76,7 @@ end;
 
 class function TMenus.MainMenu(const Form: TForm; isDarkMode: Boolean; Translations: TDictionary<TMainMenuTexts, string>): iMainMenu;
 begin
-  Result := TMainMenu .New(Form, isDarkMode);
+  Result := TMainMenu.New(Form, isDarkMode, Translations);
 end;
 
 { TComponentButtons }

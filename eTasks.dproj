@@ -311,6 +311,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Enums\eTasks.Components.TranslationEnums.pas"/>
+        <DCCReference Include="src\Components\Enums\eTasks.Components.MenuEnums.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

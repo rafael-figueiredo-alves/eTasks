@@ -6,7 +6,8 @@ uses
   FMX.Objects,
   FMX.Layouts,
   FMX.MultiView,
-  eTasks.Components.TranslationEnums, System.Generics.Collections;
+  eTasks.Components.TranslationEnums, System.Generics.Collections,
+  eTasks.Components.MenuEnums;
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
@@ -15,6 +16,7 @@ type
   TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton);
 
   TEventoClick = procedure(sender: TObject) of object;
+  TEventoMainMenuClick = procedure(button: TMainMenuButtons) of object;
 
   iTitleBar = interface
     ['{CCA6D914-787E-495F-ADE7-F9472A0FBC45}']
@@ -62,7 +64,9 @@ type
 
   iMainMenu = interface(iOffCanvas)
     ['{17026E4B-4B32-48B0-A55F-674D315BF540}']
-    function ChangeLanguage(Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
+    function ChangeLanguage(const Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
+    function OnMainMenuItemClick(const Event: TEventoMainMenuClick): iMainMenu;
+    function Selected(const SelectedMenu: TMainMenuButtons) : iMainMenu;
   end;
 
   iLanguageMenu = interface

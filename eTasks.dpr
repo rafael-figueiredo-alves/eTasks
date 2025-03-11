@@ -57,7 +57,8 @@ uses
   eTasks.Components.MainMenu in 'src\Components\Offcanvas\eTasks.Components.MainMenu.pas' {MainMenu},
   eTasks.Components.LanguageMenu in 'src\Components\Offcanvas\eTasks.Components.LanguageMenu.pas' {LanguageMenu},
   eTasks.Components.FilterMenu in 'src\Components\Offcanvas\eTasks.Components.FilterMenu.pas' {FilterMenu},
-  eTasks.Components.TranslationEnums in 'src\Components\Enums\eTasks.Components.TranslationEnums.pas';
+  eTasks.Components.TranslationEnums in 'src\Components\Enums\eTasks.Components.TranslationEnums.pas',
+  eTasks.Components.MenuEnums in 'src\Components\Enums\eTasks.Components.MenuEnums.pas';
 
 {$R *.res}
 

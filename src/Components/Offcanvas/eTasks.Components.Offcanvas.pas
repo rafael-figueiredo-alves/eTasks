@@ -32,7 +32,7 @@ type
     fDirection : TOffcanvasDirection;
     procedure SetDirection(const direction: TOffcanvasDirection);
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
-    function isDarkMode(const value: boolean): iOffcanvas;
+    function isDarkMode(const value: boolean): iOffcanvas;virtual;
     function OpenMenu: iOffcanvas;
     class function New(const Form: TForm; Kind: TOffcanvasKind; Direction: TOffcanvasDirection = ocdRight; isDarkMode: Boolean = false): iOffcanvas;
   end;
