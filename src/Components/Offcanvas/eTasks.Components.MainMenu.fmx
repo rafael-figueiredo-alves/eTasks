@@ -2,15 +2,26 @@ inherited MainMenu: TMainMenu
   Caption = 'Offcanvas1'
   DesignerMasterStyle = 0
   inherited Multiview: TMultiView
-    Visible = True
+    Size.Width = 209.000000000000000000
     inherited LytTitle: TLayout
+      Size.Width = 209.000000000000000000
       inherited BtnClose: TImage
         MultiResBitmap.Height = 20
         MultiResBitmap.Width = 20
       end
+      inherited LytBtnFilters: TLayout
+        Position.X = 124.000000000000000000
+      end
+      inherited LblTitle: TLabel
+        Size.Width = 69.000000000000000000
+      end
+    end
+    inherited LineTop: TLine
+      Size.Width = 159.000000000000000000
     end
     inherited Container: TVertScrollBox
-      Viewport.Width = 328.000000000000000000
+      Size.Width = 209.000000000000000000
+      Viewport.Width = 209.000000000000000000
       Viewport.Height = 408.000000000000000000
       object LayItemHome: TLayout
         Align = Top
@@ -18,7 +29,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 6
@@ -69,7 +80,7 @@ inherited MainMenu: TMainMenu
         object lblHome: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -95,7 +106,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 50.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 5
@@ -142,7 +153,7 @@ inherited MainMenu: TMainMenu
         object lblTasks: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -167,7 +178,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 95.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 4
@@ -233,7 +244,7 @@ inherited MainMenu: TMainMenu
         object lblGoals: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -253,17 +264,17 @@ inherited MainMenu: TMainMenu
           Stroke.Thickness = 10.000000000000000000
         end
       end
-      object Layout3: TLayout
+      object LayShopping: TLayout
         Align = Top
         Cursor = crHandPoint
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 140.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 3
-        OnClick = Layout3Click
+        OnClick = LayShoppingClick
         object ImgShopping: TImage
           MultiResBitmap.Height = 30
           MultiResBitmap.Width = 30
@@ -309,7 +320,7 @@ inherited MainMenu: TMainMenu
         object lblShopping: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -334,7 +345,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 185.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 2
@@ -391,7 +402,7 @@ inherited MainMenu: TMainMenu
         object lblReadings: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -417,7 +428,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 230.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -465,7 +476,7 @@ inherited MainMenu: TMainMenu
         object lblNotes: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
@@ -491,7 +502,7 @@ inherited MainMenu: TMainMenu
         HitTest = True
         Margins.Top = 5.000000000000000000
         Position.Y = 275.000000000000000000
-        Size.Width = 328.000000000000000000
+        Size.Width = 209.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -560,7 +571,7 @@ inherited MainMenu: TMainMenu
         object lblFinances: TLabel
           Align = Client
           StyledSettings = [Style]
-          Size.Width = 274.000000000000000000
+          Size.Width = 155.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'

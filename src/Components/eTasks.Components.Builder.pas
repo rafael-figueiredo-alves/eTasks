@@ -21,7 +21,7 @@ type
     class function MainMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
     class function FilterMenu(const Form: TForm; isDarkMode: Boolean = false): iOffcanvas;
     class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false) : iOffcanvas;
-    class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Direction: TOffcanvasDirection = ocdRight) : iAvatarMenu;
+    class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TAvatarMenuTexts, string> = nil) : iAvatarMenu;
   end;
 
   TButtons = class
@@ -59,9 +59,9 @@ end;
 
 { TComponentOffcanvas }
 
-class function TMenus.AvatarMenu(const Form: TForm; isDarkMode: Boolean; Direction: TOffcanvasDirection): iAvatarMenu;
+class function TMenus.AvatarMenu(const Form: TForm; isDarkMode: Boolean; Translations: TDictionary<TAvatarMenuTexts, string>): iAvatarMenu;
 begin
-  Result := tAvatarMenu.New(Form, Direction, isDarkMode);
+  Result := tAvatarMenu.New(Form, isDarkMode, Translations);
 end;
 
 class function TMenus.FilterMenu(const Form: TForm; isDarkMode: Boolean): iOffcanvas;

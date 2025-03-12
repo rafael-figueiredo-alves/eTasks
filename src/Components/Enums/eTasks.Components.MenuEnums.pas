@@ -4,7 +4,9 @@ interface
 
 type
 
- TMainMenuButtons = (Home, Tasks, Goals, Shopping, Readings, Notes, Finance);
+ TMainMenuItems = (Home, Tasks, Goals, Shopping, Readings, Notes, Finance);
+
+ TAvatarMenuItems = (EditProfile, ChangePassword, Logout, Conquers, Settings, ChangeTheme, ChangeLanguage, About);
 
 implementation
 

@@ -16,7 +16,8 @@ type
   TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton);
 
   TEventoClick = procedure(sender: TObject) of object;
-  TEventoMainMenuClick = procedure(button: TMainMenuButtons) of object;
+  TEventoMainMenuClick = procedure(const button: TMainMenuItems) of object;
+  TEventoAvatarMenuClick = procedure(const button: TAvatarMenuItems) of object;
 
   iTitleBar = interface
     ['{CCA6D914-787E-495F-ADE7-F9472A0FBC45}']
@@ -56,6 +57,8 @@ type
     ['{35AE5D5E-4B7C-4083-A0D9-17C8341A5410}']
     function isDarkMode(const value: boolean): iAvatarMenu;
     function OpenMenu: iAvatarMenu;
+    function ChangeLanguage(const Translations: TDictionary<TAvatarMenuTexts, string> = nil): iAvatarMenu;
+    function OnAvatarMenuItemClick(const Event: TEventoAvatarMenuClick): iAvatarMenu;
   end;
 
   iFilterMenu = interface
@@ -66,7 +69,7 @@ type
     ['{17026E4B-4B32-48B0-A55F-674D315BF540}']
     function ChangeLanguage(const Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
     function OnMainMenuItemClick(const Event: TEventoMainMenuClick): iMainMenu;
-    function Selected(const SelectedMenu: TMainMenuButtons) : iMainMenu;
+    function Selected(const SelectedMenu: TMainMenuItems) : iMainMenu;
   end;
 
   iLanguageMenu = interface
