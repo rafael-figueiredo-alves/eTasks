@@ -7,7 +7,7 @@ uses
   FMX.Layouts,
   FMX.MultiView,
   eTasks.Components.TranslationEnums, System.Generics.Collections,
-  eTasks.Components.MenuEnums;
+  eTasks.Components.MenuEnums, FMX.Graphics;
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
@@ -59,6 +59,9 @@ type
     function OpenMenu: iAvatarMenu;
     function ChangeLanguage(const Translations: TDictionary<TAvatarMenuTexts, string> = nil): iAvatarMenu;
     function OnAvatarMenuItemClick(const Event: TEventoAvatarMenuClick): iAvatarMenu;
+    function SetUserName(const value: string): iAvatarMenu;
+    function SetUserPhoto(const value: TBitmap): iAvatarMenu;
+    function OnAvatarClick(const value: TEventoClick): iAvatarMenu;
   end;
 
   iFilterMenu = interface

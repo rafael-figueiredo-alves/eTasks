@@ -104,6 +104,7 @@ object AvatarMenu: TAvatarMenu
         TabOrder = 0
         object AvatarPicture: TCircle
           Align = Client
+          Cursor = crHandPoint
           Fill.Bitmap.Bitmap.PNG = {
             89504E470D0A1A0A0000000D494844520000006E0000006E0806000000C65B26
             FB0000000473424954080808087C0864880000124049444154789CED9D7B905C
@@ -260,6 +261,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 97.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
+          OnClick = AvatarPictureClick
         end
       end
       object Layout3: TLayout

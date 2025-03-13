@@ -12,7 +12,7 @@ uses
   eTasks.Components.Interfaces,
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
-  eTasks.View.Services.Interfaces;
+  eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls;
 
 type
   TTeste = procedure of Object;

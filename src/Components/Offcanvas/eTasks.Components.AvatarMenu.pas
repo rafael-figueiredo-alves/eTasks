@@ -76,10 +76,14 @@ type
     procedure BtnEditProfileClick(Sender: TObject);
     procedure BtnChangePasswordClick(Sender: TObject);
     procedure BtnLogoutClick(Sender: TObject);
+    procedure AvatarPictureClick(Sender: TObject);
   private
     { Private declarations }
-    fDirection : TOffcanvasDirection;
+    fDirection               : TOffcanvasDirection;
     EventoAoClicarEmItemMenu : TEventoAvatarMenuClick;
+    EventoAvatarClick        : TEventoClick;
+    AvatarPhoto              : TBitmap;
+    IsDarkTheme              : boolean;
     procedure SetDirection(const direction: TOffcanvasDirection);
     function ImgSource(const size: TSizeF; index: integer; isDarkMode: boolean): TBitmap;
     function AvatarMenuItemClick(const value: TAvatarMenuItems): iAvatarMenu;
@@ -89,6 +93,9 @@ type
     function OpenMenu: iAvatarMenu;
     function ChangeLanguage(const Translations: TDictionary<TAvatarMenuTexts, string> = nil): iAvatarMenu;
     function OnAvatarMenuItemClick(const Event: TEventoAvatarMenuClick): iAvatarMenu;
+    function SetUserName(const value: string): iAvatarMenu;
+    function SetUserPhoto(const value: TBitmap): iAvatarMenu;
+    function OnAvatarClick(const value: TEventoClick): iAvatarMenu;
 
     class function New(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TAvatarMenuTexts, string> = nil): iAvatarMenu;
   end;
@@ -108,6 +115,13 @@ uses
 
 { TAvatarMenu }
 
+{$region 'Métodos dos botões'}
+procedure TAvatarMenu.AvatarPictureClick(Sender: TObject);
+begin
+  if(Assigned(EventoAvatarClick))then
+    EventoAvatarClick(nil);
+end;
+
 procedure TAvatarMenu.BtnChangePasswordClick(Sender: TObject);
 begin
   AvatarMenuItemClick(TAvatarMenuItems.ChangePassword);
@@ -126,57 +140,6 @@ end;
 procedure TAvatarMenu.BtnLogoutClick(Sender: TObject);
 begin
   AvatarMenuItemClick(TAvatarMenuItems.Logout);
-end;
-
-function TAvatarMenu.ChangeLanguage(const Translations: TDictionary<TAvatarMenuTexts, string>): iAvatarMenu;
-begin
-  Result := self;
-
-end;
-
-function TAvatarMenu.ImgSource(const size: TSizeF; index: integer;isDarkMode: boolean): TBitmap;
-begin
-  Result := TUtils.Iif(isDarkMode, ImgDark.Bitmap(size, index), ImgLight.Bitmap(size, index));
-end;
-
-function TAvatarMenu.isDarkMode(const value: boolean): iAvatarMenu;
-var
- AvatarImg: tCustomBitmapItem;
- Size: TSize;
-begin
-  Result := Self;
-
-  case fDirection of
-    ocdLeft: Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeLeft', 'AvatarLightModeLeft');
-    ocdRight: Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeRight', 'AvatarLightModeRight');
-   else
-    Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeRight', 'AvatarLightModeRight');
-  end;
-
-   if ImgAvatar.BitmapItemByName(TUtils.Iif(value, 'Dark', 'Light'), AvatarImg, size) then
-    AvatarPicture.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
-
-  BtnClose.Bitmap          := ImgSource(TSizeF.Create(20, 20), 0, value);
-  BtnEditProfile .Bitmap   := ImgSource(TSizeF.Create(30, 30), 1, value);
-  BtnChangePassword.Bitmap := ImgSource(TSizeF.Create(30, 30), 2, value);
-  BtnLogout.Bitmap         := ImgSource(TSizeF.Create(30, 30), 3, value);
-  UserName.FontColor       := tColorPallete.GetColor(Primary, value);
-  LineTop.Stroke.Color     := tColorPallete.GetColor(Primary, value);
-
-  ImgConquers.Bitmap         := ImgSource(TSizeF.Create(30, 30), 4, value);
-  lblConquers.FontColor       := tColorPallete.GetColor(Primary, value);
-
-  ImgConfig.Bitmap         := ImgSource(TSizeF.Create(30, 30), 5, value);
-  lblConfig.FontColor       := tColorPallete.GetColor(Primary, value);
-
-  ImgTheme.Bitmap         := ImgSource(TSizeF.Create(30, 30), 6, value);
-  lblTheme.FontColor       := tColorPallete.GetColor(Primary, value);
-
-  ImgLanguage.Bitmap         := ImgSource(TSizeF.Create(30, 30), 7, value);
-  lblLanguage.FontColor       := tColorPallete.GetColor(Primary, value);
-
-  ImgAbout.Bitmap         := ImgSource(TSizeF.Create(30, 30), 8, value);
-  lblAbout.FontColor       := tColorPallete.GetColor(Primary, value);
 end;
 
 procedure TAvatarMenu.LayItemAboutClick(Sender: TObject);
@@ -203,6 +166,84 @@ procedure TAvatarMenu.LayItemThemeClick(Sender: TObject);
 begin
   AvatarMenuItemClick(TAvatarMenuItems.ChangeTheme);
 end;
+{$endregion}
+
+function TAvatarMenu.ChangeLanguage(const Translations: TDictionary<TAvatarMenuTexts, string>): iAvatarMenu;
+begin
+  Result := self;
+
+  if(Assigned(Translations))then
+   begin
+     LblConquers.Text       := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.Conquers), Translations[TAvatarMenuTexts.Conquers], 'Conquistas');
+     lblConfig.Text         := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.Settings), Translations[TAvatarMenuTexts.Settings], 'Configurações');
+     lblTheme.Text          := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.ChangeTheme), Translations[TAvatarMenuTexts.ChangeTheme], 'Trocar tema');
+     lblLanguage.Text       := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.ChangeLanguage), Translations[TAvatarMenuTexts.ChangeLanguage], 'Trocar idioma');
+     lblAbout.Text          := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.About), Translations[TAvatarMenuTexts.About], 'Sobre');
+     BtnEditProfile.Hint    := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.EditProfile), Translations[TAvatarMenuTexts.EditProfile], 'Editar perfil');
+     BtnChangePassword.Hint := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.ChangePassword), Translations[TAvatarMenuTexts.ChangePassword], 'Trocar senha');
+     BtnLogout.Hint         := TUtils.Iif(Translations.ContainsKey(TAvatarMenuTexts.Logout), Translations[TAvatarMenuTexts.Logout], 'Sair');
+   end
+  else
+   begin
+     LblConquers.Text       := 'Conquistas';
+     lblConfig.Text         := 'Configurações';
+     lblTheme.Text          := 'Trocar tema';
+     lblLanguage.Text       := 'Trocar idioma';
+     lblAbout.Text          := 'Sobre';
+     BtnEditProfile.Hint    := 'Editar perfil';
+     BtnChangePassword.Hint := 'Trocar senha';
+     BtnLogout.Hint         := 'Sair';
+   end;
+end;
+
+function TAvatarMenu.ImgSource(const size: TSizeF; index: integer;isDarkMode: boolean): TBitmap;
+begin
+  Result := TUtils.Iif(isDarkMode, ImgDark.Bitmap(size, index), ImgLight.Bitmap(size, index));
+end;
+
+function TAvatarMenu.isDarkMode(const value: boolean): iAvatarMenu;
+var
+ AvatarImg: tCustomBitmapItem;
+ Size: TSize;
+begin
+  Result := Self;
+  IsDarkTheme := value;
+
+  case fDirection of
+    ocdLeft: Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeLeft', 'AvatarLightModeLeft');
+    ocdRight: Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeRight', 'AvatarLightModeRight');
+   else
+    Multiview.StyleLookup := TUtils.Iif(value, 'AvatarDarkModeRight', 'AvatarLightModeRight');
+  end;
+
+   if(Assigned(AvatarPhoto))then
+     AvatarPicture.Fill.Bitmap.Bitmap := AvatarPhoto
+   else
+     if ImgAvatar.BitmapItemByName(TUtils.Iif(value, 'Dark', 'Light'), AvatarImg, size) then
+      AvatarPicture.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
+
+  BtnClose.Bitmap          := ImgSource(TSizeF.Create(20, 20), 0, value);
+  BtnEditProfile .Bitmap   := ImgSource(TSizeF.Create(30, 30), 1, value);
+  BtnChangePassword.Bitmap := ImgSource(TSizeF.Create(30, 30), 2, value);
+  BtnLogout.Bitmap         := ImgSource(TSizeF.Create(30, 30), 3, value);
+  UserName.FontColor       := tColorPallete.GetColor(Primary, value);
+  LineTop.Stroke.Color     := tColorPallete.GetColor(Primary, value);
+
+  ImgConquers.Bitmap       := ImgSource(TSizeF.Create(30, 30), 4, value);
+  lblConquers.FontColor    := tColorPallete.GetColor(Primary, value);
+
+  ImgConfig.Bitmap         := ImgSource(TSizeF.Create(30, 30), 5, value);
+  lblConfig.FontColor      := tColorPallete.GetColor(Primary, value);
+
+  ImgTheme.Bitmap          := ImgSource(TSizeF.Create(30, 30), 6, value);
+  lblTheme.FontColor       := tColorPallete.GetColor(Primary, value);
+
+  ImgLanguage.Bitmap        := ImgSource(TSizeF.Create(30, 30), 7, value);
+  lblLanguage.FontColor     := tColorPallete.GetColor(Primary, value);
+
+  ImgAbout.Bitmap           := ImgSource(TSizeF.Create(30, 30), 8, value);
+  lblAbout.FontColor        := tColorPallete.GetColor(Primary, value);
+end;
 
 function TAvatarMenu.AvatarMenuItemClick(const value: TAvatarMenuItems): iAvatarMenu;
 begin
@@ -224,6 +265,12 @@ begin
           .ChangeLanguage(Translations);
 
   Form.AddObject(TAvatarMenu(Result).Multiview);
+end;
+
+function TAvatarMenu.OnAvatarClick(const value: TEventoClick): iAvatarMenu;
+begin
+   Result := self;
+   EventoAvatarClick := value;
 end;
 
 function TAvatarMenu.OnAvatarMenuItemClick(const Event: TEventoAvatarMenuClick): iAvatarMenu;
@@ -252,6 +299,31 @@ begin
        Multiview.DrawerOptions.Placement := TPanelPlacement.Right;
      end;
   end;
+end;
+
+function TAvatarMenu.SetUserName(const value: string): iAvatarMenu;
+begin
+  Result := self;
+
+  if(value.Trim <> EmptyStr)then
+     UserName.Text := value.Trim
+  else
+     Username.Text := 'Anônimo';
+end;
+
+function TAvatarMenu.SetUserPhoto(const value: TBitmap): iAvatarMenu;
+var
+ AvatarImg: tCustomBitmapItem;
+ Size: TSize;
+begin
+  Result := Self;
+  AvatarPhoto := value;
+
+  if(Assigned(AvatarPhoto))then
+     AvatarPicture.Fill.Bitmap.Bitmap := AvatarPhoto
+  else
+   if ImgAvatar.BitmapItemByName(TUtils.Iif(IsDarkTheme, 'Dark', 'Light'), AvatarImg, size) then
+     AvatarPicture.Fill.Bitmap.Bitmap := AvatarImg.Bitmap;
 end;
 
 end.
