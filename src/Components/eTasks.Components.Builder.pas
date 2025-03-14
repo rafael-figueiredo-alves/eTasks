@@ -20,7 +20,7 @@ type
   TMenus = class
     class function MainMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TMainMenuTexts, string> = nil): iMainMenu;
     class function FilterMenu(const Form: TForm; isDarkMode: Boolean = false): iOffcanvas;
-    class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false) : iOffcanvas;
+    class function LanguageMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TLanguageMenuTexts, string> = nil) : iLanguageMenu;
     class function AvatarMenu(const Form: TForm; isDarkMode: Boolean = false; Translations: TDictionary<TAvatarMenuTexts, string> = nil) : iAvatarMenu;
   end;
 
@@ -69,9 +69,9 @@ begin
   Result := TFilterMenu.New(Form, isDarkMode);
 end;
 
-class function TMenus.LanguageMenu(const Form: TForm; isDarkMode: Boolean): iOffcanvas;
+class function TMenus.LanguageMenu(const Form: TForm; isDarkMode: Boolean; Translations: TDictionary<TLanguageMenuTexts, string>): iLanguageMenu;
 begin
-  Result := TLanguageMenu.new(Form, isDarkMode);
+  Result := TLanguageMenu.new(Form, isDarkMode, Translations);
 end;
 
 class function TMenus.MainMenu(const Form: TForm; isDarkMode: Boolean; Translations: TDictionary<TMainMenuTexts, string>): iMainMenu;

@@ -3,6 +3,7 @@ inherited MainMenu: TMainMenu
   DesignerMasterStyle = 0
   inherited Multiview: TMultiView
     Size.Width = 209.000000000000000000
+    Visible = True
     inherited LytTitle: TLayout
       Size.Width = 209.000000000000000000
       inherited BtnClose: TImage

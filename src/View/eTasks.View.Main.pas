@@ -12,7 +12,8 @@ uses
   eTasks.Components.Interfaces,
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
-  eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls;
+  eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls,
+  eTasks.Components.MenuEnums;
 
 type
   TTeste = procedure of Object;
@@ -23,6 +24,7 @@ type
     ListsLayout              : TLayout;
     ScreensLayout            : TLayout;
     Circle1                  : TCircle;
+    Image1: TImage;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -31,6 +33,7 @@ type
     TitleBar                 : iTitleBar;
     MainMenu                 : iMainMenu;
     AvatarMenu               : iAvatarMenu;
+    LanguageMenu             : iLanguageMenu;
     ActionButton             : iActionButton;
     NavigationManagerService : iNavigationManagerService;
     Menu1                    : TMenu1;
@@ -40,6 +43,7 @@ type
     procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
+    procedure MainMenuItemClick(const item: TMainMenuItems);
 
     procedure RestrictScreenSize;
 
@@ -72,6 +76,7 @@ uses
 
 {$R *.fmx}
 
+
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
@@ -83,7 +88,9 @@ begin
 
   TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
   MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme);
+  MainMenu.OnMainMenuItemClick(MainMenuItemClick);
   AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
+  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme);
 
   ActionButton := TButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
 
@@ -103,6 +110,12 @@ end;
 function TfMain.GetPage: iPageLayout;
 begin
   Result := CurrentPage;
+end;
+
+procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
+begin
+  if(item = TMainMenuItems.Tasks)then
+   LanguageMenu .OpenMenu;
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);

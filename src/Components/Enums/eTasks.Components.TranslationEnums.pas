@@ -8,6 +8,8 @@ type
 
  TAvatarMenuTexts = (EditProfile, ChangePassword, Logout, Conquers, Settings, ChangeTheme, ChangeLanguage, About);
 
+ TLanguageMenuTexts = (LanguagesTitle);
+
 implementation
 
 end.

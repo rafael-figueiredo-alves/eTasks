@@ -8,6 +8,8 @@ type
 
  TAvatarMenuItems = (EditProfile, ChangePassword, Logout, Conquers, Settings, ChangeTheme, ChangeLanguage, About);
 
+ TSupportedLanguages = (ptBR, En);
+
 implementation
 
 end.

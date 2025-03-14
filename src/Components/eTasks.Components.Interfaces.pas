@@ -16,6 +16,7 @@ type
   TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton);
 
   TEventoClick = procedure(sender: TObject) of object;
+  TEventoStringClick = procedure(const value: string) of object;
   TEventoMainMenuClick = procedure(const button: TMainMenuItems) of object;
   TEventoAvatarMenuClick = procedure(const button: TAvatarMenuItems) of object;
 
@@ -75,8 +76,11 @@ type
     function Selected(const SelectedMenu: TMainMenuItems) : iMainMenu;
   end;
 
-  iLanguageMenu = interface
+  iLanguageMenu = interface(iOffcanvas)
     ['{CD663DA8-C7F0-43E9-9382-3D1926C10042}']
+    function ChangeLanguage(const Translations: TDictionary<TLanguageMenuTexts, string> = nil): iLanguageMenu;
+    function OnLanguageSelected(const Event: TEventoStringClick): iLanguageMenu;
+    function Selected(const SelectedLanguage: string) : iLanguageMenu;
   end;
 
   iActionButton = interface
