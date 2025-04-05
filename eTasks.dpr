@@ -7,7 +7,7 @@ program eTasks;
         Versão: 2.0.0
  Desenvolvedor: Rafael de Figueiredo Alves
 
- Cópia Autorizada© 2024 - Rafael de Figueiredo Alves / DevPegasus-br
+ Cópia Autorizada© 2025 - Rafael de Figueiredo Alves / DevPegasus-br
 
  Descrição:
  Projeto de App mobile (Android) e desktop (Windows) para gerenciamento de tarefas,
@@ -29,6 +29,7 @@ uses
   FMX.Forms,
   FMX.Skia,
   eTranslate4Pascal,
+  LocalStorage4Pascal,
   System.SysUtils,
   System.IOUtils,
   eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain},
@@ -39,8 +40,7 @@ uses
   eTasks.Shared.Utils in 'src\Shared\eTasks.Shared.Utils.pas',
   eTasks.Components.Builder in 'src\Components\eTasks.Components.Builder.pas',
   eTasks.Components.Offcanvas in 'src\Components\Offcanvas\eTasks.Components.Offcanvas.pas' {Offcanvas},
-  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas' {,
-  eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
+  eTasks.Shared.Consts in 'src\Shared\eTasks.Shared.Consts.pas',
   eTasks.Components.AvatarMenu in 'src\Components\Offcanvas\eTasks.Components.AvatarMenu.pas' {AvatarMenu},
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
@@ -67,18 +67,17 @@ begin
   GlobalUseSkia := True;
   Application.Initialize;
 
+  TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);
+
   {$IFDEF ANDROID}
-  eTranslate(TPath.Combine(TPath.GetDocumentsPath, 'translate.json'), 'pt-BR');
+  eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LocalStorage4Delphi.GetString(LSK_Language, LSK_LanguageDefaultValue));
   {$ENDIF}
 
   {$IFDEF MSWINDOWS}
-  eTranslate(ExtractFilePath(ParamStr(0)) + 'translate.json', 'pt-BR');
+  eTranslate(ExtractFilePath(ParamStr(0)) + TranslationFile, LocalStorage4Delphi.GetString(LSK_Language, LSK_LanguageDefaultValue));
   {$ENDIF}
 
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TMenu1, Menu1);
-  Application.CreateForm(TMainMenu, MainMenu);
-  Application.CreateForm(TLanguageMenu, LanguageMenu);
-  Application.CreateForm(TFilterMenu, FilterMenu);
+
   Application.Run;
 end.

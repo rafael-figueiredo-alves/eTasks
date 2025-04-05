@@ -17,6 +17,14 @@
 			"artifacts": {},
 			"failed": false,
 			"changed": false
+		},
+		"https://github.com/rafael-figueiredo-alves/localstorage4pascal": {
+			"name": "localstorage4pascal",
+			"version": "v1.1.0",
+			"hash": "d1073bfa93544020955dd45c87473c57",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
 		}
 	}
 }
