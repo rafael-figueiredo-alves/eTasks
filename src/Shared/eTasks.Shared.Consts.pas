@@ -22,7 +22,7 @@ const MinimumWidth = 360;
 {$ENDREGION}
 
 {$region 'Constantes Chaves do LocalStorage'}
-const LSK_Language = 'Language';
+const LSK_Language = 'UILanguage';
 const LSK_ThemeIsDark = 'ThemeIsDark';
 {$endregion}
 

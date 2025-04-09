@@ -15,6 +15,7 @@ inherited LanguageMenu: TLanguageMenu
       end
       inherited LblTitle: TLabel
         Size.Width = 124.000000000000000000
+        TextSettings.Font.Size = 26.000000000000000000
       end
     end
     inherited LineTop: TLine
@@ -119,7 +120,7 @@ inherited LanguageMenu: TLanguageMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Portugu'#234's'
           TabOrder = 1
@@ -264,7 +265,7 @@ inherited LanguageMenu: TLanguageMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'English'
           TabOrder = 1

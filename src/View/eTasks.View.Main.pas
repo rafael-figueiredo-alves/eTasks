@@ -44,6 +44,7 @@ type
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
     procedure MainMenuItemClick(const item: TMainMenuItems);
+    procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
 
     procedure RestrictScreenSize;
 
@@ -52,6 +53,8 @@ type
     procedure SetPage(value: iPageLayout);
     property Page: iPageLayout read GetPage write SetPage;
     function FormWidth: Integer;
+
+    procedure TesteLanguage(const Lang: string);
   public
     { Public declarations }
   end;
@@ -72,10 +75,24 @@ uses
   eTasks.View.NavigationManager,
   eTasks.View.ThemeService,
   eTasks.Components.TranslationEnums,
-  System.Generics.Collections;
+  System.Generics.Collections, FMX.Dialogs;
 
 {$R *.fmx}
 
+
+procedure TfMain.AvatarMenuItemClick(const item: TAvatarMenuItems);
+begin
+  case item of
+    TAvatarMenuItems.EditProfile: ShowMessage('Implementar');
+    TAvatarMenuItems.ChangePassword: ShowMessage('Implementar');
+    TAvatarMenuItems.Logout: ShowMessage('Implementar');
+    TAvatarMenuItems.Conquers: ShowMessage('Implementar');
+    TAvatarMenuItems.Settings: ShowMessage('Implementar');
+    TAvatarMenuItems.ChangeTheme: ShowMessage('Implementar');
+    TAvatarMenuItems.ChangeLanguage: LanguageMenu.OpenMenu;
+    TAvatarMenuItems.About: ShowMessage('Implementar');
+  end;
+end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
@@ -89,10 +106,13 @@ begin
   TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
   MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme);
   MainMenu.OnMainMenuItemClick(MainMenuItemClick);
-  AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme);
+  AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme).OnAvatarMenuItemClick(AvatarMenuItemClick);
   LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme);
+  LanguageMenu.OnLanguageSelected(TesteLanguage);
 
   ActionButton := TButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
+
+  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton]);
 
@@ -115,7 +135,7 @@ end;
 procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
 begin
   if(item = TMainMenuItems.Tasks)then
-   LanguageMenu .OpenMenu;
+   LanguageMenu.OpenMenu;
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);
@@ -205,6 +225,11 @@ begin
    eTranslate.SetLanguage('pt-BR');
 
   TranslateUI;
+end;
+
+procedure TfMain.TesteLanguage(const Lang: string);
+begin
+  ShowMessage(lang);
 end;
 
 procedure TfMain.TranslateUI;

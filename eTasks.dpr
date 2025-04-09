@@ -68,6 +68,7 @@ begin
   Application.Initialize;
 
   TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);
+  InitThemeService();
 
   {$IFDEF ANDROID}
   eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LocalStorage4Delphi.GetString(LSK_Language, LSK_LanguageDefaultValue));

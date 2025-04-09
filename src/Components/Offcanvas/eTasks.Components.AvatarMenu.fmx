@@ -559,7 +559,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 28.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Conquistas'
           TabOrder = 1
@@ -678,7 +678,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 28.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Configura'#231#245'es'
           TabOrder = 1
@@ -770,7 +770,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 28.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Trocar tema'
           TabOrder = 1
@@ -865,7 +865,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 28.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Trocar idioma'
           TabOrder = 1
@@ -948,7 +948,7 @@ object AvatarMenu: TAvatarMenu
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
-          TextSettings.Font.Size = 28.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
           TextSettings.FontColor = xFF336699
           Text = 'Sobre'
           TabOrder = 1

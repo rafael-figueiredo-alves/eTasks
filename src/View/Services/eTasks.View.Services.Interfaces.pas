@@ -28,6 +28,11 @@ type
     function SetDarkTheme(const value: Boolean): iThemeService;
   end;
 
+//  iLanguageService = interface
+//    ['{E20D33CF-7E64-4C30-8463-44578C0E7F15}']
+//    function
+//  end;
+
 
 implementation
 

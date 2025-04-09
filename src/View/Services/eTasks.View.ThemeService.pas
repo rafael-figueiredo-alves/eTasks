@@ -24,15 +24,18 @@ type
     class function New: iThemeService;
  end;
 
+ function InitThemeService: iThemeService;
+
 var ThemeService: iThemeService;
 
 implementation
 
 { TThemeService }
 
-uses eTasks.Shared.Utils;
-
-
+uses
+  eTasks.Shared.Utils,
+  LocalStorage4Pascal,
+  eTasks.Shared.Consts;
 
 function TThemeService.ApplyTheme: iThemeService;
 begin
@@ -43,6 +46,9 @@ end;
 function TThemeService.ChangeTheme: iThemeService;
 begin
   fDarkTheme := not fDarkTheme;
+
+  LocalStorage4Delphi.SetValue(LSK_ThemeIsDark, fDarkTheme);
+
   ApplyTheme;
 
   Result := Self;
@@ -51,7 +57,7 @@ end;
 constructor TThemeService.Create;
 begin
   ListInterfaces := TList<IInterface>.Create;
-  fDarkTheme     := False;
+  fDarkTheme     := LocalStorage4Delphi.GetBoolean(LSK_ThemeIsDark, LSK_ThemeIsDarkDefaultValue);
 end;
 
 destructor TThemeService.Destroy;
@@ -87,11 +93,12 @@ begin
   Result := Self;
 end;
 
-initialization
-
+function InitThemeService: iThemeService;
 begin
   if(not Assigned(ThemeService))then
    ThemeService := TThemeService.New;
+
+  Result := ThemeService;
 end;
 
 end.
