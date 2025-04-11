@@ -303,6 +303,7 @@
         </DCCReference>
         <DCCReference Include="src\Components\Enums\eTasks.Components.TranslationEnums.pas"/>
         <DCCReference Include="src\Components\Enums\eTasks.Components.MenuEnums.pas"/>
+        <DCCReference Include="src\View\Services\eTasks.View.LanguageService.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

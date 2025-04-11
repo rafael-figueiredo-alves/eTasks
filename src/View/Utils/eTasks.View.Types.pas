@@ -5,6 +5,7 @@ interface
 type
 
  TUpdateScreenMethod = Procedure of object;
+ TTranslateUiMethod = Procedure of object;
 
 implementation
 

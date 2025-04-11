@@ -58,7 +58,8 @@ uses
   eTasks.Components.LanguageMenu in 'src\Components\Offcanvas\eTasks.Components.LanguageMenu.pas' {LanguageMenu},
   eTasks.Components.FilterMenu in 'src\Components\Offcanvas\eTasks.Components.FilterMenu.pas' {FilterMenu},
   eTasks.Components.TranslationEnums in 'src\Components\Enums\eTasks.Components.TranslationEnums.pas',
-  eTasks.Components.MenuEnums in 'src\Components\Enums\eTasks.Components.MenuEnums.pas';
+  eTasks.Components.MenuEnums in 'src\Components\Enums\eTasks.Components.MenuEnums.pas',
+  eTasks.View.LanguageService in 'src\View\Services\eTasks.View.LanguageService.pas';
 
 {$R *.res}
 
@@ -69,16 +70,16 @@ begin
 
   TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);
   InitThemeService();
+  InitLanguageService();
 
   {$IFDEF ANDROID}
-  eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LocalStorage4Delphi.GetString(LSK_Language, LSK_LanguageDefaultValue));
+  eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LanguageService.GetLanguage);
   {$ENDIF}
 
   {$IFDEF MSWINDOWS}
-  eTranslate(ExtractFilePath(ParamStr(0)) + TranslationFile, LocalStorage4Delphi.GetString(LSK_Language, LSK_LanguageDefaultValue));
+  eTranslate(ExtractFilePath(ParamStr(0)) + TranslationFile, LanguageService.GetLanguage);
   {$ENDIF}
 
   Application.CreateForm(TfMain, fMain);
-
   Application.Run;
 end.

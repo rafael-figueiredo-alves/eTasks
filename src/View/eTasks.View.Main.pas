@@ -75,7 +75,7 @@ uses
   eTasks.View.NavigationManager,
   eTasks.View.ThemeService,
   eTasks.Components.TranslationEnums,
-  System.Generics.Collections, FMX.Dialogs;
+  System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService;
 
 {$R *.fmx}
 
@@ -117,6 +117,8 @@ begin
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton]);
 
   Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
+
+  LanguageService.SubscribeMethod('MainForm', TranslateUI);
 
   TranslateUI;
 end;
@@ -229,7 +231,7 @@ end;
 
 procedure TfMain.TesteLanguage(const Lang: string);
 begin
-  ShowMessage(lang);
+  LanguageService.SetLanguage(Lang);
 end;
 
 procedure TfMain.TranslateUI;
