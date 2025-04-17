@@ -59,7 +59,11 @@ uses
   eTasks.Components.FilterMenu in 'src\Components\Offcanvas\eTasks.Components.FilterMenu.pas' {FilterMenu},
   eTasks.Components.TranslationEnums in 'src\Components\Enums\eTasks.Components.TranslationEnums.pas',
   eTasks.Components.MenuEnums in 'src\Components\Enums\eTasks.Components.MenuEnums.pas',
-  eTasks.View.LanguageService in 'src\View\Services\eTasks.View.LanguageService.pas';
+  eTasks.View.LanguageService in 'src\View\Services\eTasks.View.LanguageService.pas',
+  eTasks.Components.ToastMessage in 'src\Components\Toast\eTasks.Components.ToastMessage.pas' {ToastMessage},
+  eTasks.Components.IToastService in 'src\Components\Services\Interfaces\eTasks.Components.IToastService.pas',
+  eTasks.Components.ToastType in 'src\Components\Enums\eTasks.Components.ToastType.pas',
+  eTasks.Components.ToastService in 'src\Components\Services\eTasks.Components.ToastService.pas';
 
 {$R *.res}
 
@@ -71,6 +75,7 @@ begin
   TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);
   InitThemeService();
   InitLanguageService();
+  InitToastService();
 
   {$IFDEF ANDROID}
   eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LanguageService.GetLanguage);

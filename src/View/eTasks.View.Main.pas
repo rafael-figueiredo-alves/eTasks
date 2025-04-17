@@ -13,7 +13,7 @@ uses
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
   eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls,
-  eTasks.Components.MenuEnums;
+  eTasks.Components.MenuEnums, FMX.Effects;
 
 type
   TTeste = procedure of Object;
@@ -119,6 +119,8 @@ begin
   Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
 
   LanguageService.SubscribeMethod('MainForm', TranslateUI);
+
+  TToast.ToastMessage(fMain);
 
   TranslateUI;
 end;

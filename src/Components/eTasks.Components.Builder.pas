@@ -28,6 +28,10 @@ type
     class function ActionButton(const Form: TForm) : iActionButton;
   end;
 
+  TToast = class
+    class procedure ToastMessage(const Form: TForm);
+  end;
+
 implementation
 
 uses
@@ -38,7 +42,7 @@ uses
   eTasks.Components.NavBar,
   eTasks.Components.MainMenu,
   eTasks.Components.LanguageMenu,
-  eTasks.Components.FilterMenu;
+  eTasks.Components.FilterMenu, eTasks.Components.ToastMessage;
 
 { TComponentBars }
 
@@ -84,6 +88,13 @@ end;
 class function TButtons.ActionButton(const Form: TForm): iActionButton;
 begin
   Result := TActionButton.New(Form);
+end;
+
+{ TToast }
+
+class procedure TToast.ToastMessage(const Form: TForm);
+begin
+  TToastMessage.New(Form);
 end;
 
 end.
