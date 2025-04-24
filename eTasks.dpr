@@ -68,8 +68,8 @@ uses
 {$R *.res}
 
 begin
-  ReportMemoryLeaksOnShutdown := True;
   GlobalUseSkia := True;
+  ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
 
   TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);

@@ -8,6 +8,7 @@ object ToastMessage: TToastMessage
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   DesignerMasterStyle = 0
   object MainContainer: TLayout
     Align = Contents
@@ -30,7 +31,9 @@ object ToastMessage: TToastMessage
         object ToastRectangle: TRectangle
           Align = Client
           Fill.Color = xFFEE5351
-          Size.Width = 345.000000000000000000
+          Margins.Left = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Size.Width = 335.000000000000000000
           Size.Height = 48.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
@@ -42,6 +45,7 @@ object ToastMessage: TToastMessage
             Softness = 0.300000011920929000
             Opacity = 0.600000023841857900
             ShadowColor = claBlack
+            Enabled = False
           end
           object ContainerImagem: TLayout
             Align = Left
@@ -114,11 +118,12 @@ object ToastMessage: TToastMessage
             Align = Right
             Cursor = crHandPoint
             HitTest = True
-            Position.X = 297.000000000000000000
+            Position.X = 287.000000000000000000
             Size.Width = 48.000000000000000000
             Size.Height = 48.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 1
+            OnClick = ContainerBotaoClick
             object ImagemBotaoFechar: TImage
               MultiResBitmap = <
                 item
@@ -145,14 +150,14 @@ object ToastMessage: TToastMessage
           end
           object ContainerTexto: TLayout
             Align = Client
-            Size.Width = 249.000000000000000000
+            Size.Width = 239.000000000000000000
             Size.Height = 48.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object TextoMensagem: TLabel
               Align = Client
               StyledSettings = [Style]
-              Size.Width = 249.000000000000000000
+              Size.Width = 239.000000000000000000
               Size.Height = 48.000000000000000000
               Size.PlatformDefault = False
               TextSettings.Font.Family = 'Roboto'
@@ -161,6 +166,20 @@ object ToastMessage: TToastMessage
               Text = 'Tarefa foi salva com sucesso!'
               TabOrder = 0
             end
+          end
+          object FadeIn: TFloatAnimation
+            Duration = 0.300000011920929000
+            OnFinish = FadeInFinish
+            PropertyName = 'Opacity'
+            StartValue = 0.000000000000000000
+            StopValue = 1.000000000000000000
+          end
+          object FadeOut: TFloatAnimation
+            Duration = 0.300000011920929000
+            OnFinish = FadeOutFinish
+            PropertyName = 'Opacity'
+            StartValue = 1.000000000000000000
+            StopValue = 0.000000000000000000
           end
         end
       end

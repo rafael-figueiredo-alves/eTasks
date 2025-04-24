@@ -25,14 +25,16 @@ var
 
 implementation
 
+uses
+  eTasks.Components.ToastService;
+
 {$R *.fmx}
 
 procedure TPageLayout1.Button1Click(Sender: TObject);
-var
-  Teste : ipagelayout;
 begin
   inherited;
-  ShowMessage(EntityID);
+  ToastService.ShowSuccess('Teste');
+  //ToastService.ShowError('Teste 2');
 end;
 
 function TPageLayout1.isDarkMode(const value: Boolean): iPageLayout;

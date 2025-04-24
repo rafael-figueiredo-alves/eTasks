@@ -45,6 +45,7 @@ type
     procedure OpenAvatarMenu(sender : TObject);
     procedure MainMenuItemClick(const item: TMainMenuItems);
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
+    procedure MostrarMensagem(sender: TObject);
 
     procedure RestrictScreenSize;
 
@@ -75,7 +76,8 @@ uses
   eTasks.View.NavigationManager,
   eTasks.View.ThemeService,
   eTasks.Components.TranslationEnums,
-  System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService;
+  System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService,
+  eTasks.Components.ToastService;
 
 {$R *.fmx}
 
@@ -110,7 +112,7 @@ begin
   LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme);
   LanguageMenu.OnLanguageSelected(TesteLanguage);
 
-  ActionButton := TButtons.ActionButton(fMain).OnClick(SetLanguage).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
+  ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
 
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 
@@ -140,6 +142,11 @@ procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
 begin
   if(item = TMainMenuItems.Tasks)then
    LanguageMenu.OpenMenu;
+end;
+
+procedure TfMain.MostrarMensagem(sender: TObject);
+begin
+  ToastService.ShowError('Ocorreu um problema!');
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);
