@@ -63,7 +63,12 @@ uses
   eTasks.Components.ToastMessage in 'src\Components\Toast\eTasks.Components.ToastMessage.pas' {ToastMessage},
   eTasks.Components.IToastService in 'src\Components\Services\Interfaces\eTasks.Components.IToastService.pas',
   eTasks.Components.ToastType in 'src\Components\Enums\eTasks.Components.ToastType.pas',
-  eTasks.Components.ToastService in 'src\Components\Services\eTasks.Components.ToastService.pas';
+  eTasks.Components.ToastService in 'src\Components\Services\eTasks.Components.ToastService.pas',
+  eTasks.Components.DialogOptions in 'src\Components\Dialog\eTasks.Components.DialogOptions.pas',
+  eTasks.Components.DialogType in 'src\Components\Enums\eTasks.Components.DialogType.pas',
+  eTasks.Components.IDialogService in 'src\Components\Services\Interfaces\eTasks.Components.IDialogService.pas',
+  eTasks.Components.DialogService in 'src\Components\Services\eTasks.Components.DialogService.pas',
+  eTasks.Components.ModalDialog in 'src\Components\Dialog\eTasks.Components.ModalDialog.pas' {ModalDialog};
 
 {$R *.res}
 
@@ -72,10 +77,12 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
 
+  {$REGION 'Inicialização dos serviços'}
   TLocalstorage.InitLocalStorage4Pascal(LocalStorageFile);
   InitThemeService();
   InitLanguageService();
   InitToastService();
+  InitDialogService();
 
   {$IFDEF ANDROID}
   eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LanguageService.GetLanguage);
@@ -85,6 +92,9 @@ begin
   eTranslate(ExtractFilePath(ParamStr(0)) + TranslationFile, LanguageService.GetLanguage);
   {$ENDIF}
 
+  {$ENDREGION}
+
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TModalDialog, ModalDialog);
   Application.Run;
 end.

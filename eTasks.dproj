@@ -311,6 +311,14 @@
         <DCCReference Include="src\Components\Services\Interfaces\eTasks.Components.IToastService.pas"/>
         <DCCReference Include="src\Components\Enums\eTasks.Components.ToastType.pas"/>
         <DCCReference Include="src\Components\Services\eTasks.Components.ToastService.pas"/>
+        <DCCReference Include="src\Components\Dialog\eTasks.Components.DialogOptions.pas"/>
+        <DCCReference Include="src\Components\Enums\eTasks.Components.DialogType.pas"/>
+        <DCCReference Include="src\Components\Services\Interfaces\eTasks.Components.IDialogService.pas"/>
+        <DCCReference Include="src\Components\Services\eTasks.Components.DialogService.pas"/>
+        <DCCReference Include="src\Components\Dialog\eTasks.Components.ModalDialog.pas">
+            <Form>ModalDialog</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
