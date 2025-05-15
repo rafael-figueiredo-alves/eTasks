@@ -83,6 +83,8 @@ begin
   Result := Self;
   if(Assigned(fOnShow))then
     fOnShow(Options);
+
+  Options.Free;
 end;
 {$endregion}
 
