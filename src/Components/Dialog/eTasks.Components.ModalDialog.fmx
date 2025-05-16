@@ -7,13 +7,15 @@ object ModalDialog: TModalDialog
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object MainContainer: TLayout
+  object MainContainerDlg: TLayout
     Align = Contents
     Size.Width = 556.000000000000000000
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
+    OnResized = MainContainerDlgResized
     object Backdrop: TRectangle
       Align = Contents
       Fill.Color = x78000000
@@ -219,6 +221,7 @@ object ModalDialog: TModalDialog
                 Margins.Right = 5.000000000000000000
                 Position.X = 90.000000000000000000
                 WrapMode = Center
+                OnClick = btnCancelarClick
               end
               object btnCopiar: TImage
                 MultiResBitmap.Height = 40

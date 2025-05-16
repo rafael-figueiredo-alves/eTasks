@@ -77,7 +77,7 @@ uses
   eTasks.View.ThemeService,
   eTasks.Components.TranslationEnums,
   System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService,
-  eTasks.Components.ToastService;
+  eTasks.Components.ToastService, eTasks.Components.DialogService;
 
 {$R *.fmx}
 
@@ -124,6 +124,8 @@ begin
 
   TToast.ToastMessage(fMain);
 
+  TModalDlg.ModalDialogs(fMain);
+
   TranslateUI;
 end;
 
@@ -147,6 +149,7 @@ end;
 procedure TfMain.MostrarMensagem(sender: TObject);
 begin
   ToastService.ShowError('Ocorreu um problema!');
+  //DialogService.ConfirmDelete('Teste', 'Teste');
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);

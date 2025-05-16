@@ -32,6 +32,10 @@ type
     class procedure ToastMessage(const Form: TForm);
   end;
 
+  TModalDlg = class
+    class procedure ModalDialogs(const Form: TForm);
+  end;
+
 implementation
 
 uses
@@ -42,7 +46,8 @@ uses
   eTasks.Components.NavBar,
   eTasks.Components.MainMenu,
   eTasks.Components.LanguageMenu,
-  eTasks.Components.FilterMenu, eTasks.Components.ToastMessage;
+  eTasks.Components.FilterMenu, eTasks.Components.ToastMessage,
+  eTasks.Components.ModalDialog;
 
 { TComponentBars }
 
@@ -95,6 +100,13 @@ end;
 class procedure TToast.ToastMessage(const Form: TForm);
 begin
   TToastMessage.New(Form);
+end;
+
+{ TModalDlg }
+
+class procedure TModalDlg.ModalDialogs(const Form: TForm);
+begin
+  TModalDialog.New(Form);
 end;
 
 end.
