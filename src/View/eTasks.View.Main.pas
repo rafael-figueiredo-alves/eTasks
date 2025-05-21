@@ -149,7 +149,7 @@ end;
 procedure TfMain.MostrarMensagem(sender: TObject);
 begin
   ToastService.ShowError('Ocorreu um problema!');
-  //DialogService.ConfirmDelete('Teste', 'Teste');
+  DialogService.ConfirmDelete('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!');
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);

@@ -23,6 +23,7 @@ object ModalDialog: TModalDialog
       Size.Height = 480.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      OnResized = MainContainerDlgResized
       object ModalContent: TLayout
         Align = Center
         Size.Width = 455.000000000000000000
@@ -274,7 +275,40 @@ object ModalDialog: TModalDialog
               end
             end
           end
+          object Label2: TLabel
+            Align = Top
+            AutoSize = True
+            StyledSettings = [Style, FontColor]
+            Position.Y = 90.000000000000000000
+            Size.Width = 455.000000000000000000
+            Size.Height = 17.599998474121090000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Roboto'
+            TextSettings.Font.Size = 14.000000000000000000
+            Text = 'Label2'
+            TabOrder = 3
+          end
         end
+        object TesteAni: TFloatAnimation
+          Duration = 0.300000011920929000
+          PropertyName = 'Position.Y'
+          StartValue = 0.000000000000000000
+          StopValue = 300.000000000000000000
+        end
+      end
+      object FadeIn: TFloatAnimation
+        Duration = 0.300000011920929000
+        OnProcess = FadeInProcess
+        PropertyName = 'Opacity'
+        StartValue = 0.000000000000000000
+        StopValue = 1.000000000000000000
+      end
+      object FadeOut: TFloatAnimation
+        Duration = 0.300000011920929000
+        OnFinish = FadeOutFinish
+        PropertyName = 'Opacity'
+        StartValue = 1.000000000000000000
+        StopValue = 0.000000000000000000
       end
     end
   end
