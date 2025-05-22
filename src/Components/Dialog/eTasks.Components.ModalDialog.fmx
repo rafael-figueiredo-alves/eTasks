@@ -89,16 +89,22 @@ object ModalDialog: TModalDialog
           end
           object HeaderTitle: TLayout
             Align = Top
-            Position.Y = 60.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.Y = 65.000000000000000000
             Size.Width = 455.000000000000000000
             Size.Height = 30.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 1
-            object Label1: TLabel
+            object lblTitle: TLabel
               Align = Client
               StyledSettings = []
-              Size.Width = 455.000000000000000000
-              Size.Height = 30.000000000000000000
+              Margins.Left = 10.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 10.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 435.000000000000000000
+              Size.Height = 20.000000000000000000
               Size.PlatformDefault = False
               TextSettings.Font.Family = 'Roboto'
               TextSettings.Font.Size = 16.000000000000000000
@@ -275,17 +281,24 @@ object ModalDialog: TModalDialog
               end
             end
           end
-          object Label2: TLabel
+          object lblMessage: TLabel
             Align = Top
             AutoSize = True
-            StyledSettings = [Style, FontColor]
-            Position.Y = 90.000000000000000000
-            Size.Width = 455.000000000000000000
+            StyledSettings = [Style]
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 105.000000000000000000
+            Size.Width = 435.000000000000000000
             Size.Height = 17.599998474121090000
             Size.PlatformDefault = False
             TextSettings.Font.Family = 'Roboto'
             TextSettings.Font.Size = 14.000000000000000000
-            Text = 'Label2'
+            TextSettings.FontColor = xFF336699
+            TextSettings.HorzAlign = Center
+            Text = 'lblMessage'
             TabOrder = 3
           end
         end

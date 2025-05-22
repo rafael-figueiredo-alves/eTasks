@@ -17,7 +17,7 @@ type
     ImageHeader: TLayout;
     DialogIcon: TImage;
     HeaderTitle: TLayout;
-    Label1: TLabel;
+    lblTitle: TLabel;
     Footer: TLayout;
     Layout1: TLayout;
     btnConfirmar: TImage;
@@ -26,7 +26,7 @@ type
     FadeIn: TFloatAnimation;
     FadeOut: TFloatAnimation;
     TesteAni: TFloatAnimation;
-    Label2: TLabel;
+    lblMessage: TLabel;
     procedure MainContainerDlgResized(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -111,7 +111,7 @@ begin
         ModalContent.Width := DESKTOP_WIDTH;
 
     MaxBottom := 0;
-    MaxBottom := 10 + ImageHeader.Height + Label1.Height + 3 + Footer.Height + Label2.Height;
+    MaxBottom := 10 + ImageHeader.Height + HeaderTitle.Height + 13 + Footer.Height + lblMessage.Height + 10;
 
     ModalContent.Height := MaxBottom;
 
@@ -132,13 +132,11 @@ begin
   Backdrop.Visible := true;
   Backdrop.Opacity := 0;
 
-  Label1.Text := Opcoes.Titulo;
-  Label2.Text := Opcoes.Mensagem;
+  lblTitle.Text := Opcoes.Titulo;
+  lblMessage.Text := Opcoes.Mensagem;
 
   FadeIn.Start;
   MainContainerDlgResized(nil);
-
-  //Backdrop.BringToFront;
 end;
 
 end.
