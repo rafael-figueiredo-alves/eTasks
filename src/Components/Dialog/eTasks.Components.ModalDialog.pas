@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls,
-  eTasks.Components.DialogOptions, FMX.Ani;
+  eTasks.Components.DialogOptions, FMX.Ani, eTasks.Components.Accordion;
 
 type
   TModalDialog = class(TForm)
@@ -27,11 +27,13 @@ type
     FadeOut: TFloatAnimation;
     TesteAni: TFloatAnimation;
     lblMessage: TLabel;
+    Accordion1: TAccordion;
     procedure MainContainerDlgResized(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FadeOutFinish(Sender: TObject);
     procedure FadeInProcess(Sender: TObject);
+    procedure Accordion1AccordionButtonClick(Sender: TObject);
   private
     { Private declarations }
     procedure ShowDialog(const Opcoes: TDialogOptions);
@@ -57,6 +59,11 @@ uses
 
 { TModalDialog }
 
+procedure TModalDialog.Accordion1AccordionButtonClick(Sender: TObject);
+begin
+  Accordion1.ExpandOrCollapse;
+end;
+
 procedure TModalDialog.btnCancelarClick(Sender: TObject);
 begin
   HideDialog;
@@ -76,6 +83,8 @@ procedure TModalDialog.FormCreate(Sender: TObject);
 begin
   Backdrop.Visible := false;
   Backdrop.Opacity := 0;
+
+  Accordion1.OnResizeAccordion(MainContainerDlgResized);
 
   DialogService.OnShow(ShowDialog);
   DialogService.OnHide(HideDialog);
@@ -111,7 +120,7 @@ begin
         ModalContent.Width := DESKTOP_WIDTH;
 
     MaxBottom := 0;
-    MaxBottom := 10 + ImageHeader.Height + HeaderTitle.Height + 13 + Footer.Height + lblMessage.Height + 10;
+    MaxBottom := 10 + ImageHeader.Height + HeaderTitle.Height + 13 + Footer.Height + lblMessage.Height + 10 + 20 + Accordion1.Height;
 
     ModalContent.Height := MaxBottom;
 

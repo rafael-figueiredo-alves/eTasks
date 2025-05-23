@@ -27,14 +27,14 @@ object ModalDialog: TModalDialog
       object ModalContent: TLayout
         Align = Center
         Size.Width = 455.000000000000000000
-        Size.Height = 300.000000000000000000
+        Size.Height = 254.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         object ModalDialog: TRectangle
           Align = Client
           Fill.Color = claWhite
           Size.Width = 455.000000000000000000
-          Size.Height = 300.000000000000000000
+          Size.Height = 254.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
           XRadius = 10.000000000000000000
@@ -118,7 +118,7 @@ object ModalDialog: TModalDialog
           object Footer: TLayout
             Align = Bottom
             Margins.Bottom = 3.000000000000000000
-            Position.Y = 247.000000000000000000
+            Position.Y = 201.000000000000000000
             Size.Width = 455.000000000000000000
             Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
@@ -300,6 +300,36 @@ object ModalDialog: TModalDialog
             TextSettings.HorzAlign = Center
             Text = 'lblMessage'
             TabOrder = 3
+          end
+          inline Accordion1: TAccordion
+            Align = Top
+            Margins.Left = 20.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 20.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Position.X = 20.000000000000000000
+            Position.Y = 137.600006103515600000
+            Size.Width = 415.000000000000000000
+            Size.Height = 52.000000000000000000
+            Size.PlatformDefault = False
+            inherited AccordionBackground: TRectangle
+              Size.Width = 415.000000000000000000
+              inherited AccordionButton: TLayout
+                Size.Width = 415.000000000000000000
+                OnClick = Accordion1AccordionButtonClick
+                inherited LayTitle: TLayout
+                  Size.Width = 350.000000000000000000
+                  inherited lblTitle: TLabel
+                    Size.Width = 350.000000000000000000
+                  end
+                end
+                inherited ChevronAccordion: TImage
+                  MultiResBitmap.Height = 29
+                  MultiResBitmap.Width = 30
+                  Position.X = 375.000000000000000000
+                end
+              end
+            end
           end
         end
         object TesteAni: TFloatAnimation

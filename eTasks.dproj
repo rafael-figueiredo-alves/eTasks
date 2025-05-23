@@ -319,6 +319,11 @@
             <Form>ModalDialog</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\Components\Containers\eTasks.Components.Accordion.pas">
+            <Form>Accordion</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

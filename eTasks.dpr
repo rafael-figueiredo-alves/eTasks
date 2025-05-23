@@ -68,7 +68,8 @@ uses
   eTasks.Components.DialogType in 'src\Components\Enums\eTasks.Components.DialogType.pas',
   eTasks.Components.IDialogService in 'src\Components\Services\Interfaces\eTasks.Components.IDialogService.pas',
   eTasks.Components.DialogService in 'src\Components\Services\eTasks.Components.DialogService.pas',
-  eTasks.Components.ModalDialog in 'src\Components\Dialog\eTasks.Components.ModalDialog.pas' {ModalDialog};
+  eTasks.Components.ModalDialog in 'src\Components\Dialog\eTasks.Components.ModalDialog.pas' {ModalDialog},
+  eTasks.Components.Accordion in 'src\Components\Containers\eTasks.Components.Accordion.pas' {Accordion: TFrame};
 
 {$R *.res}
 
