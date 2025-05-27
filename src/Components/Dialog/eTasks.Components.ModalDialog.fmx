@@ -23,9 +23,11 @@ object ModalDialog: TModalDialog
       Size.Height = 480.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      OnClick = BackdropClick
       OnResized = MainContainerDlgResized
       object ModalContent: TLayout
-        Align = Center
+        Position.X = 50.000000000000000000
+        Position.Y = 113.000000000000000000
         Size.Width = 455.000000000000000000
         Size.Height = 254.000000000000000000
         Size.PlatformDefault = False
@@ -337,6 +339,31 @@ object ModalDialog: TModalDialog
           PropertyName = 'Position.Y'
           StartValue = 0.000000000000000000
           StopValue = 300.000000000000000000
+        end
+        object ZoomInOutHeight: TFloatAnimation
+          AnimationType = InOut
+          AutoReverse = True
+          Duration = 0.300000011920929000
+          Interpolation = Quadratic
+          PropertyName = 'Scale.Y'
+          StartValue = 0.000000000000000000
+          StopValue = 0.000000000000000000
+        end
+        object ZoomInOutWidth: TFloatAnimation
+          AnimationType = InOut
+          AutoReverse = True
+          Duration = 0.300000011920929000
+          Interpolation = Quadratic
+          PropertyName = 'Scale.X'
+          StartValue = 0.000000000000000000
+          StopValue = 0.000000000000000000
+        end
+        object SlideIn: TFloatAnimation
+          Duration = 0.300000011920929000
+          OnFinish = SlideInFinish
+          PropertyName = 'Position.Y'
+          StartValue = 0.000000000000000000
+          StopValue = 0.000000000000000000
         end
       end
       object FadeIn: TFloatAnimation

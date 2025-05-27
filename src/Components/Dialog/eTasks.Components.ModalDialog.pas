@@ -28,14 +28,20 @@ type
     TesteAni: TFloatAnimation;
     lblMessage: TLabel;
     Accordion1: TAccordion;
+    ZoomInOutHeight: TFloatAnimation;
+    ZoomInOutWidth: TFloatAnimation;
+    SlideIn: TFloatAnimation;
     procedure MainContainerDlgResized(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FadeOutFinish(Sender: TObject);
     procedure FadeInProcess(Sender: TObject);
     procedure Accordion1AccordionButtonClick(Sender: TObject);
+    procedure BackdropClick(Sender: TObject);
+    procedure SlideInFinish(Sender: TObject);
   private
     { Private declarations }
+    PosicaoCentralY : Double;
     procedure ShowDialog(const Opcoes: TDialogOptions);
     procedure HideDialog;
   public
@@ -62,6 +68,18 @@ uses
 procedure TModalDialog.Accordion1AccordionButtonClick(Sender: TObject);
 begin
   Accordion1.ExpandOrCollapse;
+end;
+
+procedure TModalDialog.BackdropClick(Sender: TObject);
+begin
+  ZoomInOutHeight.StartValue := 1;
+  ZoomInOutHeight.StopValue  := 1.01;
+
+  ZoomInOutWidth.StartValue := 1;
+  ZoomInOutWidth.StopValue  := 1.01;
+
+  ZoomInOutHeight.Start;
+  ZoomInOutWidth.Start;
 end;
 
 procedure TModalDialog.btnCancelarClick(Sender: TObject);
@@ -135,8 +153,22 @@ begin
 end;
 
 procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
+var
+ Xpos: double;
 begin
+ModalContent.Align := TAlignLayout.None;
   Backdrop.parent := ContainerPrincipal;
+  MainContainerDlgResized(nil);
+
+  PosicaoCentralY := ModalContent.Position.Y;
+  XPos := ModalContent.Position.X;
+//  ModalContent.Align := TAlignLayout.None;
+  ModalContent.Position.x := Xpos;
+
+  ModalContent.Position.Y := PosicaoCentralY - 30;
+
+  SlideIn.StartFromCurrent := True;
+  SlideIn.StopValue        := PosicaoCentralY;
 
   Backdrop.Visible := true;
   Backdrop.Opacity := 0;
@@ -144,8 +176,14 @@ begin
   lblTitle.Text := Opcoes.Titulo;
   lblMessage.Text := Opcoes.Mensagem;
 
+  SlideIn.Start;
   FadeIn.Start;
   MainContainerDlgResized(nil);
+end;
+
+procedure TModalDialog.SlideInFinish(Sender: TObject);
+begin
+  ModalContent.Align := TAlignLayout.Center;
 end;
 
 end.
