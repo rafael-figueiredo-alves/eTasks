@@ -13,7 +13,8 @@ uses
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
   eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls,
-  eTasks.Components.MenuEnums, FMX.Effects;
+  eTasks.Components.MenuEnums, FMX.Effects, FMX.Memo.Types, FMX.ScrollBox,
+  FMX.Memo;
 
 type
   TTeste = procedure of Object;
@@ -25,6 +26,7 @@ type
     ScreensLayout            : TLayout;
     Circle1                  : TCircle;
     Image1: TImage;
+    FolhaDeEstilos: TStyleBook;
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private

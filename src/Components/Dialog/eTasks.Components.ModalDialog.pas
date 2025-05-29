@@ -2,11 +2,26 @@ unit eTasks.Components.ModalDialog;
 
 interface
 
+{$region 'Dependências Globais'}
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls,
-  eTasks.Components.DialogOptions, FMX.Ani, eTasks.Components.Accordion;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Layouts,
+  FMX.Objects,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  eTasks.Components.DialogOptions,
+  FMX.Ani,
+  eTasks.Components.Accordion;
+{$endregion}
 
 type
   TModalDialog = class(TForm)
@@ -19,23 +34,22 @@ type
     HeaderTitle: TLayout;
     lblTitle: TLabel;
     Footer: TLayout;
-    Layout1: TLayout;
+    LayButtons: TLayout;
     btnConfirmar: TImage;
     btnCancelar: TImage;
     btnCopiar: TImage;
     FadeIn: TFloatAnimation;
     FadeOut: TFloatAnimation;
-    TesteAni: TFloatAnimation;
     lblMessage: TLabel;
     Accordion1: TAccordion;
     ZoomInOutHeight: TFloatAnimation;
     ZoomInOutWidth: TFloatAnimation;
     SlideIn: TFloatAnimation;
+    SlideOut: TFloatAnimation;
     procedure MainContainerDlgResized(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FadeOutFinish(Sender: TObject);
-    procedure FadeInProcess(Sender: TObject);
     procedure Accordion1AccordionButtonClick(Sender: TObject);
     procedure BackdropClick(Sender: TObject);
     procedure SlideInFinish(Sender: TObject);
@@ -59,7 +73,8 @@ var
 implementation
 
 uses
-  eTasks.Components.ToastService, eTasks.Components.DialogService;
+  eTasks.Components.ToastService, eTasks.Components.DialogService,
+  eTasks.Components.ColorPallete;
 
 {$R *.fmx}
 
@@ -87,11 +102,6 @@ begin
   HideDialog;
 end;
 
-procedure TModalDialog.FadeInProcess(Sender: TObject);
-begin
-   TesteAni.Start;
-end;
-
 procedure TModalDialog.FadeOutFinish(Sender: TObject);
 begin
   Backdrop.Visible := false;
@@ -110,6 +120,11 @@ end;
 
 procedure TModalDialog.HideDialog;
 begin
+  ModalContent.Align := TAlignLayout.None;
+  SlideOut.StartValue := ModalContent.Position.y;
+  SlideOut.StopValue  := ModalContent.Position.y - 30;
+
+  SlideOut.Start;
   FadeOut.Start;
 end;
 
@@ -156,13 +171,13 @@ procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
 var
  Xpos: double;
 begin
-ModalContent.Align := TAlignLayout.None;
+  Accordion1.BeginCollapsed;
+  ModalContent.Align := TAlignLayout.None;
   Backdrop.parent := ContainerPrincipal;
   MainContainerDlgResized(nil);
 
-  PosicaoCentralY := ModalContent.Position.Y;
-  XPos := ModalContent.Position.X;
-//  ModalContent.Align := TAlignLayout.None;
+  PosicaoCentralY := (TLayout(ContainerPrincipal).Height - ModalContent.Height) / 2;
+  XPos := (TLayout(ContainerPrincipal).Width - ModalContent.Width) / 2;
   ModalContent.Position.x := Xpos;
 
   ModalContent.Position.Y := PosicaoCentralY - 30;

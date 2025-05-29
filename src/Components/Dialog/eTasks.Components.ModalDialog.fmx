@@ -125,7 +125,7 @@ object ModalDialog: TModalDialog
             Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 2
-            object Layout1: TLayout
+            object LayButtons: TLayout
               Align = Right
               Margins.Right = 10.000000000000000000
               Position.X = 240.000000000000000000
@@ -323,6 +323,7 @@ object ModalDialog: TModalDialog
                   Size.Width = 350.000000000000000000
                   inherited lblTitle: TLabel
                     Size.Width = 350.000000000000000000
+                    TextSettings.Font.StyleExt = {00070000000000000004000000}
                   end
                 end
                 inherited ChevronAccordion: TImage
@@ -331,14 +332,13 @@ object ModalDialog: TModalDialog
                   Position.X = 375.000000000000000000
                 end
               end
+              inherited Details: TMemo
+                Size.Width = 375.000000000000000000
+                Viewport.Width = 375.000000000000000000
+                Viewport.Height = 0.000000000000000000
+              end
             end
           end
-        end
-        object TesteAni: TFloatAnimation
-          Duration = 0.300000011920929000
-          PropertyName = 'Position.Y'
-          StartValue = 0.000000000000000000
-          StopValue = 300.000000000000000000
         end
         object ZoomInOutHeight: TFloatAnimation
           AnimationType = InOut
@@ -365,10 +365,16 @@ object ModalDialog: TModalDialog
           StartValue = 0.000000000000000000
           StopValue = 0.000000000000000000
         end
+        object SlideOut: TFloatAnimation
+          Duration = 0.300000011920929000
+          OnFinish = SlideInFinish
+          PropertyName = 'Position.Y'
+          StartValue = 0.000000000000000000
+          StopValue = 0.000000000000000000
+        end
       end
       object FadeIn: TFloatAnimation
         Duration = 0.300000011920929000
-        OnProcess = FadeInProcess
         PropertyName = 'Opacity'
         StartValue = 0.000000000000000000
         StopValue = 1.000000000000000000

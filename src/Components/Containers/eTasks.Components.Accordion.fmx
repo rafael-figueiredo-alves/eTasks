@@ -8,7 +8,7 @@ object Accordion: TAccordion
     Size.Width = 616.000000000000000000
     Size.Height = 52.000000000000000000
     Size.PlatformDefault = False
-    Stroke.Color = xFF212529
+    Stroke.Color = xFFDEE2E6
     Stroke.Thickness = 0.500000000000000000
     XRadius = 10.000000000000000000
     YRadius = 10.000000000000000000
@@ -31,12 +31,13 @@ object Accordion: TAccordion
         TabOrder = 0
         object lblTitle: TLabel
           Align = Client
-          StyledSettings = [Style]
+          StyledSettings = []
           Size.Width = 551.000000000000000000
           Size.Height = 20.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Roboto'
           TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = xFF336699
           Text = 'T'#237'tulo'
           TabOrder = 1
@@ -114,5 +115,111 @@ object Accordion: TAccordion
       StartValue = 52.000000000000000000
       StopValue = 152.000000000000000000
     end
+    object Details: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Lines.Strings = (
+        'aaaaa')
+      ReadOnly = True
+      StyledSettings = [Style]
+      TextSettings.Font.Family = 'Roboto'
+      TextSettings.Font.Size = 14.000000000000000000
+      TextSettings.FontColor = xFF336699
+      Align = Client
+      Margins.Left = 20.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 576.000000000000000000
+      Size.Height = 0.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'MemoWithoutBackgroundstyle'
+      TabOrder = 1
+      Viewport.Width = 576.000000000000000000
+      Viewport.Height = 0.000000000000000000
+    end
+  end
+  object ImagensAccordion: TImageList
+    Source = <
+      item
+        MultiResBitmap.Height = 29
+        MultiResBitmap.Width = 30
+        MultiResBitmap.LoadSize = 0
+        MultiResBitmap = <
+          item
+            Width = 30
+            Height = 29
+            PNG = {
+              89504E470D0A1A0A0000000D494844520000001E0000001D0806000000BDA4DC
+              0C0000000473424954080808087C0864880000026A494441544889ED944B4854
+              611480BF73EF380F7552B4F2D122C1901AA1CD0825B870D922B08D04E5A2074C
+              081958D422882E052D32AD2C10A5681182B8CA5DCB36511BA182A2202182467B
+              D9E0388D6373EF69E155AE63638EBB62BECDE5FEFF39FFC73DE73F178A142952
+              E45F437217DA2DCB978CD795A57D59FBCDF6AF3FB12C6753275B9611F9B2AD34
+              94F599E1FAE9D413CBCAE615EFEA190C8417FD6D86CA0954660C78E82B9F7FF7
+              ECE6D97421CED6DE81D0AF7468B7DA6617A2B5EA18F7E742E9A7EFEF9CC92CC7
+              F8BC09E15459B5E1CBDE031A10B51D38B8982AEB8BC6861F4DD64FCFFEF5EB2D
+              CB88C6EBAA16531C02CE23DA08986238ADE154591B105F0E35BC79BE402608D4
+              B8AF26D004F4A1D21F8DD735473AC7FDF99C91CE717F345ED78C4A3FD0E7E69A
+              EE768D7BF60AABC48E6DCE21FA12F0F6A312D123C058B06AF6E8BE9EC12DA09E
+              16A94463C315A595892E60CC8DADF4E467155E641782C9BCE270FD740295E3C0
+              2890F016038888CA8DECA2FF764BF750D3925CA5A57BA809D15B2ADA074458DD
+              BE04302A70B262E7C71F5ED79A5BBDDC2711ED50950B40A3A764B8D5782D4B25
+              4545CF01CD39421B9812D1EBAA32F1A7FBB156ECD27EEC41703EB8B0476DF322
+              A20780F29C90EFEEB33A677D1E95C762DAD74A42E9B7F92622AF1800CB32F6CE
+              D46CF5D96687885E027690D31E0F0EF04955AE664D7BE255EDE76FEB4DC1FA62
+              17772E1B1DC7B82BB01F08E48464149E1B8673BA24949EDAC8DC6F480CACF45E
+              E1B0C015A0CADD9915B8AC30B6A1592F58ECD2DA3B10CA24C30D62DAA700D436
+              8703E1E48742FF6E058B975089C64642009323B134886EEE9C2245FE277E034A
+              B5E4DC1339A83D0000000049454E44AE426082}
+            FileName = 'C:\MeusProjetos\eTasks\assets\UI\dialogs\light\DetailsBtn.png'
+          end>
+        Name = 'DetailsBtnLight'
+      end
+      item
+        MultiResBitmap.Height = 30
+        MultiResBitmap.Width = 30
+        MultiResBitmap.LoadSize = 0
+        MultiResBitmap = <
+          item
+            Width = 30
+            Height = 30
+            PNG = {
+              89504E470D0A1A0A0000000D494844520000001E0000001E08060000003B30AE
+              A20000000473424954080808087C0864880000014B494441544889ED94414AC3
+              401486FFA1C9A252A10B4B5510AA4770553D82277129EEADBAEA195C8A7770DF
+              95A5D7102D4837B5B622847C2EF28235C6904497F3412079F3FEF7CF9BCC8CE4
+              F1783C9E92B86C00D890B427E95DD2B3732EAA53180824ED4A6A4A7A74CEAD8A
+              92DBC01D30039E802BA053C3B4035C5B8D19700BB48B0407C08A8418F800C6C0
+              11D02861D8B0DCB16963ABB504F68B843D60CE776260015C00AD026DCB72166B
+              862973A05764DC04CE81D71C31C00438B4FF976A028B4D72F263AB750634CB2C
+              571F78C82C57CA1B300036ED19582C6B58E937AD4F608B6473BD00D12FDDE775
+              1999E6921A1B33350FADFB09C906C95BFEF52E9796DB07C25AA69909748121C9
+              F1C8EB3EB2B121D0FDB361C63C048E81115F470E7B1FD958E92E7FDC5C2526B0
+              2DE954D28985EE25DD38E7A655EA543636F340D28E7D4EEB5EAB1E8FE75FF804
+              07812ED9C904C5E20000000049454E44AE426082}
+            FileName = 'C:\MeusProjetos\eTasks\assets\UI\dialogs\dark\DetailsBtn.png'
+          end>
+        Name = 'DetailsBtnDark'
+      end>
+    Destination = <
+      item
+        Layers = <
+          item
+            Name = 'DetailsBtnLight'
+            SourceRect.Right = 30.000000000000000000
+            SourceRect.Bottom = 29.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'DetailsBtnDark'
+            SourceRect.Right = 30.000000000000000000
+            SourceRect.Bottom = 30.000000000000000000
+          end>
+      end>
+    Left = 172
+    Top = 8
   end
 end
