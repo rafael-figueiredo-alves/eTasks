@@ -20,11 +20,15 @@ uses
   FMX.StdCtrls,
   eTasks.Components.DialogOptions,
   FMX.Ani,
-  eTasks.Components.Accordion;
+  eTasks.Components.Accordion,
+  System.ImageList,
+  FMX.ImgList,
+  eTasks.Components.Interfaces;
 {$endregion}
 
 type
   TModalDialog = class(TForm)
+    {$region 'Componentes de Tela'}
     MainContainerDlg: TLayout;
     Backdrop: TRectangle;
     ModalContent: TLayout;
@@ -41,28 +45,36 @@ type
     FadeIn: TFloatAnimation;
     FadeOut: TFloatAnimation;
     lblMessage: TLabel;
-    Accordion1: TAccordion;
+    DetailAccordion: TAccordion;
     ZoomInOutHeight: TFloatAnimation;
     ZoomInOutWidth: TFloatAnimation;
     SlideIn: TFloatAnimation;
     SlideOut: TFloatAnimation;
+    ImgDialogLight: TImageList;
+    ImgDialogDark: TImageList;
+    {$endregion}
     procedure MainContainerDlgResized(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FadeOutFinish(Sender: TObject);
-    procedure Accordion1AccordionButtonClick(Sender: TObject);
+    procedure DetailAccordionAccordionButtonClick(Sender: TObject);
     procedure BackdropClick(Sender: TObject);
     procedure SlideInFinish(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnCopiarClick(Sender: TObject);
   private
     { Private declarations }
-    PosicaoCentralY : Double;
+    PosicaoCentralY     : Double;
+    OnConfirm           : TEventoClick;
+    OnCancel            : TEventoClick;
+    fErroMessageToCopy  : string;
     procedure ShowDialog(const Opcoes: TDialogOptions);
     procedure HideDialog;
+    procedure SettingDialogToShow;
   public
     { Public declarations }
 
     class var ContainerPrincipal : TFmxObject;
-    class var Teste : TLayout;
 
     class procedure New(const Form: TForm);
   end;
@@ -73,16 +85,20 @@ var
 implementation
 
 uses
-  eTasks.Components.ToastService, eTasks.Components.DialogService,
-  eTasks.Components.ColorPallete;
+  eTasks.Components.ToastService,
+  eTasks.Components.DialogService,
+  eTasks.Components.ColorPallete,
+  FMX.Clipboard,
+  FMX.Platform;
 
 {$R *.fmx}
 
 { TModalDialog }
 
-procedure TModalDialog.Accordion1AccordionButtonClick(Sender: TObject);
+{$region 'Accordion Action and Animation Events'}
+procedure TModalDialog.DetailAccordionAccordionButtonClick(Sender: TObject);
 begin
-  Accordion1.ExpandOrCollapse;
+  DetailAccordion.ExpandOrCollapse;
 end;
 
 procedure TModalDialog.BackdropClick(Sender: TObject);
@@ -97,35 +113,27 @@ begin
   ZoomInOutWidth.Start;
 end;
 
-procedure TModalDialog.btnCancelarClick(Sender: TObject);
-begin
-  HideDialog;
-end;
-
 procedure TModalDialog.FadeOutFinish(Sender: TObject);
 begin
   Backdrop.Visible := false;
 end;
 
+procedure TModalDialog.SlideInFinish(Sender: TObject);
+begin
+  ModalContent.Align := TAlignLayout.Center;
+end;
+{$endregion}
+
+{$region 'Class basic methods and responsive treatment'}
 procedure TModalDialog.FormCreate(Sender: TObject);
 begin
   Backdrop.Visible := false;
   Backdrop.Opacity := 0;
 
-  Accordion1.OnResizeAccordion(MainContainerDlgResized);
+  DetailAccordion.OnResizeAccordion(MainContainerDlgResized);
 
   DialogService.OnShow(ShowDialog);
   DialogService.OnHide(HideDialog);
-end;
-
-procedure TModalDialog.HideDialog;
-begin
-  ModalContent.Align := TAlignLayout.None;
-  SlideOut.StartValue := ModalContent.Position.y;
-  SlideOut.StopValue  := ModalContent.Position.y - 30;
-
-  SlideOut.Start;
-  FadeOut.Start;
 end;
 
 procedure TModalDialog.MainContainerDlgResized(Sender: TObject);
@@ -134,6 +142,7 @@ const
   DESKTOP_WIDTH = 800; // Modal width for desktop (modal-lg)
   MOBILE_WIDTH = 90; // Percentage of screen width for mobile
   MAX_HEIGHT_PERCENT = 90; // Max height as percentage of parent height
+  TOTALMARGIN_TO_ADD = 53;
 var
   ScreenWidth : single;
   IsMobile    : Boolean;
@@ -153,10 +162,11 @@ begin
         ModalContent.Width := DESKTOP_WIDTH;
 
     MaxBottom := 0;
-    MaxBottom := 10 + ImageHeader.Height + HeaderTitle.Height + 13 + Footer.Height + lblMessage.Height + 10 + 20 + Accordion1.Height;
+    MaxBottom := TOTALMARGIN_TO_ADD + ImageHeader.Height +
+                 HeaderTitle.Height + Footer.Height + lblMessage.Height +
+                 DetailAccordion.Height;
 
     ModalContent.Height := MaxBottom;
-
    end;
 end;
 
@@ -166,12 +176,13 @@ begin
    ContainerPrincipal := self.Create(Form).MainContainerdlg;
    Form.AddObject(ContainerPrincipal);
 end;
+{$endregion}
 
-procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
+{$region 'Show/Hide Dialog events'}
+procedure TModalDialog.SettingDialogToShow;
 var
- Xpos: double;
+ XPos: double;
 begin
-  Accordion1.BeginCollapsed;
   ModalContent.Align := TAlignLayout.None;
   Backdrop.parent := ContainerPrincipal;
   MainContainerDlgResized(nil);
@@ -187,8 +198,17 @@ begin
 
   Backdrop.Visible := true;
   Backdrop.Opacity := 0;
+end;
 
-  lblTitle.Text := Opcoes.Titulo;
+procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
+
+begin
+  //Set the Accordion to begin collapsed
+  DetailAccordion.BeginCollapsed;
+
+  SettingDialogToShow;
+
+  lblTitle.Text   := Opcoes.Titulo;
   lblMessage.Text := Opcoes.Mensagem;
 
   SlideIn.Start;
@@ -196,9 +216,53 @@ begin
   MainContainerDlgResized(nil);
 end;
 
-procedure TModalDialog.SlideInFinish(Sender: TObject);
+procedure TModalDialog.HideDialog;
 begin
-  ModalContent.Align := TAlignLayout.Center;
+  ModalContent.Align  := TAlignLayout.None;
+  SlideOut.StartValue := ModalContent.Position.y;
+  SlideOut.StopValue  := ModalContent.Position.y - 30;
+
+  SlideOut.Start;
+  FadeOut.Start;
 end;
+{$endregion}
+
+{$Region 'Button Events'}
+procedure TModalDialog.btnCancelarClick(Sender: TObject);
+begin
+  if(Assigned(OnCancel))then
+   OnCancel(Sender);
+
+  HideDialog;
+end;
+
+procedure TModalDialog.btnConfirmarClick(Sender: TObject);
+begin
+  if(Assigned(OnConfirm))then
+   OnConfirm(Sender);
+
+  HideDialog;
+end;
+
+procedure TModalDialog.btnCopiarClick(Sender: TObject);
+var
+  Clipboard : IFMXExtendedClipboardService;
+begin
+   try
+     if TPlatformServices.Current.SupportsPlatformService(IFMXExtendedClipboardService, Clipboard) then
+      begin
+       try
+         Clipboard.SetText(fErroMessageToCopy);
+         ToastService.ShowSuccess('Detalhes do erro copiados com sucesso!');
+       except
+
+       end;
+
+      end;
+   except
+
+   end;
+end;
+{$endregion}
 
 end.
