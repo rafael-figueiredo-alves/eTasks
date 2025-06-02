@@ -11,13 +11,16 @@ type
 
   TDialogService = class(TInterfacedObject, iDialogService)
     private
-      fOnShow : TOnShow;
-      fOnHide : TOnHide;
+      fOnShow     : TOnShow;
+      fOnHide     : TOnHide;
+      fOnDarkMode : TOnDarkMode;
+      fDarkMode   : Boolean;
 
       function ShowDialog(const Options: tDialogOptions) : iDialogService;
     public
       function OnShow(const OnShowMethod: TOnShow) : iDialogService;
       function OnHide(const OnHideMethod: TOnHide) : iDialogService;
+      function OnDarkMode(const OnDarkModeMethod: TOnDarkMode) : iDialogService;
 
       function ConfirmDelete(const Title: string; const Msg: string; OnConfirm: tEventoClick = nil; OnCancel: tEventoClick = nil) : iDialogService;
       function Confirm(const Title: string; const Msg: string; OnConfirm: tEventoClick = nil; OnCancel: tEventoClick = nil) : iDialogService;
@@ -25,6 +28,9 @@ type
       function Warn(const Title: string; const Msg: string; OnConfirm: tEventoClick = nil) : iDialogService;
       function ShowError(const Title: string; const Msg: string; StackTrace: string = ''; OnConfirm: tEventoClick = nil) : iDialogService; overload;
       function ShowError(const Title: string; const Msg: Exception; OnConfirm: tEventoClick = nil) : iDialogService; overload;
+
+      function isDarkMode(const value: Boolean): iDialogService;
+      function isDark: boolean;
 
       function Hide : iDialogService;
 
@@ -59,9 +65,30 @@ begin
     fOnHide;
 end;
 
+function TDialogService.isDark: boolean;
+begin
+  Result := fDarkMode;
+end;
+
+function TDialogService.isDarkMode(const value: Boolean): iDialogService;
+begin
+  if(Assigned(fOnDarkMode))then
+   fOnDarkMode(value);
+
+  fDarkMode := value;
+
+  Result := Self;
+end;
+
 class function TDialogService.New: iDialogService;
 begin
   Result := self.Create;
+end;
+
+function TDialogService.OnDarkMode(const OnDarkModeMethod: TOnDarkMode): iDialogService;
+begin
+  Result := Self;
+  fOnDarkMode := OnDarkModeMethod;
 end;
 
 function TDialogService.OnHide(const OnHideMethod: TOnHide): iDialogService;
@@ -121,7 +148,7 @@ end;
 function TDialogService.ShowError(const Title: string; const Msg: Exception;
   OnConfirm: tEventoClick): iDialogService;
 begin
-  Result := ShowDialog(TDialogOptions.create(Title.ToUpper, Msg.Message, TDialogType.Warning, OnConfirm, nil, Msg.StackTrace));
+  Result := ShowDialog(TDialogOptions.create(Title.ToUpper, Msg.Message, TDialogType.Error, OnConfirm, nil, Msg.StackTrace));
 end;
 
 function TDialogService.ShowInfo(const Title, Msg: string;

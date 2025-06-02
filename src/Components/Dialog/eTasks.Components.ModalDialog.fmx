@@ -726,14 +726,6 @@ object ModalDialog: TModalDialog
       item
         Layers = <
           item
-            Name = 'ConfirmIcon'
-            SourceRect.Right = 40.000000000000000000
-            SourceRect.Bottom = 40.000000000000000000
-          end>
-      end
-      item
-        Layers = <
-          item
             Name = 'DeleteIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
@@ -742,7 +734,7 @@ object ModalDialog: TModalDialog
       item
         Layers = <
           item
-            Name = 'ErrorIcon'
+            Name = 'ConfirmIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
           end>
@@ -759,6 +751,14 @@ object ModalDialog: TModalDialog
         Layers = <
           item
             Name = 'WarningIcon'
+            SourceRect.Right = 40.000000000000000000
+            SourceRect.Bottom = 40.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'ErrorIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
           end>
@@ -1000,14 +1000,6 @@ object ModalDialog: TModalDialog
       item
         Layers = <
           item
-            Name = 'ConfirmIcon'
-            SourceRect.Right = 40.000000000000000000
-            SourceRect.Bottom = 40.000000000000000000
-          end>
-      end
-      item
-        Layers = <
-          item
             Name = 'DeleteIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
@@ -1016,7 +1008,7 @@ object ModalDialog: TModalDialog
       item
         Layers = <
           item
-            Name = 'ErrorIcon'
+            Name = 'ConfirmIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
           end>
@@ -1033,6 +1025,14 @@ object ModalDialog: TModalDialog
         Layers = <
           item
             Name = 'WarningIcon'
+            SourceRect.Right = 40.000000000000000000
+            SourceRect.Bottom = 40.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'ErrorIcon'
             SourceRect.Right = 40.000000000000000000
             SourceRect.Bottom = 40.000000000000000000
           end>

@@ -67,10 +67,13 @@ type
     PosicaoCentralY     : Double;
     OnConfirm           : TEventoClick;
     OnCancel            : TEventoClick;
+    fFromImageList      : TImageList;
     fErroMessageToCopy  : string;
     procedure ShowDialog(const Opcoes: TDialogOptions);
     procedure HideDialog;
-    procedure SettingDialogToShow;
+    procedure IsDarkMode(const value: Boolean);
+    procedure SettingDialogAnimationToShow;
+    procedure HandlingDialogOptions(const Options: TDialogOptions);
   public
     { Public declarations }
 
@@ -89,7 +92,8 @@ uses
   eTasks.Components.DialogService,
   eTasks.Components.ColorPallete,
   FMX.Clipboard,
-  FMX.Platform;
+  FMX.Platform, eTasks.Shared.Utils,
+  eTasks.Components.DialogType;
 
 {$R *.fmx}
 
@@ -134,6 +138,9 @@ begin
 
   DialogService.OnShow(ShowDialog);
   DialogService.OnHide(HideDialog);
+  DialogService.OnDarkMode(IsDarkMode);
+
+  IsDarkMode(DialogService.isDark);
 end;
 
 procedure TModalDialog.MainContainerDlgResized(Sender: TObject);
@@ -179,7 +186,7 @@ end;
 {$endregion}
 
 {$region 'Show/Hide Dialog events'}
-procedure TModalDialog.SettingDialogToShow;
+procedure TModalDialog.SettingDialogAnimationToShow;
 var
  XPos: double;
 begin
@@ -200,16 +207,35 @@ begin
   Backdrop.Opacity := 0;
 end;
 
-procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
+procedure TModalDialog.HandlingDialogOptions(const Options: TDialogOptions);
+begin
+  DialogIcon.Bitmap := fFromImageList.Bitmap(TSize.Create(40, 40), ord(Options.TipoDeDialogo));
 
+  if(Options.TipoDeDialogo = TDialogType.Error)then
+   DetailAccordion.Height := 52
+  else
+   DetailAccordion.Height := 0;
+
+  DetailAccordion.Visible := Options.TipoDeDialogo = TDialogType.Error;
+
+  lblTitle.Text   := Options.Titulo;
+  lblMessage.Text := Options.Mensagem;
+
+  DetailAccordion.SetDetails(Options.Stacktrace);
+
+  btnCopiar.Visible := Options.TipoDeDialogo = TDialogType.Error;
+
+  btnCancelar.Visible := (Options.TipoDeDialogo = TDialogType.ConfirmDelete) or (Options.TipoDeDialogo = TDialogType.Confirm);
+end;
+
+procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
 begin
   //Set the Accordion to begin collapsed
   DetailAccordion.BeginCollapsed;
 
-  SettingDialogToShow;
+  SettingDialogAnimationToShow;
 
-  lblTitle.Text   := Opcoes.Titulo;
-  lblMessage.Text := Opcoes.Mensagem;
+  HandlingDialogOptions(Opcoes);
 
   SlideIn.Start;
   FadeIn.Start;
@@ -225,6 +251,16 @@ begin
   SlideOut.Start;
   FadeOut.Start;
 end;
+
+procedure TModalDialog.IsDarkMode(const value: Boolean);
+begin
+  ModalDialog.Fill.Color            := tColorPallete.GetColor(Cor.Background, value);
+  lblTitle.TextSettings.FontColor   := tColorPallete.GetColor(Cor.Primary, value);
+  lblMessage.TextSettings.FontColor := tColorPallete.GetColor(Cor.Primary, value);
+  fFromImageList                    := TUtils.Iif(value, ImgDialogDark, ImgDialogLight);
+  DetailAccordion.IsDarkMode(value);
+end;
+
 {$endregion}
 
 {$Region 'Button Events'}
