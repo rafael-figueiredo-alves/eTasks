@@ -120,7 +120,7 @@ begin
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
-  DialogService.isDarkMode(ThemeService.isDarkTheme);
+  ThemeService.ApplyTheme;
 
   Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
 
@@ -153,8 +153,7 @@ end;
 procedure TfMain.MostrarMensagem(sender: TObject);
 begin
   //ToastService.ShowError('Ocorreu um problema!');
-//  DialogService.ConfirmDelete('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!');
-  DialogService.ShowError('Teste', EAccessViolation.Create('Erro Teste'));
+  DialogService.ShowError('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!', 'Teste');
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);

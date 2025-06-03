@@ -93,7 +93,7 @@ uses
   eTasks.Components.ColorPallete,
   FMX.Clipboard,
   FMX.Platform, eTasks.Shared.Utils,
-  eTasks.Components.DialogType;
+  eTasks.Components.DialogType, eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -221,6 +221,10 @@ begin
   lblTitle.Text   := Options.Titulo;
   lblMessage.Text := Options.Mensagem;
 
+  btnConfirmar.Hint := 'Confirmar';
+  btnCancelar.Hint  := 'Cancelar';
+  btnCopiar.Hint    := 'Copiar';
+  DetailAccordion.SetTitle('Detalhes do Erro');
   DetailAccordion.SetDetails(Options.Stacktrace);
 
   btnCopiar.Visible := Options.TipoDeDialogo = TDialogType.Error;

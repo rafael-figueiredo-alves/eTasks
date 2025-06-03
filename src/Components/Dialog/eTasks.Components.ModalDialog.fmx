@@ -178,11 +178,14 @@ object ModalDialog: TModalDialog
                   end>
                 Align = Right
                 Cursor = crHandPoint
+                Hint = 'Confirmar'
                 MarginWrapMode = Center
                 Margins.Left = 5.000000000000000000
                 Margins.Right = 5.000000000000000000
                 Position.X = 150.000000000000000000
                 WrapMode = Center
+                ParentShowHint = False
+                ShowHint = True
                 OnClick = btnConfirmarClick
               end
               object btnCancelar: TImage
@@ -226,11 +229,14 @@ object ModalDialog: TModalDialog
                   end>
                 Align = Right
                 Cursor = crHandPoint
+                Hint = 'Cancelar'
                 MarginWrapMode = Center
                 Margins.Left = 5.000000000000000000
                 Margins.Right = 5.000000000000000000
                 Position.X = 90.000000000000000000
                 WrapMode = Center
+                ParentShowHint = False
+                ShowHint = True
                 OnClick = btnCancelarClick
               end
               object btnCopiar: TImage
@@ -276,11 +282,14 @@ object ModalDialog: TModalDialog
                   end>
                 Align = Right
                 Cursor = crHandPoint
+                Hint = 'Copiar'
                 MarginWrapMode = Center
                 Margins.Left = 5.000000000000000000
                 Margins.Right = 5.000000000000000000
                 Position.X = 30.000000000000000000
                 WrapMode = Center
+                ParentShowHint = False
+                ShowHint = True
                 OnClick = btnCopiarClick
               end
             end
