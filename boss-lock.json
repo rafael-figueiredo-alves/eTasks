@@ -12,8 +12,8 @@
 		},
 		"https://github.com/rafael-figueiredo-alves/etranslate4pascal": {
 			"name": "etranslate4pascal",
-			"version": "v1.0.0",
-			"hash": "b62295213c75257ad234b24ab4055db2",
+			"version": "v1.2.0",
+			"hash": "a134790fcf507dc6fa0170623aa7f3ff",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
