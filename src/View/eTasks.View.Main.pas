@@ -2,6 +2,7 @@ unit eTasks.View.Main;
 
 interface
 
+{$region 'Dependências Globais'}
 uses
   System.Classes,
   FMX.Controls,
@@ -15,22 +16,22 @@ uses
   eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls,
   eTasks.Components.MenuEnums, FMX.Effects, FMX.Memo.Types, FMX.ScrollBox,
   FMX.Memo;
+{$endregion}
 
 type
-  TTeste = procedure of Object;
-
   TfMain = class(TForm, iMainLayout)
+    {$region 'Base screen components'}
     MainLayout               : TLayout;
     ContentLayout            : TLayout;
     ListsLayout              : TLayout;
     ScreensLayout            : TLayout;
-    Circle1                  : TCircle;
-    Image1: TImage;
     FolhaDeEstilos: TStyleBook;
+    {$endregion}
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    {$region 'Virtual components'}
     AppBar                   : iAppBar;
     TitleBar                 : iTitleBar;
     MainMenu                 : iMainMenu;
@@ -40,8 +41,8 @@ type
     NavigationManagerService : iNavigationManagerService;
     Menu1                    : TMenu1;
     CurrentPage              : iPageLayout;
+    {$endregion}
     procedure SetTheme(sender : TObject);
-    procedure SetLanguage(sender : TObject);
     procedure TranslateUI;
     procedure OpenMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
@@ -67,6 +68,7 @@ var
 
 implementation
 
+{$region 'Dependências Internas'}
 uses
   eTasks.Components.ColorPallete,
   eTasks.Components.Builder,
@@ -81,9 +83,9 @@ uses
   System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService,
   eTasks.Components.ToastService, eTasks.Components.DialogService,
   System.SysUtils;
+{$endregion}
 
 {$R *.fmx}
-
 
 procedure TfMain.AvatarMenuItemClick(const item: TAvatarMenuItems);
 begin
@@ -235,16 +237,6 @@ begin
 end;
 
 {$Region 'Language Functions'}
-procedure TfMain.SetLanguage(sender : TObject);
-begin
-  if(eTranslate.GetLanguage = 'pt-BR')then
-   eTranslate.SetLanguage('en-US')
-  else
-   eTranslate.SetLanguage('pt-BR');
-
-  TranslateUI;
-end;
-
 procedure TfMain.TesteLanguage(const Lang: string);
 begin
   LanguageService.SetLanguage(Lang);

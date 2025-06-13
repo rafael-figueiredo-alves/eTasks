@@ -31,13 +31,6 @@ object fMain: TfMain
         Size.Height = 480.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        object Image1: TImage
-          MultiResBitmap = <
-            item
-            end>
-          Position.X = 256.000000000000000000
-          Position.Y = 280.000000000000000000
-        end
       end
       object ScreensLayout: TLayout
         Align = Right
@@ -46,12 +39,6 @@ object fMain: TfMain
         Size.Height = 480.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
-        object Circle1: TCircle
-          Align = Center
-          Size.Width = 50.000000000000000000
-          Size.Height = 50.000000000000000000
-          Size.PlatformDefault = False
-        end
       end
     end
   end

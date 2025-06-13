@@ -111,12 +111,12 @@ begin
    begin
      LblTitle.Text    := 'MENU';
      lblHome.Text     := 'Inicio';
-     lblTasks.Text    := 'Tarefas';
-     lblGoals.Text    := 'Metas';
-     lblShopping.Text := 'Compras';
-     lblReadings.Text := 'Leituras';
-     lblNotes.Text    := 'Anotações';
-     lblFinances.Text := 'Finanças';
+     lblTasks.Text    := 'Minhas Tarefas';
+     lblGoals.Text    := 'Minhas Metas';
+     lblShopping.Text := 'Minhas Compras';
+     lblReadings.Text := 'Minhas Leituras';
+     lblNotes.Text    := 'Minhas Anotações';
+     lblFinances.Text := 'Minhas Finanças';
    end;
 end;
 

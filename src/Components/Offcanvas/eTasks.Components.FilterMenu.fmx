@@ -2,15 +2,26 @@ inherited FilterMenu: TFilterMenu
   Caption = 'Offcanvas1'
   DesignerMasterStyle = 0
   inherited Multiview: TMultiView
-    Visible = False
+    Size.Width = 209.000000000000000000
     inherited LytTitle: TLayout
+      Size.Width = 209.000000000000000000
       inherited BtnClose: TImage
         MultiResBitmap.Height = 20
         MultiResBitmap.Width = 20
       end
+      inherited LytBtnFilters: TLayout
+        Position.X = 124.000000000000000000
+      end
+      inherited LblTitle: TLabel
+        Size.Width = 69.000000000000000000
+      end
+    end
+    inherited LineTop: TLine
+      Size.Width = 159.000000000000000000
     end
     inherited Container: TVertScrollBox
-      Viewport.Width = 328.000000000000000000
+      Size.Width = 209.000000000000000000
+      Viewport.Width = 209.000000000000000000
       Viewport.Height = 408.000000000000000000
     end
   end

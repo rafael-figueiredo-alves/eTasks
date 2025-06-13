@@ -71,6 +71,7 @@ begin
   case Value of
     ptBR: result := 'pt-BR';
     En:   result := 'en-US';
+    Es:   result := 'es-ES';
   end;
 end;
 
@@ -78,6 +79,7 @@ function TLanguageMenu.GetLanguageFromCode(const code: string): TSupportedLangua
 begin
   if(code = 'pt-BR')then result := TSupportedLanguages.ptBR;
   if(code = 'en-US')then result := TSupportedLanguages.En;
+  if(code = 'es-ES')then result := TSupportedLanguages.Es;
 end;
 
 function TLanguageMenu.isDarkMode(const value: boolean): iOffcanvas;
