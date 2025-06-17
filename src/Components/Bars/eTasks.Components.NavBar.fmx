@@ -65,6 +65,8 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnVoltarClick
     end
     object BtnConfirma: TImage
@@ -108,6 +110,8 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnConfirmaClick
     end
     object BtnApagar: TImage
@@ -151,6 +155,8 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnApagarClick
     end
     object BtnExplica: TImage
@@ -211,6 +217,8 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnExplicaClick
     end
     object BtnAtualizar: TImage
@@ -270,6 +278,8 @@ object NavBar: TNavBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnAtualizarClick
     end
     object LabelTitle: TLabel

@@ -240,6 +240,8 @@ object AppBar: TAppBar
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      ParentShowHint = False
+      ShowHint = True
       OnClick = AvatarClick
     end
     object BtnMainMenu: TImage
@@ -309,6 +311,7 @@ object AppBar: TAppBar
         end>
       Align = Right
       Cursor = crHandPoint
+      Hint = 'Menu'
       Margins.Left = 5.000000000000000000
       Margins.Top = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
@@ -317,6 +320,8 @@ object AppBar: TAppBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnMainMenuClick
     end
     object BtnThemeChanger: TImage
@@ -398,6 +403,8 @@ object AppBar: TAppBar
       Size.Width = 40.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      ParentShowHint = False
+      ShowHint = True
       OnClick = BtnThemeChangerClick
     end
     object TitleBar: TRectangle

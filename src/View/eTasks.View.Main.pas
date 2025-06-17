@@ -13,8 +13,13 @@ uses
   eTasks.Components.Interfaces,
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Menu1,
-  eTasks.View.Services.Interfaces, FMX.Controls.Presentation, FMX.StdCtrls,
-  eTasks.Components.MenuEnums, FMX.Effects, FMX.Memo.Types, FMX.ScrollBox,
+  eTasks.View.Services.Interfaces,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  eTasks.Components.MenuEnums,
+  FMX.Effects,
+  FMX.Memo.Types,
+  FMX.ScrollBox,
   FMX.Memo;
 {$endregion}
 
@@ -70,19 +75,22 @@ implementation
 
 {$region 'Dependências Internas'}
 uses
-  eTasks.Components.ColorPallete,
-  eTasks.Components.Builder,
-  eTasks.Shared.Consts,
   {$IFDEF ANDROID}
   eTasks.Shared.Android.Utils,
   {$endif}
+  eTasks.Components.ColorPallete,
+  eTasks.Components.Builder,
+  eTasks.Shared.Consts,
   eTranslate4Pascal,
   eTasks.View.NavigationManager,
   eTasks.View.ThemeService,
   eTasks.Components.TranslationEnums,
-  System.Generics.Collections, FMX.Dialogs, eTasks.View.LanguageService,
-  eTasks.Components.ToastService, eTasks.Components.DialogService,
-  System.SysUtils;
+  System.Generics.Collections,
+  eTasks.View.LanguageService,
+  eTasks.Components.ToastService,
+  eTasks.Components.DialogService,
+  System.SysUtils,
+  eTasks.Shared.TranslateKeyConsts, LocalStorage4Pascal;
 {$endregion}
 
 {$R *.fmx}
@@ -90,14 +98,55 @@ uses
 procedure TfMain.AvatarMenuItemClick(const item: TAvatarMenuItems);
 begin
   case item of
-    TAvatarMenuItems.EditProfile: ShowMessage('Implementar');
-    TAvatarMenuItems.ChangePassword: ShowMessage('Implementar');
-    TAvatarMenuItems.Logout: ShowMessage('Implementar');
-    TAvatarMenuItems.Conquers: ShowMessage('Implementar');
-    TAvatarMenuItems.Settings: ShowMessage('Implementar');
-    TAvatarMenuItems.ChangeTheme: ShowMessage('Implementar');
-    TAvatarMenuItems.ChangeLanguage: LanguageMenu.OpenMenu;
-    TAvatarMenuItems.About: ShowMessage('Implementar');
+    TAvatarMenuItems.EditProfile    : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.ChangePassword : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.Logout         : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.Conquers       : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.Settings       : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.ChangeTheme    : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.ChangeLanguage : LanguageMenu.OpenMenu;
+    TAvatarMenuItems.About          : DialogService.Warn('AVISO', 'Implementar');
+  end;
+end;
+
+procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
+begin
+  case item of
+    TMainMenuItems.Home :
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_HomePage, 'Bem vindo ao eTasks'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_HomePage, 'Bem vindo ao eTasks'));
+      end;
+    TMainMenuItems.Tasks:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_TasksPage, 'Minhas tarefas'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_TasksPage, 'Minhas tarefas'));
+      end;
+    TMainMenuItems.Goals:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_GoalsPage, 'Minhas Metas'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_GoalsPage, 'Minhas Metas'));
+      end;
+    TMainMenuItems.Shopping:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_ShoppingPage, 'Minhas Compras'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_ShoppingPage, 'Minhas Compras'));
+      end;
+    TMainMenuItems.Readings:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_ReadingsPage, 'Minhas leituras'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_ReadingsPage, 'Minhas leituras'));
+      end;
+    TMainMenuItems.Notes:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_NotesPage, 'Minhas Anotações'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_NotesPage, 'Minhas Anotações'));
+      end;
+    TMainMenuItems.Finance:
+      begin
+        TitleBar.SetTitle(eTranslate.Translate(Titles_FinancePage, 'Minhas Finanças'));
+        AppBar.SetTitle(eTranslate.Translate(Titles_FinancePage, 'Minhas Finanças'));
+      end;
   end;
 end;
 
@@ -111,11 +160,9 @@ begin
     AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
 
   TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
-  MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme);
-  MainMenu.OnMainMenuItemClick(MainMenuItemClick);
+  MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme).OnMainMenuItemClick(MainMenuItemClick);
   AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme).OnAvatarMenuItemClick(AvatarMenuItemClick);
-  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme);
-  LanguageMenu.OnLanguageSelected(TesteLanguage);
+  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme).OnLanguageSelected(TesteLanguage).Selected(LocalStorage4Delphi.GetString(LSK_Language, 'pt-BR'));
 
   ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
 
@@ -146,15 +193,8 @@ begin
   Result := CurrentPage;
 end;
 
-procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
-begin
-  if(item = TMainMenuItems.Tasks)then
-   LanguageMenu.OpenMenu;
-end;
-
 procedure TfMain.MostrarMensagem(sender: TObject);
 begin
-  //ToastService.ShowError('Ocorreu um problema!');
   DialogService.ShowError('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!', 'Teste');
 end;
 
@@ -244,9 +284,7 @@ end;
 
 procedure TfMain.TranslateUI;
 begin
-  TitleBar.SetTitle(eTranslate.Translate('Main.Title'));
-  AppBar.SetTitle(eTranslate.Translate('Main.Title'));
-  ActionButton.SetHint(eTranslate.Translate('Main.Title'));
+  ActionButton.SetHint(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
 end;
 {$EndRegion}
 
