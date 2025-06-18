@@ -49,6 +49,10 @@ const
         Titles_NotesPage    = 'Titles.NotesPage';
         Titles_FinancePage  = 'Titles.FinancePage';
 
+        AppBar_BtnThemeChanger = 'AppBar.BtnThemeChanger';
+        AppBar_BtnMainMenu     = 'AppBar.BtnMainMenu';
+        AppBar_BtnAvatarMenu   = 'AppBar.BtnAvatarMenu';
+
 implementation
 
 end.

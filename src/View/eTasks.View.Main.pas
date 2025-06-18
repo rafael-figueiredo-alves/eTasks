@@ -49,12 +49,14 @@ type
     {$endregion}
     procedure SetTheme(sender : TObject);
     procedure TranslateUI;
-    procedure OpenMenu(sender : TObject);
+    procedure OpenMainMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
     procedure MainMenuItemClick(const item: TMainMenuItems);
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
     procedure MostrarMensagem(sender: TObject);
+    procedure OnLanguageChanged(const Lang: string);
 
+    {$region 'Métodos Base'}
     procedure RestrictScreenSize;
 
     procedure ScreensLayoutChange;
@@ -62,8 +64,7 @@ type
     procedure SetPage(value: iPageLayout);
     property Page: iPageLayout read GetPage write SetPage;
     function FormWidth: Integer;
-
-    procedure TesteLanguage(const Lang: string);
+    {$endregion}
   public
     { Public declarations }
   end;
@@ -95,6 +96,7 @@ uses
 
 {$R *.fmx}
 
+{$region 'Eventos de Gerência de Métodos dos Menus'}
 procedure TfMain.AvatarMenuItemClick(const item: TAvatarMenuItems);
 begin
   case item of
@@ -149,6 +151,7 @@ begin
       end;
   end;
 end;
+{$endregion}
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
@@ -156,15 +159,15 @@ begin
 
   AppBar := TBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
-    AppBar.SetButtonAppBarAction(MenuBtn, OpenMenu).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(MenuBtn, OpenMainMenu).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
 
   TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
   MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme).OnMainMenuItemClick(MainMenuItemClick);
   AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme).OnAvatarMenuItemClick(AvatarMenuItemClick);
-  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme).OnLanguageSelected(TesteLanguage).Selected(LocalStorage4Delphi.GetString(LSK_Language, 'pt-BR'));
+  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme).OnLanguageSelected(OnLanguageChanged).Selected(LocalStorage4Delphi.GetString(LSK_Language, 'pt-BR'));
 
-  ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).SetHint('Clique para um teste').isDarkMode(ThemeService.isDarkTheme);
+  ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).isDarkMode(ThemeService.isDarkTheme);
 
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 
@@ -209,7 +212,7 @@ begin
   AvatarMenu.OpenMenu;
 end;
 
-procedure TfMain.OpenMenu(sender: TObject);
+procedure TfMain.OpenMainMenu(sender: TObject);
 begin
   fMain.MainMenu.OpenMenu;
 end;
@@ -277,14 +280,72 @@ begin
 end;
 
 {$Region 'Language Functions'}
-procedure TfMain.TesteLanguage(const Lang: string);
+procedure TfMain.OnLanguageChanged(const Lang: string);
 begin
   LanguageService.SetLanguage(Lang);
 end;
 
 procedure TfMain.TranslateUI;
+var
+  AvatarTexts   : TDictionary<TAvatarMenuTexts, string>;
+  MainMenuTexts : TDictionary<TMainMenuTexts, string>;
+  LanguageMenuTexts : TDictionary<TLanguageMenuTexts, string>;
 begin
   ActionButton.SetHint(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
+
+  AvatarTexts := TDictionary<TAvatarMenuTexts, string>.Create;
+  try
+    with AvatarTexts do
+     begin
+      Add(TAvatarMenuTexts.EditProfile, eTranslate.Translate(AvatarMenu_EditProfile, 'Editar Perfil'));
+      Add(TAvatarMenuTexts.ChangePassword, eTranslate.Translate(AvatarMenu_ChangePassword, 'Trocar Senha'));
+      Add(TAvatarMenuTexts.Logout, eTranslate.Translate(AvatarMenu_Logout, 'Sair'));
+      Add(TAvatarMenuTexts.Conquers, eTranslate.Translate(AvatarMenu_Conquers, 'Conquistas'));
+      Add(TAvatarMenuTexts.Settings, eTranslate.Translate(AvatarMenu_Settings, 'Configurações'));
+      Add(TAvatarMenuTexts.ChangeTheme, eTranslate.Translate(AvatarMenu_ChangeTheme, 'Trocar Tema'));
+      Add(TAvatarMenuTexts.ChangeLanguage, eTranslate.Translate(AvatarMenu_ChangeLanguage, 'Trocar Idioma'));
+      Add(TAvatarMenuTexts.About, eTranslate.Translate(AvatarMenu_About, 'Sobre eTasks'));
+     end;
+
+     AvatarMenu.ChangeLanguage(AvatarTexts);
+  finally
+    FreeAndNil(AvatarTexts)
+  end;
+
+  MainMenuTexts := TDictionary<TMainMenuTexts, string>.Create;
+  try
+    with MainMenuTexts do
+     begin
+      Add(TMainMenuTexts.Title, eTranslate.Translate(MainMenu_Title, 'MENU'));
+      Add(TMainMenuTexts.Home, eTranslate.Translate(MainMenu_Home, 'Inicio'));
+      Add(TMainMenuTexts.Tasks, eTranslate.Translate(MainMenu_Tasks, 'Minhas Tarefas'));
+      Add(TMainMenuTexts.Goals, eTranslate.Translate(MainMenu_Goals, 'Minhas Metas'));
+      Add(TMainMenuTexts.Shopping, eTranslate.Translate(MainMenu_Shopping, 'Minhas Compras'));
+      Add(TMainMenuTexts.Readings, eTranslate.Translate(MainMenu_Readings, 'Minhas Leituras'));
+      Add(TMainMenuTexts.Notes, eTranslate.Translate(MainMenu_Notes, 'Minhas Anotações'));
+      Add(TMainMenuTexts.Finance, eTranslate.Translate(MainMenu_Finances, 'Minhas Finanças'));
+     end;
+
+     MainMenu.ChangeLanguage(MainMenuTexts);
+  finally
+    FreeAndNil(MainMenuTexts)
+  end;
+
+  LanguageMenuTexts := TDictionary<TLanguageMenuTexts, string>.Create;
+  try
+    with LanguageMenuTexts do
+     begin
+      Add(TLanguageMenuTexts.LanguagesTitle, eTranslate.Translate(LanguageMenu_Title, 'IDIOMAS'));
+     end;
+
+     LanguageMenu.ChangeLanguage(LanguageMenuTexts);
+  finally
+    FreeAndNil(LanguageMenuTexts)
+  end;
+
+  AppBar.SetButtonAppBarHints(TButtonAppBar.ThemeBtn, eTranslate.Translate(AppBar_BtnThemeChanger, 'Trocar Tema'));
+  AppBar.SetButtonAppBarHints(TButtonAppBar.MenuBtn, eTranslate.Translate(AppBar_BtnMainMenu, 'Menu principal'));
+  AppBar.SetButtonAppBarHints(TButtonAppBar.AvatarBtn, eTranslate.Translate(AppBar_BtnAvatarMenu, 'Menu do usuário'));
 end;
 {$EndRegion}
 

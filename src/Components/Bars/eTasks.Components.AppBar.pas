@@ -38,6 +38,7 @@ type
     function ShowTitleBar(const value: Boolean): TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+    function SetButtonAppBarHints(const ButtonAppBar: TButtonAppBar; const Hint: string): iAppBar;
     class function New(const Form: TForm; const Layout: TLayout): iAppBar;
   end;
 
@@ -112,6 +113,17 @@ begin
      ThemeBtn: fThemeChangerClick := Action;
       MenuBtn: fMenuButtonClick   := Action;
     AvatarBtn: fAvatarButtonClick := Action;
+  end;
+end;
+
+function TAppBar.SetButtonAppBarHints(const ButtonAppBar: TButtonAppBar;const Hint: string): iAppBar;
+begin
+  Result := Self;
+
+  case ButtonAppBar of
+     ThemeBtn: BtnThemeChanger.Hint := Hint;
+      MenuBtn: BtnMainMenu.Hint     := Hint;
+    AvatarBtn: Avatar.Hint          := Hint;
   end;
 end;
 

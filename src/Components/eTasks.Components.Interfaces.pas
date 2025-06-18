@@ -33,6 +33,7 @@ type
     function ShowTitleBar(const value: Boolean): TRectangle;
     function isDarkMode(const value: boolean): iAppBar;
     function SetButtonAppBarAction(const ButtonAppBar: TButtonAppBar; const Action: TEventoClick): iAppBar;
+    function SetButtonAppBarHints(const ButtonAppBar: TButtonAppBar; const Hint: string): iAppBar;
   end;
 
   iNavBar = interface
