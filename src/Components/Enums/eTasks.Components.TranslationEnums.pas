@@ -10,6 +10,8 @@ type
 
  TLanguageMenuTexts = (LanguagesTitle);
 
+ TDialogTexts = (CopyButton, CopyErrorMsg, CopySuccessMsg, CancelButton, OkButton, MoreDetails);
+
 implementation
 
 end.

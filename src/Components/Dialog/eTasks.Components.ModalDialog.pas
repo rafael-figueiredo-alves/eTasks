@@ -23,7 +23,9 @@ uses
   eTasks.Components.Accordion,
   System.ImageList,
   FMX.ImgList,
-  eTasks.Components.Interfaces;
+  eTasks.Components.Interfaces,
+  System.Generics.Collections,
+  eTasks.Components.TranslationEnums;
 {$endregion}
 
 type
@@ -69,11 +71,14 @@ type
     OnCancel            : TEventoClick;
     fFromImageList      : TImageList;
     fErroMessageToCopy  : string;
+    fToastMsgSuccess    : string;
+    fToastMsgError      : string;
     procedure ShowDialog(const Opcoes: TDialogOptions);
     procedure HideDialog;
     procedure IsDarkMode(const value: Boolean);
     procedure SettingDialogAnimationToShow;
     procedure HandlingDialogOptions(const Options: TDialogOptions);
+    procedure ChangeLanguage(const Texts: TDictionary<TDialogTexts, string>);
   public
     { Public declarations }
 
@@ -138,6 +143,7 @@ begin
 
   DialogService.OnShow(ShowDialog);
   DialogService.OnHide(HideDialog);
+  DialogService.OnChangeLanguage(ChangeLanguage);
   DialogService.OnDarkMode(IsDarkMode);
 
   IsDarkMode(DialogService.isDark);
@@ -221,10 +227,10 @@ begin
   lblTitle.Text   := Options.Titulo;
   lblMessage.Text := Options.Mensagem;
 
-  btnConfirmar.Hint := 'Confirmar';
-  btnCancelar.Hint  := 'Cancelar';
-  btnCopiar.Hint    := 'Copiar';
-  DetailAccordion.SetTitle('Detalhes do Erro');
+//  btnConfirmar.Hint := 'Confirmar';
+//  btnCancelar.Hint  := 'Cancelar';
+//  btnCopiar.Hint    := 'Copiar';
+//  DetailAccordion.SetTitle('Detalhes do Erro');
   DetailAccordion.SetDetails(Options.Stacktrace);
 
   btnCopiar.Visible := Options.TipoDeDialogo = TDialogType.Error;
@@ -293,9 +299,9 @@ begin
       begin
        try
          Clipboard.SetText(fErroMessageToCopy);
-         ToastService.ShowSuccess('Detalhes do erro copiados com sucesso!');
+         ToastService.ShowSuccess(fToastMsgSuccess);
        except
-
+         ToastService.ShowError(fToastMsgError);
        end;
 
       end;
@@ -303,6 +309,29 @@ begin
 
    end;
 end;
+
+procedure TModalDialog.ChangeLanguage(const Texts: TDictionary<TDialogTexts, string>);
+begin
+  if(Assigned(Texts))then
+   begin
+     DetailAccordion.SetTitle(TUtils.Iif(Texts.ContainsKey(TDialogTexts.MoreDetails), Texts[TDialogTexts.MoreDetails], 'Mais detalhes'));
+     btnConfirmar.hint             := TUtils.Iif(Texts.ContainsKey(TDialogTexts.OkButton), Texts[TDialogTexts.OkButton], 'Confirmar');
+     btnCancelar.Hint              := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CancelButton), Texts[TDialogTexts.CancelButton], 'Cancelar');
+     btnCopiar.Hint                := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopyButton), Texts[TDialogTexts.CopyButton], 'Copiar');
+     fToastMsgSuccess              := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopySuccessMsg), Texts[TDialogTexts.CopySuccessMsg], 'Detalhes do erro copiados com sucesso!');
+     fToastMsgError                := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopyErrorMsg), Texts[TDialogTexts.CopyErrorMsg], 'Falha ao copiar detalhes!');
+   end
+  else
+   begin
+     DetailAccordion.SetTitle('Mais detalhes');
+     btnConfirmar.hint := 'Confirmar';
+     btnCancelar.Hint  := 'Cancelar';
+     btnCopiar.Hint    := 'Copiar';
+     fToastMsgSuccess  := 'Detalhes do erro copiados com sucesso!';
+     fToastMsgError    := 'Falha ao copiar detalhes!';
+   end;
+end;
+
 {$endregion}
 
 end.

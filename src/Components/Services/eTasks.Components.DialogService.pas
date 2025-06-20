@@ -5,7 +5,9 @@ interface
 uses
   eTasks.Components.IDialogService,
   eTasks.Components.Interfaces,
-  System.SysUtils, eTasks.Components.DialogOptions;
+  System.SysUtils, eTasks.Components.DialogOptions,
+  eTasks.Components.TranslationEnums,
+  System.Generics.Collections;
 
 type
 
@@ -13,6 +15,7 @@ type
     private
       fOnShow     : TOnShow;
       fOnHide     : TOnHide;
+      fOnChangeLanguage : TOnTranslationChange;
       fOnDarkMode : TOnDarkMode;
       fDarkMode   : Boolean;
 
@@ -20,6 +23,7 @@ type
     public
       function OnShow(const OnShowMethod: TOnShow) : iDialogService;
       function OnHide(const OnHideMethod: TOnHide) : iDialogService;
+      function OnChangeLanguage(const onChange: TOnTranslationChange) : iDialogService;
       function OnDarkMode(const OnDarkModeMethod: TOnDarkMode) : iDialogService;
 
       function ConfirmDelete(const Title: string; const Msg: string; OnConfirm: tEventoClick = nil; OnCancel: tEventoClick = nil) : iDialogService;
@@ -30,6 +34,7 @@ type
       function ShowError(const Title: string; const Msg: Exception; OnConfirm: tEventoClick = nil) : iDialogService; overload;
 
       function isDarkMode(const value: Boolean): iDialogService;
+      function ChangeLanguage(const Texts: TDictionary<TDialogTexts, string>) : iDialogService;
       function isDark: boolean;
 
       function Hide : iDialogService;
@@ -85,6 +90,12 @@ begin
   Result := self.Create;
 end;
 
+function TDialogService.OnChangeLanguage(const onChange: TOnTranslationChange): iDialogService;
+begin
+  Result := Self;
+  fOnChangeLanguage := onChange;
+end;
+
 function TDialogService.OnDarkMode(const OnDarkModeMethod: TOnDarkMode): iDialogService;
 begin
   Result := Self;
@@ -131,6 +142,14 @@ destructor TDialogService.Destroy;
 begin
 
   inherited;
+end;
+
+function TDialogService.ChangeLanguage(const Texts: TDictionary<TDialogTexts, string>): iDialogService;
+begin
+  Result := Self;
+  if(Assigned(Texts))then
+   if(Assigned(fOnChangeLanguage))then
+    fOnChangeLanguage(Texts);
 end;
 
 function TDialogService.Confirm(const Title, Msg: string; OnConfirm,

@@ -287,9 +287,10 @@ end;
 
 procedure TfMain.TranslateUI;
 var
-  AvatarTexts   : TDictionary<TAvatarMenuTexts, string>;
-  MainMenuTexts : TDictionary<TMainMenuTexts, string>;
+  AvatarTexts       : TDictionary<TAvatarMenuTexts, string>;
+  MainMenuTexts     : TDictionary<TMainMenuTexts, string>;
   LanguageMenuTexts : TDictionary<TLanguageMenuTexts, string>;
+  DialogTexts       : TDictionary<TDialogTexts, string>;
 begin
   ActionButton.SetHint(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
 
@@ -341,6 +342,23 @@ begin
      LanguageMenu.ChangeLanguage(LanguageMenuTexts);
   finally
     FreeAndNil(LanguageMenuTexts)
+  end;
+
+  DialogTexts := TDictionary<TDialogTexts, string>.Create;
+  try
+    with DialogTexts do
+     begin
+       Add(TDialogTexts.CopyButton, eTranslate.Translate(Dialog_CopyButton, 'Copiar'));
+       Add(TDialogTexts.CopyErrorMsg, eTranslate.Translate(Dialog_CopyErrorMsg, 'Falha ao copiar detalhes!'));
+       Add(TDialogTexts.CopySuccessMsg, eTranslate.Translate(Dialog_CopySuccessMsg, 'Detalhes copiados com sucesso!'));
+       Add(TDialogTexts.CancelButton, eTranslate.Translate(Dialog_CancelButton, 'Cancelar'));
+       Add(TDialogTexts.OkButton, eTranslate.Translate(Dialog_OkButton, 'Confirmar'));
+       Add(TDialogTexts.MoreDetails, eTranslate.Translate(Dialog_MoreDetails, 'Mais detalhes'));
+     end;
+
+     DialogService.ChangeLanguage(DialogTexts);
+  finally
+    FreeAndNil(DialogTexts);
   end;
 
   AppBar.SetButtonAppBarHints(TButtonAppBar.ThemeBtn, eTranslate.Translate(AppBar_BtnThemeChanger, 'Trocar Tema'));
