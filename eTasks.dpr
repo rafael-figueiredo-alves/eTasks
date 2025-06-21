@@ -70,7 +70,8 @@ uses
   eTasks.Components.DialogService in 'src\Components\Services\eTasks.Components.DialogService.pas',
   eTasks.Components.ModalDialog in 'src\Components\Dialog\eTasks.Components.ModalDialog.pas' {ModalDialog},
   eTasks.Components.Accordion in 'src\Components\Containers\eTasks.Components.Accordion.pas' {Accordion: TFrame},
-  eTasks.Shared.TranslateKeyConsts in 'src\Shared\eTasks.Shared.TranslateKeyConsts.pas';
+  eTasks.Shared.TranslateKeyConsts in 'src\Shared\eTasks.Shared.TranslateKeyConsts.pas',
+  eTasks.Controller.Main in 'src\Controller\eTasks.Controller.Main.pas';
 
 {$R *.res}
 

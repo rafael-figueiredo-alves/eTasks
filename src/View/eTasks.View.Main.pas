@@ -30,7 +30,7 @@ type
     ContentLayout            : TLayout;
     ListsLayout              : TLayout;
     ScreensLayout            : TLayout;
-    FolhaDeEstilos: TStyleBook;
+    FolhaDeEstilos           : TStyleBook;
     {$endregion}
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -52,6 +52,7 @@ type
     procedure OpenMainMenu(sender : TObject);
     procedure OpenAvatarMenu(sender : TObject);
     procedure MainMenuItemClick(const item: TMainMenuItems);
+    procedure SetMainMenuItemTitle(const item: TMainMenuItems);
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
     procedure MostrarMensagem(sender: TObject);
     procedure OnLanguageChanged(const Lang: string);
@@ -67,6 +68,7 @@ type
     {$endregion}
   public
     { Public declarations }
+    SelectedMainMenuItem : TMainMenuItems;
   end;
 
 var
@@ -105,13 +107,101 @@ begin
     TAvatarMenuItems.Logout         : DialogService.Warn('AVISO', 'Implementar');
     TAvatarMenuItems.Conquers       : DialogService.Warn('AVISO', 'Implementar');
     TAvatarMenuItems.Settings       : DialogService.Warn('AVISO', 'Implementar');
-    TAvatarMenuItems.ChangeTheme    : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.ChangeTheme    : SetTheme(nil);
     TAvatarMenuItems.ChangeLanguage : LanguageMenu.OpenMenu;
     TAvatarMenuItems.About          : DialogService.Warn('AVISO', 'Implementar');
   end;
 end;
 
 procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
+begin
+  SelectedMainMenuItem := item;
+  SetMainMenuItemTitle(SelectedMainMenuItem);
+
+  case item of
+    TMainMenuItems.Home :
+      begin
+
+      end;
+    TMainMenuItems.Tasks:
+      begin
+
+      end;
+    TMainMenuItems.Goals:
+      begin
+
+      end;
+    TMainMenuItems.Shopping:
+      begin
+
+      end;
+    TMainMenuItems.Readings:
+      begin
+
+      end;
+    TMainMenuItems.Notes:
+      begin
+
+      end;
+    TMainMenuItems.Finance:
+      begin
+        
+      end;
+  end;
+end;
+{$endregion}
+
+procedure TfMain.FormCreate(Sender: TObject);
+begin
+  NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
+
+  AppBar := TBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(MenuBtn, OpenMainMenu).isDarkMode(ThemeService.isDarkTheme);
+    AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
+
+  TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
+  MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme).OnMainMenuItemClick(MainMenuItemClick);
+  AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme).OnAvatarMenuItemClick(AvatarMenuItemClick);
+  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme).OnLanguageSelected(OnLanguageChanged).Selected(LocalStorage4Delphi.GetString(LSK_Language, 'pt-BR'));
+
+  ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).isDarkMode(ThemeService.isDarkTheme);
+
+  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
+
+  ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
+  ThemeService.ApplyTheme;
+
+  Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
+
+  LanguageService.SubscribeMethod('MainForm', TranslateUI);
+
+  TToast.ToastMessage(fMain);
+
+  TModalDlg.ModalDialogs(fMain);
+
+  SelectedMainMenuItem := TMainMenuItems.Home;
+
+  TranslateUI;
+end;
+
+{$Region 'IMainLayout Methods}
+function TfMain.FormWidth: Integer;
+begin
+  Result := Self.Width;
+end;
+
+function TfMain.GetPage: iPageLayout;
+begin
+  Result := CurrentPage;
+end;
+
+procedure TfMain.MostrarMensagem(sender: TObject);
+begin
+  DialogService.ShowError('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!', 'Teste');
+end;
+
+procedure TfMain.SetMainMenuItemTitle(const item: TMainMenuItems);
 begin
   case item of
     TMainMenuItems.Home :
@@ -150,55 +240,6 @@ begin
         AppBar.SetTitle(eTranslate.Translate(Titles_FinancePage, 'Minhas Finanças'));
       end;
   end;
-end;
-{$endregion}
-
-procedure TfMain.FormCreate(Sender: TObject);
-begin
-  NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
-
-  AppBar := TBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
-    AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
-    AppBar.SetButtonAppBarAction(MenuBtn, OpenMainMenu).isDarkMode(ThemeService.isDarkTheme);
-    AppBar.SetButtonAppBarAction(AvatarBtn, OpenAvatarMenu).isDarkMode(ThemeService.isDarkTheme);
-
-  TitleBar := TBars.TitleBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
-  MainMenu := TMenus.MainMenu(fMain, ThemeService.isDarkTheme).OnMainMenuItemClick(MainMenuItemClick);
-  AvatarMenu := TMenus.AvatarMenu(fMain).isDarkMode(ThemeService.isDarkTheme).OnAvatarMenuItemClick(AvatarMenuItemClick);
-  LanguageMenu := TMenus.LanguageMenu(fMain, ThemeService.isDarkTheme).OnLanguageSelected(OnLanguageChanged).Selected(LocalStorage4Delphi.GetString(LSK_Language, 'pt-BR'));
-
-  ActionButton := TButtons.ActionButton(fMain).OnClick(MostrarMensagem).isDarkMode(ThemeService.isDarkTheme);
-
-  Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
-
-  ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
-  ThemeService.ApplyTheme;
-
-  Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
-
-  LanguageService.SubscribeMethod('MainForm', TranslateUI);
-
-  TToast.ToastMessage(fMain);
-
-  TModalDlg.ModalDialogs(fMain);
-
-  TranslateUI;
-end;
-
-{$Region 'IMainLayout Methods}
-function TfMain.FormWidth: Integer;
-begin
-  Result := Self.Width;
-end;
-
-function TfMain.GetPage: iPageLayout;
-begin
-  Result := CurrentPage;
-end;
-
-procedure TfMain.MostrarMensagem(sender: TObject);
-begin
-  DialogService.ShowError('Teste', 'Teste, Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema! Ocorreu um problema!', 'Teste');
 end;
 
 procedure TfMain.SetPage(value: iPageLayout);
@@ -292,6 +333,8 @@ var
   LanguageMenuTexts : TDictionary<TLanguageMenuTexts, string>;
   DialogTexts       : TDictionary<TDialogTexts, string>;
 begin
+  SetMainMenuItemTitle(SelectedMainMenuItem);
+
   ActionButton.SetHint(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
 
   AvatarTexts := TDictionary<TAvatarMenuTexts, string>.Create;

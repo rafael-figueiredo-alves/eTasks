@@ -325,6 +325,7 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.TranslateKeyConsts.pas"/>
+        <DCCReference Include="src\Controller\eTasks.Controller.Main.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

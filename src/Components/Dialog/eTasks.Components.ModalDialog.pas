@@ -64,6 +64,7 @@ type
     procedure SlideInFinish(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCopiarClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     PosicaoCentralY     : Double;
@@ -83,6 +84,7 @@ type
     { Public declarations }
 
     class var ContainerPrincipal : TFmxObject;
+    class var fDialogTexts       : TDictionary<TDialogTexts, string>;
 
     class procedure New(const Form: TForm);
   end;
@@ -147,6 +149,12 @@ begin
   DialogService.OnDarkMode(IsDarkMode);
 
   IsDarkMode(DialogService.isDark);
+end;
+
+procedure TModalDialog.FormDestroy(Sender: TObject);
+begin
+  if(Assigned(fDialogTexts))then
+   FreeAndNil(fDialogTexts);
 end;
 
 procedure TModalDialog.MainContainerDlgResized(Sender: TObject);
@@ -215,6 +223,7 @@ end;
 
 procedure TModalDialog.HandlingDialogOptions(const Options: TDialogOptions);
 begin
+  ChangeLanguage(fDialogTexts);
   DialogIcon.Bitmap := fFromImageList.Bitmap(TSize.Create(40, 40), ord(Options.TipoDeDialogo));
 
   if(Options.TipoDeDialogo = TDialogType.Error)then
@@ -311,6 +320,8 @@ begin
 end;
 
 procedure TModalDialog.ChangeLanguage(const Texts: TDictionary<TDialogTexts, string>);
+var
+  Par : TPair<TDialogTexts, string>;
 begin
   if(Assigned(Texts))then
    begin
@@ -320,6 +331,17 @@ begin
      btnCopiar.Hint                := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopyButton), Texts[TDialogTexts.CopyButton], 'Copiar');
      fToastMsgSuccess              := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopySuccessMsg), Texts[TDialogTexts.CopySuccessMsg], 'Detalhes do erro copiados com sucesso!');
      fToastMsgError                := TUtils.Iif(Texts.ContainsKey(TDialogTexts.CopyErrorMsg), Texts[TDialogTexts.CopyErrorMsg], 'Falha ao copiar detalhes!');
+
+     if(not Assigned(fDialogTexts))then
+      fDialogTexts := TDictionary<TDialogTexts, string>.Create;
+
+     for Par in Texts do
+      begin
+       if(fDialogTexts.ContainsKey(Par.key))then
+        fDialogTexts[Par.Key] := Par.Value
+       else
+        fDialogTexts.Add(Par.Key, Par.Value);
+      end;
    end
   else
    begin
