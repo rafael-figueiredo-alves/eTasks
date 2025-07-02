@@ -34,7 +34,8 @@ implementation
 
 uses
   eTasks.View.Teste,
-  eTasks.View.PageLayout;
+  eTasks.View.PageLayout,
+  eTasks.View.About;
 
 { TNavigationManager }
 
@@ -116,7 +117,7 @@ begin
     pageReadings: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
     pageGoals: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
     pageSettings: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageAbout: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+    pageAbout: pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
   end;
 
   fUpdateScreenMethod;

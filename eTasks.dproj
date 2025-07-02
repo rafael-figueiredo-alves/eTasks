@@ -326,6 +326,10 @@
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.TranslateKeyConsts.pas"/>
         <DCCReference Include="src\Controller\eTasks.Controller.Main.pas"/>
+        <DCCReference Include="src\View\Pages\eTasks.View.About.pas">
+            <Form>Form1</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

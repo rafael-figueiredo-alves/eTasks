@@ -2,6 +2,7 @@ unit eTasks.View.PageLayout;
 
 interface
 
+{$region 'Dependências Globais'}
 uses
   System.SysUtils,
   System.Types,
@@ -20,10 +21,11 @@ uses
   eTasks.Components.Interfaces,
   eTasks.View.Layouts.Interfaces,
   eTasks.View.Types,
-  eTasks.View.Enums, eTasks.Components.ColorPallete;
+  eTasks.View.Enums,
+  eTasks.Components.ColorPallete;
+{$endregion}
 
 type
-
 
   TPageLayout = class(TForm, iPageLayout)
     PageViewLayout: TLayout;
@@ -53,10 +55,12 @@ var
 implementation
 
 uses
-  eTasks.Components.Builder, eTasks.View.ThemeService;
+  eTasks.Components.Builder,
+  eTasks.View.ThemeService;
 
 {$R *.fmx}
 
+{$region 'Definição de TPageLayout'
 { TPageLayout }
 
 class function TPageLayout.New(const pLayout: TLayout;
@@ -133,5 +137,6 @@ function TPageLayout.Layout: TLayout;
 begin
   Result := Self.PageViewLayout;
 end;
+{$endregion}
 
 end.

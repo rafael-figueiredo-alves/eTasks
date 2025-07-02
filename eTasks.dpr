@@ -71,7 +71,8 @@ uses
   eTasks.Components.ModalDialog in 'src\Components\Dialog\eTasks.Components.ModalDialog.pas' {ModalDialog},
   eTasks.Components.Accordion in 'src\Components\Containers\eTasks.Components.Accordion.pas' {Accordion: TFrame},
   eTasks.Shared.TranslateKeyConsts in 'src\Shared\eTasks.Shared.TranslateKeyConsts.pas',
-  eTasks.Controller.Main in 'src\Controller\eTasks.Controller.Main.pas';
+  eTasks.Controller.Main in 'src\Controller\eTasks.Controller.Main.pas',
+  eTasks.View.About in 'src\View\Pages\eTasks.View.About.pas' {Form1};
 
 {$R *.res}
 
@@ -98,6 +99,5 @@ begin
   {$ENDREGION}
 
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TModalDialog, ModalDialog);
   Application.Run;
 end.
