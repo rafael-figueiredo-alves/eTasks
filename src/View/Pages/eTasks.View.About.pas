@@ -20,6 +20,7 @@ type
   TPageAbout = class(TPageLayout)
   private
     { Private declarations }
+    procedure TranslateUI;override;
   public
     { Public declarations }
   end;
@@ -32,5 +33,13 @@ implementation
 {$R *.fmx}
 
 { TPageAbout }
+
+{ TPageAbout }
+
+procedure TPageAbout.TranslateUI;
+begin
+  inherited;
+  Self.SetTitle('Teste ' + Self.Name);
+end;
 
 end.

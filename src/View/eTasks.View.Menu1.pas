@@ -48,7 +48,7 @@ procedure TMenu1.Button1Click(Sender: TObject);
 var pPage: iPageLayout;
 begin
   pPage := fLayout.Page;
-  fNavigationManager.GoToAbout(pPage).Resize(fLayout.FormWidth);
+  fNavigationManager.GoToAbout(pPage).Resize(fLayout.FormWidth).SetTitle('Sobre eTasks');
   fLayout.Page := pPage;
   fLayout.ScreensLayoutChange;
 end;

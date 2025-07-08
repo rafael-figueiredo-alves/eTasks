@@ -3,7 +3,8 @@ unit eTasks.View.Layouts.Interfaces;
 interface
 
 uses
-  FMX.Layouts;
+  FMX.Layouts,
+  eTasks.View.Types;
 
 type
 
@@ -13,6 +14,11 @@ type
     function EntityID : string;
     function Resize(const Formwidth: integer): iPageLayout;
     function isDarkMode(const value: Boolean): iPageLayout;
+    function SetTitle(const value: string): iPageLayout;
+    function OnBackButtonClick(const value: TEventCallback):iPageLayout;
+    function OnHelpButtonClick(const value: TEventCallback):iPageLayout;
+    function OnDeleteButtonClick(const value: TEventCallback):iPageLayout;
+    function OnConfirmButtonClick(const value: TEventCallback):iPageLayout;
   end;
 
   iMainLayout = interface

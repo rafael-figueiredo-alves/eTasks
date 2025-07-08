@@ -35,6 +35,10 @@ type
     fEntityID : string;
     MainLayout: TLayout;
     UpdateScreenMethod : TUpdateScreenMethod;
+    fOnBackButton    : TEventCallback;
+    fOnHelpButton    : TEventCallback;
+    fOnDeleteButton  : TEventCallback;
+    fOnConfirmButton : TEventCallback;
     procedure GoBack(Sender: TObject);
     procedure RemovePageViewLayout;
   public
@@ -44,6 +48,12 @@ type
     function EntityID : string;
     function Resize(const Formwidth: integer): iPageLayout;
     function isDarkMode(const value: Boolean): iPageLayout; virtual;
+    function SetTitle(const value: string): iPageLayout; virtual;
+    procedure TranslateUI; Virtual;
+    function OnBackButtonClick(const value: TEventCallback):iPageLayout;
+    function OnHelpButtonClick(const value: TEventCallback):iPageLayout;
+    function OnDeleteButtonClick(const value: TEventCallback):iPageLayout;
+    function OnConfirmButtonClick(const value: TEventCallback):iPageLayout;
 
     class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm; EntityID: string = string.Empty) : iPageLayout;
     destructor Destroy; override;
@@ -56,7 +66,8 @@ implementation
 
 uses
   eTasks.Components.Builder,
-  eTasks.View.ThemeService;
+  eTasks.View.ThemeService,
+  eTasks.View.LanguageService;
 
 {$R *.fmx}
 
@@ -67,6 +78,9 @@ class function TPageLayout.New(const pLayout: TLayout;
   pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm;
   EntityID: string): iPageLayout;
 begin
+  if(Assigned(PageLayout))then
+   FreeAndNil(PageLayout);
+
   PageLayout := Self.Create(pLayout);
   PageLayout.MainLayout := pLayout;
 
@@ -90,12 +104,39 @@ begin
   if(ThemeService.isDarkTheme)then
    PageLayout.isDarkMode(ThemeService.isDarkTheme);
 
+  LanguageService.SubscribeMethod(PageLayout.Name, PageLayout.TranslateUI);
+
   Result := PageLayout;
+end;
+
+function TPageLayout.OnBackButtonClick(const value: TEventCallback): iPageLayout;
+begin
+  Result := self;
+  fOnBackButton := value;
+end;
+
+function TPageLayout.OnConfirmButtonClick(const value: TEventCallback): iPageLayout;
+begin
+  Result := self;
+  fOnConfirmButton := value;
+end;
+
+function TPageLayout.OnDeleteButtonClick(const value: TEventCallback): iPageLayout;
+begin
+  Result := self;
+  fOnDeleteButton := value;
+end;
+
+function TPageLayout.OnHelpButtonClick(const value: TEventCallback): iPageLayout;
+begin
+  Result := self;
+  fOnHelpButton := value;
 end;
 
 destructor TPageLayout.Destroy;
 begin
   RemovePageViewLayout;
+  LanguageService.UnsubscribeMethod(Self.Name);
 
   inherited;
 end;
@@ -116,6 +157,7 @@ end;
 
 function TPageLayout.isDarkMode(const value: Boolean): iPageLayout;
 begin
+  Result := Self;
   NavBar.isDarkMode(value);
   background.Fill.Color := TColorPallete.GetColor(Cor.Background, value);
 end;
@@ -131,6 +173,17 @@ begin
   Result := Self;
   NavBar.Resize(Formwidth);
   UpdateScreenMethod;
+end;
+
+function TPageLayout.SetTitle(const value: string): iPageLayout;
+begin
+  Result := Self;
+  NavBar.SetTitle(value);
+end;
+
+procedure TPageLayout.TranslateUI;
+begin
+
 end;
 
 function TPageLayout.Layout: TLayout;

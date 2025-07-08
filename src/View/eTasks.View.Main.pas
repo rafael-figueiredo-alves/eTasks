@@ -93,7 +93,8 @@ uses
   eTasks.Components.ToastService,
   eTasks.Components.DialogService,
   System.SysUtils,
-  eTasks.Shared.TranslateKeyConsts, LocalStorage4Pascal;
+  eTasks.Shared.TranslateKeyConsts,
+  LocalStorage4Pascal;
 {$endregion}
 
 {$R *.fmx}
