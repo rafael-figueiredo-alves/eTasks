@@ -30,6 +30,10 @@ var
 
 implementation
 
+uses
+  eTranslate4Pascal,
+  eTasks.Shared.TranslateKeyConsts;
+
 {$R *.fmx}
 
 { TPageAbout }
@@ -39,7 +43,7 @@ implementation
 procedure TPageAbout.TranslateUI;
 begin
   inherited;
-  Self.SetTitle('Teste ' + Self.Name);
+  Self.SetTitle(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
 end;
 
 end.

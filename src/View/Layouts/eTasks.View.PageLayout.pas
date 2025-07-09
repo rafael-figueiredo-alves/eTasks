@@ -105,6 +105,7 @@ begin
    PageLayout.isDarkMode(ThemeService.isDarkTheme);
 
   LanguageService.SubscribeMethod(PageLayout.Name, PageLayout.TranslateUI);
+  PageLayout.TranslateUI;
 
   Result := PageLayout;
 end;

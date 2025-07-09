@@ -18,7 +18,7 @@ type
      procedure NavigateTo(const Page: TPages; var pPage: iPageLayout; id: string = '');
    public
     function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToNotes(var pPage: iPageLayout; id: string = '') : iPageLayout;
     function GoToFinances(var pPage: iPageLayout; id: string = '') : iPageLayout;
     function GoToReadings(var pPage: iPageLayout; id: string = '') : iPageLayout;
@@ -51,9 +51,15 @@ begin
 end;
 
 {$region 'GoToActions'}
-function TNavigationManager.GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
+function TNavigationManager.GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+var
+ pPage : iPageLayout;
 begin
+  pPage := MainLayout.Page;
   NavigateTo(pageAbout, pPage, id);
+  MainLayout.Page := pPage;
+  MainLayout.Page.Resize(MainLayout.FormWidth);
+  MainLayout.ScreensLayoutChange;
   Result := pPage;
 end;
 
@@ -110,14 +116,14 @@ begin
 
   case Page of
     //Realizar manutenção e substituir TPageLayout1 pela classe correta
-    pageTasks: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
-    pageShopping: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageNotes: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageFinances: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageReadings: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageGoals: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageSettings: pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageAbout: pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+       pageTasks : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+    pageShopping : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+       pageNotes : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+    pageFinances : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+    pageReadings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+       pageGoals : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+    pageSettings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+       pageAbout : pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
   end;
 
   fUpdateScreenMethod;

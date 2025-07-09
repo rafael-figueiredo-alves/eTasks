@@ -11,7 +11,7 @@ type
   iNavigationManagerService = interface
     ['{9D744B61-67D1-4ABE-AAEF-6F53D070166B}']
     function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToAbout(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToNotes(var pPage: iPageLayout; id: string = '') : iPageLayout;
     function GoToFinances(var pPage: iPageLayout; id: string = '') : iPageLayout;
     function GoToReadings(var pPage: iPageLayout; id: string = '') : iPageLayout;

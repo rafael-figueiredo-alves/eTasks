@@ -69,6 +69,7 @@ type
   public
     { Public declarations }
     SelectedMainMenuItem : TMainMenuItems;
+    procedure OpenAboutPage;
   end;
 
 var
@@ -110,7 +111,7 @@ begin
     TAvatarMenuItems.Settings       : DialogService.Warn('AVISO', 'Implementar');
     TAvatarMenuItems.ChangeTheme    : SetTheme(nil);
     TAvatarMenuItems.ChangeLanguage : LanguageMenu.OpenMenu;
-    TAvatarMenuItems.About          : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.About          : OpenAboutPage; //DialogService.Warn('AVISO', 'Implementar');
   end;
 end;
 
@@ -249,6 +250,16 @@ begin
 end;
 {$EndRegion}
 
+procedure TfMain.OpenAboutPage;
+//var
+//  pPage: iPageLayout;
+begin
+//  pPage := Self.Page;
+  NavigationManagerService.GoToAbout(self);
+//  self.Page := pPage;
+//  self.ScreensLayoutChange;
+end;
+
 procedure TfMain.OpenAvatarMenu(sender: TObject);
 begin
   AvatarMenu.OpenMenu;
@@ -320,6 +331,7 @@ begin
   ThemeService.ChangeTheme;
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 end;
+
 
 {$Region 'Language Functions'}
 procedure TfMain.OnLanguageChanged(const Lang: string);
