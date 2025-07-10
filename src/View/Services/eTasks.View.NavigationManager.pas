@@ -16,15 +16,16 @@ type
      fScreensLayout      : TLayout;
      fUpdateScreenMethod : TUpdateScreenMethod;
      procedure NavigateTo(const Page: TPages; var pPage: iPageLayout; id: string = '');
+     function OpenPage(const MainLayout: iMainLayout; const Page: TPages; id: string = '') : iPageLayout;
    public
-    function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToTasks(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
-    function GoToNotes(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToFinances(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToReadings(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToGoals(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToSettings(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToShopping(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToNotes(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToFinances(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToReadings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToGoals(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToSettings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToShopping(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
 
     class function New(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
     constructor Create(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod);
@@ -44,65 +45,64 @@ begin
   Result := Self.Create(ScreensLayout, UpdateScreenMethod);
 end;
 
-constructor TNavigationManager.Create(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod);
-begin
-  fScreensLayout := ScreensLayout;
-  fUpdateScreenMethod := UpdateScreenMethod;
-end;
-
-{$region 'GoToActions'}
-function TNavigationManager.GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+function TNavigationManager.OpenPage(const MainLayout: iMainLayout;const Page: TPages; id: string): iPageLayout;
 var
  pPage : iPageLayout;
 begin
   pPage := MainLayout.Page;
-  NavigateTo(pageAbout, pPage, id);
+  NavigateTo(Page, pPage, id);
   MainLayout.Page := pPage;
   MainLayout.Page.Resize(MainLayout.FormWidth);
   MainLayout.ScreensLayoutChange;
   Result := pPage;
 end;
 
-function TNavigationManager.GoToFinances(var pPage: iPageLayout; id: string): iPageLayout;
+constructor TNavigationManager.Create(ScreensLayout: TLayout;UpdateScreenMethod: TUpdateScreenMethod);
 begin
-  NavigateTo(pageFinances, pPage, id);
-  Result := pPage;
+  fScreensLayout := ScreensLayout;
+  fUpdateScreenMethod := UpdateScreenMethod;
 end;
 
-function TNavigationManager.GoToGoals(var pPage: iPageLayout; id: string): iPageLayout;
+
+{$region 'GoToActions'}
+function TNavigationManager.GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
 begin
-  NavigateTo(pageGoals, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageAbout, id);
 end;
 
-function TNavigationManager.GoToNotes(var pPage: iPageLayout; id: string): iPageLayout;
+function TNavigationManager.GoToFinances(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
-  NavigateTo(pageNotes, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageFinances, id);
 end;
 
-function TNavigationManager.GoToReadings(var pPage: iPageLayout; id: string): iPageLayout;
+function TNavigationManager.GoToGoals(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
-  NavigateTo(pageReadings, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageGoals, id);
 end;
 
-function TNavigationManager.GoToSettings(var pPage: iPageLayout; id: string): iPageLayout;
+function TNavigationManager.GoToNotes(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
-  NavigateTo(pageSettings, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageNotes, id);
 end;
 
-function TNavigationManager.GoToShopping(var pPage: iPageLayout; id: string): iPageLayout;
+function TNavigationManager.GoToReadings(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
-  NavigateTo(pageShopping, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageReadings, id);
 end;
 
-function TNavigationManager.GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
+function TNavigationManager.GoToSettings(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
-  NavigateTo(pageTasks, pPage, id);
-  Result := pPage;
+  Result := OpenPage(MainLayout, pageSettings, id);
+end;
+
+function TNavigationManager.GoToShopping(const MainLayout: iMainLayout; id: string): iPageLayout;
+begin
+  Result :=  OpenPage(MainLayout, pageShopping, id);
+end;
+
+function TNavigationManager.GoToTasks(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+begin
+  Result :=  OpenPage(MainLayout, pageTasks, id);
 end;
 {$endregion}
 
@@ -123,7 +123,7 @@ begin
     pageReadings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
        pageGoals : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
     pageSettings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-       pageAbout : pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+       pageAbout : pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithUpdateButton, id);
   end;
 
   fUpdateScreenMethod;

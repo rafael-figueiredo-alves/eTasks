@@ -281,6 +281,12 @@ object NavBar: TNavBar
       ParentShowHint = False
       ShowHint = True
       OnClick = BtnAtualizarClick
+      object UpdateAnimation: TFloatAnimation
+        Duration = 1.000000000000000000
+        PropertyName = 'RotationAngle'
+        StartValue = 0.000000000000000000
+        StopValue = 360.000000000000000000
+      end
     end
     object LabelTitle: TLabel
       Align = Center

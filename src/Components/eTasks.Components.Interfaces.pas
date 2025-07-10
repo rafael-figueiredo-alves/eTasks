@@ -42,6 +42,7 @@ type
     function Resize(const FormWidth: Integer): iNavBar;
     function isDarkMode(const value: boolean): iNavBar;
     function ShowButtons(const value: TNavBarButtons): iNavBar;
+    function SetHints(const DictHints: TDictionary<TNavBarButtonHints, string> = nil): iNavBar;
     function OnBtnUpdateClick(const Event: TEventoClick): iNavBar;
     function OnBtnHelpClick(const Event: TEventoClick): iNavBar;
     function OnBtnDeleteClick(const Event: TEventoClick): iNavBar;

@@ -10,14 +10,14 @@ type
 
   iNavigationManagerService = interface
     ['{9D744B61-67D1-4ABE-AAEF-6F53D070166B}']
-    function GoToTasks(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToTasks(const MainLayout: iMainLayout;  id: string = '') : iPageLayout;
     function GoToAbout(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
-    function GoToNotes(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToFinances(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToReadings(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToGoals(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToSettings(var pPage: iPageLayout; id: string = '') : iPageLayout;
-    function GoToShopping(var pPage: iPageLayout; id: string = '') : iPageLayout;
+    function GoToNotes(const MainLayout: iMainLayout;  id: string = '') : iPageLayout;
+    function GoToFinances(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToReadings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToGoals(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToSettings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToShopping(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
   end;
 
   iThemeService = interface

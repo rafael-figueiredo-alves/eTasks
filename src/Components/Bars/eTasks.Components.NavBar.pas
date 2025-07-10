@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Effects,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, System.ImageList,
-  FMX.ImgList, eTasks.Components.Interfaces, FMX.Layouts;
+  FMX.ImgList, eTasks.Components.Interfaces, FMX.Layouts, eTasks.Components.TranslationEnums, System.Generics.Collections,
+  FMX.Ani;
 
 type
   TNavBar = class(TForm, iNavBar)
@@ -20,6 +21,7 @@ type
     LabelTitle: TLabel;
     ImgLight: TImageList;
     ImgDark: TImageList;
+    UpdateAnimation: TFloatAnimation;
     procedure BtnVoltarClick(Sender: TObject);
     procedure BtnConfirmaClick(Sender: TObject);
     procedure BtnAtualizarClick(Sender: TObject);
@@ -44,8 +46,9 @@ type
     function OnBtnDeleteClick(const Event: TEventoClick): iNavBar;
     function OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
     function OnBtnBackClick(const Event: TEventoClick): iNavBar;
+    function SetHints(const DictHints: TDictionary<TNavBarButtonHints, string> = nil): iNavBar;
 
-    class function New(const Layout: TLayout): iNavBar;
+    class function New(const Layout: TLayout; const DictHints: TDictionary<TNavBarButtonHints, string> = nil): iNavBar;
   end;
 
 var
@@ -67,6 +70,7 @@ end;
 
 procedure TNavBar.BtnAtualizarClick(Sender: TObject);
 begin
+  UpdateAnimation.Start;
   if(Assigned(fOnBtnUpdateClick))then
    fOnBtnUpdateClick(sender);
 end;
@@ -106,10 +110,11 @@ begin
   Result := Self;
 end;
 
-class function TNavBar.New(const Layout: TLayout): iNavBar;
+class function TNavBar.New(const Layout: TLayout; const DictHints: TDictionary<TNavBarButtonHints, string>): iNavBar;
 begin
   Result := Self.Create(layout);
   Layout.AddObject(TNavBar(Result).TopBar);
+  Result.SetHints(DictHints);
 end;
 
 function TNavBar.OnBtnAcceptClick(const Event: TEventoClick): iNavBar;
@@ -148,6 +153,28 @@ begin
 
   SombraBar.Enabled := FormWidth <= MobileSizeWidth;
   BtnVoltar.Visible := FormWidth <= MobileSizeWidth;
+end;
+
+function TNavBar.SetHints(const DictHints: TDictionary<TNavBarButtonHints, string>): iNavBar;
+begin
+  Result := self;
+
+  if(Assigned(DictHints))then
+   begin
+     BtnAtualizar.Hint := TUtils.Iif(DictHints.ContainsKey(TNavBarButtonHints.nbUpdate), DictHints[TNavBarButtonHints.nbUpdate], 'Atualizar');
+     BtnExplica.Hint   := TUtils.Iif(DictHints.ContainsKey(TNavBarButtonHints.nbHelp), DictHints[TNavBarButtonHints.nbHelp], 'Ajuda');
+     BtnConfirma.Hint  := TUtils.Iif(DictHints.ContainsKey(TNavBarButtonHints.nbAccept), DictHints[TNavBarButtonHints.nbAccept], 'Confirmar');
+     BtnApagar.Hint    := TUtils.Iif(DictHints.ContainsKey(TNavBarButtonHints.nbDelete), DictHints[TNavBarButtonHints.nbDelete], 'Apagar');
+     BtnVoltar.Hint    := TUtils.Iif(DictHints.ContainsKey(TNavBarButtonHints.nbBack), DictHints[TNavBarButtonHints.nbBack], 'Voltar');
+   end
+  else
+   begin
+     BtnAtualizar.Hint := 'Atualizar';
+     BtnExplica.Hint   := 'Ajuda';
+     BtnConfirma.Hint  := 'Confirmar';
+     BtnApagar.Hint    := 'Apagar';
+     BtnVoltar.Hint    := 'Voltar';
+   end;
 end;
 
 function TNavBar.SetTitle(const Title: string): iNavBar;

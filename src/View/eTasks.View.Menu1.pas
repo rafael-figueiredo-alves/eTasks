@@ -50,12 +50,8 @@ begin
 end;
 
 procedure TMenu1.Button2Click(Sender: TObject);
-var pPage: iPageLayout;
 begin
-  pPage := fLayout.Page;
-  fNavigationManager.GoToTasks(pPage, 'Teste').Resize(fLayout.FormWidth);
-  fLayout.Page := pPage;
-  fLayout.ScreensLayoutChange;
+  fNavigationManager.GoToTasks(fLayout);
 end;
 
 class function TMenu1.New(const NavManager: iNavigationManagerService; Layout: iMainLayout; LayoutAdd: TLayout): TMenu1;

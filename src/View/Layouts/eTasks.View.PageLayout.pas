@@ -39,14 +39,19 @@ type
     fOnHelpButton    : TEventCallback;
     fOnDeleteButton  : TEventCallback;
     fOnConfirmButton : TEventCallback;
+    fOnUpdateButton  : TEventCallback;
     procedure GoBack(Sender: TObject);
+    procedure UpdateClick(sender: TObject);
+    procedure ConfirmClick(sender: TObject);
+    procedure HelpClick(sender: TObject);
+    procedure DeleteClick(sender: TObject);
     procedure RemovePageViewLayout;
   public
     { Public declarations }
     NavBar : iNavBar;
     function Layout: TLayout;
     function EntityID : string;
-    function Resize(const Formwidth: integer): iPageLayout;
+    function Resize(const Formwidth: integer): iPageLayout;reintroduce;
     function isDarkMode(const value: Boolean): iPageLayout; virtual;
     function SetTitle(const value: string): iPageLayout; virtual;
     procedure TranslateUI; Virtual;
@@ -54,6 +59,7 @@ type
     function OnHelpButtonClick(const value: TEventCallback):iPageLayout;
     function OnDeleteButtonClick(const value: TEventCallback):iPageLayout;
     function OnConfirmButtonClick(const value: TEventCallback):iPageLayout;
+    function OnUpdateButtonClick(const value: TEventCallback):iPageLayout;
 
     class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm; EntityID: string = string.Empty) : iPageLayout;
     destructor Destroy; override;
@@ -86,6 +92,10 @@ begin
 
   PageLayout.NavBar := TBars.NavBar(PageLayout.PageViewLayout);
   PageLayout.NavBar.OnBtnBackClick(PageLayout.GoBack);
+  PageLayout.NavBar.OnBtnUpdateClick(PageLayout.UpdateClick);
+  PageLayout.NavBar.OnBtnHelpClick(PageLayout.HelpClick);
+  PageLayout.NavBar.OnBtnDeleteClick(PageLayout.DeleteClick);
+  PageLayout.NavBar.OnBtnAcceptClick(PageLayout.ConfirmClick);
 
   case LayoutForm of
     lfEditButtons: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarEditButtons);
@@ -134,6 +144,24 @@ begin
   fOnHelpButton := value;
 end;
 
+function TPageLayout.OnUpdateButtonClick(const value: TEventCallback): iPageLayout;
+begin
+  Result := self;
+  fOnUpdateButton := value;
+end;
+
+procedure TPageLayout.ConfirmClick(sender: TObject);
+begin
+  if(Assigned(fOnConfirmButton))then
+   fOnConfirmButton;
+end;
+
+procedure TPageLayout.DeleteClick(sender: TObject);
+begin
+  if(Assigned(fOnDeleteButton))then
+   fOnDeleteButton;
+end;
+
 destructor TPageLayout.Destroy;
 begin
   RemovePageViewLayout;
@@ -154,6 +182,12 @@ begin
     Application.ProcessMessages;
 
     UpdateScreenMethod;
+end;
+
+procedure TPageLayout.HelpClick(sender: TObject);
+begin
+  if(Assigned(fOnHelpButton))then
+   fOnHelpButton;
 end;
 
 function TPageLayout.isDarkMode(const value: Boolean): iPageLayout;
@@ -185,6 +219,12 @@ end;
 procedure TPageLayout.TranslateUI;
 begin
 
+end;
+
+procedure TPageLayout.UpdateClick(sender: TObject);
+begin
+  if(Assigned(fOnUpdateButton))then
+   fOnUpdateButton;
 end;
 
 function TPageLayout.Layout: TLayout;

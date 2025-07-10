@@ -12,6 +12,8 @@ type
 
  TDialogTexts = (CopyButton, CopyErrorMsg, CopySuccessMsg, CancelButton, OkButton, MoreDetails);
 
+ TNavBarButtonHints = (nbUpdate, nbHelp, nbAccept, nbDelete, nbBack);
+
 implementation
 
 end.

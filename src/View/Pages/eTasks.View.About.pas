@@ -18,9 +18,11 @@ uses
 
 type
   TPageAbout = class(TPageLayout)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     procedure TranslateUI;override;
+    procedure Teste;
   public
     { Public declarations }
   end;
@@ -39,6 +41,17 @@ uses
 { TPageAbout }
 
 { TPageAbout }
+
+procedure TPageAbout.FormCreate(Sender: TObject);
+begin
+  inherited;
+  Self.OnUpdateButtonClick(Teste);
+end;
+
+procedure TPageAbout.Teste;
+begin
+  showmessage('Teste');
+end;
 
 procedure TPageAbout.TranslateUI;
 begin
