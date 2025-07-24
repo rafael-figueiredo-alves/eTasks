@@ -1,12 +1,15 @@
-object PageAbout: TPageAbout
-  Left = 0
-  Top = 0
-  Caption = 'Sobre'
-  ClientHeight = 480
-  ClientWidth = 640
-  FormFactor.Width = 320
-  FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
+inherited PageAbout: TPageAbout
+  Caption = 'PageLayout2'
   OnCreate = FormCreate
   DesignerMasterStyle = 0
+  inherited PageViewLayout: TLayout
+    inherited Background: TRectangle
+      object Label1: TLabel [0]
+        Position.X = 152.000000000000000000
+        Position.Y = 64.000000000000000000
+        Text = 'Label1'
+        TabOrder = 1
+      end
+    end
+  end
 end

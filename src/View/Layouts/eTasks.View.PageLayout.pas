@@ -30,6 +30,7 @@ type
   TPageLayout = class(TForm, iPageLayout)
     PageViewLayout: TLayout;
     Background: TRectangle;
+    LayNavBarNotUseThisSpace: TLayout;
   private
     { Private declarations }
     fEntityID : string;

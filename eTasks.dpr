@@ -72,7 +72,7 @@ uses
   eTasks.Components.Accordion in 'src\Components\Containers\eTasks.Components.Accordion.pas' {Accordion: TFrame},
   eTasks.Shared.TranslateKeyConsts in 'src\Shared\eTasks.Shared.TranslateKeyConsts.pas',
   eTasks.Controller.Main in 'src\Controller\eTasks.Controller.Main.pas',
-  eTasks.View.About in 'src\View\Pages\eTasks.View.About.pas' {Form1};
+  eTasks.View.About in 'src\View\Pages\eTasks.View.About.pas' {PageAbout1};
 
 {$R *.res}
 
@@ -99,5 +99,6 @@ begin
   {$ENDREGION}
 
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TPageAbout, PageAbout1);
   Application.Run;
 end.

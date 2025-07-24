@@ -3,32 +3,24 @@ unit eTasks.View.About;
 interface
 
 uses
-  System.SysUtils,
-  System.Types,
-  System.UITypes,
-  System.Classes,
-  System.Variants,
-  FMX.Types,
-  FMX.Controls,
-  FMX.Forms,
-  FMX.Graphics,
-  FMX.Dialogs,
-  eTasks.View.PageLayout,
-  eTasks.View.Layouts.Interfaces;
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  eTasks.View.PageLayout, FMX.Objects, FMX.Layouts, FMX.Types,
+  FMX.Controls.Presentation;
 
 type
   TPageAbout = class(TPageLayout)
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    procedure TranslateUI;override;
     procedure Teste;
   public
     { Public declarations }
+    procedure TranslateUI;override;
   end;
 
 var
-  FormAbout: TPageAbout;
+  PageAbout1: TPageAbout;
 
 implementation
 
@@ -37,10 +29,6 @@ uses
   eTasks.Shared.TranslateKeyConsts;
 
 {$R *.fmx}
-
-{ TPageAbout }
-
-{ TPageAbout }
 
 procedure TPageAbout.FormCreate(Sender: TObject);
 begin

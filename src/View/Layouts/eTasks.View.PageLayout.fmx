@@ -21,6 +21,13 @@ object PageLayout: TPageLayout
       Size.Height = 480.000000000000000000
       Size.PlatformDefault = False
       Stroke.Kind = None
+      object LayNavBarNotUseThisSpace: TLayout
+        Align = Top
+        Size.Width = 640.000000000000000000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+      end
     end
   end
 end
