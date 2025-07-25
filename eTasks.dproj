@@ -279,9 +279,6 @@
         <DCCReference Include="src\View\Layouts\eTasks.View.PageLayout.pas">
             <Form>PageLayout</Form>
         </DCCReference>
-        <DCCReference Include="src\View\Pages\eTasks.View.Teste.pas">
-            <Form>PageLayout1</Form>
-        </DCCReference>
         <DCCReference Include="src\View\Services\eTasks.View.NavigationManager.pas"/>
         <DCCReference Include="src\View\eTasks.View.Menu1.pas">
             <Form>Menu1</Form>
@@ -326,8 +323,44 @@
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.TranslateKeyConsts.pas"/>
         <DCCReference Include="src\Controller\eTasks.Controller.Main.pas"/>
-        <DCCReference Include="src\View\Pages\eTasks.View.About.pas">
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.About.pas">
             <Form>PageAbout1</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditTasks.pas">
+            <Form>Page_EditTasks</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditGoals.pas">
+            <Form>Page_EditGoals</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditShopping.pas">
+            <Form>Page_EditShopping</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditNotes.pas">
+            <Form>Page_EditNotes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditFinances.pas">
+            <Form>Page_EditFinances</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditReadings.pas">
+            <Form>Page_EditReadings</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.PageSettings.pas">
+            <Form>Page_Settings</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.Rewards.pas">
+            <Form>Page_Rewards</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditProfile.pas">
+            <Form>Page_Profile</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

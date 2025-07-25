@@ -99,9 +99,10 @@ begin
   PageLayout.NavBar.OnBtnAcceptClick(PageLayout.ConfirmClick);
 
   case LayoutForm of
-    lfEditButtons: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarEditButtons);
-    lfWithUpdateButton: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarUpdateButton);
-    lfWithHelpButton: PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarHelpButton);
+          lfEditButtons : PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarEditButtons);
+     lfWithUpdateButton : PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarUpdateButton);
+       lfWithHelpButton : PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarHelpButton);
+    lfWithConfirmButton : PageLayout.NavBar.ShowButtons(TNavBarButtons.NavBarConfirmButton);
   end;
 
   pLayout.AddObject(PageLayout.PageViewLayout);

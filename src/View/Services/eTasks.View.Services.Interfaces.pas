@@ -18,6 +18,8 @@ type
     function GoToGoals(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToSettings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToShopping(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToRewards(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToProfile(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
   end;
 
   iThemeService = interface

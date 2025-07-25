@@ -13,7 +13,7 @@ type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
   TOffcanvasKind = (ockMenu, ockFilter, ockLanguage);
   TOffcanvasDirection = (ocdLeft, ocdRight);
-  TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton);
+  TNavBarButtons = (NavBarEditButtons, NavBarUpdateButton, NavBarHelpButton, NavBarConfirmButton);
 
   TEventoClick = procedure(sender: TObject) of object;
   TEventoStringClick = procedure(const value: string) of object;

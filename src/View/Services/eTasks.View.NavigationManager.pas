@@ -26,6 +26,8 @@ type
     function GoToGoals(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToSettings(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
     function GoToShopping(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToRewards(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
+    function GoToProfile(const MainLayout: iMainLayout; id: string = '') : iPageLayout;
 
     class function New(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod): iNavigationManagerService;
     constructor Create(ScreensLayout: TLayout; UpdateScreenMethod: TUpdateScreenMethod);
@@ -34,9 +36,16 @@ type
 implementation
 
 uses
-  eTasks.View.Teste,
   eTasks.View.PageLayout,
-  eTasks.View.About;
+  eTasks.View.Pages.About,
+  eTasks.View.Pages.EditTasks,
+  eTasks.View.Pages.EditGoals,
+  eTasks.View.Pages.EditShopping,
+  eTasks.View.Pages.EditNotes,
+  eTasks.View.Pages.EditFinances,
+  eTasks.View.Pages.EditReadings,
+  eTasks.View.Pages.PageSettings, eTasks.View.Pages.Rewards,
+  eTasks.View.Pages.EditProfile;
 
 { TNavigationManager }
 
@@ -85,9 +94,21 @@ begin
   Result := OpenPage(MainLayout, pageNotes, id);
 end;
 
+function TNavigationManager.GoToProfile(const MainLayout: iMainLayout;
+  id: string): iPageLayout;
+begin
+  Result := OpenPage(MainLayout, pageProfile, id);
+end;
+
 function TNavigationManager.GoToReadings(const MainLayout: iMainLayout; id: string): iPageLayout;
 begin
   Result := OpenPage(MainLayout, pageReadings, id);
+end;
+
+function TNavigationManager.GoToRewards(const MainLayout: iMainLayout;
+  id: string): iPageLayout;
+begin
+  Result := OpenPage(MainLayout, pageRewards, id);
 end;
 
 function TNavigationManager.GoToSettings(const MainLayout: iMainLayout; id: string): iPageLayout;
@@ -115,15 +136,16 @@ begin
    end;
 
   case Page of
-    //Realizar manutenção e substituir TPageLayout1 pela classe correta
-       pageTasks : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
-    pageShopping : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-       pageNotes : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageFinances : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageReadings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-       pageGoals : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-    pageSettings : pPage := TPageLayout1.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
-       pageAbout : pPage := TPageAbout.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithUpdateButton, id);
+       pageTasks : pPage := TPage_EditTasks.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+    pageShopping : pPage := TPage_EditShopping.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+       pageNotes : pPage := TPage_EditNotes.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+    pageFinances : pPage := TPage_EditFinances.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+    pageReadings : pPage := TPage_EditReadings.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfEditButtons, id);
+       pageGoals : pPage := TPage_EditGoals.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
+    pageSettings : pPage := TPage_Settings.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithConfirmButton, id);
+       pageAbout : pPage := TPage_About.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithUpdateButton, id);
+     pageProfile : pPage := TPage_Profile.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithConfirmButton, id);
+     pageRewards : pPage := TPage_Rewards.New(fScreensLayout, fUpdateScreenMethod, TLayoutForm.lfWithHelpButton, id);
   end;
 
   fUpdateScreenMethod;

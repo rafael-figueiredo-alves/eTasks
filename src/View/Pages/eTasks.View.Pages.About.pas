@@ -1,4 +1,4 @@
-unit eTasks.View.About;
+unit eTasks.View.Pages.About;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   FMX.Controls.Presentation;
 
 type
-  TPageAbout = class(TPageLayout)
+  TPage_About = class sealed(TPageLayout)
     Label1: TLabel;
     procedure FormCreate(Sender: TObject);
   private
@@ -20,7 +20,7 @@ type
   end;
 
 var
-  PageAbout1: TPageAbout;
+  Page_About: TPage_About;
 
 implementation
 
@@ -30,18 +30,18 @@ uses
 
 {$R *.fmx}
 
-procedure TPageAbout.FormCreate(Sender: TObject);
+procedure TPage_About.FormCreate(Sender: TObject);
 begin
   inherited;
   Self.OnUpdateButtonClick(Teste);
 end;
 
-procedure TPageAbout.Teste;
+procedure TPage_About.Teste;
 begin
   showmessage('Teste');
 end;
 
-procedure TPageAbout.TranslateUI;
+procedure TPage_About.TranslateUI;
 begin
   inherited;
   Self.SetTitle(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));

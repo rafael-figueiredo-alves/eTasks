@@ -69,7 +69,6 @@ type
   public
     { Public declarations }
     SelectedMainMenuItem : TMainMenuItems;
-    procedure OpenAboutPage;
   end;
 
 var
@@ -104,14 +103,14 @@ uses
 procedure TfMain.AvatarMenuItemClick(const item: TAvatarMenuItems);
 begin
   case item of
-    TAvatarMenuItems.EditProfile    : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.EditProfile    : NavigationManagerService.GoToProfile(self);
     TAvatarMenuItems.ChangePassword : DialogService.Warn('AVISO', 'Implementar');
     TAvatarMenuItems.Logout         : DialogService.Warn('AVISO', 'Implementar');
-    TAvatarMenuItems.Conquers       : DialogService.Warn('AVISO', 'Implementar');
-    TAvatarMenuItems.Settings       : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.Conquers       : NavigationManagerService.GoToRewards(self);
+    TAvatarMenuItems.Settings       : NavigationManagerService.GoToSettings(self);
     TAvatarMenuItems.ChangeTheme    : SetTheme(nil);
     TAvatarMenuItems.ChangeLanguage : LanguageMenu.OpenMenu;
-    TAvatarMenuItems.About          : OpenAboutPage; //DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.About          : NavigationManagerService.GoToAbout(self);
   end;
 end;
 
@@ -249,16 +248,6 @@ begin
   CurrentPage := value;
 end;
 {$EndRegion}
-
-procedure TfMain.OpenAboutPage;
-//var
-//  pPage: iPageLayout;
-begin
-//  pPage := Self.Page;
-  NavigationManagerService.GoToAbout(self);
-//  self.Page := pPage;
-//  self.ScreensLayoutChange;
-end;
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);
 begin

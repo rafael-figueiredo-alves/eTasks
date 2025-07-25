@@ -211,6 +211,14 @@ begin
         BtnExplica.Visible   := True;
         BtnAtualizar.Visible := False;
       end;
+
+    NavBarConfirmButton:
+     begin
+        BtnConfirma.Visible  := True;
+        BtnApagar.Visible    := False;
+        BtnExplica.Visible   := False;
+        BtnAtualizar.Visible := False;
+     end;
   end;
 end;
 

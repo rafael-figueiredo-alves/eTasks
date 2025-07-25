@@ -1,13 +1,13 @@
-inherited PageAbout: TPageAbout
+inherited Page_About: TPage_About
   Caption = 'PageLayout2'
   OnCreate = FormCreate
   DesignerMasterStyle = 0
   inherited PageViewLayout: TLayout
     inherited Background: TRectangle
-      object Label1: TLabel [0]
+      object Label1: TLabel
         Position.X = 152.000000000000000000
         Position.Y = 64.000000000000000000
-        Text = 'Label1'
+        Text = 'About'
         TabOrder = 1
       end
     end

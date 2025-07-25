@@ -4,8 +4,8 @@ interface
 
 type
 
-  TPages = (pageTasks, pageShopping, pageNotes, pageFinances, pageReadings, pageGoals, pageSettings, pageAbout);
-  TLayoutForm = (lfEditButtons, lfWithUpdateButton, lfWithHelpButton);
+  TPages = (pageTasks, pageShopping, pageNotes, pageFinances, pageReadings, pageGoals, pageSettings, pageAbout, pageProfile, pageRewards);
+  TLayoutForm = (lfEditButtons, lfWithUpdateButton, lfWithHelpButton, lfWithConfirmButton);
 
 implementation
 

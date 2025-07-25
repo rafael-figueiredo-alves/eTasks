@@ -45,7 +45,6 @@ uses
   eTasks.Components.ActionButton in 'src\Components\Buttons\eTasks.Components.ActionButton.pas' {ActionButton},
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
   eTasks.View.PageLayout in 'src\View\Layouts\eTasks.View.PageLayout.pas' {PageLayout},
-  eTasks.View.Teste in 'src\View\Pages\eTasks.View.Teste.pas' {PageLayout1},
   eTasks.View.NavigationManager in 'src\View\Services\eTasks.View.NavigationManager.pas',
   eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1},
   eTasks.Shared.Android.Utils in 'src\Shared\eTasks.Shared.Android.Utils.pas',
@@ -72,7 +71,16 @@ uses
   eTasks.Components.Accordion in 'src\Components\Containers\eTasks.Components.Accordion.pas' {Accordion: TFrame},
   eTasks.Shared.TranslateKeyConsts in 'src\Shared\eTasks.Shared.TranslateKeyConsts.pas',
   eTasks.Controller.Main in 'src\Controller\eTasks.Controller.Main.pas',
-  eTasks.View.About in 'src\View\Pages\eTasks.View.About.pas' {PageAbout1};
+  eTasks.View.Pages.About in 'src\View\Pages\eTasks.View.Pages.About.pas' {PageAbout1},
+  eTasks.View.Pages.EditTasks in 'src\View\Pages\eTasks.View.Pages.EditTasks.pas' {Page_EditTasks},
+  eTasks.View.Pages.EditGoals in 'src\View\Pages\eTasks.View.Pages.EditGoals.pas' {Page_EditGoals},
+  eTasks.View.Pages.EditShopping in 'src\View\Pages\eTasks.View.Pages.EditShopping.pas' {Page_EditShopping},
+  eTasks.View.Pages.EditNotes in 'src\View\Pages\eTasks.View.Pages.EditNotes.pas' {Page_EditNotes},
+  eTasks.View.Pages.EditFinances in 'src\View\Pages\eTasks.View.Pages.EditFinances.pas' {Page_EditFinances},
+  eTasks.View.Pages.EditReadings in 'src\View\Pages\eTasks.View.Pages.EditReadings.pas' {Page_EditReadings},
+  eTasks.View.Pages.PageSettings in 'src\View\Pages\eTasks.View.Pages.PageSettings.pas' {Page_Settings},
+  eTasks.View.Pages.Rewards in 'src\View\Pages\eTasks.View.Pages.Rewards.pas' {Page_Rewards},
+  eTasks.View.Pages.EditProfile in 'src\View\Pages\eTasks.View.Pages.EditProfile.pas' {Page_Profile};
 
 {$R *.res}
 
@@ -99,6 +107,14 @@ begin
   {$ENDREGION}
 
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TPageAbout, PageAbout1);
+  Application.CreateForm(TPage_EditTasks, Page_EditTasks);
+  Application.CreateForm(TPage_EditGoals, Page_EditGoals);
+  Application.CreateForm(TPage_EditShopping, Page_EditShopping);
+  Application.CreateForm(TPage_EditNotes, Page_EditNotes);
+  Application.CreateForm(TPage_EditFinances, Page_EditFinances);
+  Application.CreateForm(TPage_EditReadings, Page_EditReadings);
+  Application.CreateForm(TPage_Settings, Page_Settings);
+  Application.CreateForm(TPage_Rewards, Page_Rewards);
+  Application.CreateForm(TPage_Profile, Page_Profile);
   Application.Run;
 end.

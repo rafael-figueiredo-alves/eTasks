@@ -27,15 +27,15 @@ object fMain: TfMain
       TabOrder = 0
       object ListsLayout: TLayout
         Align = Client
-        Size.Width = 464.000000000000000000
+        Size.Width = 384.000000000000000000
         Size.Height = 480.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
       end
       object ScreensLayout: TLayout
         Align = Right
-        Position.X = 464.000000000000000000
-        Size.Width = 396.000000000000000000
+        Position.X = 384.000000000000000000
+        Size.Width = 476.000000000000000000
         Size.Height = 480.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
