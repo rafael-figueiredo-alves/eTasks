@@ -41,7 +41,7 @@ type
     fOnDeleteButton  : TEventCallback;
     fOnConfirmButton : TEventCallback;
     fOnUpdateButton  : TEventCallback;
-    procedure GoBack(Sender: TObject);
+    //procedure GoBack(Sender: TObject);
     procedure UpdateClick(sender: TObject);
     procedure ConfirmClick(sender: TObject);
     procedure HelpClick(sender: TObject);
@@ -61,6 +61,7 @@ type
     function OnDeleteButtonClick(const value: TEventCallback):iPageLayout;
     function OnConfirmButtonClick(const value: TEventCallback):iPageLayout;
     function OnUpdateButtonClick(const value: TEventCallback):iPageLayout;
+    procedure GoBack(Sender: TObject);
 
     class function New(const pLayout: TLayout; pUpdateScreenMethod: TUpdateScreenMethod; LayoutForm: TLayoutForm; EntityID: string = string.Empty) : iPageLayout;
     destructor Destroy; override;

@@ -8,7 +8,7 @@ uses
   FMX.Controls.Presentation;
 
 type
-  TPage_About = class sealed(TPageLayout)
+  TPage_About = class(TPageLayout)
     Label1: TLabel;
     procedure FormCreate(Sender: TObject);
   private
@@ -38,7 +38,7 @@ end;
 
 procedure TPage_About.Teste;
 begin
-  showmessage('Teste');
+  Self.GoBack(nil);
 end;
 
 procedure TPage_About.TranslateUI;

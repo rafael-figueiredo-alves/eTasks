@@ -115,7 +115,12 @@ begin
 end;
 
 procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
+var
+ i : Integer;
 begin
+  for I := 0 to ScreensLayout.ChildrenCount - 1 do
+   ScreensLayout.RemoveObject(i);
+
   SelectedMainMenuItem := item;
   SetMainMenuItemTitle(SelectedMainMenuItem);
 

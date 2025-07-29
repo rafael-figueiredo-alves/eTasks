@@ -8,7 +8,7 @@ uses
   eTasks.View.PageLayout, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation;
 
 type
-  TPage_EditReadings = class sealed(TPageLayout)
+  TPage_EditReadings = class(TPageLayout)
     Label1: TLabel;
   private
     { Private declarations }

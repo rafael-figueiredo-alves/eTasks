@@ -39,6 +39,17 @@ type
     function UnsubscribeMethod(const id: string) : iLanguageService;
   end;
 
+  iResourceManager = interface
+    ['{24985934-6806-4EAA-890D-32F2E68B678C}']
+    procedure OpenHomePage;
+    procedure OpenTasks;
+    procedure OpenGoals;
+    procedure OpenReadings;
+    procedure OpenNotes;
+    procedure OpenFinances;
+    procedure OpenShopping;
+  end;
+
 
 implementation
 

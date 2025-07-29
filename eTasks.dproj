@@ -363,6 +363,7 @@
             <Form>Page_Profile</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\View\Services\eTasks.View.ResourceManagerService.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

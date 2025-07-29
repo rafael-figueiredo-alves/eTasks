@@ -80,7 +80,8 @@ uses
   eTasks.View.Pages.EditReadings in 'src\View\Pages\eTasks.View.Pages.EditReadings.pas' {Page_EditReadings},
   eTasks.View.Pages.PageSettings in 'src\View\Pages\eTasks.View.Pages.PageSettings.pas' {Page_Settings},
   eTasks.View.Pages.Rewards in 'src\View\Pages\eTasks.View.Pages.Rewards.pas' {Page_Rewards},
-  eTasks.View.Pages.EditProfile in 'src\View\Pages\eTasks.View.Pages.EditProfile.pas' {Page_Profile};
+  eTasks.View.Pages.EditProfile in 'src\View\Pages\eTasks.View.Pages.EditProfile.pas' {Page_Profile},
+  eTasks.View.ResourceManagerService in 'src\View\Services\eTasks.View.ResourceManagerService.pas';
 
 {$R *.res}
 
