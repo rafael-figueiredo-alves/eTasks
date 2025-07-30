@@ -44,7 +44,7 @@ type
     LanguageMenu             : iLanguageMenu;
     ActionButton             : iActionButton;
     NavigationManagerService : iNavigationManagerService;
-    Menu1                    : TMenu1;
+    ResourceManager          : iResourceManager;
     CurrentPage              : iPageLayout;
     {$endregion}
     procedure SetTheme(sender : TObject);
@@ -56,6 +56,7 @@ type
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
     procedure MostrarMensagem(sender: TObject);
     procedure OnLanguageChanged(const Lang: string);
+    procedure CleanLayouts;
 
     {$region 'Métodos Base'}
     procedure RestrictScreenSize;
@@ -94,7 +95,7 @@ uses
   eTasks.Components.DialogService,
   System.SysUtils,
   eTasks.Shared.TranslateKeyConsts,
-  LocalStorage4Pascal;
+  LocalStorage4Pascal, eTasks.View.ResourceManagerService;
 {$endregion}
 
 {$R *.fmx}
@@ -115,11 +116,8 @@ begin
 end;
 
 procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
-var
- i : Integer;
 begin
-  for I := 0 to ScreensLayout.ChildrenCount - 1 do
-   ScreensLayout.RemoveObject(i);
+  CleanLayouts;
 
   SelectedMainMenuItem := item;
   SetMainMenuItemTitle(SelectedMainMenuItem);
@@ -127,35 +125,50 @@ begin
   case item of
     TMainMenuItems.Home :
       begin
-
+        ResourceManager.OpenHomePage;
       end;
     TMainMenuItems.Tasks:
       begin
-
+        ResourceManager.OpenTasks;
       end;
     TMainMenuItems.Goals:
       begin
-
+        ResourceManager.OpenGoals;
       end;
     TMainMenuItems.Shopping:
       begin
-
+        ResourceManager.OpenShopping;
       end;
     TMainMenuItems.Readings:
       begin
-
+        ResourceManager.OpenReadings;
       end;
     TMainMenuItems.Notes:
       begin
-
+        ResourceManager.OpenNotes;
       end;
     TMainMenuItems.Finance:
       begin
-        
+        ResourceManager.OpenFinances;
       end;
   end;
 end;
 {$endregion}
+
+procedure TfMain.CleanLayouts;
+var
+ Item : Integer;
+begin
+  for Item := 0 to ScreensLayout.ChildrenCount - 1 do
+   begin
+    ScreensLayout.RemoveObject(Item);
+   end;
+
+  for Item := 0 to ListsLayout.ChildrenCount - 1 do
+   ListsLayout.RemoveObject(Item);
+
+  ScreensLayoutChange;
+end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
@@ -178,7 +191,7 @@ begin
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
   ThemeService.ApplyTheme;
 
-  Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
+  ResourceManager := TResourceManagerService.New(NavigationManagerService, self, ListsLayout, ScreensLayout); //Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
 
   LanguageService.SubscribeMethod('MainForm', TranslateUI);
 
@@ -187,6 +200,8 @@ begin
   TModalDlg.ModalDialogs(fMain);
 
   SelectedMainMenuItem := TMainMenuItems.Home;
+
+  ResourceManager.OpenHomePage;
 
   TranslateUI;
 end;

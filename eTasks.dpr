@@ -81,7 +81,21 @@ uses
   eTasks.View.Pages.PageSettings in 'src\View\Pages\eTasks.View.Pages.PageSettings.pas' {Page_Settings},
   eTasks.View.Pages.Rewards in 'src\View\Pages\eTasks.View.Pages.Rewards.pas' {Page_Rewards},
   eTasks.View.Pages.EditProfile in 'src\View\Pages\eTasks.View.Pages.EditProfile.pas' {Page_Profile},
-  eTasks.View.ResourceManagerService in 'src\View\Services\eTasks.View.ResourceManagerService.pas';
+  eTasks.View.ResourceManagerService in 'src\View\Services\eTasks.View.ResourceManagerService.pas',
+  eTasks.View.Pages.ListTasks in 'src\View\Pages\AppLists\eTasks.View.Pages.ListTasks.pas' {ListTask},
+  eTasks.View.Pages.Tasks in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Tasks.pas' {ResourceTasks},
+  eTasks.View.Pages.ListGoals in 'src\View\Pages\AppLists\eTasks.View.Pages.ListGoals.pas' {ListGoals},
+  eTasks.View.Pages.Goals in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Goals.pas' {ResourceGoals},
+  eTasks.View.Pages.ListShopping in 'src\View\Pages\AppLists\eTasks.View.Pages.ListShopping.pas' {ListShopping},
+  eTasks.View.Pages.Shopping in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Shopping.pas' {ResourceShopping},
+  eTasks.View.Pages.ListReadings in 'src\View\Pages\AppLists\eTasks.View.Pages.ListReadings.pas' {ListReadings},
+  eTasks.View.Pages.Readings in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Readings.pas' {ResourceReadings},
+  eTasks.View.Pages.ListNotes in 'src\View\Pages\AppLists\eTasks.View.Pages.ListNotes.pas' {ListNotes},
+  eTasks.View.Pages.Notes in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Notes.pas' {ResourceNotes},
+  eTasks.View.Pages.ListFinances in 'src\View\Pages\AppLists\eTasks.View.Pages.ListFinances.pas' {ListFinances},
+  eTasks.View.Pages.Finance in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Finance.pas' {ResourceFinances},
+  eTasks.View.Pages.ListHome in 'src\View\Pages\AppLists\eTasks.View.Pages.ListHome.pas' {ListHome},
+  eTasks.View.Pages.Homepage in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Homepage.pas' {ResourceHome};
 
 {$R *.res}
 
@@ -117,5 +131,19 @@ begin
   Application.CreateForm(TPage_Settings, Page_Settings);
   Application.CreateForm(TPage_Rewards, Page_Rewards);
   Application.CreateForm(TPage_Profile, Page_Profile);
+  Application.CreateForm(TListTask, ListTask);
+  Application.CreateForm(TResourceTasks, ResourceTasks);
+  Application.CreateForm(TListGoals, ListGoals);
+  Application.CreateForm(TResourceGoals, ResourceGoals);
+  Application.CreateForm(TListShopping, ListShopping);
+  Application.CreateForm(TResourceShopping, ResourceShopping);
+  Application.CreateForm(TListReadings, ListReadings);
+  Application.CreateForm(TResourceReadings, ResourceReadings);
+  Application.CreateForm(TListNotes, ListNotes);
+  Application.CreateForm(TResourceNotes, ResourceNotes);
+  Application.CreateForm(TListFinances, ListFinances);
+  Application.CreateForm(TResourceFinances, ResourceFinances);
+  Application.CreateForm(TListHome, ListHome);
+  Application.CreateForm(TResourceHome, ResourceHome);
   Application.Run;
 end.

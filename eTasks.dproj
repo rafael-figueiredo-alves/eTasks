@@ -364,6 +364,62 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Services\eTasks.View.ResourceManagerService.pas"/>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListTasks.pas">
+            <Form>ListTask</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Tasks.pas">
+            <Form>ResourceTasks</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListGoals.pas">
+            <Form>ListGoals</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Goals.pas">
+            <Form>ResourceGoals</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListShopping.pas">
+            <Form>ListShopping</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Shopping.pas">
+            <Form>ResourceShopping</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListReadings.pas">
+            <Form>ListReadings</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Readings.pas">
+            <Form>ResourceReadings</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListNotes.pas">
+            <Form>ListNotes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Notes.pas">
+            <Form>ResourceNotes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListFinances.pas">
+            <Form>ListFinances</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Finance.pas">
+            <Form>ResourceFinances</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.ListHome.pas">
+            <Form>ListHome</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.Homepage.pas">
+            <Form>ResourceHome</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
