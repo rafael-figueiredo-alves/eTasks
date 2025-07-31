@@ -19,6 +19,7 @@ type
     function OnHelpButtonClick(const value: TEventCallback):iPageLayout;
     function OnDeleteButtonClick(const value: TEventCallback):iPageLayout;
     function OnConfirmButtonClick(const value: TEventCallback):iPageLayout;
+    procedure GoBack(Sender: TObject);
   end;
 
   iMainLayout = interface

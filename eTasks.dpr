@@ -95,7 +95,8 @@ uses
   eTasks.View.Pages.ListFinances in 'src\View\Pages\AppLists\eTasks.View.Pages.ListFinances.pas' {ListFinances},
   eTasks.View.Pages.Finance in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Finance.pas' {ResourceFinances},
   eTasks.View.Pages.ListHome in 'src\View\Pages\AppLists\eTasks.View.Pages.ListHome.pas' {ListHome},
-  eTasks.View.Pages.Homepage in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Homepage.pas' {ResourceHome};
+  eTasks.View.Pages.Homepage in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Homepage.pas' {ResourceHome},
+  eTasks.View.FormModels in 'src\View\Utils\eTasks.View.FormModels.pas';
 
 {$R *.res}
 

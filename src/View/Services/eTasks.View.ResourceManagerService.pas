@@ -15,6 +15,8 @@ type
       fMainLayout        : iMainLayout;
       fLayoutList        : TLayout;
       fLayoutScreen      : TLayout;
+
+      procedure RemovePageViewLayout;
     public
       procedure OpenHomePage;
       procedure OpenTasks;
@@ -38,7 +40,7 @@ uses
   eTasks.View.Pages.ListReadings, eTasks.View.Pages.Readings,
   eTasks.View.Pages.ListNotes, eTasks.View.Pages.Notes,
   eTasks.View.Pages.ListFinances, eTasks.View.Pages.Finance,
-  eTasks.View.Pages.ListHome, eTasks.View.Pages.Homepage;
+  eTasks.View.Pages.ListHome, eTasks.View.Pages.Homepage, System.SysUtils;
 
 { TResourceManagerService }
 
@@ -63,6 +65,8 @@ end;
 
 procedure TResourceManagerService.OpenFinances;
 begin
+  RemovePageViewLayout;
+
   ListFinances := TListFinances.Create(fLayoutList);
   ListFinances.NavManagerService := fNavManagerService;
   ListFinances.MainLayout := fMainLayout;
@@ -74,6 +78,8 @@ end;
 
 procedure TResourceManagerService.OpenGoals;
 begin
+  RemovePageViewLayout;
+
   ListGoals := TListGoals.Create(fLayoutList);
   ListGoals.NavManagerService := fNavManagerService;
   ListGoals.MainLayout := fMainLayout;
@@ -85,6 +91,8 @@ end;
 
 procedure TResourceManagerService.OpenHomePage;
 begin
+  RemovePageViewLayout;
+
   ListHome := TListHome.Create(fLayoutList);
   ListHome.NavManagerService := fNavManagerService;
   ListHome.MainLayout := fMainLayout;
@@ -96,6 +104,8 @@ end;
 
 procedure TResourceManagerService.OpenNotes;
 begin
+  RemovePageViewLayout;
+
   ListNotes := TListNotes.Create(fLayoutList);
   ListNotes.NavManagerService := fNavManagerService;
   ListNotes.MainLayout := fMainLayout;
@@ -107,6 +117,8 @@ end;
 
 procedure TResourceManagerService.OpenReadings;
 begin
+  RemovePageViewLayout;
+
   ListReadings := TListReadings.Create(fLayoutList);
   ListReadings.NavManagerService := fNavManagerService;
   ListReadings.MainLayout := fMainLayout;
@@ -118,6 +130,8 @@ end;
 
 procedure TResourceManagerService.OpenShopping;
 begin
+  RemovePageViewLayout;
+
   ListShopping := TListShopping.Create(fLayoutList);
   ListShopping.NavManagerService := fNavManagerService;
   ListShopping.MainLayout := fMainLayout;
@@ -129,6 +143,8 @@ end;
 
 procedure TResourceManagerService.OpenTasks;
 begin
+  RemovePageViewLayout;
+
   ListTask := TListTask.Create(fLayoutList);
   ListTask.NavManagerService := fNavManagerService;
   ListTask.MainLayout := fMainLayout;
@@ -136,6 +152,21 @@ begin
 
   ResourceTasks := TResourceTasks.Create(fLayoutScreen);
   fLayoutScreen.AddObject(ResourceTasks.LayResource);
+end;
+
+procedure TResourceManagerService.RemovePageViewLayout;
+var
+ item       : integer;
+ PageLayout : iPageLayout;
+begin
+  if Assigned(fMainLayout)then
+   for item := 0 to fLayoutScreen.ComponentCount - 1 do
+    try
+     if(Supports(fLayoutScreen.Components[item], iPageLayout, PageLayout))then
+      PageLayout.GoBack(nil);
+    finally
+
+    end;
 end;
 
 end.

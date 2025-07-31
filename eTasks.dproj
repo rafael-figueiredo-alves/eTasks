@@ -420,6 +420,7 @@
             <Form>ResourceHome</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\View\Utils\eTasks.View.FormModels.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
