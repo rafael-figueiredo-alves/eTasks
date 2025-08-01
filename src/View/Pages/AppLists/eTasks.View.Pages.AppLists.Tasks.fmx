@@ -1,0 +1,20 @@
+inherited AppListTasks: TAppListTasks
+  Caption = 'AppListBase1'
+  DesignerMasterStyle = 0
+  inherited ContainerLista: TLayout
+    object Label1: TLabel
+      Position.X = 168.000000000000000000
+      Position.Y = 168.000000000000000000
+      Text = 'Lista de Tarefas'
+      TabOrder = 0
+    end
+    object Button1: TButton
+      Position.X = 152.000000000000000000
+      Position.Y = 96.000000000000000000
+      TabOrder = 1
+      Text = 'Button1'
+      TextSettings.Trimming = None
+      OnClick = Button1Click
+    end
+  end
+end

@@ -82,21 +82,23 @@ uses
   eTasks.View.Pages.Rewards in 'src\View\Pages\eTasks.View.Pages.Rewards.pas' {Page_Rewards},
   eTasks.View.Pages.EditProfile in 'src\View\Pages\eTasks.View.Pages.EditProfile.pas' {Page_Profile},
   eTasks.View.ResourceManagerService in 'src\View\Services\eTasks.View.ResourceManagerService.pas',
-  eTasks.View.Pages.ListTasks in 'src\View\Pages\AppLists\eTasks.View.Pages.ListTasks.pas' {ListTask},
-  eTasks.View.Pages.Tasks in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Tasks.pas' {ResourceTasks},
-  eTasks.View.Pages.ListGoals in 'src\View\Pages\AppLists\eTasks.View.Pages.ListGoals.pas' {ListGoals},
-  eTasks.View.Pages.Goals in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Goals.pas' {ResourceGoals},
-  eTasks.View.Pages.ListShopping in 'src\View\Pages\AppLists\eTasks.View.Pages.ListShopping.pas' {ListShopping},
-  eTasks.View.Pages.Shopping in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Shopping.pas' {ResourceShopping},
-  eTasks.View.Pages.ListReadings in 'src\View\Pages\AppLists\eTasks.View.Pages.ListReadings.pas' {ListReadings},
-  eTasks.View.Pages.Readings in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Readings.pas' {ResourceReadings},
-  eTasks.View.Pages.ListNotes in 'src\View\Pages\AppLists\eTasks.View.Pages.ListNotes.pas' {ListNotes},
-  eTasks.View.Pages.Notes in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Notes.pas' {ResourceNotes},
-  eTasks.View.Pages.ListFinances in 'src\View\Pages\AppLists\eTasks.View.Pages.ListFinances.pas' {ListFinances},
-  eTasks.View.Pages.Finance in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Finance.pas' {ResourceFinances},
-  eTasks.View.Pages.ListHome in 'src\View\Pages\AppLists\eTasks.View.Pages.ListHome.pas' {ListHome},
-  eTasks.View.Pages.Homepage in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.Homepage.pas' {ResourceHome},
-  eTasks.View.FormModels in 'src\View\Utils\eTasks.View.FormModels.pas';
+  eTasks.View.FormModels in 'src\View\Utils\eTasks.View.FormModels.pas',
+  eTasks.View.AppListBase in 'src\View\Layouts\eTasks.View.AppListBase.pas' {AppListBase},
+  eTasks.View.ResourceBase in 'src\View\Layouts\eTasks.View.ResourceBase.pas' {ResourceBase},
+  eTasks.View.Pages.AppLists.Tasks in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Tasks.pas' {AppListTasks},
+  eTasks.View.Pages.ResourceScreens.Tasks in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Tasks.pas' {ResourceTasks},
+  eTasks.View.Pages.AppLists.Home in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Home.pas' {AppListHome},
+  eTasks.View.Pages.AppLists.Shopping in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Shopping.pas' {AppListShopping},
+  eTasks.View.Pages.AppLists.Goals in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Goals.pas' {AppListGoals},
+  eTasks.View.Pages.AppLists.Readings in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Readings.pas' {AppListReadings},
+  eTasks.View.Pages.AppLists.Notes in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Notes.pas' {AppListNotes},
+  eTasks.View.Pages.AppLists.Finances in 'src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Finances.pas' {AppListFinances},
+  eTasks.View.Pages.ResourceScreens.Goals in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Goals.pas' {ResourceGoals},
+  eTasks.View.Pages.ResourceScreens.Finances in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Finances.pas' {ResourceFinances},
+  eTasks.View.Pages.ResourceScreens.Readings in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Readings.pas' {ResourceReadings},
+  eTasks.View.Pages.ResourceScreens.Shopping in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Shopping.pas' {ResourceShopping},
+  eTasks.View.Pages.ResourceScreens.Notes in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Notes.pas' {ResourceNotes},
+  eTasks.View.Pages.ResourceScreens.Home in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Home.pas' {ResourceHome};
 
 {$R *.res}
 
@@ -123,28 +125,5 @@ begin
   {$ENDREGION}
 
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TPage_EditTasks, Page_EditTasks);
-  Application.CreateForm(TPage_EditGoals, Page_EditGoals);
-  Application.CreateForm(TPage_EditShopping, Page_EditShopping);
-  Application.CreateForm(TPage_EditNotes, Page_EditNotes);
-  Application.CreateForm(TPage_EditFinances, Page_EditFinances);
-  Application.CreateForm(TPage_EditReadings, Page_EditReadings);
-  Application.CreateForm(TPage_Settings, Page_Settings);
-  Application.CreateForm(TPage_Rewards, Page_Rewards);
-  Application.CreateForm(TPage_Profile, Page_Profile);
-  Application.CreateForm(TListTask, ListTask);
-  Application.CreateForm(TResourceTasks, ResourceTasks);
-  Application.CreateForm(TListGoals, ListGoals);
-  Application.CreateForm(TResourceGoals, ResourceGoals);
-  Application.CreateForm(TListShopping, ListShopping);
-  Application.CreateForm(TResourceShopping, ResourceShopping);
-  Application.CreateForm(TListReadings, ListReadings);
-  Application.CreateForm(TResourceReadings, ResourceReadings);
-  Application.CreateForm(TListNotes, ListNotes);
-  Application.CreateForm(TResourceNotes, ResourceNotes);
-  Application.CreateForm(TListFinances, ListFinances);
-  Application.CreateForm(TResourceFinances, ResourceFinances);
-  Application.CreateForm(TListHome, ListHome);
-  Application.CreateForm(TResourceHome, ResourceHome);
   Application.Run;
 end.

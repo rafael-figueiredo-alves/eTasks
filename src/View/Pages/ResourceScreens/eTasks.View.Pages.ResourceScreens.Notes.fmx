@@ -1,0 +1,12 @@
+inherited ResourceNotes: TResourceNotes
+  Caption = 'ResourceBase1'
+  DesignerMasterStyle = 0
+  inherited ContainerResource: TLayout
+    object Label1: TLabel
+      Position.X = 152.000000000000000000
+      Position.Y = 176.000000000000000000
+      Text = 'Anota'#231#245'es'
+      TabOrder = 0
+    end
+  end
+end

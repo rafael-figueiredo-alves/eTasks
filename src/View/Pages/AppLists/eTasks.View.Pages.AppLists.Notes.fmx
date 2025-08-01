@@ -1,0 +1,12 @@
+inherited AppListNotes: TAppListNotes
+  Caption = 'AppListBase1'
+  DesignerMasterStyle = 0
+  inherited ContainerLista: TLayout
+    object Label1: TLabel
+      Position.X = 168.000000000000000000
+      Position.Y = 168.000000000000000000
+      Text = 'Lista de Anota'#231#245'es'
+      TabOrder = 0
+    end
+  end
+end
