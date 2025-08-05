@@ -35,16 +35,21 @@ type
 implementation
 
 uses
-  System.SysUtils, eTasks.View.Pages.AppLists.Tasks,
-  eTasks.View.Pages.ResourceScreens.Tasks, eTasks.View.Pages.AppLists.Shopping,
+  System.SysUtils,
+  eTasks.View.Pages.AppLists.Tasks,
+  eTasks.View.Pages.ResourceScreens.Tasks,
+  eTasks.View.Pages.AppLists.Shopping,
   eTasks.View.Pages.ResourceScreens.Shopping,
   eTasks.View.Pages.ResourceScreens.Readings,
-  eTasks.View.Pages.AppLists.Readings, eTasks.View.Pages.AppLists.Notes,
-  eTasks.View.Pages.ResourceScreens.Notes, eTasks.View.Pages.AppLists.Home,
+  eTasks.View.Pages.AppLists.Readings,
+  eTasks.View.Pages.AppLists.Notes,
+  eTasks.View.Pages.ResourceScreens.Notes,
+  eTasks.View.Pages.AppLists.Home,
   eTasks.View.Pages.ResourceScreens.Home,
-  eTasks.View.Pages.ResourceScreens.Goals, eTasks.View.Pages.AppLists.Goals,
+  eTasks.View.Pages.ResourceScreens.Goals,
+  eTasks.View.Pages.AppLists.Goals,
   eTasks.View.Pages.ResourceScreens.Finances,
-  eTasks.View.Pages.AppLists.Finances;
+  eTasks.View.Pages.AppLists.Finances, eTasks.View.ThemeService;
 
 { TResourceManagerService }
 
@@ -99,6 +104,7 @@ begin
   fLayoutList.AddObject(Lista.SetMainLayout(fMainLayout).SetNavManagerService(fNavManagerService).ReturnLayout);
 
   fLayoutScreen.AddObject(Resource.ReturnLayout);
+  ThemeService.SubscribeInterface([Lista, Resource]);
 end;
 
 procedure TResourceManagerService.OpenShopping;

@@ -15,6 +15,8 @@ type
   public
     { Public declarations }
     function ReturnLayout: TLayout;
+    function isDarkMode(const Value: boolean): iResource; virtual;
+    function TranslateUI: iResource; virtual;
   end;
 
 var
@@ -26,9 +28,19 @@ implementation
 
 { TResourceBase }
 
+function TResourceBase.isDarkMode(const Value: boolean) : iResource;
+begin
+
+end;
+
 function TResourceBase.ReturnLayout: TLayout;
 begin
   Result := self.ContainerResource;
+end;
+
+function TResourceBase.TranslateUI : iResource;
+begin
+
 end;
 
 end.

@@ -12,7 +12,6 @@ uses
   FMX.Layouts,
   eTasks.Components.Interfaces,
   eTasks.View.Layouts.Interfaces,
-  eTasks.View.Menu1,
   eTasks.View.Services.Interfaces,
   FMX.Controls.Presentation,
   FMX.StdCtrls,
@@ -191,7 +190,7 @@ begin
   ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
   ThemeService.ApplyTheme;
 
-  ResourceManager := TResourceManagerService.New(NavigationManagerService, self, ListsLayout, ScreensLayout); //Menu1 := tMenu1.New(NavigationManagerService, self, ListsLayout);
+  ResourceManager := TResourceManagerService.New(NavigationManagerService, self, ListsLayout, ScreensLayout);
 
   LanguageService.SubscribeMethod('MainForm', TranslateUI);
 

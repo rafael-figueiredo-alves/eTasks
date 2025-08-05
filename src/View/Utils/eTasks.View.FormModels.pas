@@ -14,12 +14,16 @@ type
   ['{A7932859-BBBB-41E9-AF1F-DC703743520A}']
     function SetMainLayout(const Value: iMainLayout): iAppList;
     function SetNavManagerService(const Value: iNavigationManagerService): iAppList;
+    function isDarkMode(const Value: boolean): iAppList;
+    function TranslateUI: iAppList;
     function ReturnLayout: TLayout;
   end;
 
   iResource = interface
   ['{D0B06348-BD46-4FBD-9293-C1940BC99CDC}']
     function ReturnLayout: TLayout;
+    function isDarkMode(const Value: boolean): iResource;
+    function TranslateUI : iResource;
   end;
 
 implementation

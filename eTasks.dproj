@@ -280,9 +280,6 @@
             <Form>PageLayout</Form>
         </DCCReference>
         <DCCReference Include="src\View\Services\eTasks.View.NavigationManager.pas"/>
-        <DCCReference Include="src\View\eTasks.View.Menu1.pas">
-            <Form>Menu1</Form>
-        </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.Android.Utils.pas"/>
         <DCCReference Include="src\View\Utils\eTasks.View.Enums.pas"/>
         <DCCReference Include="src\View\Utils\eTasks.View.Types.pas"/>

@@ -46,7 +46,6 @@ uses
   eTasks.Components.NavBar in 'src\Components\Bars\eTasks.Components.NavBar.pas' {NavBar},
   eTasks.View.PageLayout in 'src\View\Layouts\eTasks.View.PageLayout.pas' {PageLayout},
   eTasks.View.NavigationManager in 'src\View\Services\eTasks.View.NavigationManager.pas',
-  eTasks.View.Menu1 in 'src\View\eTasks.View.Menu1.pas' {Menu1},
   eTasks.Shared.Android.Utils in 'src\Shared\eTasks.Shared.Android.Utils.pas',
   eTasks.View.Enums in 'src\View\Utils\eTasks.View.Enums.pas',
   eTasks.View.Types in 'src\View\Utils\eTasks.View.Types.pas',

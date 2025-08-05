@@ -21,6 +21,8 @@ type
     function SetMainLayout(const Value: iMainLayout): iAppList;
     function SetNavManagerService(const Value: iNavigationManagerService): iAppList;
     function ReturnLayout: TLayout;
+    function isDarkMode(const Value: boolean) : iAppList;
+    function TranslateUI : iAppList;
   end;
 
 var
@@ -31,6 +33,11 @@ implementation
 {$R *.fmx}
 
 { TAppListBase }
+
+function TAppListBase.isDarkMode(const Value: boolean) : iAppList;
+begin
+
+end;
 
 function TAppListBase.ReturnLayout: TLayout;
 begin
@@ -48,6 +55,11 @@ function TAppListBase.SetNavManagerService(
 begin
   Result := self;
   NavManagerService := Value;
+end;
+
+function TAppListBase.TranslateUI : iAppList;
+begin
+
 end;
 
 end.

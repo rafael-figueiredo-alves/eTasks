@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  eTasks.View.ResourceBase, FMX.Layouts, FMX.Controls.Presentation;
+  eTasks.View.ResourceBase, FMX.Layouts, FMX.Controls.Presentation,
+  eTasks.View.FormModels;
 
 type
   TResourceTasks = class(TResourceBase)
@@ -15,6 +16,8 @@ type
   public
     { Public declarations }
     class function New(const Value: TLayout) : TResourceTasks;
+    function isDarkMode(const Value: Boolean) : iResource; reintroduce;
+    function TranslateUI : iResource; reintroduce;
   end;
 
 var
@@ -22,13 +25,28 @@ var
 
 implementation
 
+uses
+  eTasks.Components.ColorPallete;
+
 {$R *.fmx}
 
 { TResourceTasks }
 
+function TResourceTasks.isDarkMode(const Value: Boolean): iResource;
+begin
+  inherited;
+  Result := self;
+  self.Label1.FontColor := tColorPallete.GetColor(Primary, value);
+end;
+
 class function TResourceTasks.New(const Value: TLayout): TResourceTasks;
 begin
   Result := TResourceTasks.Create(Value);
+end;
+
+function TResourceTasks.TranslateUI: iResource;
+begin
+  inherited;
 end;
 
 end.
