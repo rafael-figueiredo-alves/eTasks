@@ -26,7 +26,7 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete;
+  eTasks.Components.ColorPallete, eTasks.View.ThemeService;
 
 {$R *.fmx}
 
@@ -42,6 +42,7 @@ end;
 class function TResourceTasks.New(const Value: TLayout): TResourceTasks;
 begin
   Result := TResourceTasks.Create(Value);
+  Result.isDarkMode(ThemeService.isDarkTheme);
 end;
 
 function TResourceTasks.TranslateUI: iResource;
