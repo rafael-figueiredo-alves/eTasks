@@ -26,7 +26,8 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete, eTasks.View.ThemeService;
+  eTasks.Components.ColorPallete,
+  eTasks.View.ThemeService;
 
 {$R *.fmx}
 

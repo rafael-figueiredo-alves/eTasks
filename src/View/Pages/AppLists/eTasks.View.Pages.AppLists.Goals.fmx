@@ -3,6 +3,7 @@ inherited AppListGoals: TAppListGoals
   DesignerMasterStyle = 0
   inherited ContainerLista: TLayout
     object Label1: TLabel
+      StyledSettings = [Family, Size, Style]
       Position.X = 168.000000000000000000
       Position.Y = 168.000000000000000000
       Text = 'Lista de Meta'

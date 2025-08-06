@@ -3,6 +3,7 @@ inherited ResourceFinances: TResourceFinances
   DesignerMasterStyle = 0
   inherited ContainerResource: TLayout
     object Label1: TLabel
+      StyledSettings = [Family, Size, Style]
       Position.X = 152.000000000000000000
       Position.Y = 176.000000000000000000
       Text = 'Finan'#231'as'
