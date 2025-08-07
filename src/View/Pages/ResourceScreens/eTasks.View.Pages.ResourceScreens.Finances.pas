@@ -11,6 +11,8 @@ uses
 type
   TResourceFinances = class(TResourceBase)
     Label1: TLabel;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +33,12 @@ uses
 {$R *.fmx}
 
 { TResourceFinances }
+
+procedure TResourceFinances.Button1Click(Sender: TObject);
+begin
+  inherited;
+  ResourceManager.OpenHomePage;
+end;
 
 function TResourceFinances.isDarkMode(const Value: Boolean): iResource;
 begin

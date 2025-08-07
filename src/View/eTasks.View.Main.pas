@@ -55,7 +55,6 @@ type
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
     procedure MostrarMensagem(sender: TObject);
     procedure OnLanguageChanged(const Lang: string);
-    procedure CleanLayouts;
 
     {$region 'Métodos Base'}
     procedure RestrictScreenSize;
@@ -65,6 +64,7 @@ type
     procedure SetPage(value: iPageLayout);
     property Page: iPageLayout read GetPage write SetPage;
     function FormWidth: Integer;
+    procedure SetSelectedPage(const Page: TMainMenuItems);
     {$endregion}
   public
     { Public declarations }
@@ -116,11 +116,6 @@ end;
 
 procedure TfMain.MainMenuItemClick(const item: TMainMenuItems);
 begin
-  CleanLayouts;
-
-  SelectedMainMenuItem := item;
-  SetMainMenuItemTitle(SelectedMainMenuItem);
-
   case item of
     TMainMenuItems.Home :
       begin
@@ -153,21 +148,6 @@ begin
   end;
 end;
 {$endregion}
-
-procedure TfMain.CleanLayouts;
-var
- Item : Integer;
-begin
-  for Item := 0 to ScreensLayout.ChildrenCount - 1 do
-   begin
-    ScreensLayout.RemoveObject(Item);
-   end;
-
-  for Item := 0 to ListsLayout.ChildrenCount - 1 do
-   ListsLayout.RemoveObject(Item);
-
-  ScreensLayoutChange;
-end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
@@ -266,6 +246,14 @@ procedure TfMain.SetPage(value: iPageLayout);
 begin
   CurrentPage := value;
 end;
+
+procedure TfMain.SetSelectedPage(const Page: TMainMenuItems);
+begin
+  SelectedMainMenuItem := Page;
+  SetMainMenuItemTitle(SelectedMainMenuItem);
+  MainMenu.Selected(Page);
+end;
+
 {$EndRegion}
 
 procedure TfMain.OpenAvatarMenu(sender: TObject);

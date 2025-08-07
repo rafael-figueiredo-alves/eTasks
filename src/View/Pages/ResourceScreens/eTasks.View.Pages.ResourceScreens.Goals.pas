@@ -11,6 +11,7 @@ uses
 type
   TResourceGoals = class(TResourceBase)
     Label1: TLabel;
+    Button1: TButton;
   private
     { Private declarations }
   public

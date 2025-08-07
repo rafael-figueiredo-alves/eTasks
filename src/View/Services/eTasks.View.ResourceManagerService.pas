@@ -5,7 +5,7 @@ interface
 uses
   eTasks.View.Services.Interfaces,
   eTasks.View.Layouts.Interfaces,
-  FMX.Layouts, eTasks.View.FormModels;
+  FMX.Layouts, eTasks.View.FormModels, eTasks.Components.MenuEnums;
 
 type
 
@@ -17,7 +17,8 @@ type
       fLayoutScreen      : TLayout;
 
       procedure RemovePageViewLayout;
-      procedure OpenResource(const Lista: iAppList; Resource: iResource);
+      procedure CleanLayouts;
+      procedure OpenResource(const Lista: iAppList; Resource: iResource; Page: TMainMenuItems);
     public
       procedure OpenHomePage;
       procedure OpenTasks;
@@ -53,6 +54,18 @@ uses
 
 { TResourceManagerService }
 
+procedure TResourceManagerService.CleanLayouts;
+var
+ Item : integer;
+begin
+  for Item := 0 to fLayoutList.ComponentCount - 1 do
+    fLayoutList.RemoveObject(Item);
+  for Item := 0 to fLayoutScreen.ComponentCount - 1 do
+    fLayoutScreen.RemoveObject(Item);
+
+  fMainLayout.ScreensLayoutChange;
+end;
+
 constructor TResourceManagerService.Create(const NavManagerService: iNavigationManagerService; MainLayout: iMainLayout; LayoutList, LayoutScreen: TLayout);
 begin
   fNavManagerService := NavManagerService;
@@ -74,47 +87,50 @@ end;
 
 procedure TResourceManagerService.OpenFinances;
 begin
-  OpenResource(tAppListFinances.New(fLayoutList), TResourceFinances.New(fLayoutScreen));
+  OpenResource(tAppListFinances.New(fLayoutList), TResourceFinances.New(fLayoutScreen), TMainMenuItems.Finance);
 end;
 
 procedure TResourceManagerService.OpenGoals;
 begin
-  OpenResource(tAppListGoals.New(fLayoutList), TResourceGoals.New(fLayoutScreen));
+  OpenResource(tAppListGoals.New(fLayoutList), TResourceGoals.New(fLayoutScreen), TMainMenuItems.Goals);
 end;
 
 procedure TResourceManagerService.OpenHomePage;
 begin
-  OpenResource(tAppListHome.New(fLayoutList), TResourceHome.New(fLayoutScreen));
+  OpenResource(tAppListHome.New(fLayoutList), TResourceHome.New(fLayoutScreen), TMainMenuItems.Home);
 end;
 
 procedure TResourceManagerService.OpenNotes;
 begin
-  OpenResource(tAppListNotes.New(fLayoutList), TResourceNotes.New(fLayoutScreen));
+  OpenResource(tAppListNotes.New(fLayoutList), TResourceNotes.New(fLayoutScreen), TMainMenuItems.Notes);
 end;
 
 procedure TResourceManagerService.OpenReadings;
 begin
-  OpenResource(tAppListReadings.New(fLayoutList), TResourceReadings.New(fLayoutScreen));
+  OpenResource(tAppListReadings.New(fLayoutList), TResourceReadings.New(fLayoutScreen), TMainMenuItems.Readings);
 end;
 
-procedure TResourceManagerService.OpenResource(const Lista: iAppList; Resource: iResource);
+procedure TResourceManagerService.OpenResource(const Lista: iAppList; Resource: iResource; Page: TMainMenuItems);
 begin
   RemovePageViewLayout;
+  CleanLayouts;
 
-  fLayoutList.AddObject(Lista.SetMainLayout(fMainLayout).SetNavManagerService(fNavManagerService).ReturnLayout);
+  fMainLayout.SetSelectedPage(Page);
 
-  fLayoutScreen.AddObject(Resource.ReturnLayout);
+  fLayoutList.AddObject(Lista.SetMainLayout(fMainLayout).SetResourceManagerService(self).SetNavManagerService(fNavManagerService).ReturnLayout);
+
+  fLayoutScreen.AddObject(Resource.SetResourceManagerService(self).ReturnLayout);
   ThemeService.SubscribeInterface([Lista, Resource]);
 end;
 
 procedure TResourceManagerService.OpenShopping;
 begin
-  OpenResource(tAppListShopping.New(fLayoutList), TResourceShopping.New(fLayoutScreen));
+  OpenResource(tAppListShopping.New(fLayoutList), TResourceShopping.New(fLayoutScreen), TMainMenuItems.Shopping);
 end;
 
 procedure TResourceManagerService.OpenTasks;
 begin
-  OpenResource(tAppListTasks.New(fLayoutList), TResourceTasks.New(fLayoutScreen));
+  OpenResource(tAppListTasks.New(fLayoutList), TResourceTasks.New(fLayoutScreen), TMainMenuItems.Tasks);
 end;
 
 procedure TResourceManagerService.RemovePageViewLayout;

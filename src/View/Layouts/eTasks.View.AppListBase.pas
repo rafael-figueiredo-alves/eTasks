@@ -17,7 +17,9 @@ type
     { Public declarations }
     NavManagerService : iNavigationManagerService;
     MainLayout        : iMainLayout;
+    ResourceManager   : iResourceManager;
 
+    function SetResourceManagerService(const Value: iResourceManager): iAppList;
     function SetMainLayout(const Value: iMainLayout): iAppList;
     function SetNavManagerService(const Value: iNavigationManagerService): iAppList;
     function ReturnLayout: TLayout;
@@ -55,6 +57,12 @@ function TAppListBase.SetNavManagerService(
 begin
   Result := self;
   NavManagerService := Value;
+end;
+
+function TAppListBase.SetResourceManagerService(const Value: iResourceManager): iAppList;
+begin
+  Result := Self;
+  ResourceManager := Value;
 end;
 
 function TAppListBase.TranslateUI : iAppList;

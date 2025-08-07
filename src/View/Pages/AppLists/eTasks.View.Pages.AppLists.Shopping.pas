@@ -11,6 +11,8 @@ uses
 type
   TAppListShopping = class(TAppListBase)
     Label1: TLabel;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +33,12 @@ uses
 {$R *.fmx}
 
 { TAppListShopping }
+
+procedure TAppListShopping.Button1Click(Sender: TObject);
+begin
+  inherited;
+  ResourceManager.OpenTasks;
+end;
 
 function TAppListShopping.isDarkMode(const Value: Boolean): iAppList;
 begin

@@ -9,5 +9,13 @@ inherited AppListShopping: TAppListShopping
       Text = 'Lista de Compras'
       TabOrder = 0
     end
+    object Button1: TButton
+      Position.X = 184.000000000000000000
+      Position.Y = 192.000000000000000000
+      TabOrder = 1
+      Text = 'Button1'
+      TextSettings.Trimming = None
+      OnClick = Button1Click
+    end
   end
 end

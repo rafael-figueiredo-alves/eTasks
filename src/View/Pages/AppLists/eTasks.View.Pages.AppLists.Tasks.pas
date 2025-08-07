@@ -12,13 +12,14 @@ type
   TAppListTasks = class(TAppListBase)
     Label1: TLabel;
     Button1: TButton;
+    Label2: TLabel;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
 
-    class function New(const Value: TLayout) : TAppListBase;
+    class function New(const Value: TLayout) : TAppListTasks;
     function isDarkMode(const Value: Boolean) : iAppList; reintroduce;
     function TranslateUI : iAppList; reintroduce;
   end;
@@ -44,9 +45,10 @@ begin
   inherited;
   Result := self;
   self.Label1.FontColor := tColorPallete.GetColor(Primary, value);
+  self.Label2.FontColor := tColorPallete.GetColor(Primary, value);
 end;
 
-class function TAppListTasks.New(const Value: TLayout): TAppListBase;
+class function TAppListTasks.New(const Value: TLayout): TAppListTasks;
 begin
   Result := TAppListTasks.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
