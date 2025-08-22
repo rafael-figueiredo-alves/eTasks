@@ -10,7 +10,10 @@ uses
 
 type
   TResourceTasks = class(TResourceBase)
+    Layout1: TLayout;
+    Layout2: TLayout;
     Image1: TImage;
+    Label1: TLabel;
   private
     { Private declarations }
   public
