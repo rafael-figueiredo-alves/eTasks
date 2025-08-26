@@ -6,13 +6,14 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   eTasks.View.ResourceBase, FMX.Layouts, FMX.Controls.Presentation,
-  eTasks.View.FormModels;
+  eTasks.View.FormModels, FMX.Objects;
 
 type
   TResourceFinances = class(TResourceBase)
-    Label1: TLabel;
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    LayCentro: TLayout;
+    LayTexto: TLayout;
+    lblTexto: TLabel;
+    imgFinancas: TImage;
   private
     { Private declarations }
   public
@@ -34,17 +35,11 @@ uses
 
 { TResourceFinances }
 
-procedure TResourceFinances.Button1Click(Sender: TObject);
-begin
-  inherited;
-  ResourceManager.OpenHomePage;
-end;
-
 function TResourceFinances.isDarkMode(const Value: Boolean): iResource;
 begin
   inherited;
   Result := Self;
-  self.Label1.FontColor := tColorPallete.GetColor(Primary, value);
+  self.lblTexto.FontColor := tColorPallete.GetColor(Primary, value);
 end;
 
 class function TResourceFinances.New(const Value: TLayout): TResourceFinances;

@@ -6,11 +6,14 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   eTasks.View.ResourceBase, FMX.Layouts, FMX.Controls.Presentation,
-  eTasks.View.FormModels;
+  eTasks.View.FormModels, FMX.Objects;
 
 type
   TResourceNotes = class(TResourceBase)
-    Label1: TLabel;
+    LayCentro: TLayout;
+    LayTexto: TLayout;
+    lblTexto: TLabel;
+    imgAnotacoes: TImage;
   private
     { Private declarations }
   public
@@ -36,7 +39,7 @@ function TResourceNotes.isDarkMode(const Value: Boolean): iResource;
 begin
   inherited;
   Result := Self;
-  self.Label1.FontColor := tColorPallete.GetColor(Primary, value);
+  self.lblTexto.FontColor := tColorPallete.GetColor(Primary, value);
 end;
 
 class function TResourceNotes.New(const Value: TLayout): TResourceNotes;

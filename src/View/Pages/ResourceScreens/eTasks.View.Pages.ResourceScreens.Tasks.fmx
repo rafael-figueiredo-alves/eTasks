@@ -6,20 +6,20 @@ inherited ResourceTasks: TResourceTasks
   inherited ContainerResource: TLayout
     Size.Width = 644.000000000000000000
     Size.Height = 460.000000000000000000
-    object Layout1: TLayout
+    object LayCentro: TLayout
       Align = Center
       Size.Width = 365.000000000000000000
       Size.Height = 327.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      object Layout2: TLayout
+      object LayTexto: TLayout
         Align = Bottom
         Position.Y = 256.000000000000000000
         Size.Width = 365.000000000000000000
         Size.Height = 71.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        object Label1: TLabel
+        object lblTexto: TLabel
           Align = Client
           StyledSettings = [Style]
           Size.Width = 365.000000000000000000
@@ -35,7 +35,7 @@ inherited ResourceTasks: TResourceTasks
           TabOrder = 0
         end
       end
-      object Image1: TImage
+      object imgTarefas: TImage
         MultiResBitmap.Height = 1024
         MultiResBitmap.Width = 1024
         MultiResBitmap = <
