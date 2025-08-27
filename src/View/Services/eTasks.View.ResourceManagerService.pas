@@ -50,7 +50,8 @@ uses
   eTasks.View.Pages.ResourceScreens.Goals,
   eTasks.View.Pages.AppLists.Goals,
   eTasks.View.Pages.ResourceScreens.Finances,
-  eTasks.View.Pages.AppLists.Finances, eTasks.View.ThemeService;
+  eTasks.View.Pages.AppLists.Finances, eTasks.View.ThemeService,
+  eTasks.View.ActionButtonVisibleService;
 
 { TResourceManagerService }
 
@@ -121,6 +122,8 @@ begin
 
   fLayoutScreen.AddObject(Resource.SetResourceManagerService(self).ReturnLayout);
   ThemeService.SubscribeInterface([Lista, Resource]);
+
+  ActionButtonVisibleService.SetActionButtonVisible( Page <> TMainMenuItems.Home);
 end;
 
 procedure TResourceManagerService.OpenShopping;

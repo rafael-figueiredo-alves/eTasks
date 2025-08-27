@@ -28,7 +28,7 @@ inherited ResourceNotes: TResourceNotes
           Text = 
             'Tome nota de aulas ou do trabalho usando o bot'#227'o Mais abaixo. '#201' ' +
             'simples e voc'#234' vai ter suas anota'#231#245'es sempre por perto e n'#227'o pre' +
-            'cisar'#225' mais andar com caderno ou monte de p'#225'peis.'
+            'cisar'#225' mais andar com caderno ou monte de pap'#233'is.'
           TabOrder = 0
         end
       end

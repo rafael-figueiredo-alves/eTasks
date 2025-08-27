@@ -407,6 +407,7 @@
             <Form>ResourceHome</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="src\View\Services\eTasks.View.ActionButtonVisibleService.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

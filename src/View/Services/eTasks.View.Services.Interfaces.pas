@@ -8,6 +8,8 @@ uses
 
 type
 
+  TSetActionButtonVisible = Procedure(const isVisible: boolean) of object;
+
   iNavigationManagerService = interface
     ['{9D744B61-67D1-4ABE-AAEF-6F53D070166B}']
     function GoToTasks(const MainLayout: iMainLayout;  id: string = '') : iPageLayout;
@@ -48,6 +50,12 @@ type
     procedure OpenNotes;
     procedure OpenFinances;
     procedure OpenShopping;
+  end;
+
+  iActionButtonVisibleService = interface
+    ['{171630E0-6A0F-4343-9D40-9276F5C7F8E9}']
+    function SetActionButtonVisibleEvent(const Event: TSetActionButtonVisible): iActionButtonVisibleService;
+    function SetActionButtonVisible(const Visible: Boolean): iActionButtonVisibleService;
   end;
 
 

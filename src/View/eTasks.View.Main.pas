@@ -55,6 +55,7 @@ type
     procedure AvatarMenuItemClick(const item: TAvatarMenuItems);
     procedure MostrarMensagem(sender: TObject);
     procedure OnLanguageChanged(const Lang: string);
+    procedure SetVisibilityActionButton(const Visible: Boolean);
 
     {$region 'Métodos Base'}
     procedure RestrictScreenSize;
@@ -94,7 +95,8 @@ uses
   eTasks.Components.DialogService,
   System.SysUtils,
   eTasks.Shared.TranslateKeyConsts,
-  LocalStorage4Pascal, eTasks.View.ResourceManagerService;
+  LocalStorage4Pascal, eTasks.View.ResourceManagerService,
+  eTasks.View.ActionButtonVisibleService;
 {$endregion}
 
 {$R *.fmx}
@@ -152,6 +154,7 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   NavigationManagerService := TNavigationManager.New(ScreensLayout, ScreensLayoutChange);
+  ActionButtonVisibleService.SetActionButtonVisibleEvent(SetVisibilityActionButton);
 
   AppBar := TBars.AppBar(fMain, MainLayout).isDarkMode(ThemeService.isDarkTheme);
     AppBar.SetButtonAppBarAction(ThemeBtn, SetTheme).isDarkMode(ThemeService.isDarkTheme);
@@ -328,6 +331,11 @@ begin
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 end;
 
+
+procedure TfMain.SetVisibilityActionButton(const Visible: Boolean);
+begin
+  ActionButton.IsVisible(Visible);
+end;
 
 {$Region 'Language Functions'}
 procedure TfMain.OnLanguageChanged(const Lang: string);
