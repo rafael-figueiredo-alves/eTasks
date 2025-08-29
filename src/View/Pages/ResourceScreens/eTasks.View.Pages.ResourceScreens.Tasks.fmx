@@ -2,6 +2,7 @@ inherited ResourceTasks: TResourceTasks
   Caption = 'ResourceBase1'
   ClientHeight = 460
   ClientWidth = 644
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   inherited ContainerResource: TLayout
     Size.Width = 644.000000000000000000

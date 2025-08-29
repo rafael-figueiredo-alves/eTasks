@@ -14,6 +14,7 @@ type
     LayTexto: TLayout;
     imgTarefas: TImage;
     lblTexto: TLabel;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,6 +22,7 @@ type
     class function New(const Value: TLayout) : TResourceTasks;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
     function TranslateUI : iResource; reintroduce;
+    procedure fTranslateUI;
   end;
 
 var
@@ -30,11 +32,25 @@ implementation
 
 uses
   eTasks.Components.ColorPallete,
-  eTasks.View.ThemeService;
+  eTasks.View.ThemeService,
+  eTranslate4Pascal,
+  eTasks.Shared.TranslateKeyConsts, eTasks.View.LanguageService;
 
 {$R *.fmx}
 
 { TResourceTasks }
+
+procedure TResourceTasks.FormCreate(Sender: TObject);
+begin
+  inherited;
+  self.fTranslateUI;
+  languageService.SubscribeMethod('ResourceTasks', TResourceTasks(self).fTranslateUI)
+end;
+
+procedure TResourceTasks.fTranslateUI;
+begin
+  lblTexto.Text := eTranslate.Translate(ActionButton_Hint, 'Teste');
+end;
 
 function TResourceTasks.isDarkMode(const Value: Boolean): iResource;
 begin
@@ -51,6 +67,7 @@ end;
 function TResourceTasks.TranslateUI: iResource;
 begin
   inherited;
+  lblTexto.Text := eTranslate.Translate(ActionButton_Hint, 'Teste');
 end;
 
 end.

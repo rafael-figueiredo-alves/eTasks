@@ -53,6 +53,15 @@ const
         AppBar_BtnMainMenu     = 'AppBar.BtnMainMenu';
         AppBar_BtnAvatarMenu   = 'AppBar.BtnAvatarMenu';
 
+        {$region 'ResoucePages'}
+        ResourcePages_Tasks_ResourcePage    = 'ResourcePages.Tasks_ResourcePage';
+        ResourcePages_Goals_ResourcePage    = 'ResourcePages.Goals_ResourcePage';
+        ResourcePages_Finances_ResourcePage = 'ResourcePages.Finances_ResourcePage';
+        ResourcePages_Notes_ResourcePage    = 'ResourcePages.Notes_ResourcePage';
+        ResourcePages_Shopping_ResourcePage = 'ResourcePages.Shopping_ResourcePage';
+        ResourcePages_Readings_ResourcePage = 'ResourcePages.Readings_ResourcePage';
+        {$endregion}
+
 implementation
 
 end.
