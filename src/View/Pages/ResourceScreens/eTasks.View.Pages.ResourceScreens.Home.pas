@@ -17,7 +17,7 @@ type
     { Public declarations }
     class function New(const Value: TLayout) : TResourceHome;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
-    function TranslateUI : iResource; reintroduce;
+    procedure TranslateUI; reintroduce;
   end;
 
 var
@@ -26,7 +26,8 @@ var
 implementation
 
 uses
-  eTasks.View.ThemeService, eTasks.Components.ColorPallete;
+  eTasks.View.ThemeService, eTasks.Components.ColorPallete,
+  eTasks.View.LanguageService;
 
 {$R *.fmx}
 
@@ -43,9 +44,11 @@ class function TResourceHome.New(const Value: TLayout): TResourceHome;
 begin
   Result := TResourceHome.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
+  Result.TranslateUI;
+  languageService.SubscribeMethod('ResourceHome',Result.TranslateUI);
 end;
 
-function TResourceHome.TranslateUI: iResource;
+procedure TResourceHome.TranslateUI;
 begin
   inherited;
 end;

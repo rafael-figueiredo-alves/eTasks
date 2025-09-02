@@ -20,7 +20,7 @@ type
     { Public declarations }
     class function New(const Value: TLayout) : TResourceFinances;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
-    function TranslateUI : iResource; reintroduce;
+    procedure TranslateUI; reintroduce;
   end;
 
 var
@@ -29,7 +29,11 @@ var
 implementation
 
 uses
-  eTasks.Components.ColorPallete, eTasks.View.ThemeService;
+  eTasks.Components.ColorPallete,
+  eTasks.View.ThemeService,
+  eTasks.View.LanguageService,
+  eTasks.Shared.TranslateKeyConsts,
+  eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -46,11 +50,14 @@ class function TResourceFinances.New(const Value: TLayout): TResourceFinances;
 begin
   Result := TResourceFinances.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
+  Result.TranslateUI;
+  languageService.SubscribeMethod('ResourceFinances',Result.TranslateUI);
 end;
 
-function TResourceFinances.TranslateUI: iResource;
+procedure TResourceFinances.TranslateUI;
 begin
   inherited;
+  lblTexto.Text := eTranslate.Translate(ResourcePages_Finances_ResourcePage, 'Sua carteira com mais dinheiro o mês inteiro? O eTasks te ajuda. Adicione um lançamento financeiro pressionando o botão Mais.');
 end;
 
 end.

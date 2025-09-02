@@ -18,7 +18,7 @@ type
     function SetResourceManagerService(const Value: iResourceManager): iResource;
     function ReturnLayout: TLayout;
     function isDarkMode(const Value: boolean): iResource; virtual;
-    function TranslateUI: iResource; virtual;
+    procedure TranslateUI; virtual;
   end;
 
 var
@@ -42,11 +42,11 @@ end;
 
 function TResourceBase.SetResourceManagerService(const Value: iResourceManager): iResource;
 begin
-  Result := self;
+  Result          := self;
   ResourceManager := Value;
 end;
 
-function TResourceBase.TranslateUI : iResource;
+procedure TResourceBase.TranslateUI;
 begin
 
 end;

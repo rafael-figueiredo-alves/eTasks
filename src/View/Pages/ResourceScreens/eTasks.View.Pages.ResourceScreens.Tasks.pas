@@ -14,15 +14,13 @@ type
     LayTexto: TLayout;
     imgTarefas: TImage;
     lblTexto: TLabel;
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     class function New(const Value: TLayout) : TResourceTasks;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
-    function TranslateUI : iResource; reintroduce;
-    procedure fTranslateUI;
+    procedure TranslateUI; reintroduce;
   end;
 
 var
@@ -34,40 +32,32 @@ uses
   eTasks.Components.ColorPallete,
   eTasks.View.ThemeService,
   eTranslate4Pascal,
-  eTasks.Shared.TranslateKeyConsts, eTasks.View.LanguageService;
+  eTasks.Shared.TranslateKeyConsts,
+  eTasks.View.LanguageService;
 
 {$R *.fmx}
 
 { TResourceTasks }
 
-procedure TResourceTasks.FormCreate(Sender: TObject);
-begin
-  inherited;
-  self.fTranslateUI;
-  languageService.SubscribeMethod('ResourceTasks', TResourceTasks(self).fTranslateUI)
-end;
-
-procedure TResourceTasks.fTranslateUI;
-begin
-  lblTexto.Text := eTranslate.Translate(ActionButton_Hint, 'Teste');
-end;
-
 function TResourceTasks.isDarkMode(const Value: Boolean): iResource;
 begin
   inherited;
   Result := self;
+  self.lblTexto.FontColor := tColorPallete.GetColor(Primary, value);
 end;
 
 class function TResourceTasks.New(const Value: TLayout): TResourceTasks;
 begin
   Result := TResourceTasks.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
+  Result.TranslateUI;
+  languageService.SubscribeMethod('ResourceTasks',Result.TranslateUI);
 end;
 
-function TResourceTasks.TranslateUI: iResource;
+procedure TResourceTasks.TranslateUI;
 begin
   inherited;
-  lblTexto.Text := eTranslate.Translate(ActionButton_Hint, 'Teste');
+  lblTexto.Text := eTranslate.Translate(ResourcePages_Tasks_ResourcePage, 'Gerencie as tarefas do seu dia em poucos cliques. Inicie adicionando uma tarefa tocando no Mais no canto inferior direito.');
 end;
 
 end.

@@ -25,7 +25,7 @@ type
     function SetResourceManagerService(const Value: iResourceManager): iResource;
     function ReturnLayout: TLayout;
     function isDarkMode(const Value: boolean): iResource;
-    function TranslateUI : iResource;
+    procedure TranslateUI;
   end;
 
 implementation

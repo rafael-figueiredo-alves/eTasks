@@ -20,7 +20,7 @@ type
     { Public declarations }
     class function New(const Value: TLayout) : TResourceNotes;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
-    function TranslateUI : iResource; reintroduce;
+    procedure TranslateUI; reintroduce;
   end;
 
 var
@@ -29,7 +29,9 @@ var
 implementation
 
 uses
-  eTasks.View.ThemeService, eTasks.Components.ColorPallete;
+  eTasks.View.ThemeService, eTasks.Components.ColorPallete,
+  eTasks.View.LanguageService, eTasks.Shared.TranslateKeyConsts,
+  eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -46,11 +48,14 @@ class function TResourceNotes.New(const Value: TLayout): TResourceNotes;
 begin
   Result := TResourceNotes.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
+  Result.TranslateUI;
+  languageService.SubscribeMethod('ResourceNotes',Result.TranslateUI);
 end;
 
-function TResourceNotes.TranslateUI: iResource;
+procedure TResourceNotes.TranslateUI;
 begin
   inherited;
+  lblTexto.Text := eTranslate.Translate(ResourcePages_Notes_ResourcePage, 'Tome nota de aulas ou do trabalho usando o botão Mais abaixo. É simples e você vai ter suas anotações sempre por perto e não precisará mais andar com caderno ou monte de papéis.');
 end;
 
 end.

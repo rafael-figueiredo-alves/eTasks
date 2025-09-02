@@ -192,7 +192,6 @@ begin
 end;
 
 class procedure TModalDialog.New(const Form: TForm);
-var i: integer;
 begin
    ContainerPrincipal := self.Create(Form).MainContainerdlg;
    Form.AddObject(ContainerPrincipal);

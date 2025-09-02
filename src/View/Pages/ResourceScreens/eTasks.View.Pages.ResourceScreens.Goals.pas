@@ -20,7 +20,7 @@ type
     { Public declarations }
     class function New(const Value: TLayout) : TResourceGoals;
     function isDarkMode(const Value: Boolean) : iResource; reintroduce;
-    function TranslateUI : iResource; reintroduce;
+    procedure TranslateUI; reintroduce;
   end;
 
 var
@@ -29,7 +29,11 @@ var
 implementation
 
 uses
-  eTasks.View.ThemeService, eTasks.Components.ColorPallete;
+  eTasks.View.ThemeService,
+  eTasks.Components.ColorPallete,
+  eTasks.View.LanguageService,
+  eTasks.Shared.TranslateKeyConsts,
+  eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -46,11 +50,14 @@ class function TResourceGoals.New(const Value: TLayout): TResourceGoals;
 begin
   Result := TResourceGoals.Create(Value);
   Result.isDarkMode(ThemeService.isDarkTheme);
+  Result.TranslateUI;
+  languageService.SubscribeMethod('ResourceGoals',Result.TranslateUI);
 end;
 
-function TResourceGoals.TranslateUI: iResource;
+procedure TResourceGoals.TranslateUI;
 begin
   inherited;
+  lblTexto.Text := eTranslate.Translate(ResourcePages_Goals_ResourcePage, 'Mantenha suas metas organizadas e com gerencimento simplificado para alcançar mais rapidamente seus objetivos. Basta clicar no Mais para adicionar uma nova meta.');
 end;
 
 end.
