@@ -62,6 +62,11 @@ const
         ResourcePages_Readings_ResourcePage = 'ResourcePages.Readings_ResourcePage';
         {$endregion}
 
+        About_Title = 'About.Title';
+        About_About_Heading_Version = 'About.About_Heading.Version';
+        About_About_Changelog_Title = 'About.About_Changelog.Title';
+        About_About_Footer_Dedication = 'About.About_Footer.Dedication';
+
 implementation
 
 end.
