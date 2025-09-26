@@ -9,7 +9,16 @@ uses
 
 type
   TPage_About = class(TPageLayout)
+    lytImage: TLayout;
+    imgLogo: TImage;
+    lblAppTitle: TLabel;
+    lytVersion: TLayout;
+    lblVersion: TLabel;
+    LytFooter: TLayout;
+    lytChangelog: TLayout;
+    Line1: TLine;
     Label1: TLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
