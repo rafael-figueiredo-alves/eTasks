@@ -16,9 +16,13 @@ type
     lblVersion: TLabel;
     LytFooter: TLayout;
     lytChangelog: TLayout;
-    Line1: TLine;
-    Label1: TLabel;
-    Label2: TLabel;
+    Topline: TLine;
+    LblAuthor: TLabel;
+    lblDedicatoria: TLabel;
+    lytTitleChangelog: TLayout;
+    lblTitleChangelog: TLabel;
+    ChangelogBorder: TRectangle;
+    ChangelogScroll: TVertScrollBox;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -43,6 +47,17 @@ procedure TPage_About.FormCreate(Sender: TObject);
 begin
   inherited;
   Self.OnUpdateButtonClick(Teste);
+
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add(sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add(sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
 end;
 
 procedure TPage_About.Teste;

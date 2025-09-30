@@ -1,13 +1,22 @@
 inherited Page_About: TPage_About
   Caption = 'PageLayout2'
+  ClientHeight = 640
+  ClientWidth = 360
   OnCreate = FormCreate
   DesignerMasterStyle = 0
   inherited PageViewLayout: TLayout
+    Size.Width = 360.000000000000000000
+    Size.Height = 640.000000000000000000
     inherited Background: TRectangle
+      Size.Width = 360.000000000000000000
+      Size.Height = 640.000000000000000000
+      inherited LayNavBarNotUseThisSpace: TLayout
+        Size.Width = 360.000000000000000000
+      end
       object lytImage: TLayout
         Align = Top
         Position.Y = 60.000000000000000000
-        Size.Width = 640.000000000000000000
+        Size.Width = 360.000000000000000000
         Size.Height = 160.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -32838,7 +32847,7 @@ inherited Page_About: TPage_About
         AutoSize = True
         StyledSettings = [Style]
         Position.Y = 220.000000000000000000
-        Size.Width = 640.000000000000000000
+        Size.Width = 360.000000000000000000
         Size.Height = 44.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Family = 'Roboto'
@@ -32851,7 +32860,7 @@ inherited Page_About: TPage_About
       object lytVersion: TLayout
         Align = Top
         Position.Y = 264.000000000000000000
-        Size.Width = 640.000000000000000000
+        Size.Width = 360.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 3
@@ -32870,31 +32879,32 @@ inherited Page_About: TPage_About
       end
       object LytFooter: TLayout
         Align = Bottom
-        Position.Y = 392.000000000000000000
-        Size.Width = 640.000000000000000000
+        Margins.Bottom = 15.000000000000000000
+        Position.Y = 537.000000000000000000
+        Size.Width = 360.000000000000000000
         Size.Height = 88.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 4
-        object Line1: TLine
+        object Topline: TLine
           Align = Top
           LineType = Top
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
-          Size.Width = 620.000000000000000000
+          Size.Width = 340.000000000000000000
           Size.Height = 9.000000000000000000
           Size.PlatformDefault = False
           Stroke.Color = xFF336699
           Stroke.Thickness = 3.000000000000000000
         end
-        object Label1: TLabel
+        object LblAuthor: TLabel
           Align = Top
           StyledSettings = []
           Margins.Left = 15.000000000000000000
           Margins.Right = 15.000000000000000000
           Position.X = 15.000000000000000000
           Position.Y = 9.000000000000000000
-          Size.Width = 610.000000000000000000
+          Size.Width = 330.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Arial'
@@ -32904,14 +32914,14 @@ inherited Page_About: TPage_About
           Text = #169' 2020 - 2025 by Rafael de Figueiredo Alves'
           TabOrder = 2
         end
-        object Label2: TLabel
+        object lblDedicatoria: TLabel
           Align = Client
           StyledSettings = []
           Margins.Left = 15.000000000000000000
           Margins.Top = 5.000000000000000000
           Margins.Right = 15.000000000000000000
           Margins.Bottom = 15.000000000000000000
-          Size.Width = 610.000000000000000000
+          Size.Width = 330.000000000000000000
           Size.Height = 42.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Family = 'Arial'
@@ -32928,10 +32938,63 @@ inherited Page_About: TPage_About
       end
       object lytChangelog: TLayout
         Align = Client
-        Size.Width = 640.000000000000000000
-        Size.Height = 111.000000000000000000
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 340.000000000000000000
+        Size.Height = 236.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 5
+        object lytTitleChangelog: TLayout
+          Align = Top
+          Size.Width = 340.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object lblTitleChangelog: TLabel
+            Align = Client
+            StyledSettings = []
+            Margins.Left = 25.000000000000000000
+            Size.Width = 315.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 14.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFF336699
+            Text = 'Hist'#243'rico de vers'#227'o'
+            TabOrder = 0
+          end
+        end
+        object ChangelogBorder: TRectangle
+          Align = Client
+          Fill.Kind = None
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 10.000000000000000000
+          Size.Width = 320.000000000000000000
+          Size.Height = 201.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = xFF336699
+          Stroke.Thickness = 2.000000000000000000
+          XRadius = 15.000000000000000000
+          YRadius = 15.000000000000000000
+          object ChangelogScroll: TVertScrollBox
+            Align = Client
+            Margins.Left = 4.000000000000000000
+            Margins.Top = 4.000000000000000000
+            Margins.Right = 4.000000000000000000
+            Margins.Bottom = 4.000000000000000000
+            Size.Width = 312.000000000000000000
+            Size.Height = 193.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'scrollboxstyle'
+            TabOrder = 0
+            Viewport.Width = 312.000000000000000000
+            Viewport.Height = 193.000000000000000000
+          end
+        end
       end
     end
   end
