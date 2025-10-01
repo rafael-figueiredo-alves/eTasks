@@ -5,24 +5,12 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   eTasks.View.PageLayout, FMX.Objects, FMX.Layouts, FMX.Types,
-  FMX.Controls.Presentation;
+  FMX.Controls.Presentation,
+  eTasks.Pages.Components.AboutComponents;
 
 type
   TPage_About = class(TPageLayout)
-    lytImage: TLayout;
-    imgLogo: TImage;
-    lblAppTitle: TLabel;
-    lytVersion: TLayout;
-    lblVersion: TLabel;
-    LytFooter: TLayout;
-    lytChangelog: TLayout;
-    Topline: TLine;
-    LblAuthor: TLabel;
-    lblDedicatoria: TLabel;
-    lytTitleChangelog: TLayout;
-    lblTitleChangelog: TLabel;
-    ChangelogBorder: TRectangle;
-    ChangelogScroll: TVertScrollBox;
+    FAboutComponents: TAboutComponents;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
