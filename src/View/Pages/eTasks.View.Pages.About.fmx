@@ -33,7 +33,7 @@ inherited Page_About: TPage_About
           Size.Width = 360.000000000000000000
         end
         inherited LytFooter: TLayout
-          Position.Y = 477.000000000000000000
+          Position.Y = 462.000000000000000000
           Size.Width = 360.000000000000000000
           inherited Topline: TLine
             Size.Width = 340.000000000000000000
@@ -49,7 +49,7 @@ inherited Page_About: TPage_About
         end
         inherited lytChangelog: TLayout
           Size.Width = 340.000000000000000000
-          Size.Height = 236.000000000000000000
+          Size.Height = 221.000000000000000000
           inherited lytTitleChangelog: TLayout
             Size.Width = 340.000000000000000000
             inherited lblTitleChangelog: TLabel
@@ -59,12 +59,12 @@ inherited Page_About: TPage_About
           end
           inherited ChangelogBorder: TRectangle
             Size.Width = 320.000000000000000000
-            Size.Height = 201.000000000000000000
+            Size.Height = 186.000000000000000000
             inherited ChangelogScroll: TVertScrollBox
               Size.Width = 312.000000000000000000
-              Size.Height = 193.000000000000000000
+              Size.Height = 178.000000000000000000
               Viewport.Width = 312.000000000000000000
-              Viewport.Height = 193.000000000000000000
+              Viewport.Height = 178.000000000000000000
             end
           end
         end

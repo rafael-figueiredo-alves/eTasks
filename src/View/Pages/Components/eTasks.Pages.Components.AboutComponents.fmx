@@ -1,10 +1,10 @@
 object AboutComponents: TAboutComponents
-  Size.Width = 348.000000000000000000
-  Size.Height = 560.000000000000000000
+  Size.Width = 340.000000000000000000
+  Size.Height = 500.000000000000000000
   Size.PlatformDefault = False
   object lytImage: TLayout
     Align = Top
-    Size.Width = 348.000000000000000000
+    Size.Width = 340.000000000000000000
     Size.Height = 160.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
@@ -32835,7 +32835,7 @@ object AboutComponents: TAboutComponents
     AutoSize = True
     StyledSettings = [Style]
     Position.Y = 160.000000000000000000
-    Size.Width = 348.000000000000000000
+    Size.Width = 340.000000000000000000
     Size.Height = 44.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Family = 'Roboto'
@@ -32848,10 +32848,10 @@ object AboutComponents: TAboutComponents
   object lytVersion: TLayout
     Align = Top
     Position.Y = 204.000000000000000000
-    Size.Width = 348.000000000000000000
+    Size.Width = 340.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 3
+    TabOrder = 2
     object lblVersion: TLabel
       Align = Center
       StyledSettings = [Size, Style]
@@ -32868,9 +32868,9 @@ object AboutComponents: TAboutComponents
   object LytFooter: TLayout
     Align = Bottom
     Margins.Bottom = 15.000000000000000000
-    Position.Y = 457.000000000000000000
-    Size.Width = 348.000000000000000000
-    Size.Height = 88.000000000000000000
+    Position.Y = 382.000000000000000000
+    Size.Width = 340.000000000000000000
+    Size.Height = 103.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 5
     object Topline: TLine
@@ -32879,7 +32879,7 @@ object AboutComponents: TAboutComponents
       Margins.Left = 10.000000000000000000
       Margins.Right = 10.000000000000000000
       Position.X = 10.000000000000000000
-      Size.Width = 328.000000000000000000
+      Size.Width = 320.000000000000000000
       Size.Height = 9.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = xFF336699
@@ -32892,7 +32892,7 @@ object AboutComponents: TAboutComponents
       Margins.Right = 15.000000000000000000
       Position.X = 15.000000000000000000
       Position.Y = 9.000000000000000000
-      Size.Width = 318.000000000000000000
+      Size.Width = 310.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Family = 'Arial'
@@ -32900,7 +32900,7 @@ object AboutComponents: TAboutComponents
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       TextSettings.FontColor = xFF336699
       Text = #169' 2020 - 2025 by Rafael de Figueiredo Alves'
-      TabOrder = 2
+      TabOrder = 1
     end
     object lblDedicatoria: TLabel
       Align = Client
@@ -32909,8 +32909,8 @@ object AboutComponents: TAboutComponents
       Margins.Top = 5.000000000000000000
       Margins.Right = 15.000000000000000000
       Margins.Bottom = 15.000000000000000000
-      Size.Width = 318.000000000000000000
-      Size.Height = 42.000000000000000000
+      Size.Width = 310.000000000000000000
+      Size.Height = 57.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Family = 'Arial'
       TextSettings.Font.Size = 13.000000000000000000
@@ -32930,13 +32930,13 @@ object AboutComponents: TAboutComponents
     Margins.Top = 10.000000000000000000
     Margins.Right = 10.000000000000000000
     Margins.Bottom = 10.000000000000000000
-    Size.Width = 328.000000000000000000
-    Size.Height = 216.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 141.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 4
     object lytTitleChangelog: TLayout
       Align = Top
-      Size.Width = 328.000000000000000000
+      Size.Width = 320.000000000000000000
       Size.Height = 25.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
@@ -32944,7 +32944,7 @@ object AboutComponents: TAboutComponents
         Align = Client
         StyledSettings = []
         Margins.Left = 25.000000000000000000
-        Size.Width = 303.000000000000000000
+        Size.Width = 295.000000000000000000
         Size.Height = 25.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Family = 'Arial'
@@ -32961,8 +32961,8 @@ object AboutComponents: TAboutComponents
       Margins.Left = 10.000000000000000000
       Margins.Right = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
-      Size.Width = 308.000000000000000000
-      Size.Height = 181.000000000000000000
+      Size.Width = 300.000000000000000000
+      Size.Height = 106.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = xFF336699
       Stroke.Thickness = 2.000000000000000000
@@ -32974,13 +32974,13 @@ object AboutComponents: TAboutComponents
         Margins.Top = 4.000000000000000000
         Margins.Right = 4.000000000000000000
         Margins.Bottom = 4.000000000000000000
-        Size.Width = 300.000000000000000000
-        Size.Height = 173.000000000000000000
+        Size.Width = 292.000000000000000000
+        Size.Height = 98.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'scrollboxstyle'
         TabOrder = 0
-        Viewport.Width = 300.000000000000000000
-        Viewport.Height = 173.000000000000000000
+        Viewport.Width = 292.000000000000000000
+        Viewport.Height = 98.000000000000000000
       end
     end
   end

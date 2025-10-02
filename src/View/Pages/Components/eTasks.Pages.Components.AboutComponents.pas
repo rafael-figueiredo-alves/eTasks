@@ -27,10 +27,27 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure UpdateDateCopyright;
+    procedure isDarkMode(const value: boolean);
   end;
 
 implementation
 
+uses
+  eTasks.Components.ColorPallete;
+
 {$R *.fmx}
+
+{ TAboutComponents }
+
+procedure TAboutComponents.isDarkMode(const value: boolean);
+begin
+  lblAppTitle.FontColor := tColorPallete.GetColor(Primary, value);
+end;
+
+procedure TAboutComponents.UpdateDateCopyright;
+begin
+  LblAuthor.Text := '© 2020 - ' + inttostr(CurrentYear) + ' by Rafael de Figueiredo Alves';
+end;
 
 end.
