@@ -32843,7 +32843,7 @@ object AboutComponents: TAboutComponents
     TextSettings.FontColor = xFF336699
     TextSettings.HorzAlign = Center
     Text = 'eTasks'
-    TabOrder = 6
+    TabOrder = 3
   end
   object lytVersion: TLayout
     Align = Top
@@ -32981,6 +32981,17 @@ object AboutComponents: TAboutComponents
         TabOrder = 0
         Viewport.Width = 292.000000000000000000
         Viewport.Height = 98.000000000000000000
+        object Changelog: TSkLabel
+          Align = Top
+          Size.Width = 292.000000000000000000
+          Size.Height = 0.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Size, Style, FontColor]
+          TextSettings.Font.Families = 'Roboto'
+          Words = <
+            item
+            end>
+        end
       end
     end
   end

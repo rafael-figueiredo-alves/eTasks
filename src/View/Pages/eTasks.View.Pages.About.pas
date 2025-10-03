@@ -37,23 +37,14 @@ begin
   inherited;
   Self.OnUpdateButtonClick(Teste);
   FAboutComponents.isDarkMode(ThemeService.isDarkTheme);
-
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add(sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add(sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+  FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, 'pt-br');
 end;
 
 function TPage_About.isDarkMode(const value: Boolean): iPageLayout;
 begin
   inherited;
   FAboutComponents.isDarkMode(value);
+  FAboutComponents.ReloadChangelog(value, 'pt-br');
 end;
 
 procedure TPage_About.Teste;
