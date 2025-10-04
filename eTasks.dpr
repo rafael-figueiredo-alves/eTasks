@@ -99,7 +99,8 @@ uses
   eTasks.View.Pages.ResourceScreens.Notes in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Notes.pas' {ResourceNotes},
   eTasks.View.Pages.ResourceScreens.Home in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Home.pas' {ResourceHome},
   eTasks.View.ActionButtonVisibleService in 'src\View\Services\eTasks.View.ActionButtonVisibleService.pas',
-  eTasks.Pages.Components.AboutComponents in 'src\View\Pages\Components\eTasks.Pages.Components.AboutComponents.pas' {AboutComponents: TFrame};
+  eTasks.Pages.Components.AboutComponents in 'src\View\Pages\Components\eTasks.Pages.Components.AboutComponents.pas' {AboutComponents: TFrame},
+  eTasks.Shared.Entities.Changelog in 'src\Shared\Entities\eTasks.Shared.Entities.Changelog.pas';
 
 {$R *.res}
 
