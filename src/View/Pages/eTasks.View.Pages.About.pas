@@ -24,6 +24,9 @@ type
 var
   Page_About: TPage_About;
 
+const
+  eTasksVersion = '2.0.0';
+
 implementation
 
 uses
@@ -38,6 +41,7 @@ begin
   Self.OnUpdateButtonClick(Teste);
   FAboutComponents.isDarkMode(ThemeService.isDarkTheme);
   FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, 'pt-br');
+  //TranslateUI;
 end;
 
 function TPage_About.isDarkMode(const value: Boolean): iPageLayout;
@@ -55,7 +59,10 @@ end;
 procedure TPage_About.TranslateUI;
 begin
   inherited;
-  Self.SetTitle(eTranslate.Translate(ActionButton_Hint, 'Adicionar'));
+  Self.SetTitle(eTranslate.Translate(About_Title, 'Sobre eTasks'));
+  FAboutComponents.SetVersionLabel(eTranslate.Translate(About_About_Heading_Version, 'Versão') + ' ' + eTasksVersion);
+  FAboutComponents.SetTitleChangelog(eTranslate.Translate(About_About_Changelog_Title, 'Histórico de Versão'));
+  FAboutComponents.SetDedicatoria(eTranslate.Translate(About_About_Footer_Dedication, 'Dedicatória'));
 end;
 
 end.

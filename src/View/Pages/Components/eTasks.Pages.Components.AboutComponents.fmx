@@ -32970,6 +32970,10 @@ object AboutComponents: TAboutComponents
       YRadius = 15.000000000000000000
       object ChangelogScroll: TVertScrollBox
         Align = Client
+        Padding.Left = 5.000000000000000000
+        Padding.Top = 5.000000000000000000
+        Padding.Right = 5.000000000000000000
+        Padding.Bottom = 5.000000000000000000
         Margins.Left = 4.000000000000000000
         Margins.Top = 4.000000000000000000
         Margins.Right = 4.000000000000000000
@@ -32983,7 +32987,9 @@ object AboutComponents: TAboutComponents
         Viewport.Height = 98.000000000000000000
         object Changelog: TSkLabel
           Align = Top
-          Size.Width = 292.000000000000000000
+          Position.X = 5.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 282.000000000000000000
           Size.Height = 0.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Size, Style, FontColor]

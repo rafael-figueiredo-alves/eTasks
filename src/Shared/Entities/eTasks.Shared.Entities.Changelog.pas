@@ -28,7 +28,7 @@ var
 begin
   JsonText := TFile.ReadAllText(AJsonFile, TEncoding.UTF8);
 
-  Languages := TJson.JsonToObject<TArray<TChangelogsByLanguage>>(JsonText);
+  //Languages := TJson.JsonToObject<TArray<TChangelogsByLanguage>>(JsonText);
 
   for Lang in Languages do
     if SameText(Lang.Language, ALanguage) then

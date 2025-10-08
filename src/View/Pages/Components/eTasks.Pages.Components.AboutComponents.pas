@@ -34,6 +34,9 @@ type
     procedure UpdateDateCopyright;
     procedure isDarkMode(const value: boolean);
     procedure ReloadChangelog(const isDarkTheme: boolean; language: string);
+    procedure SetVersionLabel(const Value: string);
+    procedure SetTitleChangelog(const Value: string);
+    procedure SetDedicatoria(const value: string);
   end;
 
 implementation
@@ -84,6 +87,21 @@ begin
   AddFeature('- Teste 2', isDarkTheme);
   AddFeature('- Teste 3', isDarkTheme);
 //  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+end;
+
+procedure TAboutComponents.SetDedicatoria(const value: string);
+begin
+  lblDedicatoria.Text := value;
+end;
+
+procedure TAboutComponents.SetTitleChangelog(const Value: string);
+begin
+  lblTitleChangelog.Text := Value;
+end;
+
+procedure TAboutComponents.SetVersionLabel(const Value: string);
+begin
+  lblVersion.Text := Value;
 end;
 
 procedure TAboutComponents.UpdateDateCopyright;
