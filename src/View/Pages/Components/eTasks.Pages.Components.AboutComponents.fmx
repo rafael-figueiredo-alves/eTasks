@@ -32976,20 +32976,20 @@ object AboutComponents: TAboutComponents
         Padding.Bottom = 5.000000000000000000
         Margins.Left = 4.000000000000000000
         Margins.Top = 4.000000000000000000
-        Margins.Right = 4.000000000000000000
+        Margins.Right = 8.000000000000000000
         Margins.Bottom = 4.000000000000000000
-        Size.Width = 292.000000000000000000
+        Size.Width = 288.000000000000000000
         Size.Height = 98.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'scrollboxstyle'
         TabOrder = 0
-        Viewport.Width = 292.000000000000000000
+        Viewport.Width = 288.000000000000000000
         Viewport.Height = 98.000000000000000000
         object Changelog: TSkLabel
           Align = Top
           Position.X = 5.000000000000000000
           Position.Y = 5.000000000000000000
-          Size.Width = 282.000000000000000000
+          Size.Width = 278.000000000000000000
           Size.Height = 0.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Size, Style, FontColor]

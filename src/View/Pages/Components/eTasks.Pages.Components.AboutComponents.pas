@@ -42,7 +42,8 @@ type
 implementation
 
 uses
-  eTasks.Components.ColorPallete;
+  eTasks.Components.ColorPallete, eTasks.Shared.Entities.Changelog,
+  System.Generics.Collections;
 
 {$R *.fmx}
 
@@ -75,17 +76,21 @@ begin
 end;
 
 procedure TAboutComponents.ReloadChangelog(const isDarkTheme: boolean; language: string);
+var
+  Lista : TList<TChangelogsByLanguage>;
 begin
-  Changelog.Words.Clear;
-  AddVersionTitle('Teste de versão', isDarkTheme);
-  AddFeature('- Teste 1', isDarkTheme);
-  AddFeature('- Teste 2', isDarkTheme);
-  AddFeature('- Teste 3', isDarkTheme);
-  AddBlankline;
-  AddVersionTitle('Teste de versão 2', isDarkTheme);
-  AddFeature('- Teste 1', isDarkTheme);
-  AddFeature('- Teste 2', isDarkTheme);
-  AddFeature('- Teste 3', isDarkTheme);
+   Lista := GetChangelogByLanguage(language, ExtractFilePath(ParamStr(0)) + 'Changelog.json');
+
+//  Changelog.Words.Clear;
+//  AddVersionTitle('Teste de versão', isDarkTheme);
+//  AddFeature('- Teste 1', isDarkTheme);
+//  AddFeature('- Teste 2', isDarkTheme);
+//  AddFeature('- Teste 3', isDarkTheme);
+//  AddBlankline;
+//  AddVersionTitle('Teste de versão 2', isDarkTheme);
+//  AddFeature('- Teste 1', isDarkTheme);
+//  AddFeature('- Teste 2', isDarkTheme);
+//  AddFeature('- Teste 3', isDarkTheme);
 //  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
 end;
 

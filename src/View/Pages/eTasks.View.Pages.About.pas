@@ -48,7 +48,7 @@ function TPage_About.isDarkMode(const value: Boolean): iPageLayout;
 begin
   inherited;
   FAboutComponents.isDarkMode(value);
-  FAboutComponents.ReloadChangelog(value, 'pt-br');
+  FAboutComponents.ReloadChangelog(value, 'pt-BR');
 end;
 
 procedure TPage_About.Teste;

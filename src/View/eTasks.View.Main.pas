@@ -170,7 +170,7 @@ begin
 
   Self.Fill.Color := TColorPallete.GetColor(Background, ThemeService.isDarkTheme);
 
-  ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService]);
+  ThemeService.SubscribeInterface([AppBar, TitleBar, MainMenu, AvatarMenu, ActionButton, DialogService, LanguageMenu]);
   ThemeService.ApplyTheme;
 
   ResourceManager := TResourceManagerService.New(NavigationManagerService, self, ListsLayout, ScreensLayout);
