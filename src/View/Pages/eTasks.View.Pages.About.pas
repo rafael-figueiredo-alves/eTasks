@@ -40,7 +40,7 @@ begin
   inherited;
   Self.OnUpdateButtonClick(Teste);
   FAboutComponents.isDarkMode(ThemeService.isDarkTheme);
-  FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, 'pt-br');
+//  FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, eTranslate.GetLanguage);
   //TranslateUI;
 end;
 
@@ -48,7 +48,7 @@ function TPage_About.isDarkMode(const value: Boolean): iPageLayout;
 begin
   inherited;
   FAboutComponents.isDarkMode(value);
-  FAboutComponents.ReloadChangelog(value, 'pt-BR');
+  FAboutComponents.ReloadChangelog(value, eTranslate.GetLanguage);
 end;
 
 procedure TPage_About.Teste;
@@ -63,6 +63,7 @@ begin
   FAboutComponents.SetVersionLabel(eTranslate.Translate(About_About_Heading_Version, 'Versão') + ' ' + eTasksVersion);
   FAboutComponents.SetTitleChangelog(eTranslate.Translate(About_About_Changelog_Title, 'Histórico de Versão'));
   FAboutComponents.SetDedicatoria(eTranslate.Translate(About_About_Footer_Dedication, 'Dedicatória'));
+  FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, eTranslate.GetLanguage);
 end;
 
 end.

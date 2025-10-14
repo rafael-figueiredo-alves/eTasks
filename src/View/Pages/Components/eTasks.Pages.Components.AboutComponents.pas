@@ -43,7 +43,7 @@ implementation
 
 uses
   eTasks.Components.ColorPallete, eTasks.Shared.Entities.Changelog,
-  System.Generics.Collections;
+  System.Generics.Collections, System.IOUtils;
 
 {$R *.fmx}
 
@@ -77,21 +77,32 @@ end;
 
 procedure TAboutComponents.ReloadChangelog(const isDarkTheme: boolean; language: string);
 var
-  Lista : TList<TChangelogsByLanguage>;
+  ChangeLogArray    : TArray<TChangelogItem>;
+  ChangeLogItem     : TChangelogItem;
+  Feature           : string;
+  ChangelogFilepath : string;
 begin
-   Lista := GetChangelogByLanguage(language, ExtractFilePath(ParamStr(0)) + 'Changelog.json');
+   Changelog.Words.Clear;
 
-//  Changelog.Words.Clear;
-//  AddVersionTitle('Teste de versão', isDarkTheme);
-//  AddFeature('- Teste 1', isDarkTheme);
-//  AddFeature('- Teste 2', isDarkTheme);
-//  AddFeature('- Teste 3', isDarkTheme);
-//  AddBlankline;
-//  AddVersionTitle('Teste de versão 2', isDarkTheme);
-//  AddFeature('- Teste 1', isDarkTheme);
-//  AddFeature('- Teste 2', isDarkTheme);
-//  AddFeature('- Teste 3', isDarkTheme);
-//  SkLabel1.Words.Add('Teste de linha de texto qualquer' + sLineBreak);
+  {$IFDEF ANDROID}
+  ChangelogFilepath := TPath.Combine(TPath.GetDocumentsPath, 'Changelog.json');
+  {$ENDIF}
+
+  {$IFDEF MSWINDOWS}
+  ChangelogFilepath :=  ExtractFilePath(ParamStr(0)) + 'Changelog.json';
+  {$ENDIF}
+
+   ChangeLogArray := GetChangelogByLanguage(language, ChangelogFilepath);
+
+   for ChangeLogItem in ChangeLogArray do
+     begin
+       AddVersionTitle(ChangeLogItem.VersionTitle, isDarkTheme);
+       for Feature in ChangeLogItem.Features do
+        begin
+          AddFeature(Feature, isDarkTheme);
+        end;
+       AddBlankline;
+     end;
 end;
 
 procedure TAboutComponents.SetDedicatoria(const value: string);
