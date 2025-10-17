@@ -31,6 +31,11 @@ const LSK_LanguageDefaultValue = 'pt-BR';
 const LSK_ThemeIsDarkDefaultValue = false;
 {$endregion}
 
+{$region 'Dados da API'}
+const BaseURL          = 'https://etasks-d6988.firebaseio.com/v2';
+const endpoint_version = '/version.json';
+{$endregion}
+
 implementation
 
 end.
