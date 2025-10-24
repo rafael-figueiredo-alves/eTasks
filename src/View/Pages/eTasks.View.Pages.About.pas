@@ -53,7 +53,7 @@ end;
 
 procedure TPage_About.Teste;
 begin
-  Self.GoBack(nil);
+  //Self.GoBack(nil);
 end;
 
 procedure TPage_About.TranslateUI;
