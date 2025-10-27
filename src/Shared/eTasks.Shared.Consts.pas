@@ -11,9 +11,8 @@ const AppVersion = 1;
 {$Region 'Constantes de Nomes de Arquivos associados'}
 const TranslationFile  = 'translate.json';
 const LocalStorageFile = 'eTasks.json';
+const EnvFile          = '.env';
 {$Endregion}
-
-const Firebase_API_Key = '';
 
 {$REGION 'Constantes de Tamanho'}
 const MobileSizeWidth = 768;
@@ -32,7 +31,6 @@ const LSK_ThemeIsDarkDefaultValue = false;
 {$endregion}
 
 {$region 'Dados da API'}
-const BaseURL          = 'https://etasks-d6988.firebaseio.com/v2';
 const endpoint_version = '/version.json';
 {$endregion}
 

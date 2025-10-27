@@ -101,7 +101,7 @@
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <SanitizedProjectName>eTasks</SanitizedProjectName>
         <DCC_Define>SKIA;$(DCC_Define)</DCC_Define>
-        <DCC_UnitSearchPath>..\modules\.dcp;..\modules\.dcu;..\modules;..\modules\etranslate4pascal\Demo\Delphi;..\modules\etranslate4pascal\Demo\Lazarus\backup;..\modules\etranslate4pascal\Demo\Lazarus;..\modules\etranslate4pascal\source;..\modules\efirebase\source\FirebaseLib\Response Classes;..\modules\efirebase\source\FirebaseLib;..\modules\efirebase\source\RestLib;..\modules\efirebase\source;..\modules\localstorage4pascal\Sample\Delphi;..\modules\localstorage4pascal\Sample\Lazarus\backup;..\modules\localstorage4pascal\Sample\Lazarus;..\modules\localstorage4pascal\src;..\modules\localstorage4pascal\src\backup;modules\.dcp;modules\.dcu;modules;modules\efirebase\source\FirebaseLib\Response Classes;modules\efirebase\source\FirebaseLib;modules\efirebase\source\RestLib;modules\efirebase\source;modules\etranslate4pascal\Demo\Delphi;modules\etranslate4pascal\Demo\Lazarus\backup;modules\etranslate4pascal\Demo\Lazarus;modules\etranslate4pascal\source;modules\localstorage4pascal\Sample\Delphi;modules\localstorage4pascal\Sample\Lazarus\backup;modules\localstorage4pascal\Sample\Lazarus;modules\localstorage4pascal\src;modules\localstorage4pascal\src\backup;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\modules\.dcp;..\modules\.dcu;..\modules;..\modules\etranslate4pascal\Demo\Delphi;..\modules\etranslate4pascal\Demo\Lazarus\backup;..\modules\etranslate4pascal\Demo\Lazarus;..\modules\etranslate4pascal\source;..\modules\efirebase\source\FirebaseLib\Response Classes;..\modules\efirebase\source\FirebaseLib;..\modules\efirebase\source\RestLib;..\modules\efirebase\source;..\modules\localstorage4pascal\Sample\Delphi;..\modules\localstorage4pascal\Sample\Lazarus\backup;..\modules\localstorage4pascal\Sample\Lazarus;..\modules\localstorage4pascal\src;..\modules\localstorage4pascal\src\backup;modules\.dcp;modules\.dcu;modules;modules\dotenv4delphi\src;modules\efirebase\source\FirebaseLib\Response Classes;modules\efirebase\source\FirebaseLib;modules\efirebase\source\RestLib;modules\efirebase\source;modules\etranslate4pascal\Demo\Delphi;modules\etranslate4pascal\Demo\Lazarus\backup;modules\etranslate4pascal\Demo\Lazarus;modules\etranslate4pascal\source;modules\localstorage4pascal\Sample\Delphi;modules\localstorage4pascal\Sample\Lazarus\backup;modules\localstorage4pascal\Sample\Lazarus;modules\localstorage4pascal\src;modules\localstorage4pascal\src\backup;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>fmx;DbxCommonDriver;bindengine;IndyIPCommon;FireDACCommonDriver;IndyProtocols;IndyIPClient;dbxcds;bindcompfmx;FireDACSqliteDriver;DbxClientDriver;soapmidas;fmxFireDAC;dbexpress;inet;fmxase;dbrtl;CustomIPTransport;DBXInterBaseDriver;IndySystem;bindcomp;FireDACCommon;IndyCore;RESTBackendComponents;bindcompdbx;rtl;RESTComponents;DBXSqliteDriver;IndyIPServer;dsnapxml;FireDAC;xmlrtl;tethering;dsnap;CloudService;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -297,7 +297,6 @@
         <DCCReference Include="src\View\Services\eTasks.View.LanguageService.pas"/>
         <DCCReference Include="src\Components\Toast\eTasks.Components.ToastMessage.pas">
             <Form>ToastMessage</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Services\Interfaces\eTasks.Components.IToastService.pas"/>
         <DCCReference Include="src\Components\Enums\eTasks.Components.ToastType.pas"/>
@@ -308,125 +307,96 @@
         <DCCReference Include="src\Components\Services\eTasks.Components.DialogService.pas"/>
         <DCCReference Include="src\Components\Dialog\eTasks.Components.ModalDialog.pas">
             <Form>ModalDialog</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Components\Containers\eTasks.Components.Accordion.pas">
             <Form>Accordion</Form>
-            <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.TranslateKeyConsts.pas"/>
         <DCCReference Include="src\Controller\eTasks.Controller.Main.pas"/>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.About.pas">
             <Form>PageAbout1</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditTasks.pas">
             <Form>Page_EditTasks</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditGoals.pas">
             <Form>Page_EditGoals</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditShopping.pas">
             <Form>Page_EditShopping</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditNotes.pas">
             <Form>Page_EditNotes</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditFinances.pas">
             <Form>Page_EditFinances</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditReadings.pas">
             <Form>Page_EditReadings</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.PageSettings.pas">
             <Form>Page_Settings</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.Rewards.pas">
             <Form>Page_Rewards</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\eTasks.View.Pages.EditProfile.pas">
             <Form>Page_Profile</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Services\eTasks.View.ResourceManagerService.pas"/>
         <DCCReference Include="src\View\Utils\eTasks.View.FormModels.pas"/>
         <DCCReference Include="src\View\Layouts\eTasks.View.AppListBase.pas">
             <Form>AppListBase</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Layouts\eTasks.View.ResourceBase.pas">
             <Form>ResourceBase</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Tasks.pas">
             <Form>AppListTasks</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Tasks.pas">
             <Form>ResourceTasks</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Home.pas">
             <Form>AppListHome</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Shopping.pas">
             <Form>AppListShopping</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Goals.pas">
             <Form>AppListGoals</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Readings.pas">
             <Form>AppListReadings</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Notes.pas">
             <Form>AppListNotes</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\AppLists\eTasks.View.Pages.AppLists.Finances.pas">
             <Form>AppListFinances</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Goals.pas">
             <Form>ResourceGoals</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Finances.pas">
             <Form>ResourceFinances</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Readings.pas">
             <Form>ResourceReadings</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Shopping.pas">
             <Form>ResourceShopping</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Notes.pas">
             <Form>ResourceNotes</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Home.pas">
             <Form>ResourceHome</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\View\Services\eTasks.View.ActionButtonVisibleService.pas"/>
         <DCCReference Include="src\View\Pages\Components\eTasks.Pages.Components.AboutComponents.pas">
             <Form>AboutComponents</Form>
-            <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.Changelog.pas"/>

@@ -32,6 +32,7 @@ uses
   LocalStorage4Pascal,
   System.SysUtils,
   System.IOUtils,
+  DotEnv4Delphi,
   eTasks.View.Main in 'src\View\eTasks.View.Main.pas' {fMain},
   eTasks.Components.AppBar in 'src\Components\Bars\eTasks.Components.AppBar.pas' {AppBar},
   eTasks.Components.TitleBar in 'src\Components\Bars\eTasks.Components.TitleBar.pas' {TitleBar},
@@ -119,11 +120,14 @@ begin
 
   {$IFDEF ANDROID}
   eTranslate(TPath.Combine(TPath.GetDocumentsPath, TranslationFile), LanguageService.GetLanguage);
+  DotEnv.Config(TPath.Combine(TPath.GetDocumentsPath, EnvFile));
   {$ENDIF}
 
   {$IFDEF MSWINDOWS}
   eTranslate(ExtractFilePath(ParamStr(0)) + TranslationFile, LanguageService.GetLanguage);
+  DotEnv.Config(ExtractFilePath(ParamStr(0)) + EnvFile);
   {$ENDIF}
+
 
   {$ENDREGION}
 

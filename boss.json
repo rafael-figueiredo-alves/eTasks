@@ -6,6 +6,7 @@
 	"mainsrc": "./src",
 	"projects": [],
 	"dependencies": {
+		"https://github.com/rafael-figueiredo-alves/dotenv4delphi": "^v1.5.0",
 		"https://github.com/rafael-figueiredo-alves/efirebase": "^v1.1.1",
 		"https://github.com/rafael-figueiredo-alves/etranslate4pascal": "^v1.0.0",
 		"https://github.com/rafael-figueiredo-alves/localstorage4pascal": "^v1.1.0"
