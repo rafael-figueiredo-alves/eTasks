@@ -101,7 +101,11 @@ uses
   eTasks.View.Pages.ResourceScreens.Home in 'src\View\Pages\ResourceScreens\eTasks.View.Pages.ResourceScreens.Home.pas' {ResourceHome},
   eTasks.View.ActionButtonVisibleService in 'src\View\Services\eTasks.View.ActionButtonVisibleService.pas',
   eTasks.Pages.Components.AboutComponents in 'src\View\Pages\Components\eTasks.Pages.Components.AboutComponents.pas' {AboutComponents: TFrame},
-  eTasks.Shared.Entities.Changelog in 'src\Shared\Entities\eTasks.Shared.Entities.Changelog.pas';
+  eTasks.Shared.Entities.Changelog in 'src\Shared\Entities\eTasks.Shared.Entities.Changelog.pas',
+  eTasks.Shared.Entities.VersionInfo in 'src\Shared\Entities\eTasks.Shared.Entities.VersionInfo.pas',
+  eTasks.Controller.Version in 'src\Controller\eTasks.Controller.Version.pas',
+  InternetChecker in 'src\Shared\CommonLib\InternetChecker.pas',
+  eTasks.Shared.Entities.Errors in 'src\Shared\Entities\eTasks.Shared.Entities.Errors.pas';
 
 {$R *.res}
 

@@ -30,10 +30,6 @@ const LSK_LanguageDefaultValue = 'pt-BR';
 const LSK_ThemeIsDarkDefaultValue = false;
 {$endregion}
 
-{$region 'Dados da API'}
-const endpoint_version = '/version.json';
-{$endregion}
-
 implementation
 
 end.

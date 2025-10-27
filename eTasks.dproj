@@ -400,6 +400,10 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.Changelog.pas"/>
+        <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.VersionInfo.pas"/>
+        <DCCReference Include="src\Controller\eTasks.Controller.Version.pas"/>
+        <DCCReference Include="src\Shared\CommonLib\InternetChecker.pas"/>
+        <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.Errors.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
