@@ -21,7 +21,7 @@ type
     { Public declarations }
     function SetTitle(const Title: string): iTitleBar;
     function isDarkMode(const value: boolean): iTitleBar;
-    function Resize(const FormWidth: Integer): iTitleBar;
+    function Resize(const FormWidth: Integer): iTitleBar;Reintroduce;
 
     class function New(const Form: TForm; const Layout: TLayout): iTitleBar;
   end;

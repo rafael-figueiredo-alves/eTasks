@@ -63,7 +63,7 @@ type
     procedure ScreensLayoutChange;
     function GetPage: iPageLayout;
     procedure SetPage(value: iPageLayout);
-    property Page: iPageLayout read GetPage write SetPage;
+    //property Page: iPageLayout read GetPage write SetPage;
     function FormWidth: Integer;
     procedure SetSelectedPage(const Page: TMainMenuItems);
     {$endregion}

@@ -100,7 +100,8 @@ uses
   eTasks.Components.ColorPallete,
   FMX.Clipboard,
   FMX.Platform, eTasks.Shared.Utils,
-  eTasks.Components.DialogType, eTranslate4Pascal;
+  eTasks.Components.DialogType,
+  eTranslate4Pascal;
 
 {$R *.fmx}
 
@@ -182,7 +183,7 @@ begin
       else
         ModalContent.Width := DESKTOP_WIDTH;
 
-    MaxBottom := 0;
+    //MaxBottom := 0;
     MaxBottom := TOTALMARGIN_TO_ADD + ImageHeader.Height +
                  HeaderTitle.Height + Footer.Height + lblMessage.Height +
                  DetailAccordion.Height;
@@ -248,6 +249,8 @@ end;
 
 procedure TModalDialog.ShowDialog(const Opcoes: TDialogOptions);
 begin
+  MainContainerDlg.BringToFront;
+
   //Set the Accordion to begin collapsed
   DetailAccordion.BeginCollapsed;
 

@@ -3,10 +3,23 @@ unit eTasks.View.Pages.About;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  eTasks.View.PageLayout, FMX.Objects, FMX.Layouts, FMX.Types,
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Graphics,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Dialogs,
+  FMX.StdCtrls,
+  eTasks.View.PageLayout,
+  FMX.Objects,
+  FMX.Layouts,
+  FMX.Types,
   FMX.Controls.Presentation,
-  eTasks.Pages.Components.AboutComponents, eTasks.View.Layouts.Interfaces;
+  eTasks.Pages.Components.AboutComponents,
+  eTasks.View.Layouts.Interfaces;
 
 type
   TPage_About = class(TPageLayout)
@@ -14,7 +27,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    procedure Teste;
+    procedure CheckIfUpdateIsAvailable;
   public
     { Public declarations }
     procedure TranslateUI;override;
@@ -31,14 +44,16 @@ implementation
 
 uses
   eTranslate4Pascal,
-  eTasks.Shared.TranslateKeyConsts, eTasks.View.ThemeService;
+  eTasks.Shared.TranslateKeyConsts, eTasks.View.ThemeService,
+  eTasks.Controller.Version, eTasks.Shared.Entities.Errors,
+  eTasks.Components.DialogService;
 
 {$R *.fmx}
 
 procedure TPage_About.FormCreate(Sender: TObject);
 begin
   inherited;
-  Self.OnUpdateButtonClick(Teste);
+  Self.OnUpdateButtonClick(CheckIfUpdateIsAvailable);
   FAboutComponents.isDarkMode(ThemeService.isDarkTheme);
 //  FAboutComponents.ReloadChangelog(ThemeService.isDarkTheme, eTranslate.GetLanguage);
   //TranslateUI;
@@ -51,9 +66,26 @@ begin
   FAboutComponents.ReloadChangelog(value, eTranslate.GetLanguage);
 end;
 
-procedure TPage_About.Teste;
+procedure TPage_About.CheckIfUpdateIsAvailable;
 begin
-  //Self.GoBack(nil);
+  try
+    TControllerVersion.IsUpdateAvailable(
+      procedure(const UpdateAvailable: Boolean; DisplayVersion, DownloadURL: string; Unreachable: Boolean)
+      begin
+       if(Unreachable)then
+        DialogService.ShowError('Sem conexão', 'Sem conexão com internet')
+       else
+        begin
+          if(UpdateAvailable)then
+           DialogService.Confirm('Atualização disponível', 'Há uma nova versão do eTasks disponível. Versão ' + DisplayVersion + '. Deseja realizar a atualização agora?')
+          else
+           DialogService.ShowInfo('Teste', 'Sem atualizações');
+        end;
+      end);
+  except
+    on E:EErrorNoInternetConnection do
+     DialogService.ShowError('Sem conexão', 'Sem conexão com internet');
+  end
 end;
 
 procedure TPage_About.TranslateUI;

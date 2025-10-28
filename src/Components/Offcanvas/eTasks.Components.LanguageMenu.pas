@@ -77,6 +77,7 @@ end;
 
 function TLanguageMenu.GetLanguageFromCode(const code: string): TSupportedLanguages;
 begin
+  Result := TSupportedLanguages.ptBR;
   if(code = 'pt-BR')then result := TSupportedLanguages.ptBR;
   if(code = 'en-US')then result := TSupportedLanguages.En;
   if(code = 'es-ES')then result := TSupportedLanguages.Es;

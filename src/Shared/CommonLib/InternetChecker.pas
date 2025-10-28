@@ -3,7 +3,7 @@ unit InternetChecker;
 interface
 
 type
-  TProc<boolean> = reference to procedure(Const AValue: Boolean);
+  TCheckConnectionFinished = reference to procedure(Const AValue: Boolean);
   TProc          = reference to procedure;
 
   TInternetChecker = class
@@ -17,7 +17,7 @@ type
     /// <param name="TestURL">URL de teste. Padrão: https://www.google.com</param>
     /// <param name="TimeoutMS">Tempo máximo (ms). Padrão: 5000</param>
     class procedure CheckConnectionAsync(
-      const OnFinished: TProc<Boolean>;
+      const OnFinished: TCheckConnectionFinished;
       const OnCheckingNetwork: TProc = nil;
       const OnTestingServer: TProc = nil;
       const TestURL: string = 'https://www.google.com';
@@ -39,7 +39,8 @@ uses
   Androidapi.JNI.JavaTypes,
   Androidapi.JNI.Net,
   Androidapi.JNI.Os,
-  FMX.Helpers.Android;
+  FMX.Helpers.Android,
+  Androidapi.JNI.GraphicsContentViewText;
   {$ENDIF}
   {$IFDEF MSWINDOWS}
   Winapi.WinInet;
@@ -72,7 +73,7 @@ begin
 end;
 
 class procedure TInternetChecker.CheckConnectionAsync(
-  const OnFinished: TProc<Boolean>; const OnCheckingNetwork,
+  const OnFinished: TCheckConnectionFinished; const OnCheckingNetwork,
   OnTestingServer: TProc; const TestURL: string; const TimeoutMS: Integer);
 begin
   if not Assigned(OnFinished) then

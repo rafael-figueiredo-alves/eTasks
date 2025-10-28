@@ -754,6 +754,24 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="Win32\Debug\.env" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\assets\internal\</RemoteDir>
+            <RemoteName>.env</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Win32\Debug\.env" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\assets\internal\</RemoteDir>
+            <RemoteName>.env</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="Android\Debug\colors.xml" Condition="'$(Config)'=='Debug'">
@@ -1072,6 +1090,24 @@
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStyles</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Win32\Debug\.env" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>eTasks\assets\internal\</RemoteDir>
+            <RemoteName>.env</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Win32\Debug\.env" Condition="'$(Config)'=='Release'">
+            <RemoteDir>eTasks\assets\internal\</RemoteDir>
+            <RemoteName>.env</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
