@@ -106,7 +106,8 @@ uses
   eTasks.Controller.Version in 'src\Controller\eTasks.Controller.Version.pas',
   InternetChecker in 'src\Shared\CommonLib\InternetChecker.pas',
   eTasks.Shared.Entities.Errors in 'src\Shared\Entities\eTasks.Shared.Entities.Errors.pas',
-  Imagens64 in 'src\Shared\CommonLib\Imagens64.pas';
+  Imagens64 in 'src\Shared\CommonLib\Imagens64.pas',
+  SystemFunctions in 'src\Shared\CommonLib\SystemFunctions.pas';
 
 {$R *.res}
 
