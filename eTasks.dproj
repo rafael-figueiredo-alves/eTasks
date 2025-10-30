@@ -408,6 +408,9 @@
         <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.Errors.pas"/>
         <DCCReference Include="src\Shared\CommonLib\Imagens64.pas"/>
         <DCCReference Include="src\Shared\CommonLib\SystemFunctions.pas"/>
+        <DCCReference Include="src\Shared\CommonLib\JsonHelpers.pas"/>
+        <DCCReference Include="src\Shared\CommonLib\AsyncExec.pas"/>
+        <DCCReference Include="src\Shared\CommonLib\HttpService.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

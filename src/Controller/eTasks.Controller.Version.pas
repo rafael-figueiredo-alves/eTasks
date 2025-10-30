@@ -17,40 +17,26 @@ const endpoint_version = '/version.json';
 implementation
 
 Uses
-  System.Net.HttpClient,
+  HttpService,
   Dotenv4Delphi,
-  System.JSON.Serializers,
   System.SysUtils,
   InternetChecker,
   eTasks.Shared.Entities.Errors,
   eTasks.Shared.Consts,
   System.Threading,
-  System.Classes;
+  System.Classes,
+  JsonHelpers;
 
 { TControllerVersion }
 
-function MakeRequest(const URL: string) : IHTTPResponse;
-var
-  HttpClient : THTTPClient;
+function MakeRequest(const URL: string) : TResponse;
 begin
-  HttpClient := THTTPClient.Create;
-  try
-    Result := HttpClient.Get(URL);
-  finally
-    FreeAndNil(HttpClient);
-  end;
+  Result := THttpService.GetRequest(URL);
 end;
 
 function ConvertToTVersionInfo(const JSON: string) : TVersionInfo;
-var
-  JsonSerializer : TJsonSerializer;
 begin
-  JsonSerializer := TJsonSerializer.Create;
-  try
-    Result := JsonSerializer.Deserialize<TVersionInfo>(JSON);
-  finally
-    FreeAndNil(JsonSerializer);
-  end;
+  Result := TJsonHelper.FromJSON<TVersionInfo>(JSON);
 end;
 
 procedure GetVersionInfoAsync(const OnFinished: TCheckVersionCallback);
@@ -58,7 +44,7 @@ begin
   TInternetChecker.CheckConnectionAsync(
     procedure(Const Connected: Boolean)
     var
-      Response    : IHTTPResponse;
+      Response    : TResponse;
       Info        : TVersionInfo;
       Unreachable : Boolean;
     begin
@@ -78,7 +64,7 @@ begin
             Response := MakeRequest(DotEnv.Env(TEnvVar.BASE_URL) + endpoint_version);
 
             if Response.StatusCode = 200 then
-              Info := ConvertToTVersionInfo(Response.ContentAsString(TEncoding.UTF8))
+              Info := ConvertToTVersionInfo(Response.Content)
             else
               Unreachable := True;
           except

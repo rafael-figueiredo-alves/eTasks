@@ -236,6 +236,12 @@ begin
   lblTitle.Text   := Options.Titulo;
   lblMessage.Text := Options.Mensagem;
 
+  if(Assigned(Options.ConfirmarClick))then
+   OnConfirm := Options.ConfirmarClick;
+
+  if(Assigned(Options.CancelarClick))then
+   OnCancel := Options.CancelarClick;
+
 //  btnConfirmar.Hint := 'Confirmar';
 //  btnCancelar.Hint  := 'Cancelar';
 //  btnCopiar.Hint    := 'Copiar';

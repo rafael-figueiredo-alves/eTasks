@@ -107,7 +107,10 @@ uses
   InternetChecker in 'src\Shared\CommonLib\InternetChecker.pas',
   eTasks.Shared.Entities.Errors in 'src\Shared\Entities\eTasks.Shared.Entities.Errors.pas',
   Imagens64 in 'src\Shared\CommonLib\Imagens64.pas',
-  SystemFunctions in 'src\Shared\CommonLib\SystemFunctions.pas';
+  SystemFunctions in 'src\Shared\CommonLib\SystemFunctions.pas',
+  JsonHelpers in 'src\Shared\CommonLib\JsonHelpers.pas',
+  AsyncExec in 'src\Shared\CommonLib\AsyncExec.pas',
+  HttpService in 'src\Shared\CommonLib\HttpService.pas';
 
 {$R *.res}
 
