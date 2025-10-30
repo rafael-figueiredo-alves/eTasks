@@ -1,4 +1,4 @@
-unit Imagens64;
+unit ImageUtils;
 
 interface
 
@@ -10,7 +10,7 @@ Uses
  System.NetEncoding;
 
 Type
-  TImagens64 = class
+  TImageUtils = class
     Class function toBase64   (Bitmap : tBitmap) : String;
     Class function fromBase64 (const Base64: string) : TBitmap;
   end;
@@ -19,7 +19,7 @@ implementation
 
 { TImagens64 }
 
-class function TImagens64.fromBase64(const Base64: string): TBitmap;
+class function TImageUtils.fromBase64(const Base64: string): TBitmap;
 Var
   Entrada : TStringStream;
   Saida   : TBytesStream;
@@ -44,7 +44,7 @@ begin
   end;
 end;
 
-class function TImagens64.toBase64(Bitmap: tBitmap): String;
+class function TImageUtils.toBase64(Bitmap: tBitmap): String;
 var
  Entrada : TBytesStream;
  Saida   : TStringStream;

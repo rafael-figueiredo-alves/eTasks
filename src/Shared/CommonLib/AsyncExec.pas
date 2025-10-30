@@ -14,8 +14,7 @@ type
                         OnStart,              //Procedimento de entrada      = nil
                         OnProcess,            //Procedimento principal       = nil
                         OnFinish   : TProc;   //Procedimento de finalização  = nil
-                        OnError    : TProcedureExcept = nil;
-                        const DoCompleteWithError : Boolean = True
+                        OnError    : TProcedureExcept = nil
                        );
   end;
 
@@ -27,8 +26,7 @@ uses
 { TAsyncExec }
 
 class procedure TAsyncExec.Run(OnStart, OnProcess, OnFinish : TProc;
-                               OnError                      : TProcedureExcept;
-                               const DoCompleteWithError    : Boolean);
+                               OnError                      : TProcedureExcept);
 var
   CustomThread : TThread;
 begin
@@ -64,7 +62,6 @@ begin
 
           except on CapturedException:Exception do
             begin
-              LDoComplete := DoCompleteWithError;
               //Processo de Erro
               if Assigned(OnError) then
               begin

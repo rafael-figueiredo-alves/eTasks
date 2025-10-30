@@ -106,7 +106,7 @@ uses
   eTasks.Controller.Version in 'src\Controller\eTasks.Controller.Version.pas',
   InternetChecker in 'src\Shared\CommonLib\InternetChecker.pas',
   eTasks.Shared.Entities.Errors in 'src\Shared\Entities\eTasks.Shared.Entities.Errors.pas',
-  Imagens64 in 'src\Shared\CommonLib\Imagens64.pas',
+  ImageUtils in 'src\Shared\CommonLib\ImageUtils.pas',
   SystemFunctions in 'src\Shared\CommonLib\SystemFunctions.pas',
   JsonHelpers in 'src\Shared\CommonLib\JsonHelpers.pas',
   AsyncExec in 'src\Shared\CommonLib\AsyncExec.pas',

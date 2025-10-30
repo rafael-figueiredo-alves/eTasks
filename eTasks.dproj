@@ -406,7 +406,7 @@
         <DCCReference Include="src\Controller\eTasks.Controller.Version.pas"/>
         <DCCReference Include="src\Shared\CommonLib\InternetChecker.pas"/>
         <DCCReference Include="src\Shared\Entities\eTasks.Shared.Entities.Errors.pas"/>
-        <DCCReference Include="src\Shared\CommonLib\Imagens64.pas"/>
+        <DCCReference Include="src\Shared\CommonLib\ImageUtils.pas"/>
         <DCCReference Include="src\Shared\CommonLib\SystemFunctions.pas"/>
         <DCCReference Include="src\Shared\CommonLib\JsonHelpers.pas"/>
         <DCCReference Include="src\Shared\CommonLib\AsyncExec.pas"/>

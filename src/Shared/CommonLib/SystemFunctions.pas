@@ -4,6 +4,7 @@ interface
 
   Procedure SendEmail(destinatario, assunto, texto : string);
   Procedure OpenLink(Link : string);
+  Procedure UpdateApp(const DownloadURL, AppName: string);
 
 implementation
 
