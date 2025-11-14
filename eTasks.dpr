@@ -110,7 +110,8 @@ uses
   SystemFunctions in 'src\Shared\CommonLib\SystemFunctions.pas',
   JsonHelpers in 'src\Shared\CommonLib\JsonHelpers.pas',
   AsyncExec in 'src\Shared\CommonLib\AsyncExec.pas',
-  HttpService in 'src\Shared\CommonLib\HttpService.pas';
+  HttpService in 'src\Shared\CommonLib\HttpService.pas',
+  eTasks.View.Login in 'src\View\eTasks.View.Login.pas' {fLogin};
 
 {$R *.res}
 
@@ -141,5 +142,6 @@ begin
   {$ENDREGION}
 
   Application.CreateForm(TfMain, fMain);
+  //Application.CreateForm(TfLogin, fLogin);
   Application.Run;
 end.

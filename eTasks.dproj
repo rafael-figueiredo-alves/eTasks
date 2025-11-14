@@ -411,6 +411,10 @@
         <DCCReference Include="src\Shared\CommonLib\JsonHelpers.pas"/>
         <DCCReference Include="src\Shared\CommonLib\AsyncExec.pas"/>
         <DCCReference Include="src\Shared\CommonLib\HttpService.pas"/>
+        <DCCReference Include="src\View\eTasks.View.Login.pas">
+            <Form>fLogin</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

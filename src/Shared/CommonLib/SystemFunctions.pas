@@ -11,7 +11,9 @@ implementation
 uses
  {$ifdef MSWINDOWS}
  winapi.shellapi,
- Winapi.Windows;
+ Winapi.Windows,
+ System.Net.HttpClient,
+ System.Classes;
  {$endif}
 
  {$ifdef ANDROID}
@@ -84,6 +86,39 @@ begin
                                     TJnet_Uri.JavaClass.parse(StringToJString(TIdURI.URLEncode(link))));
   TAndroidHelper.Activity.startActivity(Intent);
   {$endif}
+end;
+
+Procedure UpdateApp(const DownloadURL, AppName: string);
+{$IFDEF WINDOWS}
+var
+ Net                  : THTTPClient;
+ eTasksFile           : TFileStream;
+ Arquivo_temp_install : string;
+{$ENDIF}
+begin
+  {$IFDEF ANDROID}
+  OpenLink(DownloadURL);
+  Result := true;
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  Arquivo_temp_install := TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe');
+  RenameFile(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe'), TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));
+  try
+   eTasksFile := TFileStream.Create(arquivo_temp_install, fmCreate);
+   try
+     net := THTTPClient.Create;
+     try
+       Result := Net.Get(LinktoDownload('Windows'), eTasksFile).StatusCode < 400;
+     except
+      erro := 'Ocorreu um erro!'
+     end;
+   finally
+     net.DisposeOf;
+   end;
+  finally
+    eTasksFile.DisposeOf;
+  end;
+  {$ENDIF}
 end;
 
 end.

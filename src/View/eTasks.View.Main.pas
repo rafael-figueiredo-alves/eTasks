@@ -56,6 +56,7 @@ type
     procedure MostrarMensagem(sender: TObject);
     procedure OnLanguageChanged(const Lang: string);
     procedure SetVisibilityActionButton(const Visible: Boolean);
+    procedure LogOut;
 
     {$region 'Métodos Base'}
     procedure RestrictScreenSize;
@@ -96,7 +97,7 @@ uses
   System.SysUtils,
   eTasks.Shared.TranslateKeyConsts,
   LocalStorage4Pascal, eTasks.View.ResourceManagerService,
-  eTasks.View.ActionButtonVisibleService;
+  eTasks.View.ActionButtonVisibleService, eTasks.View.Login;
 {$endregion}
 
 {$R *.fmx}
@@ -107,7 +108,7 @@ begin
   case item of
     TAvatarMenuItems.EditProfile    : NavigationManagerService.GoToProfile(self);
     TAvatarMenuItems.ChangePassword : DialogService.Warn('AVISO', 'Implementar');
-    TAvatarMenuItems.Logout         : DialogService.Warn('AVISO', 'Implementar');
+    TAvatarMenuItems.Logout         : LogOut; //DialogService.Warn('AVISO', 'Implementar');
     TAvatarMenuItems.Conquers       : NavigationManagerService.GoToRewards(self);
     TAvatarMenuItems.Settings       : NavigationManagerService.GoToSettings(self);
     TAvatarMenuItems.ChangeTheme    : SetTheme(nil);
@@ -197,6 +198,15 @@ end;
 function TfMain.GetPage: iPageLayout;
 begin
   Result := CurrentPage;
+end;
+
+procedure TfMain.LogOut;
+begin
+  if(not Assigned(fLogin))then
+   Application.CreateForm(tfLogin, fLogin);
+  fLogin.Show;
+  Application.MainForm := fLogin;
+  self.Visible := false;
 end;
 
 procedure TfMain.MostrarMensagem(sender: TObject);
