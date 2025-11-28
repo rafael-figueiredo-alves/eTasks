@@ -27,7 +27,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    Teste : string;
+    LinkUpdate : string;
     procedure CheckIfUpdateIsAvailable;
     procedure Atualizar(sender: TObject);
   public
@@ -46,9 +46,13 @@ implementation
 
 uses
   eTranslate4Pascal,
-  eTasks.Shared.TranslateKeyConsts, eTasks.View.ThemeService,
-  eTasks.Controller.Version, eTasks.Shared.Entities.Errors,
-  eTasks.Components.DialogService, SystemFunctions;
+  eTasks.Shared.TranslateKeyConsts,
+  eTasks.View.ThemeService,
+  eTasks.Controller.Version,
+  eTasks.Shared.Entities.Errors,
+  eTasks.Components.DialogService,
+  SystemFunctions,
+  eTasks.Shared.Consts;
 
 {$R *.fmx}
 
@@ -70,7 +74,7 @@ end;
 
 procedure TPage_About.Atualizar(sender: TObject);
 begin
-  OpenLink(Teste);
+  UpdateApp(LinkUpdate, AppName);
 end;
 
 procedure TPage_About.CheckIfUpdateIsAvailable;
@@ -79,7 +83,7 @@ begin
     TControllerVersion.IsUpdateAvailable(
       procedure(const UpdateAvailable: Boolean; DisplayVersion, DownloadURL: string; Unreachable: Boolean)
       begin
-       Teste := DownloadURL;
+       LinkUpdate := DownloadURL;
        if(Unreachable)then
         DialogService.ShowError('Sem conexão', 'Sem conexão com internet')
        else

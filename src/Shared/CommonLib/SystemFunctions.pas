@@ -13,10 +13,11 @@ uses
  winapi.shellapi,
  Winapi.Windows,
  System.Net.HttpClient,
- System.Classes;
+ System.Classes, System.SysUtils, System.IOUtils;
  {$endif}
 
  {$ifdef ANDROID}
+  IdURI,
   AndroidApi.helpers,
   AndroidApi.JNI.OS,
   AndroidApi.JNI.Widget,
@@ -50,7 +51,7 @@ begin
   {$endif}
 
   {$ifdef ANDROID}
-  if Destinatario <> EmptyStr then
+  if Destinatario <> '' then
     begin
             Destinatarios := TJavaObjectArray<JString>.Create(1);
 
@@ -88,29 +89,36 @@ begin
   {$endif}
 end;
 
+procedure CleanUpdate(AppName: string);
+begin
+  if FileExists(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe')) then
+   TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe'));
+end;
+
 Procedure UpdateApp(const DownloadURL, AppName: string);
-{$IFDEF WINDOWS}
+//{$IFDEF WINDOWS}
 var
  Net                  : THTTPClient;
  eTasksFile           : TFileStream;
  Arquivo_temp_install : string;
-{$ENDIF}
+//{$ENDIF}
 begin
-  {$IFDEF ANDROID}
-  OpenLink(DownloadURL);
-  Result := true;
-  {$ENDIF}
-  {$IFDEF WINDOWS}
-  Arquivo_temp_install := TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe');
-  RenameFile(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe'), TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks_old.exe'));
+//  {$IFDEF ANDROID}
+//  OpenLink(DownloadURL);
+//  {$ENDIF}
+//  {$IFDEF WINDOWS}
+  Arquivo_temp_install := TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '.exe');
+  RenameFile(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe'), TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe'));
   try
    eTasksFile := TFileStream.Create(arquivo_temp_install, fmCreate);
    try
      net := THTTPClient.Create;
      try
-       Result := Net.Get(LinktoDownload('Windows'), eTasksFile).StatusCode < 400;
+       if (Net.Get(DownloadURL, eTasksFile).StatusCode < 400)then begin
+        OpenLink(Arquivo_temp_install);
+       end;
      except
-      erro := 'Ocorreu um erro!'
+
      end;
    finally
      net.DisposeOf;
@@ -118,7 +126,7 @@ begin
   finally
     eTasksFile.DisposeOf;
   end;
-  {$ENDIF}
+//  {$ENDIF}
 end;
 
 end.
