@@ -1,3 +1,0 @@
-.\assets\internal\.env
-.\assets\internal\translate.json
-.\assets\internal\Changelog.json

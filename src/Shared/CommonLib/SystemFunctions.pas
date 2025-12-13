@@ -91,22 +91,22 @@ end;
 
 procedure CleanUpdate(AppName: string);
 begin
-  if FileExists(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe')) then
-   TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe'));
+//  if FileExists(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe')) then
+//   TFile.Delete(TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe'));
 end;
 
 Procedure UpdateApp(const DownloadURL, AppName: string);
-//{$IFDEF WINDOWS}
+{$IFDEF WINDOWS}
 var
  Net                  : THTTPClient;
  eTasksFile           : TFileStream;
  Arquivo_temp_install : string;
-//{$ENDIF}
+{$ENDIF}
 begin
-//  {$IFDEF ANDROID}
-//  OpenLink(DownloadURL);
-//  {$ENDIF}
-//  {$IFDEF WINDOWS}
+  {$IFDEF ANDROID}
+  OpenLink(DownloadURL);
+  {$ENDIF}
+  {$IFDEF WINDOWS}
   Arquivo_temp_install := TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '.exe');
   RenameFile(TPath.Combine(ExtractFilePath(ParamStr(0)) , 'eTasks.exe'), TPath.Combine(ExtractFilePath(ParamStr(0)) , AppName + '_old.exe'));
   try
@@ -126,7 +126,7 @@ begin
   finally
     eTasksFile.DisposeOf;
   end;
-//  {$ENDIF}
+  {$ENDIF}
 end;
 
 end.

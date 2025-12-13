@@ -112,7 +112,8 @@ uses
   AsyncExec in 'src\Shared\CommonLib\AsyncExec.pas',
   HttpService in 'src\Shared\CommonLib\HttpService.pas',
   eTasks.View.Login in 'src\View\eTasks.View.Login.pas' {fLogin},
-  eTasks.Components.TextBox in 'src\Components\eTasks.Components.TextBox.pas' {TextBox: TFrame};
+  eTasks.Components.TextBox in 'src\Components\eTasks.Components.TextBox.pas' {TextBox: TFrame},
+  eTasks.View.SplashScreen in 'src\View\eTasks.View.SplashScreen.pas' {fSplashScreen};
 
 {$R *.res}
 
@@ -142,7 +143,15 @@ begin
 
   {$ENDREGION}
 
+  {$IFDEF MSWINDOWS}
+  // Implementar splash screen para Windows
+  Application.CreateForm(TfSplashScreen, fSplashScreen);
+  {$ELSE}
+  // Implementar rotina para inicializar app no Android (pelo login se não estiver conectado)
   Application.CreateForm(TfMain, fMain);
+  {$ENDIF}
+
+  //Application.CreateForm(TfMain, fMain);
   //Application.CreateForm(TfLogin, fLogin);
   Application.Run;
 end.
