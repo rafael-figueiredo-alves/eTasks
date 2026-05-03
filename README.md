@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/main/assets/eTasks_logo_new.png" alt="eTasks Logo" width="180"/>
+<img src="https://github.com/rafael-figueiredo-alves/eTasks/blob/main/assets/eTasks2.webp" alt="eTasks Logo" width="180" height="180" />
 
 # eTasks
 
