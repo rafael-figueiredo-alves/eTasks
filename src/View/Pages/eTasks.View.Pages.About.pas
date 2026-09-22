@@ -52,7 +52,7 @@ uses
   eTasks.Shared.Entities.Errors,
   eTasks.Components.DialogService,
   SystemFunctions,
-  eTasks.Shared.Consts;
+  eTasks.Shared.Consts, DotEnv4Delphi;
 
 {$R *.fmx}
 
@@ -80,6 +80,7 @@ end;
 procedure TPage_About.CheckIfUpdateIsAvailable;
 begin
   try
+    ShowMessage(DotEnv.env(BASE_URL));
     TControllerVersion.IsUpdateAvailable(
       procedure(const UpdateAvailable: Boolean; DisplayVersion, DownloadURL: string; Unreachable: Boolean)
       begin

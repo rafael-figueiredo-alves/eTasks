@@ -113,13 +113,14 @@ uses
   HttpService in 'src\Shared\CommonLib\HttpService.pas',
   eTasks.View.Login in 'src\View\eTasks.View.Login.pas' {fLogin},
   eTasks.Components.TextBox in 'src\Components\eTasks.Components.TextBox.pas' {TextBox: TFrame},
-  eTasks.View.SplashScreen in 'src\View\eTasks.View.SplashScreen.pas' {fSplashScreen};
+  eTasks.View.SplashScreen in 'src\View\eTasks.View.SplashScreen.pas' {fSplashScreen},
+  eTasks.Shared.ApplicationHelper in 'src\Shared\eTasks.Shared.ApplicationHelper.pas';
 
 {$R *.res}
 
 begin
-  GlobalUseSkia := True;
-  ReportMemoryLeaksOnShutdown := True;
+  GlobalUseSkia               := True; //Ativar uso do Skia
+  ReportMemoryLeaksOnShutdown := True; //Relatório de vazamentos de memória, desativar em produção
   Application.Initialize;
 
   {$REGION 'Inicialização dos serviços'}
@@ -145,7 +146,8 @@ begin
 
   {$IFDEF MSWINDOWS}
   // Implementar splash screen para Windows
-  Application.CreateForm(TfSplashScreen, fSplashScreen);
+  //Application.CreateForm(TfSplashScreen, fSplashScreen);
+  Application.CreateForm(TfLogin, fLogin);
   {$ELSE}
   // Implementar rotina para inicializar app no Android (pelo login se não estiver conectado)
   Application.CreateForm(TfMain, fMain);

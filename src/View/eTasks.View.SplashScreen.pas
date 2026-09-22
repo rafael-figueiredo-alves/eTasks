@@ -25,7 +25,7 @@ var
 implementation
 
 uses
-  eTasks.View.Main;
+  eTasks.View.Main, eTasks.View.Login;
 
 {$R *.fmx}
 
@@ -37,7 +37,7 @@ end;
 procedure TfSplashScreen.TimerSplashTimer(Sender: TObject);
 begin
   if(not Assigned(fMain))then
-   Application.CreateForm(tfmain, fMain);
+   Application.CreateForm(tfMain, fMain);
   fMain.Show;
   Application.MainForm := fMain;
   self.Close;

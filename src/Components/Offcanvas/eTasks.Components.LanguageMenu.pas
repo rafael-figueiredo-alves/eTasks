@@ -129,6 +129,8 @@ begin
   Result.ChangeLanguage(Translations);
   Result.Selected('pt-BR');
   Form.AddObject(TLanguageMenu(Result).Multiview);
+  TLanguageMenu(Result).Multiview.ShowMaster;
+  TLanguageMenu(Result).Multiview.HideMaster;
 end;
 
 function TLanguageMenu.OnChangeSelectedLanguage(const value: TSupportedLanguages): iLanguageMenu;

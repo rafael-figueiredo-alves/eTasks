@@ -12,7 +12,7 @@ type
    class procedure IsUpdateAvailable(const OnFinished: TUpdateCheckCallback);
  end;
 
-const endpoint_version = '/version.json';
+const endpoint_version = '/version';
 
 implementation
 
@@ -25,7 +25,7 @@ Uses
   eTasks.Shared.Consts,
   System.Threading,
   System.Classes,
-  JsonHelpers;
+  JsonHelpers, FMX.Dialogs;
 
 { TControllerVersion }
 

@@ -5,7 +5,7 @@ interface
 {$REGION 'Dados da Aplicação'}
 const AppName = 'eTasks';
 const AppVersionName = '2.0.0';
-const AppVersion = 1;
+const AppVersion = 0;
 {$ENDREGION}
 
 {$Region 'Constantes de Nomes de Arquivos associados'}

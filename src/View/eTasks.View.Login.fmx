@@ -4,6 +4,7 @@ object fLogin: TfLogin
   Caption = 'Login'
   ClientHeight = 480
   ClientWidth = 640
+  Position = DesktopCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]

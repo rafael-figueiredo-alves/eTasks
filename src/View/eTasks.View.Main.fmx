@@ -5,6 +5,7 @@ object fMain: TfMain
   ClientHeight = 480
   ClientWidth = 860
   Fill.Kind = Solid
+  Position = DesktopCenter
   StyleBook = FolhaDeEstilos
   FormFactor.Width = 320
   FormFactor.Height = 480

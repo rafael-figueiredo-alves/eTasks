@@ -96,8 +96,11 @@ uses
   eTasks.Components.DialogService,
   System.SysUtils,
   eTasks.Shared.TranslateKeyConsts,
-  LocalStorage4Pascal, eTasks.View.ResourceManagerService,
-  eTasks.View.ActionButtonVisibleService, eTasks.View.Login;
+  LocalStorage4Pascal,
+  eTasks.View.ResourceManagerService,
+  eTasks.View.ActionButtonVisibleService,
+  eTasks.View.Login,
+  eTasks.Shared.ApplicationHelper;
 {$endregion}
 
 {$R *.fmx}
@@ -207,6 +210,8 @@ begin
   fLogin.Show;
   Application.MainForm := fLogin;
   self.Visible := false;
+
+//  Application.OpenLoginForm(fMain);
 end;
 
 procedure TfMain.MostrarMensagem(sender: TObject);

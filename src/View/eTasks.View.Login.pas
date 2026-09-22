@@ -23,7 +23,8 @@ var
 implementation
 
 uses
-  eTasks.View.Main;
+  eTasks.View.Main,
+  eTasks.Shared.ApplicationHelper;
 
 {$R *.fmx}
 
@@ -34,6 +35,7 @@ begin
   fMain.Show;
   Application.MainForm := fMain;
   self.Visible := false;
+//  Application.OpenMainForm(fLogin);
 end;
 
 end.

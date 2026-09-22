@@ -2311,7 +2311,7 @@ object fSplashScreen: TfSplashScreen
   end
   object TimerSplash: TTimer
     Enabled = False
-    Interval = 2500
+    Interval = 5000
     OnTimer = TimerSplashTimer
     Left = 512
     Top = 56

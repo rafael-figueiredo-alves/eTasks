@@ -52,11 +52,11 @@ end;
 
 class procedure TUtils.ExecuteMethodWithParams(const List: TList<IInterface>; const MethodName: string; const Params: array of TValue);
 var
-  Context: TRttiContext;
-  RttiType: TRttiType;
+     Context: TRttiContext;
+    RttiType: TRttiType;
   RttiMethod: TRttiMethod;
-  Item: IInterface;
-  Obj: TObject;
+        Item: IInterface;
+         Obj: TObject;
 begin
   Context := TRttiContext.Create;
   try
