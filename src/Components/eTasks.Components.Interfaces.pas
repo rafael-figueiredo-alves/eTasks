@@ -6,8 +6,11 @@ uses
   FMX.Objects,
   FMX.Layouts,
   FMX.MultiView,
-  eTasks.Components.TranslationEnums, System.Generics.Collections,
-  eTasks.Components.MenuEnums, FMX.Graphics;
+  eTasks.Components.TranslationEnums,
+  System.Generics.Collections,
+  eTasks.Components.MenuEnums,
+  FMX.Graphics,
+  System.SysUtils;
 
 type
   TButtonAppBar = (ThemeBtn, MenuBtn, AvatarBtn);
@@ -91,6 +94,15 @@ type
     function SetHint(const value: string): iActionButton;
     function OnClick(const Event: TEventoClick): iActionButton;
     function IsVisible(const Value: Boolean = true): iActionButton;
+  end;
+
+  iLabelledTextbox = interface
+    ['{3BFA468B-B7B4-4C79-9BD6-C6BC1EA25B74}']
+    function isDarkMode(const value: boolean) : iLabelledTextbox;
+    function Bind(const AGetter : TFunc<string>; ASetter : TProc<string>) : iLabelledTextbox;
+    function Caption(const AText: string) : iLabelledTextbox;
+    function TextPrompt(const APrompt: string) : iLabelledTextbox;
+    function Refresh : iLabelledTextbox;
   end;
 
 implementation

@@ -14,6 +14,8 @@ type
 
  TNavBarButtonHints = (nbUpdate, nbHelp, nbAccept, nbDelete, nbBack);
 
+ tLabelledTextbox = (ltbCaption, ltbEditTexthint);
+
 implementation
 
 end.

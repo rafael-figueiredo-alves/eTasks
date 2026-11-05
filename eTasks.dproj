@@ -435,16 +435,15 @@
             <Form>fLogin</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="src\Components\eTasks.Components.TextBox.pas">
-            <Form>TextBox</Form>
-            <FormType>fmx</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\View\eTasks.View.SplashScreen.pas">
             <Form>fSplashScreen</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Shared\eTasks.Shared.ApplicationHelper.pas"/>
+        <DCCReference Include="src\Components\UIControls\EditControls\eTasks.Components.LabelledTextbox.pas">
+            <Form>labelledTextBox</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -631,6 +630,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="Win32\Debug\eTasks.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Debug\eTasks.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>eTasks.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\translate.json" Configuration="Debug" Class="File">
                     <Platform Name="Android">
                         <RemoteDir>.\assets\internal\</RemoteDir>

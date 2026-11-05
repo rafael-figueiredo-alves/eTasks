@@ -3,18 +3,34 @@ object fLogin: TfLogin
   Top = 0
   Caption = 'Login'
   ClientHeight = 480
-  ClientWidth = 640
+  ClientWidth = 352
   Position = DesktopCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   DesignerMasterStyle = 0
   object Button1: TButton
-    Position.X = 256.000000000000000000
-    Position.Y = 208.000000000000000000
+    Position.X = 536.000000000000000000
+    Position.Y = 440.000000000000000000
     TabOrder = 0
     Text = 'Button1'
-    TextSettings.Trimming = None
+    Visible = False
     OnClick = Button1Click
+  end
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 352.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object Button2: TButton
+      Position.X = 80.000000000000000000
+      Position.Y = 368.000000000000000000
+      TabOrder = 0
+      Text = 'Button2'
+      OnClick = Button2Click
+    end
   end
 end
