@@ -19,18 +19,13 @@ object fLogin: TfLogin
     Visible = False
     OnClick = Button1Click
   end
-  object Layout1: TLayout
+  object Layout1: TVertScrollBox
     Align = Client
     Size.Width = 352.000000000000000000
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    object Button2: TButton
-      Position.X = 80.000000000000000000
-      Position.Y = 368.000000000000000000
-      TabOrder = 0
-      Text = 'Button2'
-      OnClick = Button2Click
-    end
+    Viewport.Width = 352.000000000000000000
+    Viewport.Height = 480.000000000000000000
   end
 end

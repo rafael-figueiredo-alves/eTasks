@@ -1,15 +1,7 @@
-object labelledTextBox: TlabelledTextBox
-  Left = 0
-  Top = 0
-  Caption = 'Form1'
-  ClientHeight = 192
-  ClientWidth = 640
-  StyleBook = lbtxStyle
-  FormFactor.Width = 320
-  FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
-  DesignerMasterStyle = 0
+object LabelledTextBox: TLabelledTextBox
+  Size.Width = 556.000000000000000000
+  Size.Height = 240.000000000000000000
+  Size.PlatformDefault = False
   object layLabelledTextbox: TLayout
     Align = Top
     Margins.Left = 5.000000000000000000
@@ -18,7 +10,7 @@ object labelledTextBox: TlabelledTextBox
     Margins.Bottom = 5.000000000000000000
     Position.X = 5.000000000000000000
     Position.Y = 5.000000000000000000
-    Size.Width = 630.000000000000000000
+    Size.Width = 546.000000000000000000
     Size.Height = 65.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -40,7 +32,7 @@ object labelledTextBox: TlabelledTextBox
       Margins.Bottom = 2.000000000000000000
       Position.X = 5.000000000000000000
       Position.Y = 23.000000000000000000
-      Size.Width = 620.000000000000000000
+      Size.Width = 536.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = xFF336699
@@ -58,7 +50,7 @@ object labelledTextBox: TlabelledTextBox
         Margins.Top = 5.000000000000000000
         Margins.Right = 15.000000000000000000
         Margins.Bottom = 5.000000000000000000
-        Size.Width = 590.000000000000000000
+        Size.Width = 506.000000000000000000
         Size.Height = 30.000000000000000000
         Size.PlatformDefault = False
         TextPrompt = 'Nome para a lista de compras'

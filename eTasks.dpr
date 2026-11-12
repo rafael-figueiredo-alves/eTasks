@@ -114,7 +114,8 @@ uses
   eTasks.View.Login in 'src\View\eTasks.View.Login.pas' {fLogin},
   eTasks.View.SplashScreen in 'src\View\eTasks.View.SplashScreen.pas' {fSplashScreen},
   eTasks.Shared.ApplicationHelper in 'src\Shared\eTasks.Shared.ApplicationHelper.pas',
-  eTasks.Components.LabelledTextbox in 'src\Components\UIControls\EditControls\eTasks.Components.LabelledTextbox.pas' {labelledTextBox};
+  eTasks.Components.ScrollFocus in 'src\Components\eTasks.Components.ScrollFocus.pas',
+  eTasks.Components.LabelledTextbox in 'src\Components\UIControls\EditControls\eTasks.Components.LabelledTextbox.pas' {LabelledTextBox: TFrame};
 
 {$R *.res}
 
@@ -151,7 +152,8 @@ begin
   Application.CreateForm(TlabelledTextBox, labelledTextBox);
   {$ELSE}
   // Implementar rotina para inicializar app no Android (pelo login se não estiver conectado)
-  Application.CreateForm(TfMain, fMain);
+  //Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TfLogin, fLogin);
   {$ENDIF}
 
   //Application.CreateForm(TfMain, fMain);

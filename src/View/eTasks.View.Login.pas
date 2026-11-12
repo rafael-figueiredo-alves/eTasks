@@ -15,11 +15,9 @@ type
 
   TfLogin = class(TForm)
     Button1: TButton;
-    Layout1: TLayout;
-    Button2: TButton;
+    Layout1: TVertScrollBox;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
@@ -47,11 +45,6 @@ begin
   Application.MainForm := fMain;
   self.Visible := false;
 //  Application.OpenMainForm(fLogin);
-end;
-
-procedure TfLogin.Button2Click(Sender: TObject);
-begin
-  ShowMessage(Aluno.Nome);
 end;
 
 procedure TfLogin.FormCreate(Sender: TObject);
@@ -120,6 +113,36 @@ begin
                                 end);
 
   TlabelledTextBox.New(Layout1, 'Teste de edição 7', 'Digite seu texto',
+                                function: string
+                                begin
+                                  Result := Aluno.Nome;
+                                end,
+                                procedure(Value: string)
+                                begin
+                                  Aluno.Nome := Value;
+                                end);
+
+  TlabelledTextBox.New(Layout1, 'Teste de edição 8', 'Digite seu texto',
+                                function: string
+                                begin
+                                  Result := Aluno.Nome;
+                                end,
+                                procedure(Value: string)
+                                begin
+                                  Aluno.Nome := Value;
+                                end);
+
+  TlabelledTextBox.New(Layout1, 'Teste de edição 9', 'Digite seu texto',
+                                function: string
+                                begin
+                                  Result := Aluno.Nome;
+                                end,
+                                procedure(Value: string)
+                                begin
+                                  Aluno.Nome := Value;
+                                end);
+
+  TlabelledTextBox.New(Layout1, 'Teste de edição 10', 'Digite seu texto',
                                 function: string
                                 begin
                                   Result := Aluno.Nome;
