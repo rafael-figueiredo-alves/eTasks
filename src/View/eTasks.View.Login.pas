@@ -22,6 +22,8 @@ type
   private
     { Private declarations }
     Aluno : TAluno;
+
+    Item1: iLabelledTextbox;
   public
     { Public declarations }
   end;
@@ -52,7 +54,7 @@ begin
   Aluno := TAluno.Create;
   Aluno.Nome := 'Jailza';
 
-  TlabelledTextBox.New(Layout1, 'Teste de edição', 'Digite seu texto',
+  Item1 := TlabelledTextBox.New(Layout1, 'Teste de edição', 'Digite seu texto',
                                 function: string
                                 begin
                                   Result := Aluno.Nome;
